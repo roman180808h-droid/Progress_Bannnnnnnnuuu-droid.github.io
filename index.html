@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин банных печей</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Georgia',serif;background:linear-gradient(135deg,#2c1810,#8b4513);padding:20px;min-height:100vh;}
+        h1{text-align:center;color:#ffd700;margin-bottom:10px;font-size:2.5em;}
+        .subtitle{text-align:center;color:#ffecb3;margin-bottom:30px;}
+        .dropdown-container{max-width:500px;margin:0 auto 30px;position:relative;}
+        .dropdown-btn{width:100%;padding:15px 20px;background:linear-gradient(135deg,#d35400,#e67e22);color:white;border:none;border-radius:50px;font-size:18px;cursor:pointer;display:flex;justify-content:space-between;}
+        .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:white;border-radius:15px;max-height:300px;overflow-y:auto;border:2px solid #d35400;z-index:100;}
+        .dropdown-content.show{display:block;}
+        .dropdown-item{padding:12px 20px;cursor:pointer;border-bottom:1px solid #eee;}
+        .dropdown-item:hover{background:#fde7e0;color:#d35400;}
+        .pechka-card{background:white;border-radius:20px;padding:30px;max-width:600px;margin:20px auto;border:2px solid #d35400;}
+        .pechka-card.hidden{display:none;}
+        .pechka-card img{width:100%;border-radius:15px;height:250px;object-fit:cover;}
+        .pechka-card h2{color:#d35400;margin:15px 0;text-align:center;}
+        .specs{background:#fff8f0;padding:15px;border-radius:10px;margin:15px 0;border-left:4px solid #d35400;}
+        .price{font-size:24px;font-weight:bold;color:#c0392b;text-align:center;padding:10px;background:#ffe0d5;border-radius:10px;}
+        .button-group{display:flex;gap:15px;margin-top:15px;}
+        .add-to-cart,.buy-now{flex:1;padding:12px;font-size:16px;font-weight:bold;border:none;border-radius:10px;cursor:pointer;}
+        .add-to-cart{background:#d35400;color:white;}
+        .buy-now{background:#27ae60;color:white;}
+        .cart-section{margin-top:50px;background:white;border-radius:20px;padding:25px;}
+        .cart-section h2{color:#d35400;text-align:center;}
+        .cart-items{max-height:300px;overflow-y:auto;margin:15px 0;}
+        .cart-item{background:#fff9f0;padding:12px;border-radius:10px;display:flex;justify-content:space-between;margin-bottom:10px;}
+        .remove-item{background:#c0392b;color:white;border:none;border-radius:20px;padding:5px 15px;cursor:pointer;}
+        .total{text-align:right;font-size:20px;font-weight:bold;padding-top:15px;border-top:2px solid #d35400;}
+        .total span{color:#d35400;}
+        .empty-cart{text-align:center;color:#999;padding:20px;}
+        .order-form{margin-top:30px;padding:25px;background:#fff8f0;border-radius:15px;border:1px solid #d35400;}
+        .order-form h3{color:#d35400;text-align:center;margin-bottom:20px;}
+        .form-group{margin-bottom:15px;}
+        .form-group label{display:block;margin-bottom:5px;font-weight:bold;}
+        .form-group input,.form-group textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:16px;}
+        .send-btn{width:100%;padding:12px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:18px;cursor:pointer;}
+        .note{text-align:center;font-size:12px;color:#999;margin-top:15px;}
+        @media(max-width:768px){.pechka-card{padding:20px;}.button-group{flex-direction:column;}}
+    </style>
+</head>
+<body>
+    <h1>🔥 Печи для бани и сауны 🔥</h1>
+    <div class="subtitle">Каменные печи от производителя с доставкой по всей России</div>
+    <div class="dropdown-container">
+        <button class="dropdown-btn" id="dropdownBtn"><span>📋 Выберите банную печь</span><span class="arrow">▼</span></button>
+        <div class="dropdown-content" id="dropdownContent"></div>
+    </div>
+    <div id="pechkaCard" class="pechka-card hidden">
+        <img id="cardImage" src="" alt="Банная печь">
+        <h2 id="cardName"></h2>
+        <div class="description" id="cardDesc"></div>
+        <div class="specs" id="cardSpecs"></div>
+        <div class="price" id="cardPrice"></div>
+        <div class="button-group">
+            <button class="add-to-cart" id="addToCartBtn">🛒 В корзину</button>
+            <button class="buy-now" id="buyNowBtn">⚡ Купить сейчас</button>
+        </div>
+    </div>
+    <div class="cart-section">
+        <h2>🛍️ Корзина</h2>
+        <div class="cart-items" id="cartItems"><div class="empty-cart">Корзина пуста</div></div>
+        <div class="total">💰 Итого: <span id="totalSum">0</span> ₽</div>
+        <div class="order-form" id="orderForm" style="display:none;">
+            <h3>📝 Оформление заказа</h3>
+            <div class="form-group"><label>👤 Ваше имя *</label><input type="text" id="customerName" placeholder="Иван Иванов"></div>
+            <div class="form-group"><label>📧 Email *</label><input type="email" id="customerEmail" placeholder="ivan@mail.ru"></div>
+            <div class="form-group"><label>📞 Телефон *</label><input type="tel" id="customerPhone" placeholder="+7 (999) 123-45-67"></div>
+            <div class="form-group"><label>🏠 Адрес доставки</label><textarea id="customerAddress" placeholder="Город, улица, дом, квартира"></textarea></div>
+            <div class="form-group"><label>📝 Комментарий к заказу</label><textarea id="customerComment" placeholder="Пожелания по доставке"></textarea></div>
+            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ в Telegram</button>
+            <div class="note">✅ Заказ придёт продавцу в Telegram!</div>
+        </div>
+    </div>
+    <script>
+        const BOT_TOKEN="8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
+        const CHAT_ID="2013568102";
+        const pechkiData=[
+            {id:1,name:"Печь 'Жар-Печь' Каменка",price:28900,desc:"Классическая каменка для русской бани.",specs:"🏠 Отапливает: до 18 м²\n🪵 Расход дров: 4-6 кг/час\n📐 Размеры: 450×550×700 мм",img:"https://placehold.co/600x400/d35400/white?text=Жар-Печь"},
+            {id:2,name:"Печь 'Сударушка'",price:35900,desc:"Печь с выносной топкой.",specs:"🏠 Отапливает: до 24 м²\n🪵 Расход дров: 5-7 кг/час\n📐 Размеры: 500×600×750 мм",img:"https://placehold.co/600x400/e67e22/white?text=Сударушка"},
+            {id:3,name:"Печь 'Термофор' Гефест",price:42500,desc:"Профессиональная банная печь.",specs:"🏠 Отапливает: до 30 м²\n🪵 Расход дров: 6-9 кг/час\n📐 Размеры: 520×620×800 мм",img:"https://placehold.co/600x400/27ae60/white?text=Гефест"},
+            {id:4,name:"Печь 'Варвара' Чугунная",price:19800,desc:"Бюджетная чугунная печь.",specs:"🏠 Отапливает: до 12 м²\n🪵 Расход дров: 3-5 кг/час\n📐 Размеры: 380×450×600 мм",img:"https://placehold.co/600x400/3498db/white?text=Варвара"},
+            {id:5,name:"Печь 'Ферингер' Бавария",price:58900,desc:"Премиальная печь.",specs:"🏠 Отапливает: до 35 м²\n🪵 Расход дров: 7-10 кг/час\n📐 Размеры: 600×700×850 мм",img:"https://placehold.co/600x400/9b59b6/white?text=Ферингер"},
+            {id:6,name:"Печь 'Ермак' Банная",price:24900,desc:"Стальная печь с баком.",specs:"🏠 Отапливает: до 16 м²\n🪵 Расход дров: 4-6 кг/час\n📐 Размеры: 420×520×680 мм",img:"https://placehold.co/600x400/1abc9c/white?text=Ермак"},
+            {id:7,name:"Печь 'Сибирь' Камин-печь",price:45900,desc:"Баня + камин.",specs:"🏠 Отапливает: до 28 м²\n🪵 Расход дров: 6-8 кг/час\n📐 Размеры: 550×650×780 мм",img:"https://placehold.co/600x400/c0392b/white?text=Сибирь"},
+            {id:8,name:"Печь 'Русская банька'",price:31900,desc:"Традиционная русская печь.",specs:"🏠 Отапливает: до 20 м²\n🪵 Расход дров: 5-7 кг/час\n📐 Размеры: 480×580×720 мм",img:"https://placehold.co/600x400/f39c12/white?text=Русская"}
+        ];
+        let cart=[];let currentPechka=null;
+        function showNotification(msg,isError){const d=document.createElement('div');d.textContent=msg;d.style.cssText=`position:fixed;top:20px;right:20px;background:${isError?'#c0392b':'#27ae60'};color:white;padding:15px 25px;border-radius:10px;z-index:1000;font-weight:bold`;document.body.appendChild(d);setTimeout(()=>d.remove(),3000);}
+        function populateDropdown(){const c=document.getElementById('dropdownContent');c.innerHTML='';pechkiData.forEach((p,i)=>{const d=document.createElement('div');d.className='dropdown-item';d.textContent=p.name;d.onclick=()=>selectPechka(i);c.appendChild(d);});}
+        function selectPechka(i){currentPechka=pechkiData[i];const card=document.getElementById('pechkaCard');document.getElementById('cardImage').src=currentPechka.img;document.getElementById('cardName').textContent=currentPechka.name;document.getElementById('cardDesc').textContent=currentPechka.desc;document.getElementById('cardSpecs').innerHTML=currentPechka.specs.replace(/\n/g,'<br>');document.getElementById('cardPrice').innerHTML=`💰 Цена: ${currentPechka.price.toLocaleString('ru-RU')} ₽`;card.classList.remove('hidden');document.getElementById('dropdownContent').classList.remove('show');}
+        function updateCart(){const c=document.getElementById('cartItems');const t=document.getElementById('totalSum');if(cart.length===0){c.innerHTML='<div class="empty-cart">🛒 Корзина пуста</div>';t.textContent='0';document.getElementById('orderForm').style.display='none';return;}let total=0;c.innerHTML='';cart.forEach((item,idx)=>{const div=document.createElement('div');div.className='cart-item';div.innerHTML=`<span><strong>${item.name}</strong> - ${item.price.toLocaleString('ru-RU')} ₽</span><button class="remove-item" onclick="removeFromCart(${idx})">🗑 Удалить</button>`;c.appendChild(div);total+=item.price;});t.textContent=total.toLocaleString('ru-RU');document.getElementById('orderForm').style.display='block';}
+        function removeFromCart(index){cart.splice(index,1);updateCart();}
+        function addCurrentToCart(){if(currentPechka){cart.push({...currentPechka});updateCart();showNotification(`✓ ${currentPechka.name} добавлена в корзину!`);}}
+        function buyNow(){if(currentPechka){cart=[{...currentPechka}];updateCart();showNotification(`⚡ Быстрая покупка: ${currentPechka.name}`);document.getElementById('orderForm').scrollIntoView({behavior:'smooth'});}}
+        async function sendOrder(){const name=document.getElementById('customerName').value.trim();const email=document.getElementById('customerEmail').value.trim();const phone=document.getElementById('customerPhone').value.trim();const address=document.getElementById('customerAddress').value;const comment=document.getElementById('customerComment').value;if(!name||!email||!phone){showNotification('❌ Заполните имя, email и телефон!',true);return;}if(cart.length===0){showNotification('❌ Корзина пуста!',true);return;}let items='';let total=0;cart.forEach(item=>{items+=`${item.name} - ${item.price.toLocaleString('ru-RU')} ₽\n`;total+=item.price;});const message=`🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address||'Не указан'}\n\n📦 Заказ:\n${items}\n💰 Итого: ${total.toLocaleString('ru-RU')} ₽\n💬 Комментарий: ${comment||'Нет'}`;try{const response=await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT_ID,text:message})});const result=await response.json();if(result.ok){showNotification('✅ Заказ отправлен в Telegram!');cart=[];updateCart();document.getElementById('orderForm').style.display='none';document.getElementById('customerName').value='';document.getElementById('customerEmail').value='';document.getElementById('customerPhone').value='';document.getElementById('customerAddress').value='';document.getElementById('customerComment').value='';}else{throw new Error(result.description);}}catch(error){showNotification('❌ Ошибка отправки!',true);}}
+        document.getElementById('dropdownBtn').onclick=()=>{document.getElementById('dropdownContent').classList.toggle('show');};
+        document.getElementById('addToCartBtn').onclick=addCurrentToCart;
+        document.getElementById('buyNowBtn').onclick=buyNow;
+        document.getElementById('sendOrderBtn').onclick=sendOrder;
+        document.onclick=(e)=>{if(!e.target.closest('.dropdown-container')){document.getElementById('dropdownContent').classList.remove('show');}};
+        populateDropdown();setTimeout(()=>selectPechka(0),100);
+    </script>
+</body>
+</html>
