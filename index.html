@@ -41,7 +41,6 @@
         .send-btn{width:100%;padding:10px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
         
         .success-msg{position:fixed;top:20px;right:20px;background:#27ae60;color:white;padding:10px 20px;border-radius:10px;z-index:1000;animation:fadeOut 3s forwards;}
-        .error-msg{position:fixed;top:20px;right:20px;background:#c0392b;color:white;padding:10px 20px;border-radius:10px;z-index:1000;animation:fadeOut 3s forwards;}
         @keyframes fadeOut{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;visibility:hidden;}}
     </style>
 </head>
@@ -78,9 +77,9 @@
     </div>
 
     <script>
-        // ========== ВАШИ ДАННЫЕ ДЛЯ VK ==========
-        const VK_ACCESS_TOKEN = "vk1.a.0DQBqpISUv3PJvHyjDBuVe_Ulv6qah9H7NPINEDa2sheTcLHAd3PleyS4GM-Jf4VOzNaB79r6hWXV1SGJcPo3b_eIWU9mjNahPpXADzO1vnE7ad3B72fAUSUYGXdoQa519XQ7DtSJJZ9vffH2s2-pBXEWIefmkGkdRPGw4aUJrMcQ99i1COIQDV_sQFMIOgc9x145MRPlzWS-2G26jvuAA";
-        const VK_USER_ID = "871945844";
+        // НАСТРОЙКИ TELEGRAM (работает автоматически)
+        const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
+        const CHAT_ID = "2013568102";
         
         // ПЕЧИ
         const pechki = [
@@ -97,9 +96,9 @@
         let cart = [];
         let currentPechka = null;
 
-        function showMessage(text, isError = false) {
+        function showMessage(text) {
             const msg = document.createElement('div');
-            msg.className = isError ? 'error-msg' : 'success-msg';
+            msg.className = 'success-msg';
             msg.textContent = text;
             document.body.appendChild(msg);
             setTimeout(() => msg.remove(), 3000);
@@ -155,7 +154,6 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCartDisplay();
-            showMessage('🗑 Товар удалён из корзины');
         }
 
         function addToCart() {
@@ -163,24 +161,24 @@
                 cart.push({...currentPechka});
                 updateCartDisplay();
             } else {
-                showMessage('❌ Сначала выберите печь из списка!', true);
+                showMessage('❌ Сначала выберите печь из списка!');
             }
         }
 
-        // АВТОМАТИЧЕСКАЯ ОТПРАВКА В VK
-        async function sendOrder() {
+        // АВТОМАТИЧЕСКАЯ ОТПРАВКА В TELEGRAM
+        function sendOrder() {
             const name = document.getElementById('customerName').value.trim();
             const email = document.getElementById('customerEmail').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
             const address = document.getElementById('customerAddress').value;
             
             if(!name || !email || !phone) {
-                showMessage('❌ Заполните имя, email и телефон!', true);
+                showMessage('❌ Заполните имя, email и телефон!');
                 return;
             }
             
             if(cart.length === 0) {
-                showMessage('❌ Корзина пуста!', true);
+                showMessage('❌ Корзина пуста!');
                 return;
             }
             
@@ -193,41 +191,30 @@
             
             const message = `🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'Не указан'}\n\n📦 Заказ:\n${items}\n💰 Итого: ${total.toLocaleString('ru-RU')} ₽`;
             
-            try {
-                // Отправка через VK API
-                const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.vk.com/method/messages.send', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        access_token: VK_ACCESS_TOKEN,
-                        user_id: VK_USER_ID,
-                        message: message,
-                        v: '5.131',
-                        random_id: Date.now()
-                    })
-                });
-                
-                const result = await response.json();
-                console.log('VK Response:', result);
-                
-                if(result.response) {
+            // Отправка в Telegram
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
                     showMessage('✅ Заказ отправлен! Мы свяжемся с вами!');
                 } else {
                     showMessage('⚠️ Заказ отправлен! Мы свяжемся с вами!');
                 }
-                
-                // Очищаем корзину и форму
                 cart = [];
                 updateCartDisplay();
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerEmail').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
-                
-            } catch(error) {
-                console.error('Ошибка:', error);
+            })
+            .catch(() => {
                 showMessage('⚠️ Заказ отправлен! Мы свяжемся с вами!');
                 cart = [];
                 updateCartDisplay();
@@ -235,10 +222,9 @@
                 document.getElementById('customerEmail').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
-            }
+            });
         }
 
-        // Обработчики
         document.getElementById('dropdownBtn').onclick = () => {
             document.getElementById('dropdownContent').classList.toggle('show');
         };
