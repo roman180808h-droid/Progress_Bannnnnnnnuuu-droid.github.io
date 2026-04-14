@@ -47,7 +47,7 @@
 <body>
 
     <h1>🔥 Печи для бани и сауны 🔥</h1>
-    <div class="subtitle">Каменные печи от производителя</div>
+    <div class="subtitle">Каменные печи от производителя с доставкой по всей России</div>
 
     <div class="dropdown-container">
         <button class="dropdown-btn" id="dropdownBtn">📋 Выберите банную печь ▼</button>
@@ -72,25 +72,24 @@
             <input type="email" id="customerEmail" placeholder="Email *">
             <input type="tel" id="customerPhone" placeholder="Телефон *">
             <textarea id="customerAddress" placeholder="Адрес доставки" rows="2"></textarea>
-            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ</button>
+            <button class="send-btn" id="sendOrderBtn">📧 Отправить заказ</button>
         </div>
     </div>
 
     <script>
-        // НАСТРОЙКИ TELEGRAM (работает автоматически)
-        const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
-        const CHAT_ID = "2013568102";
+        // ========== ВАША ПОЧТА ДЛЯ ЗАКАЗОВ ==========
+        const YOUR_EMAIL = "Rom4ik180808@yandex.ru";
         
         // ПЕЧИ
         const pechki = [
-            {id:1, name:"Печь 'Жар-Печь' Каменка", price:28900, specs:"🏠 Отапливает: до 18 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 450×550×700 мм", img:"https://teplodar.ru/upload/iblock/5b2/5b2f8c5e6a7b8c9d0e1f2a3b4c5d6e7f.jpg"},
-            {id:2, name:"Печь 'Сударушка'", price:35900, specs:"🏠 Отапливает: до 24 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 500×600×750 мм", img:"https://static-eu.insales.ru/images/products/1/4824/123456789/pech_sudarushka.jpg"},
-            {id:3, name:"Печь 'Термофор' Гефест", price:42500, specs:"🏠 Отапливает: до 30 м²<br>🪵 Расход дров: 6-9 кг/час<br>📐 Размеры: 520×620×800 мм", img:"https://termofor.ru/upload/iblock/7a3/7a3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e.jpg"},
-            {id:4, name:"Печь 'Варвара' Чугунная", price:19800, specs:"🏠 Отапливает: до 12 м²<br>🪵 Расход дров: 3-5 кг/час<br>📐 Размеры: 380×450×600 мм", img:"https://teplodar.ru/upload/iblock/8b4/8b4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f.jpg"},
-            {id:5, name:"Печь 'Ферингер' Бавария", price:58900, specs:"🏠 Отапливает: до 35 м²<br>🪵 Расход дров: 7-10 кг/час<br>📐 Размеры: 600×700×850 мм", img:"https://feringer.ru/upload/iblock/9c5/9c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f.jpg"},
-            {id:6, name:"Печь 'Ермак' Банная", price:24900, specs:"🏠 Отапливает: до 16 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 420×520×680 мм", img:"https://ermak.ru/upload/iblock/1a2/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg"},
-            {id:7, name:"Печь 'Сибирь' Камин-печь", price:45900, specs:"🏠 Отапливает: до 28 м²<br>🪵 Расход дров: 6-8 кг/час<br>📐 Размеры: 550×650×780 мм", img:"https://sibir-pech.ru/upload/iblock/3d4/3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a.jpg"},
-            {id:8, name:"Печь 'Русская банька'", price:31900, specs:"🏠 Отапливает: до 20 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 480×580×720 мм", img:"https://banya.ru/upload/iblock/6e5/6e5f7a8b9c0d1e2f3a4b5c6d7e8f9a0b.jpg"}
+            {id:1, name:"Печь 'Жар-Печь' Каменка", price:28900, specs:"🏠 Отапливает: до 18 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 450×550×700 мм<br>⚖️ Вес: 65 кг", img:"https://teplodar.ru/upload/iblock/5b2/5b2f8c5e6a7b8c9d0e1f2a3b4c5d6e7f.jpg"},
+            {id:2, name:"Печь 'Сударушка'", price:35900, specs:"🏠 Отапливает: до 24 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 500×600×750 мм<br>⚖️ Вес: 78 кг", img:"https://static-eu.insales.ru/images/products/1/4824/123456789/pech_sudarushka.jpg"},
+            {id:3, name:"Печь 'Термофор' Гефест", price:42500, specs:"🏠 Отапливает: до 30 м²<br>🪵 Расход дров: 6-9 кг/час<br>📐 Размеры: 520×620×800 мм<br>⚖️ Вес: 95 кг", img:"https://termofor.ru/upload/iblock/7a3/7a3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e.jpg"},
+            {id:4, name:"Печь 'Варвара' Чугунная", price:19800, specs:"🏠 Отапливает: до 12 м²<br>🪵 Расход дров: 3-5 кг/час<br>📐 Размеры: 380×450×600 мм<br>⚖️ Вес: 48 кг", img:"https://teplodar.ru/upload/iblock/8b4/8b4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f.jpg"},
+            {id:5, name:"Печь 'Ферингер' Бавария", price:58900, specs:"🏠 Отапливает: до 35 м²<br>🪵 Расход дров: 7-10 кг/час<br>📐 Размеры: 600×700×850 мм<br>⚖️ Вес: 110 кг", img:"https://feringer.ru/upload/iblock/9c5/9c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f.jpg"},
+            {id:6, name:"Печь 'Ермак' Банная", price:24900, specs:"🏠 Отапливает: до 16 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 420×520×680 мм<br>⚖️ Вес: 55 кг", img:"https://ermak.ru/upload/iblock/1a2/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg"},
+            {id:7, name:"Печь 'Сибирь' Камин-печь", price:45900, specs:"🏠 Отапливает: до 28 м²<br>🪵 Расход дров: 6-8 кг/час<br>📐 Размеры: 550×650×780 мм<br>⚖️ Вес: 88 кг", img:"https://sibir-pech.ru/upload/iblock/3d4/3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a.jpg"},
+            {id:8, name:"Печь 'Русская банька'", price:31900, specs:"🏠 Отапливает: до 20 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 480×580×720 мм<br>⚖️ Вес: 72 кг", img:"https://banya.ru/upload/iblock/6e5/6e5f7a8b9c0d1e2f3a4b5c6d7e8f9a0b.jpg"}
         ];
 
         let cart = [];
@@ -142,7 +141,7 @@
             for(let i=0; i<cart.length; i++) {
                 html += `<div class="cart-item">
                             <span><strong>${cart[i].name}</strong> - ${cart[i].price.toLocaleString('ru-RU')} ₽</span>
-                            <button class="remove-item" onclick="removeFromCart(${i})">Удалить</button>
+                            <button class="remove-item" onclick="removeFromCart(${i})">🗑 Удалить</button>
                          </div>`;
                 total += cart[i].price;
             }
@@ -154,18 +153,20 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCartDisplay();
+            showMessage('🗑 Товар удалён из корзины');
         }
 
         function addToCart() {
             if(currentPechka) {
                 cart.push({...currentPechka});
                 updateCartDisplay();
+                showMessage(`✓ ${currentPechka.name} добавлена в корзину!`);
             } else {
                 showMessage('❌ Сначала выберите печь из списка!');
             }
         }
 
-        // АВТОМАТИЧЕСКАЯ ОТПРАВКА В TELEGRAM
+        // ОТПРАВКА НА ПОЧТУ
         function sendOrder() {
             const name = document.getElementById('customerName').value.trim();
             const email = document.getElementById('customerEmail').value.trim();
@@ -189,42 +190,49 @@
                 total += cart[i].price;
             }
             
-            const message = `🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'Не указан'}\n\n📦 Заказ:\n${items}\n💰 Итого: ${total.toLocaleString('ru-RU')} ₽`;
+            const subject = `🛒 НОВЫЙ ЗАКАЗ от ${name}`;
+            const body = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏪 НОВЫЙ ЗАКАЗ ИЗ МАГАЗИНА ПЕЧЕЙ 🏪
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 ИНФОРМАЦИЯ О КЛИЕНТЕ:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Имя: ${name}
+📧 Email: ${email}
+📞 Телефон: ${phone}
+🏠 Адрес: ${address || 'Не указан'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 СОСТАВ ЗАКАЗА:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${items}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 ИТОГО К ОПЛАТЕ: ${total.toLocaleString('ru-RU')} ₽
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📅 Дата заказа: ${new Date().toLocaleString('ru-RU')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Свяжитесь с клиентом для подтверждения заказа!`;
             
-            // Отправка в Telegram
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.ok) {
-                    showMessage('✅ Заказ отправлен! Мы свяжемся с вами!');
-                } else {
-                    showMessage('⚠️ Заказ отправлен! Мы свяжемся с вами!');
-                }
+            // Открываем почтовый клиент
+            window.location.href = `mailto:${YOUR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            showMessage('📧 Откроется почта! Отправьте письмо для оформления заказа.');
+            
+            // Очищаем корзину
+            setTimeout(() => {
                 cart = [];
                 updateCartDisplay();
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerEmail').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
-            })
-            .catch(() => {
-                showMessage('⚠️ Заказ отправлен! Мы свяжемся с вами!');
-                cart = [];
-                updateCartDisplay();
-                document.getElementById('customerName').value = '';
-                document.getElementById('customerEmail').value = '';
-                document.getElementById('customerPhone').value = '';
-                document.getElementById('customerAddress').value = '';
-            });
+            }, 1000);
         }
 
+        // Обработчики
         document.getElementById('dropdownBtn').onclick = () => {
             document.getElementById('dropdownContent').classList.toggle('show');
         };
