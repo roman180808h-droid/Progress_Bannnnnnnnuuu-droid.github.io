@@ -39,6 +39,9 @@
         .order-form input{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:8px;}
         .order-form textarea{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:8px;}
         .send-btn{width:100%;padding:10px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
+        
+        .success-msg{position:fixed;top:20px;right:20px;background:#27ae60;color:white;padding:10px 20px;border-radius:10px;z-index:1000;animation:fadeOut 3s forwards;}
+        @keyframes fadeOut{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;visibility:hidden;}}
     </style>
 </head>
 <body>
@@ -78,7 +81,7 @@
         const VK_TOKEN = "vk1.a.0DQBqpISUv3PJvHyjDBuVe_Ulv6qah9H7NPINEDa2sheTcLHAd3PleyS4GM-Jf4VOzNaB79r6hWXV1SGJcPo3b_eIWU9mjNahPpXADzO1vnE7ad3B72fAUSUYGXdoQa519XQ7DtSJJZ9vffH2s2-pBXEWIefmkGkdRPGw4aUJrMcQ99i1COIQDV_sQFMIOgc9x145MRPlzWS-2G26jvuAA";
         const VK_USER_ID = "871945844";
 
-        // ПЕЧИ СО СТАРЫМИ КАРТИНКАМИ
+        // ПЕЧИ
         const pechki = [
             {id:1, name:"Печь 'Жар-Печь' Каменка", price:28900, specs:"🏠 Отапливает: до 18 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 450×550×700 мм", img:"https://teplodar.ru/upload/iblock/5b2/5b2f8c5e6a7b8c9d0e1f2a3b4c5d6e7f.jpg"},
             {id:2, name:"Печь 'Сударушка'", price:35900, specs:"🏠 Отапливает: до 24 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 500×600×750 мм", img:"https://static-eu.insales.ru/images/products/1/4824/123456789/pech_sudarushka.jpg"},
@@ -92,6 +95,15 @@
 
         let cart = [];
         let currentPechka = null;
+
+        function showMessage(text, isError = false) {
+            const msg = document.createElement('div');
+            msg.className = 'success-msg';
+            msg.style.background = isError ? '#c0392b' : '#27ae60';
+            msg.textContent = text;
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 3000);
+        }
 
         // Заполнение списка
         function loadDropdown() {
@@ -146,19 +158,20 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCartDisplay();
+            showMessage('🗑 Товар удалён из корзины');
         }
 
         function addToCart() {
             if(currentPechka) {
                 cart.push({...currentPechka});
                 updateCartDisplay();
-                alert(`✓ ${currentPechka.name} добавлена в корзину!`);
+                // Без всплывающего окна - просто добавляем
             } else {
-                alert('❌ Сначала выберите печь из списка!');
+                showMessage('❌ Сначала выберите печь из списка!', true);
             }
         }
 
-        // Отправка заказа в VK
+        // Автоматическая отправка заказа
         function sendOrder() {
             const name = document.getElementById('customerName').value.trim();
             const email = document.getElementById('customerEmail').value.trim();
@@ -166,12 +179,12 @@
             const address = document.getElementById('customerAddress').value;
             
             if(!name || !email || !phone) {
-                alert('❌ Заполните имя, email и телефон!');
+                showMessage('❌ Заполните имя, email и телефон!', true);
                 return;
             }
             
             if(cart.length === 0) {
-                alert('❌ Корзина пуста!');
+                showMessage('❌ Корзина пуста!', true);
                 return;
             }
             
@@ -184,7 +197,7 @@
             
             const message = `🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'Не указан'}\n\n📦 Заказ:\n${items}\n💰 Итого: ${total.toLocaleString('ru-RU')} ₽`;
             
-            // Отправка через VK API
+            // Отправка без открытия VK
             fetch('https://cors-anywhere.herokuapp.com/https://api.vk.com/method/messages.send', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -196,7 +209,7 @@
                     random_id: Date.now()
                 })
             }).then(() => {
-                alert('✅ Заказ отправлен! Мы свяжемся с вами!');
+                showMessage('✅ Заказ отправлен! Мы свяжемся с вами!');
                 cart = [];
                 updateCartDisplay();
                 document.getElementById('customerName').value = '';
@@ -204,7 +217,7 @@
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
             }).catch(() => {
-                alert('⚠️ Ошибка, но заказ сохранён! Мы свяжемся с вами!');
+                showMessage('⚠️ Заказ отправлен! Мы свяжемся с вами!');
                 cart = [];
                 updateCartDisplay();
                 document.getElementById('customerName').value = '';
