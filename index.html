@@ -2,271 +2,217 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магазин банных печей</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Georgia',serif;background:linear-gradient(135deg,#2c1810,#8b4513);padding:20px;min-height:100vh;}
-        h1{text-align:center;color:#ffd700;margin-bottom:10px;font-size:2.5em;}
+        h1{text-align:center;color:#ffd700;margin-bottom:10px;font-size:2em;}
         .subtitle{text-align:center;color:#ffecb3;margin-bottom:30px;}
         
-        /* Выпадающий список */
-        .dropdown-container{max-width:600px;margin:0 auto 30px;position:relative;}
-        .dropdown-btn{width:100%;padding:15px 20px;background:linear-gradient(135deg,#d35400,#e67e22);color:white;border:none;border-radius:50px;font-size:18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
-        .dropdown-btn:hover{background:linear-gradient(135deg,#a82313,#d35400);}
-        .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:white;border-radius:15px;max-height:400px;overflow-y:auto;border:2px solid #d35400;z-index:100;margin-top:10px;}
+        .dropdown-container{max-width:500px;margin:0 auto 20px;position:relative;}
+        .dropdown-btn{width:100%;padding:15px;background:#d35400;color:white;border:none;border-radius:50px;font-size:18px;cursor:pointer;}
+        .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:white;border-radius:15px;max-height:300px;overflow-y:auto;border:2px solid #d35400;z-index:100;}
         .dropdown-content.show{display:block;}
-        .dropdown-item{padding:15px 20px;cursor:pointer;border-bottom:1px solid #eee;transition:all 0.2s;}
+        .dropdown-item{padding:12px 15px;cursor:pointer;border-bottom:1px solid #eee;}
         .dropdown-item:hover{background:#fde7e0;}
-        .dropdown-item h4{margin-bottom:5px;color:#d35400;}
-        .dropdown-item p{margin:3px 0;font-size:13px;color:#666;}
-        .dropdown-item .price-item{color:#c0392b;font-weight:bold;margin-top:5px;}
+        .dropdown-item h4{color:#d35400;}
+        .dropdown-item p{font-size:12px;color:#666;}
+        .dropdown-item .price-drop{color:#c0392b;font-weight:bold;}
         
-        /* Карточка выбранной печи */
-        .pechka-card{background:white;border-radius:20px;padding:30px;max-width:600px;margin:20px auto;border:2px solid #d35400;display:none;}
+        .pechka-card{background:white;border-radius:20px;padding:20px;max-width:500px;margin:20px auto;border:2px solid #d35400;display:none;}
         .pechka-card.show{display:block;}
-        .pechka-card img{width:100%;border-radius:15px;height:300px;object-fit:cover;}
-        .pechka-card h2{color:#d35400;margin:15px 0;text-align:center;}
-        .pechka-card .price{font-size:28px;font-weight:bold;color:#c0392b;text-align:center;margin:15px 0;}
-        .pechka-card .specs{background:#fff8f0;padding:15px;border-radius:10px;margin:15px 0;border-left:4px solid #d35400;line-height:1.6;}
-        .add-to-cart{width:100%;padding:12px;background:#d35400;color:white;border:none;border-radius:10px;font-size:18px;cursor:pointer;}
-        .add-to-cart:hover{background:#e67e22;}
+        .pechka-card img{width:100%;border-radius:15px;height:250px;object-fit:cover;}
+        .pechka-card h2{color:#d35400;margin:10px 0;text-align:center;}
+        .pechka-card .price{font-size:24px;font-weight:bold;color:#c0392b;text-align:center;margin:10px 0;}
+        .pechka-card .specs{background:#fff8f0;padding:10px;border-radius:10px;border-left:4px solid #d35400;margin:10px 0;}
+        .add-to-cart{width:100%;padding:12px;background:#d35400;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
         
-        /* Корзина */
-        .cart-section{margin-top:40px;background:white;border-radius:20px;padding:25px;max-width:600px;margin:40px auto;}
-        .cart-section h2{color:#d35400;text-align:center;margin-bottom:15px;}
-        .cart-items{max-height:300px;overflow-y:auto;margin-bottom:15px;}
-        .cart-item{background:#fff9f0;padding:12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-left:4px solid #d35400;}
-        .remove-item{background:#c0392b;color:white;border:none;border-radius:20px;padding:5px 15px;cursor:pointer;}
-        .total{text-align:right;font-size:20px;font-weight:bold;padding-top:15px;border-top:2px solid #d35400;}
-        .total span{color:#d35400;font-size:24px;}
-        .empty-cart{text-align:center;color:#999;padding:20px;}
+        .cart-section{background:white;border-radius:20px;padding:20px;max-width:500px;margin:30px auto;}
+        .cart-section h2{color:#d35400;text-align:center;margin-bottom:10px;}
+        .cart-item{background:#fff9f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between;margin-bottom:8px;}
+        .remove-item{background:#c0392b;color:white;border:none;border-radius:20px;padding:3px 10px;cursor:pointer;}
+        .total{text-align:right;font-size:18px;font-weight:bold;padding-top:10px;border-top:1px solid #d35400;}
+        .empty-cart{text-align:center;color:#999;padding:15px;}
         
-        /* Форма заказа */
-        .order-form{margin-top:25px;padding:20px;background:#fff8f0;border-radius:15px;}
-        .order-form h3{color:#d35400;text-align:center;margin-bottom:15px;}
-        .order-form input{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:16px;}
-        .order-form textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:16px;resize:vertical;}
-        .send-btn{width:100%;padding:12px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:18px;cursor:pointer;margin-top:10px;}
-        .send-btn:hover{background:#2ecc71;}
-        
-        @media (max-width:768px){.pechka-card{padding:20px;}}
+        .order-form{margin-top:15px;padding:15px;background:#fff8f0;border-radius:15px;}
+        .order-form h3{color:#d35400;text-align:center;margin-bottom:10px;}
+        .order-form input{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:8px;}
+        .order-form textarea{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:8px;}
+        .send-btn{width:100%;padding:10px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
     </style>
 </head>
 <body>
 
     <h1>🔥 Печи для бани и сауны 🔥</h1>
-    <div class="subtitle">Каменные печи от производителя с доставкой по всей России</div>
+    <div class="subtitle">Каменные печи от производителя</div>
 
-    <!-- Выпадающий список -->
     <div class="dropdown-container">
-        <button class="dropdown-btn" id="dropdownBtn">
-            <span>📋 Выберите банную печь</span>
-            <span class="arrow">▼</span>
-        </button>
+        <button class="dropdown-btn" id="dropdownBtn">📋 Выберите банную печь ▼</button>
         <div class="dropdown-content" id="dropdownContent"></div>
     </div>
 
-    <!-- Карточка выбранной печи -->
     <div id="pechkaCard" class="pechka-card">
-        <img id="cardImage" src="" alt="Банная печь">
+        <img id="cardImage" src="" alt="Печь">
         <h2 id="cardName"></h2>
         <div class="specs" id="cardSpecs"></div>
         <div class="price" id="cardPrice"></div>
         <button class="add-to-cart" id="addToCartBtn">🛒 В корзину</button>
     </div>
 
-    <!-- Корзина и форма заказа -->
     <div class="cart-section">
         <h2>🛍️ Корзина</h2>
-        <div id="cartItems" class="cart-items">
-            <div class="empty-cart">Корзина пуста</div>
-        </div>
+        <div id="cartItems"><div class="empty-cart">Корзина пуста</div></div>
         <div class="total">💰 Итого: <span id="totalSum">0</span> ₽</div>
-        
         <div class="order-form" id="orderForm" style="display:none;">
             <h3>📝 Оформление заказа</h3>
             <input type="text" id="customerName" placeholder="Ваше имя *">
             <input type="email" id="customerEmail" placeholder="Email *">
             <input type="tel" id="customerPhone" placeholder="Телефон *">
             <textarea id="customerAddress" placeholder="Адрес доставки" rows="2"></textarea>
-            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ в VK</button>
+            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ</button>
         </div>
     </div>
 
     <script>
-        // ========== НАСТРОЙКИ VK БОТА ==========
+        // НАСТРОЙКИ VK
         const VK_TOKEN = "vk1.a.0DQBqpISUv3PJvHyjDBuVe_Ulv6qah9H7NPINEDa2sheTcLHAd3PleyS4GM-Jf4VOzNaB79r6hWXV1SGJcPo3b_eIWU9mjNahPpXADzO1vnE7ad3B72fAUSUYGXdoQa519XQ7DtSJJZ9vffH2s2-pBXEWIefmkGkdRPGw4aUJrMcQ99i1COIQDV_sQFMIOgc9x145MRPlzWS-2G26jvuAA";
         const VK_USER_ID = "871945844";
 
-        // Данные печей
+        // ОДНА КАРТИНКА ДЛЯ ВСЕХ ПЕЧЕЙ
+        const COMMON_IMG = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxEREBAQERAQExUVFRUVFRUSFRAWFRUSFxUWFhcWFRgYHjQgGBolGxgWITEhMSktLi4uHSAzODMtNygwLisBCgoKDg0OGhAQGy0lHyYtLS0tLS0vLS0tLi0tLS0rLS0rLS4tLS0tNSstLTYvLS0tLS0tLS0vLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgEDBAUHAgj/xABDEAACAgECAwQHAwkHBAMBAAABAgARAxIhBAUxEyJBUQYHMmFxgZEjkbE0QlJScnSCsrMUJTNiwdHwNHOSwmOi4hX/xAAZAQEBAAMBAAAAAAAAAAAAAAAAAQIEBQP/xAAsEQEAAgECAwYFBQAAAAAAAAAAAQIRAyESMUEEBVFhkdEiMnGBsRMjQmLw/9oADAMBAAIRAxEAPwDuMpKxAREQEREBERASkrKQEREBERAREQEREBErECkSsQKRKxApErECkSsQEREBERApERASspECsRKQKxEQEREBERAREQEREBERAREQEREBERAREQEREBERApErKQErEQEREBERAREQEx+L43FiAOXImMMdILsqgt1oX1OxmRIV60ReDhf3lf5HgSHlXO8OYlBmws+rIAiOpbQrlQ1XfSjfvm0nG/VqlczJ/wDizfzoP9J2SAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICJpeI57pZlCDYkWSfA14CWsXPSQ2sLd93STVV430N3Blviaml5xzpseNzhXtHA2ADEavDVW4E12LmmU5wzaFxbgqH1Egj2jt1sCviZ75rzVwp7BNR8N0UX77ImM5XZtuK55hw8MeKykqgVSwALMpahpob3ZE556Yem/CcWmBca8R3My5CWxEDSAw2s++Sfk/BYhwrYuKYZTlY5MiMCUVmolV9wIBvzmq556P8AA6NOLBlsnbsdVDzJL2AJciNehPP+FwcUXyMw1alUhS3tZCRencbETrHHc1RMJzIVddOpSDat5UR1vzkY4H0N5UqgjAl7G8uTIXv5tsfhM7nHFYsaoBjyZQtBceFSRsKF6RSgDxk+gZeecRkZVTTiB03pVsuXQyk6lsBFIahRvzmfwPMMmDh8I4otky7doVVbGpupC7CgRdeW1zC5jzIY0XsRj1UKGVqVfHe97FnpvMTjubs4ARwoIIYBGe7UigTQG5u/dG5smOseYnqQsc5ydmuMC6UKWYgM1CrOnYEzDw53UBUJAUebsQB5liZkjoESMeh/GtmLv2pyY9Io6gVsk0V+hkngIiICIiAiIgIiICJSIFYiICIiAiIgQbmgJz5qYrWSu7pOxI66gd9z9ZHl5/iDvhy8QuHMHCDE5xs7EmlKqFBYEEEfGSLmG2fP0/xgdvfoO/vmjHC6FDkY2xoziyjM64xRJDUW1qdZUDqGQbVRrFkZeJZdRObAFCA24CgnVostdAatvH75Y4rnmLFifO+fAcaO2N2xrkfRkDUEYKSQ1dffXmJd5jwKZexxlQWDhxuE0NjZkD9KYqPtAGBG2/SYWP0Vw4xoxDImxxaMmnOmZWyasylddl8hAGsnYKCAPBkwzeE5icvDYuLVfsspbQzK6Eot25G5A7rEeYrzmVgy5WVk7NQqlVLazpJYA7EL5kr8RLPbFsI4M4ax4wcePfutjCnR3x7JAQiiLB87F3VzWp7MaVuu8B3mBBDqFJDbmwSASa6bxmTEHDcacg1JpZdRXUmSxqUkMOnUEEGaLNzA9plXsntSdteO2G3eUXZFnT06ze8CrhR2mU5X1HW2hkGoA2ADsa6WNj8bkV44MOYLVIjjS5PtZWK5AmFCNwq0+UnzI9wlymG34HP7TFasCqYNezEVXW+kpi4ziGw2cQXLW6aXYBj7IPiduvTqPOWu2DY8jCqAatPgUGQfUFdx5gyuRcbXrIIIrsx7WwNDcbHvla8q32mMrAeKV8WMnIwandwCGpGdqRtGxC2yXXRJew5BjXJjoAPoQoOoOoHUG/SPdaz4gbTCZ3RGc950FmwSFcm9Iby6Cuuwu7mTxLsGyJdeyuoEhwLOkBv1gGsfO7AkVJ/Vgfyciq0/Zj9nFlzYx9yhJpIn6AKBjyBbA22NXevLquv82qSyVSIiAiIgIiICIiBSIiBWIiAiIgIiIEI5qxOfOCumsigGx3gQh1e7ckfIzXBjkpG1INiD3wwvJrY7b90FV8jsJsuat9vmHlkXqBX6PSa3lqs2rCiZGFDXkyJSjE7khC5BBbYbDeqJqWWKzwfG6eJXEMb5crnGjG10ojK9ZDZ3ULi1Mvmw63Nhy/iFxZczL9owsqcmsEY/Z+yFVWoGz7wOlTATs8OTSAq5MpZyxs5GGPGqrj1AWqqNR8f0vEz3k4rHiAbNps6kxlgTk1HSaxLptmKqw2BPykwuXp+KzBcuMrjXQS+Iq1uQyEt2i+FOKG+9DpUvZeErFjIZix1NtVIqkIgoeai68ST4S1lyOWtWbCPZ0lEXUqoruhDdGpu9Y1da6GWOYcBw2fh3x5VbJb2qq5XQFYMx3Iskk3ewWq95GbhN7+Osg7V0Ta/v+VSO6L4jK5wsCjNoctasjqpfT+pZTQa3H8UkaBQRpbXZtmChVZipvSB1Hv3PmZHePwKzZUJy7lmbssjJq2HcbS1k0LHTp1Ey6I98K/aYiQUOsHfUGS2DggN4r1noC8qKWalpzutki1FX08fP2TPPLl1Y1DAHUBtoyY7Da6tSSwajubsneMS5C6OxTWoexuAuw0rqoWoLNXmCPO5jKwtcKvZKmN8mPUMZ9oEtrArW2noD3L26VsOsu41VNQfIWIulAsnddWleg3BJH+Z/DeeeE0ai4thkZ3Jautg6lr9HSWoe4XLfFnsxifsxqIRat9eslAPHZACST8N+sjJOPV//AIbkGwQjDYjusXYWDvdHf33JbIf6uAexa9VkKTq9oanyNpb3i6+UmEoREQEREBERAREQKREQKxEQEREBERAg/NMpObNYorlA/lIP0I+dzW4mNhdPdDd1bAIXvKNKpubKggHrrrw2zuZMx4nirQrWZQpNnWujEdQ26WStb7qd96GvLsV1LkTYugdRRCozIqAHZmXU66ia26G9smPV6xZgg0ateUqmPIzUh3y9o2hug7oOwJrSOtSjcRkxcURhQ1TN29BcSd1AUCswO9DcWTve+ozFxOw0N3WAygoEOpAhQjU7t1arYmv1AL6t6TNlXJkyHGgAID9sR2aZGSy2N6I9q0I0ggqSOtTFV/PbsxLM6tYICnSXcWz6tqADY1H7XWMvEalAOMFXGlgotMam9bCv0Wqg3TfpuZTI7DNrKjOl91C3da0ejvv3mC2u9hVO+4lvjOMKjJjB0gt32YaFAAQ5LaunZ7aul0PCVGTwKIqqEqr/AEaChApGMKAaChAtfXxoaPJwr/2jO5oIWxshVRqZlVlKvXtKraWHw60KG84XNibbAmPHiRziRcfRVxgrR8iCCK6+flNCFxf2nidWXJ2rFSoXYqgKeyCKddjZ8Ca23uov4FCY2DWNjq1nUe8r6ixHU7m628tqnvUQKOkbk1kAYL1a2PXrZHzHhLfCP3HLBDvktVOxo5RpJ3pvA9aN1PI4lGtyVQDvg94soHt6x4nbJ9G87klYVTFTId9Xe/VWhocLWnYUGVQfEBdoZi41bDvldVgmqYNpvp9oBv8AASjOMVYwpA2AxqPaOwHf33BQ710IHnV3dAyakVtWpQW9lGYd6vCyTWx3MxVMPV8Kx5Bp01pAWtOlQ2TSKvwFC/Hr4yWyF+rLEiYHVLoGzqJY6zlyl7J8dRaTSVYIiICIiAiIgIiIFIiIFYiICaP0v9KcHLMKZ+IXKyPkGIdkqsQxV2BILDakP1E3k5r6+/zbw/73j/pZ4Gdg9bvKGq82ZP2sGf8A9VImywesflD9OYYB/wBwtj/nAnzEjGhv+N7y6ceQfoN9P/zGxiXdW5rwrcRxbpxuDKMmdHT7XEQF7PCule90tSfmZjgjEvDsOIVFLFNC5jkd11u6Y0DqNGR2ZdtwFuqO84g1jqp+YH+88Lo/VX6Dp8rlYvoLhcTKlqqbM7qpBq8LKmp2Zbs6E8wCvU+NhMb0ci5k05ltcYCsoyjNkK5SSw66lYivgfPh6cfkAoZsqjfYZMwG/XYbbzLwekHFKAq8VmAUUo7QUBVUAT0raoHWeFHEFnyZeIUgIwY5MJwE5L9vG1sV7hpgSRYB8SJl8fnxpiQYsFjtsK6fFlDY8ZFv7SWAb38es5Jh9KOLV2yHMHZzj1domF1Y4zeMla0gg+PwvpJ9wvphiycNhfmGZceRxkplRtJshWI0IVQ91dvMA+cCUDie0CEexqfRf6rNka78RfQ+U1OLWcuWmCDcAaVJO/tLYNX0v/LMnhvSHhOJdFwcRw7tQATGwsKiEbKd6AE1/GYDrynGSjP3WcICVU0LF0GpSTu2x6WdgnkdThcSohGO1WmZTZcjUMjau97R3v4zCTK1O7KoK6tIIAK7k94V0Ibf3k9L3zuFQBQik0oCAkX7CsoJA9rp85a4cnGoF7ENbO5VmdVIs7d7YL3ug872klYXs+Qh3FA2oJ1CyQxY6D8a2Hx3lnNhx6g7K19xdRa1AWwu9btTE15j614ThigIyOCRqIA3tm7z17y1/UDrKZCQAw1gd8mmCNsGBDnysDveZB2uBMvVz/h5enWxXkcmUg/Eg385MZDvVwbxZDSiwppAwFFslGm3FijR3F0ZMYWCIiAiIgIiICIiBSIiBWIiAnNvX1+buH/e8f8ASzzpM5v6+fzdw/73j/pZoHC+TcMMubBjPR3Vdvedvvm8xcDqxqfGh+Amq9Fz+WcH/wB7F/OJvMPH13ANhtfnU0O1TbjxHh7uj2KK8M8XiyeX8M1qLsdN9xUk+Dk2HIrakTUF1UVxkFR7V6h1A3+Rmj5dxQLBfePxk0ycCrrjKg7jHqBIokAWR5H3Tjdp1rVtzw7NK0iq1j9WmDJjXJp4cBgCPsiNiNjan4TEX1WYXGrs0o3WnJnU0DV17+s6hw3eRN6C6QQOhpdxR6UfwmHy/jEbJlQOgN6QA10wsHYix4HxE2Im8fpxxzi0c875x6Y6dOfNx51ZtxfDXb+sezgnrC9Ek5c/DhbHaa7BYNWnTRBqx1MlHoWfyFP4v5mnj164yubgb3B7Ug/AYxX+vzlfQw/kSfxfzNOt2S1p0Ym+c5nnvPOWjrY49vLl9Ed9HdKc7xMSBq7ZR4WxxtQkxPD5tfGksp1Enh1YFhWnGhRhqA3bUQL2AY+NTmHHZz//AEQAaKs5B8QaNTo/Lsh4lw3ZB8mjKuq9xelq0kgMDpba9iNva22+jxnmv8OXxYbzaWdVYuMKqASO0OlQdvdv4yrrqe30tuygJdpWltNkUQV6+ZFCXFUFWGkn2hVabI19PcSNj5SypUaNG1Ma8WY6Dt3urWbPvv31JIXM6gqXNkpe4Lgkg33d9x9drHhLfDZe8LSmot3t+jAMv+YEBSOu2/vlzPl1KfZ2KoxI6aj2ZA/54y3lxtWtQUZQwN6AADpbveYLAb1uL8JFTP1bEdk1ChpxgCyaouKJrc7dfGTKQ31cEFM1OH36gggfaZu7tt3fZ/hkylWCIiAiIgIiICIiBSVlJWAiIgJzf18fm7h/3vH/AEs06ROcevf83cP+94/6WaBxD0a/6vgv+/h/qCZGqnb9o/jNbyvI65+Hda7uTGR8Q4MzsSZCxbu7m/rv5TU14+PPl7tzs3y/dvPR63y0T/wG5Ns3OBgRnQUyBMbLudRYEhr8KI6V4DzkJ5FkZMqsB0NHpNpk5q6tnU49SvaN2lbIXDbDxIoUfDecjW0P1NXyw7VLfs7+LpfC+kBw8tbOwXWgUIrEi2dVKg+N0b+Xzkc5Px2TLxmHJjxuLIYqN++1lt6qiAT8CJhco53w+VeIPEA9nqT7MBWB32FnpsW3rb6Td8Jz3Dwg7U4wqAkImHSUs90C7tjXia8ZhfOKUtG8bZ8vH7bekPKtODjtWM5/2PVofX+R2nLR7uI/HFMX0O/6JPn/ADNNb62+bf2h+CzMoxj7UbEkEfZEEn5zYeiB/I0+f4md/QvF9OLR5/mYcLVpNLzWebnvGfnJvi/8pkv4PiXxvqB7lKGKgWB1IJP16bb7yH8Yf7yb4v8AgZJuFyZ24jJgRbxHGjHbpkF975g0fcJ79Hl1TLg83aKGtWJv3A+3QO/wBlnHxDFz07qg6272QAhaIHRe8GWvEi/hgcldf7PmsEqC4YWL0hW1UR7rqbDNlFm1shTR1VYJsGzuGAA73vPwiUh6wsF7QAoSWZ1BK2A1PbeVWCfl5y1jC49R31a21E7jVe+5/g+A+Et58OIszurMx66wijqGtje22NR8vfLnaADKaDAEiyAdtOnr4EnapFTP1YqRjzApo3B0lgxF5Mp3I21G7I8CSJNpCPVgpGPKCCDSE2bNk5CSfeSbk3ggiIhSIiAiIgIiIFJWUlYCIiAnOPXt+buH/e8f9LNOjznHr2/N3D/veP8ApZoHAOFzFHxtYpWVvobm05dzjEgAy4cjV1Kuov5af9Zpp5ueeppVvzemnr30/ldA5T6ScADXY5cZ82Ct19+s/hNueO5Zk3ZhfUkrkBJ8yQOs5ZjM9gzTt3bSZzFrR927XvPUxi1Yl1rguD4Ippx5UKk3pGSx95uX8fLgMS4VbUi6qBrcsbJJXfyGxG23nOPplYdGI+cyk5rnFAZX+Fzwt3bq/wAdT1e9e89OfmolHrS4x2x8HjfR9mudaxqVXSezI7p+HWyek3PoYfyHH8P95zbmXFZMilnZmAvqWIWwbqzt4fdOjehx/Isfw/3nQ7Ptp209KKWnM7/mZc3tGpW+pNqRiEB4s/wB5N8W/AyYY8p0siuQGpXCmiQADRarA38CJDeLP95N8W/AyV5AzIy9AwIsE2LUC+u2++3kd95sdHh1bzkCjsMgsUdXUCtJRvBfACZ+InIR3SBQIDDSdwSFI8htt+1c13IFdcLKxpwQC3TvFN2FdNzczHOs6gTYF7gkAgkbm+orcf7ySirOaGlqDEDUBqo2Qdm2u6A22pfOWOJyBg4Ud5hrVR+k6nUGbfrqv3Gpbx5Rq6lrbJpG4qgbVq2qgQPeBK4spbdQerW1qTWonSTt3QDt4gAdTCp76suIXIOIZCGFgWOlq+VWr5g+6Tic69UL4gvFYsThxi7NCR4PeRmG212b+c6LCwREQEREBERAREQKSspKwEREBOc+vT838P+94/wClmnRpzr15/m/h/wB7x/0s0D5+7A6QxXY3VlR0PvMp2R/VPyF/hLAO5rY3/lHj7rM9lyN7Pzv/ANzUI9ysoMz+d/U/co/1lO36ilv+Af7mUXMWMsyoOrMqj9piFH3kTM47k+fDkfG+JiUIBOMF03VXFMux2YTBGQDcqRXlq+4kgS6OKJJbtc1mrJdmY0ABZF3sAOvhAqmNtiVYAMATRA1UTR9+xNe6dE9GD+Sj5/iZz48Q2R01ZHcjpr6gb7C2v7pPOR5lx8GXY0qhmJ9wsmSSEA4tv7wf4t+BksQa1Y6wunugbWxOnob2NkGvGQPDxDPxDZiCNTMT5C7oX90mWHil02QAxqmO1iul/wDN5SUp5TjVVyqCrAO2400RpJO/Tzlt8pZ2XTkZbVzvpQ33dLN4kUSRv4e6YPI894sgVQ3f3AAo6wxJryJJ+s3HDcqy5SNZNfqiSSIYmHiAtBbyv4kEldRNmiegBsDyFCbDHyVsygZdl/UHT4ESUco9FXoVj0jzbb8d5LOWckXEdTaWPlVgfWRliIan0L5OvDIwxYwgaiaFWR4nzkqCz3EYMkREqEREBERAREQKSspKwEREBNP6UejeDmGFcHEa9KuMi9mxUhwrKD7xTHabiIHKuM9R3BN/hcVxeP4nE4v/AMQZouN9RWcWcHHYj7smIqfqpM7lED5v471Pc2S9OPBmH+TKL+mSpo+O9B+a498nL+I28UVG+/DPqyIHxvxPC5cd9phyY/28bJ/MLlntAb3v6kf/AGIE+y8mJWFMoI8iAfxmo470T5fn/wAXguFf3nEl/UC4HylwbfaL8fD4HyH+smeLC2bg1wKxXU3eI/VBuvma+k65xvqn5Tk3Xh2wnwOHI4o+YBJX7pl8l9XvB8MgT7XLRJ+0Yb2Sd9AFwOOcJ6Iq/wBn9pkv9EWSfkBJVyn1Va6L4Ag88rEn/wAQbnYOF4THiGnGiIPJQB+EvQIjyX0B4XhxVDzIQBAT763Mk3C8Dix+xjVfeBv9esyIgIiICIiAiIgIiICIiAiIgUlZSVgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiB/9k=";
+
+        // ПЕЧИ
         const pechki = [
-            { id: 1, name: "Печь 'Жар-Печь' Каменка", price: 28900, specs: "🏠 Отапливает: до 18 м²\n🪵 Расход дров: 4-6 кг/час\n📐 Размеры: 450×550×700 мм\n⚖️ Вес: 65 кг", img: "https://teplodar.ru/upload/iblock/5b2/5b2f8c5e6a7b8c9d0e1f2a3b4c5d6e7f.jpg" },
-            { id: 2, name: "Печь 'Сударушка'", price: 35900, specs: "🏠 Отапливает: до 24 м²\n🪵 Расход дров: 5-7 кг/час\n📐 Размеры: 500×600×750 мм\n⚖️ Вес: 78 кг", img: "https://static-eu.insales.ru/images/products/1/4824/123456789/pech_sudarushka.jpg" },
-            { id: 3, name: "Печь 'Термофор' Гефест", price: 42500, specs: "🏠 Отапливает: до 30 м²\n🪵 Расход дров: 6-9 кг/час\n📐 Размеры: 520×620×800 mm\n⚖️ Вес: 95 кг", img: "https://termofor.ru/upload/iblock/7a3/7a3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e.jpg" },
-            { id: 4, name: "Печь 'Варвара' Чугунная", price: 19800, specs: "🏠 Отапливает: до 12 м²\n🪵 Расход дров: 3-5 кг/час\n📐 Размеры: 380×450×600 мм\n⚖️ Вес: 48 кг", img: "https://teplodar.ru/upload/iblock/8b4/8b4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f.jpg" },
-            { id: 5, name: "Печь 'Ферингер' Бавария", price: 58900, specs: "🏠 Отапливает: до 35 м²\n🪵 Расход дров: 7-10 кг/час\n📐 Размеры: 600×700×850 мм\n⚖️ Вес: 110 кг", img: "https://feringer.ru/upload/iblock/9c5/9c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f.jpg" },
-            { id: 6, name: "Печь 'Ермак' Банная", price: 24900, specs: "🏠 Отапливает: до 16 м²\n🪵 Расход дров: 4-6 кг/час\n📐 Размеры: 420×520×680 мм\n⚖️ Вес: 55 кг", img: "https://ermak.ru/upload/iblock/1a2/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg" },
-            { id: 7, name: "Печь 'Сибирь' Камин-печь", price: 45900, specs: "🏠 Отапливает: до 28 м²\n🪵 Расход дров: 6-8 кг/час\n📐 Размеры: 550×650×780 мм\n⚖️ Вес: 88 кг", img: "https://sibir-pech.ru/upload/iblock/3d4/3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a.jpg" },
-            { id: 8, name: "Печь 'Русская банька'", price: 31900, specs: "🏠 Отапливает: до 20 м²\n🪵 Расход дров: 5-7 кг/час\n📐 Размеры: 480×580×720 мм\n⚖️ Вес: 72 кг", img: "https://banya.ru/upload/iblock/6e5/6e5f7a8b9c0d1e2f3a4b5c6d7e8f9a0b.jpg" }
+            {id:1, name:"Печь 'Жар-Печь' Каменка", price:28900, specs:"🏠 Отапливает: до 18 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 450×550×700 мм"},
+            {id:2, name:"Печь 'Сударушка'", price:35900, specs:"🏠 Отапливает: до 24 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 500×600×750 мм"},
+            {id:3, name:"Печь 'Термофор' Гефест", price:42500, specs:"🏠 Отапливает: до 30 м²<br>🪵 Расход дров: 6-9 кг/час<br>📐 Размеры: 520×620×800 мм"},
+            {id:4, name:"Печь 'Варвара' Чугунная", price:19800, specs:"🏠 Отапливает: до 12 м²<br>🪵 Расход дров: 3-5 кг/час<br>📐 Размеры: 380×450×600 мм"},
+            {id:5, name:"Печь 'Ферингер' Бавария", price:58900, specs:"🏠 Отапливает: до 35 м²<br>🪵 Расход дров: 7-10 кг/час<br>📐 Размеры: 600×700×850 мм"},
+            {id:6, name:"Печь 'Ермак' Банная", price:24900, specs:"🏠 Отапливает: до 16 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 420×520×680 мм"},
+            {id:7, name:"Печь 'Сибирь' Камин-печь", price:45900, specs:"🏠 Отапливает: до 28 м²<br>🪵 Расход дров: 6-8 кг/час<br>📐 Размеры: 550×650×780 мм"},
+            {id:8, name:"Печь 'Русская банька'", price:31900, specs:"🏠 Отапливает: до 20 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 480×580×720 мм"}
         ];
 
         let cart = [];
         let currentPechka = null;
 
-        // Заполнение выпадающего списка
-        function populateDropdown() {
-            const container = document.getElementById('dropdownContent');
-            container.innerHTML = '';
-            pechki.forEach(pechka => {
-                const item = document.createElement('div');
-                item.className = 'dropdown-item';
-                item.innerHTML = `
-                    <h4>🔥 ${pechka.name}</h4>
-                    <p>🏠 ${pechka.specs.split('\n')[0]}</p>
-                    <p>🪵 ${pechka.specs.split('\n')[1]}</p>
-                    <div class="price-item">💰 ${pechka.price.toLocaleString('ru-RU')} ₽</div>
-                `;
-                item.onclick = () => selectPechka(pechka.id);
-                container.appendChild(item);
-            });
+        // Заполнение списка
+        function loadDropdown() {
+            let html = '';
+            for(let i=0; i<pechki.length; i++) {
+                html += `<div class="dropdown-item" onclick="selectPechka(${pechki[i].id})">
+                            <h4>🔥 ${pechki[i].name}</h4>
+                            <p>${pechki[i].specs.split('<br>')[0]}</p>
+                            <div class="price-drop">💰 ${pechki[i].price.toLocaleString('ru-RU')} ₽</div>
+                         </div>`;
+            }
+            document.getElementById('dropdownContent').innerHTML = html;
         }
 
         // Выбор печи
         function selectPechka(id) {
             currentPechka = pechki.find(p => p.id === id);
-            const card = document.getElementById('pechkaCard');
-            document.getElementById('cardImage').src = currentPechka.img;
-            document.getElementById('cardName').textContent = currentPechka.name;
-            document.getElementById('cardSpecs').innerHTML = currentPechka.specs.replace(/\n/g, '<br>');
+            document.getElementById('pechkaCard').classList.add('show');
+            document.getElementById('cardImage').src = COMMON_IMG;
+            document.getElementById('cardName').innerHTML = currentPechka.name;
+            document.getElementById('cardSpecs').innerHTML = currentPechka.specs;
             document.getElementById('cardPrice').innerHTML = `💰 Цена: ${currentPechka.price.toLocaleString('ru-RU')} ₽`;
-            card.classList.add('show');
             document.getElementById('dropdownContent').classList.remove('show');
         }
 
         // Обновление корзины
-        function updateCart() {
+        function updateCartDisplay() {
             const container = document.getElementById('cartItems');
             const totalSpan = document.getElementById('totalSum');
             
-            if (cart.length === 0) {
-                container.innerHTML = '<div class="empty-cart">🛒 Корзина пуста</div>';
-                totalSpan.textContent = '0';
+            if(cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
+                totalSpan.innerHTML = '0';
                 document.getElementById('orderForm').style.display = 'none';
                 return;
             }
             
             let total = 0;
-            container.innerHTML = '';
-            cart.forEach((item, idx) => {
-                const div = document.createElement('div');
-                div.className = 'cart-item';
-                div.innerHTML = `<span><strong>${item.name}</strong> - ${item.price.toLocaleString('ru-RU')} ₽</span><button class="remove-item" onclick="removeFromCart(${idx})">🗑 Удалить</button>`;
-                container.appendChild(div);
-                total += item.price;
-            });
-            totalSpan.textContent = total.toLocaleString('ru-RU');
+            let html = '';
+            for(let i=0; i<cart.length; i++) {
+                html += `<div class="cart-item">
+                            <span><strong>${cart[i].name}</strong> - ${cart[i].price.toLocaleString('ru-RU')} ₽</span>
+                            <button class="remove-item" onclick="removeFromCart(${i})">Удалить</button>
+                         </div>`;
+                total += cart[i].price;
+            }
+            container.innerHTML = html;
+            totalSpan.innerHTML = total.toLocaleString('ru-RU');
             document.getElementById('orderForm').style.display = 'block';
         }
 
         function removeFromCart(index) {
             cart.splice(index, 1);
-            updateCart();
+            updateCartDisplay();
         }
 
         function addToCart() {
-            if (currentPechka) {
-                cart.push({ ...currentPechka });
-                updateCart();
+            if(currentPechka) {
+                cart.push({...currentPechka});
+                updateCartDisplay();
                 alert(`✓ ${currentPechka.name} добавлена в корзину!`);
             } else {
                 alert('❌ Сначала выберите печь из списка!');
             }
         }
 
-        // Отправка заказа в VK
-        async function sendOrder() {
+        // Отправка заказа
+        function sendOrder() {
             const name = document.getElementById('customerName').value.trim();
             const email = document.getElementById('customerEmail').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
             const address = document.getElementById('customerAddress').value;
             
-            if (!name || !email || !phone) {
+            if(!name || !email || !phone) {
                 alert('❌ Заполните имя, email и телефон!');
                 return;
             }
             
-            if (cart.length === 0) {
+            if(cart.length === 0) {
                 alert('❌ Корзина пуста!');
                 return;
             }
             
             let items = '';
             let total = 0;
-            cart.forEach(item => {
-                items += `${item.name} - ${item.price.toLocaleString('ru-RU')} ₽\n`;
-                total += item.price;
-            });
+            for(let i=0; i<cart.length; i++) {
+                items += `${cart[i].name} - ${cart[i].price.toLocaleString('ru-RU')} ₽\n`;
+                total += cart[i].price;
+            }
             
             const message = `🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'Не указан'}\n\n📦 Заказ:\n${items}\n💰 Итого: ${total.toLocaleString('ru-RU')} ₽`;
             
-            try {
-                const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.vk.com/method/messages.send', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({
-                        access_token: VK_TOKEN,
-                        user_id: VK_USER_ID,
-                        message: message,
-                        v: '5.131',
-                        random_id: Date.now()
-                    })
-                });
-                
-                if (response.ok) {
-                    alert('✅ Заказ отправлен! Мы свяжемся с вами!');
-                    cart = [];
-                    updateCart();
-                    document.getElementById('customerName').value = '';
-                    document.getElementById('customerEmail').value = '';
-                    document.getElementById('customerPhone').value = '';
-                    document.getElementById('customerAddress').value = '';
-                } else {
-                    alert('⚠️ Заказ отправлен, но проверьте VK!');
-                    cart = [];
-                    updateCart();
-                    document.getElementById('customerName').value = '';
-                    document.getElementById('customerEmail').value = '';
-                    document.getElementById('customerPhone').value = '';
-                    document.getElementById('customerAddress').value = '';
-                }
-            } catch(error) {
-                alert('✅ Заказ отправлен! Мы свяжемся с вами!');
-                cart = [];
-                updateCart();
-                document.getElementById('customerName').value = '';
-                document.getElementById('customerEmail').value = '';
-                document.getElementById('customerPhone').value = '';
-                document.getElementById('customerAddress').value = '';
-            }
+            window.open(`https://vk.com/im?sel=${VK_USER_ID}&text=${encodeURIComponent(message)}`, '_blank');
+            
+            alert('✅ Откроется VK! Отправьте сообщение, чтобы оформить заказ.');
+            
+            cart = [];
+            updateCartDisplay();
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerEmail').value = '';
+            document.getElementById('customerPhone').value = '';
+            document.getElementById('customerAddress').value = '';
         }
 
-        // Обработчики событий
+        // Обработчики
         document.getElementById('dropdownBtn').onclick = () => {
-            const dropdown = document.getElementById('dropdownContent');
-            dropdown.classList.toggle('show');
+            document.getElementById('dropdownContent').classList.toggle('show');
         };
         document.getElementById('addToCartBtn').onclick = addToCart;
         document.getElementById('sendOrderBtn').onclick = sendOrder;
-
-        // Закрытие списка при клике вне
+        
         document.onclick = (e) => {
-            if (!e.target.closest('.dropdown-container')) {
+            if(!e.target.closest('.dropdown-container')) {
                 document.getElementById('dropdownContent').classList.remove('show');
             }
         };
-
-        populateDropdown();
+        
+        loadDropdown();
     </script>
 </body>
 </html>
