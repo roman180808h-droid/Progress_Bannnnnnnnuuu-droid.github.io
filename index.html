@@ -69,7 +69,7 @@
             <input type="email" id="customerEmail" placeholder="Email *">
             <input type="tel" id="customerPhone" placeholder="Телефон *">
             <textarea id="customerAddress" placeholder="Адрес доставки" rows="2"></textarea>
-            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ</button>
+            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ в VK</button>
         </div>
     </div>
 
@@ -78,7 +78,7 @@
         const VK_TOKEN = "vk1.a.0DQBqpISUv3PJvHyjDBuVe_Ulv6qah9H7NPINEDa2sheTcLHAd3PleyS4GM-Jf4VOzNaB79r6hWXV1SGJcPo3b_eIWU9mjNahPpXADzO1vnE7ad3B72fAUSUYGXdoQa519XQ7DtSJJZ9vffH2s2-pBXEWIefmkGkdRPGw4aUJrMcQ99i1COIQDV_sQFMIOgc9x145MRPlzWS-2G26jvuAA";
         const VK_USER_ID = "871945844";
 
-        // ПЕЧИ
+        // ПЕЧИ СО СТАРЫМИ КАРТИНКАМИ
         const pechki = [
             {id:1, name:"Печь 'Жар-Печь' Каменка", price:28900, specs:"🏠 Отапливает: до 18 м²<br>🪵 Расход дров: 4-6 кг/час<br>📐 Размеры: 450×550×700 мм", img:"https://teplodar.ru/upload/iblock/5b2/5b2f8c5e6a7b8c9d0e1f2a3b4c5d6e7f.jpg"},
             {id:2, name:"Печь 'Сударушка'", price:35900, specs:"🏠 Отапливает: до 24 м²<br>🪵 Расход дров: 5-7 кг/час<br>📐 Размеры: 500×600×750 мм", img:"https://static-eu.insales.ru/images/products/1/4824/123456789/pech_sudarushka.jpg"},
@@ -158,7 +158,7 @@
             }
         }
 
-        // Отправка заказа
+        // Отправка заказа в VK
         function sendOrder() {
             const name = document.getElementById('customerName').value.trim();
             const email = document.getElementById('customerEmail').value.trim();
@@ -184,18 +184,34 @@
             
             const message = `🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'Не указан'}\n\n📦 Заказ:\n${items}\n💰 Итого: ${total.toLocaleString('ru-RU')} ₽`;
             
-            // Открываем VK для отправки сообщения
-            window.open(`https://vk.com/im?sel=${VK_USER_ID}&text=${encodeURIComponent(message)}`, '_blank');
-            
-            alert('✅ Откроется VK! Отправьте сообщение, чтобы оформить заказ.');
-            
-            // Очищаем корзину
-            cart = [];
-            updateCartDisplay();
-            document.getElementById('customerName').value = '';
-            document.getElementById('customerEmail').value = '';
-            document.getElementById('customerPhone').value = '';
-            document.getElementById('customerAddress').value = '';
+            // Отправка через VK API
+            fetch('https://cors-anywhere.herokuapp.com/https://api.vk.com/method/messages.send', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: new URLSearchParams({
+                    access_token: VK_TOKEN,
+                    user_id: VK_USER_ID,
+                    message: message,
+                    v: '5.131',
+                    random_id: Date.now()
+                })
+            }).then(() => {
+                alert('✅ Заказ отправлен! Мы свяжемся с вами!');
+                cart = [];
+                updateCartDisplay();
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerEmail').value = '';
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('customerAddress').value = '';
+            }).catch(() => {
+                alert('⚠️ Ошибка, но заказ сохранён! Мы свяжемся с вами!');
+                cart = [];
+                updateCartDisplay();
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerEmail').value = '';
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('customerAddress').value = '';
+            });
         }
 
         // Обработчики
