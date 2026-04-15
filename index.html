@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи — ярко и удобно</title>
+    <title>Банные печи — яркие картинки</title>
     <style>
         * {
             margin: 0;
@@ -44,7 +44,6 @@
             font-style: italic;
         }
 
-        /* выпадающий список */
         .dropdown-container {
             max-width: 560px;
             margin: 0 auto 35px;
@@ -121,14 +120,13 @@
             margin-top: 5px;
         }
 
-        /* карточка печи */
         .pechka-card {
-            background: #fffffffa;
+            background: #ffffff;
             border-radius: 36px;
             max-width: 760px;
             margin: 30px auto;
             padding: 28px 28px 32px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
             border: 1px solid #eadbcb;
             transition: 0.2s;
             display: none;
@@ -138,17 +136,23 @@
             display: block;
         }
 
-        /* БОЛЬШАЯ КАРТИНКА (вертикально увеличена) */
+        /* ЯРКАЯ КАРТИНКА — увеличен контраст и яркость */
         .pechka-card img {
             width: 100%;
             max-height: 350px;
             min-height: 270px;
             object-fit: contain;
-            background: #fef7ef;
+            background: #ffffff;
             border-radius: 32px;
             margin-bottom: 22px;
             display: block;
             border: 1px solid #ecdbba;
+            filter: brightness(1.05) contrast(1.1);
+            transition: filter 0.2s;
+        }
+
+        .pechka-card img:hover {
+            filter: brightness(1.08) contrast(1.12);
         }
 
         .pechka-card h2 {
@@ -178,7 +182,6 @@
             margin: 20px 0 16px;
         }
 
-        /* ДОПЫ — кликабельные ПО ВСЕЙ СТРОКЕ, с первого раза */
         .addons {
             background: #fdf8f1;
             border-radius: 28px;
@@ -194,7 +197,7 @@
             margin: 8px 0;
             border-radius: 60px;
             cursor: pointer;
-            transition: background 0.15s, box-shadow 0.1s;
+            transition: background 0.15s;
             background: #ffffff;
             border: 1px solid #eadbcb;
         }
@@ -218,7 +221,6 @@
             user-select: none;
         }
 
-        /* ЯРКИЕ КНОПКИ */
         .add-to-cart, .send-btn {
             background: #d97a2b;
             border: none;
@@ -241,7 +243,6 @@
             transform: scale(1.01);
         }
 
-        /* корзина */
         .cart-section {
             background: #fefaf5;
             border-radius: 32px;
