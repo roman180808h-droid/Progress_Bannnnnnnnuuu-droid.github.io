@@ -57,7 +57,7 @@
                 <tbody id="ordersBody">
                     <tr><td colspan="7" class="loading">Загрузка заказов...</td></tr>
                 </tbody>
-            </table>
+             </table>
         </div>
         
         <a href="https://roman180808h-droid.github.io" class="back-link">← Вернуться на сайт</a>
@@ -65,8 +65,8 @@
 </div>
 
 <script>
-    // ========== ТВОЯ НОВАЯ ССЫЛКА НА APPS SCRIPT ==========
-    const ORDERS_API_URL = "https://script.google.com/macros/s/AKfycbwNnRpL12_7I-Wmsk02Cba9Ai4_3n2TADTczovQPzpo2kZkSEtoggVg-3rTtMlYBPqr/exec";
+    // ========== ПРЯМАЯ CSV ССЫЛКА (РАБОТАЕТ БЕЗ ПУБЛИКАЦИИ) ==========
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/1pVQFhA2p4gBSUJNVfV9q3PU4aUhlingoQ6Es-KUZ5YI/export?format=csv&gid=0";
     const ADMIN_PASSWORD = "admin123";
 
     function checkPassword() {
@@ -93,19 +93,36 @@
         tbody.innerHTML = '<tr><td colspan="7" class="loading">Загрузка заказов...</td></tr>';
         
         try {
-            const response = await fetch(ORDERS_API_URL);
-            const orders = await response.json();
+            const response = await fetch(CSV_URL);
+            const csvText = await response.text();
             
-            if(orders && orders.length > 0) {
-                displayOrders(orders);
-                calculateStats(orders);
-            } else {
+            const rows = csvText.trim().split('\n');
+            if(rows.length < 2) {
                 tbody.innerHTML = '<tr><td colspan="7" class="loading">Нет заказов</td></tr>';
                 statsDiv.innerHTML = '<div class="stat-card"><h3>0</h3><p>Всего заказов</p></div><div class="stat-card"><h3>0 ₽</h3><p>Общая выручка</p></div>';
+                return;
             }
+            
+            const headers = rows[0].split(',');
+            const orders = [];
+            
+            for(let i = 1; i < rows.length; i++) {
+                const values = rows[i].split(',');
+                const order = {};
+                for(let j = 0; j < headers.length; j++) {
+                    let value = values[j] || '';
+                    value = value.replace(/^"|"$/g, '');
+                    order[headers[j]] = value;
+                }
+                orders.push(order);
+            }
+            
+            displayOrders(orders);
+            calculateStats(orders);
+            
         } catch(e) {
             console.error('Ошибка:', e);
-            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки заказов. Проверьте соединение.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки. Проверьте ссылку.</td></tr>';
             statsDiv.innerHTML = '<div class="stat-card"><h3>❌</h3><p>Ошибка</p></div>';
         }
     }
@@ -116,13 +133,13 @@
         
         for(let order of orders) {
             html += `<tr>
-                <td>${order.Дата || order.date || ''}</td>
-                <td>${order.Имя || order.name || ''}</td>
-                <td>${order.Email || order.email || ''}</td>
-                <td>${order.Телефон || order.phone || ''}</td>
-                <td>${order.Адрес || order.address || ''}</td>
-                <td style="max-width:300px;">${order.Заказ || order.order || ''}</td>
-                <td>${order.Итого || order.total || ''}</td>
+                <td>${order.Дата || ''}</td>
+                <td>${order.Имя || ''}</td>
+                <td>${order.Email || ''}</td>
+                <td>${order.Телефон || ''}</td>
+                <td>${order.Адрес || ''}</td>
+                <td style="max-width:300px;">${order.Заказ || ''}</td>
+                <td>${order.Итого || ''}</td>
             </tr>`;
         }
         
@@ -135,7 +152,7 @@
         
         let totalSum = 0;
         for(let order of orders) {
-            const sumStr = order.Итого || order.total || '0';
+            const sumStr = order.Итого || '0';
             const sumNum = parseInt(sumStr.replace(/[^\d]/g, ''));
             if(!isNaN(sumNum)) totalSum += sumNum;
         }
