@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи и чаны — полный каталог</title>
+    <title>Банные печи и чаны</title>
     <style>
         * {
             margin: 0;
@@ -11,58 +10,39 @@
             box-sizing: border-box;
         }
         body {
+            font-family: 'Segoe UI', 'Georgia', serif;
             background: #f5ede2;
-            font-family: 'Segoe UI', 'Georgia', 'Times New Roman', serif;
             padding: 30px 20px;
-            color: #2b2a27;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
         h1 {
-            font-size: 2.4rem;
-            font-weight: 450;
             text-align: center;
             color: #b45a2b;
-            border-bottom: 2px solid #e2cfbc;
-            display: inline-block;
-            width: auto;
-            margin: 0 auto 20px auto;
-            padding-bottom: 6px;
+            margin-bottom: 10px;
         }
         .subtitle {
             text-align: center;
             color: #7e6856;
-            font-size: 1rem;
-            margin-top: -8px;
             margin-bottom: 40px;
-            font-style: italic;
         }
         .dropdown-container {
-            max-width: 560px;
-            margin: 0 auto 35px;
+            max-width: 500px;
+            margin: 0 auto 30px;
             position: relative;
         }
         .dropdown-btn {
             width: 100%;
-            background: #ffffff;
-            border: 1px solid #dccdbd;
+            background: #d97a2b;
+            color: white;
             padding: 14px 20px;
-            font-size: 1.1rem;
-            font-family: inherit;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
             cursor: pointer;
-            border-radius: 60px;
-            transition: all 0.2s;
-            color: #3f2e1f;
-        }
-        .dropdown-btn:hover {
-            background: #fff7ef;
-            border-color: #c48a5c;
+            text-align: left;
         }
         .dropdown-content {
             display: none;
@@ -71,176 +51,130 @@
             left: 0;
             right: 0;
             background: white;
-            border: 1px solid #e2cfbc;
-            border-radius: 24px;
-            max-height: 340px;
+            border-radius: 20px;
+            max-height: 300px;
             overflow-y: auto;
-            z-index: 90;
-            margin-top: 8px;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dccdbd;
+            z-index: 100;
+            margin-top: 5px;
         }
         .dropdown-content.show {
             display: block;
         }
         .dropdown-item {
-            padding: 14px 18px;
-            border-bottom: 1px solid #efe2d4;
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
             cursor: pointer;
-            transition: background 0.1s;
         }
         .dropdown-item:hover {
             background: #fef3e9;
         }
         .dropdown-item h4 {
             color: #a55826;
-            font-weight: 500;
-            margin-bottom: 5px;
         }
-        .dropdown-item p {
-            font-size: 0.85rem;
-            color: #6f5a46;
-        }
-        .price-drop {
-            font-weight: 600;
+        .dropdown-item .price-drop {
+            font-weight: bold;
             color: #b45a2b;
             margin-top: 5px;
         }
         .pechka-card {
-            background: #ffffff;
-            border-radius: 36px;
-            max-width: 760px;
-            margin: 30px auto;
-            padding: 28px 28px 32px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-            border: 1px solid #eadbcb;
-            transition: 0.2s;
+            background: white;
+            border-radius: 30px;
+            padding: 25px;
+            max-width: 700px;
+            margin: 20px auto;
             display: none;
+            border: 1px solid #eadbcb;
         }
         .pechka-card.show {
             display: block;
         }
         .pechka-card img {
             width: 100%;
-            max-height: 350px;
-            min-height: 270px;
+            max-height: 300px;
             object-fit: contain;
-            background: #ffffff;
-            border-radius: 32px;
-            margin-bottom: 22px;
-            display: block;
-            border: 1px solid #ecdbba;
-            filter: brightness(1.08) contrast(1.12) saturate(1.05);
+            border-radius: 20px;
+            background: #fef9f2;
+            margin-bottom: 20px;
         }
         .pechka-card h2 {
-            font-size: 1.8rem;
-            font-weight: 460;
-            color: #9b4f23;
-            margin: 12px 0 12px;
             text-align: center;
+            color: #9b4f23;
+            margin-bottom: 15px;
         }
         .specs {
             background: #fef8f2;
-            padding: 16px 20px;
-            border-radius: 28px;
-            font-size: 0.95rem;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 15px 0;
             line-height: 1.5;
-            color: #3f3328;
-            margin: 20px 0;
-            border-left: 5px solid #e2bc94;
         }
         .price {
-            font-size: 1.9rem;
-            font-weight: 500;
+            font-size: 28px;
+            font-weight: bold;
             color: #bc631c;
             text-align: center;
-            margin: 20px 0 16px;
+            margin: 15px 0;
         }
         .addons {
             background: #fdf8f1;
-            border-radius: 28px;
-            padding: 8px 6px;
-            margin-top: 8px;
+            border-radius: 20px;
+            padding: 10px;
+            margin-top: 15px;
         }
         .addon-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            margin: 8px 0;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: background 0.15s;
-            background: #ffffff;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 50px;
             border: 1px solid #eadbcb;
+            cursor: pointer;
         }
         .addon-item:hover {
             background: #fff3e8;
         }
-        .addon-item label {
-            font-weight: 500;
-            cursor: pointer;
-            flex: 1;
-            user-select: none;
-        }
-        .addon-price {
-            font-weight: 500;
-            color: #bd631e;
-            padding-left: 12px;
-            user-select: none;
-        }
         .add-to-cart, .send-btn {
             background: #d97a2b;
-            border: none;
+            color: white;
             width: 100%;
             padding: 14px;
-            font-size: 1.05rem;
-            font-family: inherit;
-            font-weight: 500;
-            border-radius: 60px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.2s;
-            color: white;
-            margin-top: 24px;
-        }
-        .add-to-cart:hover, .send-btn:hover {
-            background: #c06622;
-            transform: scale(1.01);
+            margin-top: 20px;
         }
         .cart-section {
-            background: #fefaf5;
-            border-radius: 32px;
-            padding: 24px;
-            max-width: 720px;
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            max-width: 700px;
             margin: 40px auto;
-            border: 1px solid #e5d5c4;
         }
         .cart-item {
-            background: white;
-            padding: 12px 18px;
-            border-radius: 60px;
+            background: #fef8f2;
+            padding: 12px;
+            border-radius: 50px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             margin-bottom: 10px;
-            border: 1px solid #e6d8ca;
         }
         .remove-item {
-            background: none;
-            border: 1px solid #cfb692;
-            border-radius: 40px;
-            padding: 5px 16px;
+            background: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 5px 15px;
             cursor: pointer;
-        }
-        .remove-item:hover {
-            background: #f2e0d0;
         }
         .total {
             text-align: right;
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-top: 18px;
-            padding-top: 12px;
-            border-top: 1px solid #e1cfbe;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
         }
         .empty-cart {
             text-align: center;
@@ -248,91 +182,68 @@
             padding: 20px;
         }
         .order-form {
-            margin-top: 28px;
+            margin-top: 25px;
+            display: none;
         }
         .order-form input, .order-form textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin: 8px 0;
-            border: 1px solid #d9c7b4;
             border-radius: 40px;
-            font-family: inherit;
-            background: white;
+            border: 1px solid #d9c7b4;
         }
-        .captcha-container {
+        .captcha-block {
             display: flex;
             gap: 10px;
             align-items: center;
             margin: 15px 0;
-            background: #fef8f2;
-            padding: 12px;
-            border-radius: 60px;
-        }
-        .captcha-question {
-            font-weight: bold;
             background: #e8d9ca;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 1rem;
-        }
-        .captcha-input {
-            flex: 1;
-            margin: 0 !important;
-        }
-        .error-border {
-            border: 2px solid #c0392b !important;
-            background: #fff5f5 !important;
+            padding: 10px 15px;
+            border-radius: 50px;
         }
         .success-msg {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #e0c4a4;
-            color: #2c241c;
+            background: #27ae60;
+            color: white;
             padding: 10px 20px;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            z-index: 999;
-            animation: fadeOut 3s forwards;
-        }
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
+            border-radius: 30px;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Банные печи и чаны</h1>
-    <div class="subtitle">Каменные печи, баки, колена, чаны — всё для настоящей парной</div>
+    <h1>🔥 Банные печи и чаны</h1>
+    <div class="subtitle">Печи, баки, чаны — всё для парной</div>
 
     <div class="dropdown-container">
-        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать печь или чан ▼</button>
+        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар ▼</button>
         <div class="dropdown-content" id="dropdownContent"></div>
     </div>
 
-    <div id="pechkaCard" class="pechka-card">
-        <img id="cardImage" src="" alt="Печь">
+    <div id="productCard" class="pechka-card">
+        <img id="cardImage" src="" alt="Товар">
         <h2 id="cardName"></h2>
         <div class="specs" id="cardSpecs"></div>
         <div class="price" id="cardPrice"></div>
-        <div id="addonsContainer"></div>
+        <div id="addonsBlock"></div>
         <button class="add-to-cart" id="addToCartBtn">➕ Добавить в корзину</button>
     </div>
 
     <div class="cart-section">
-        <h2 style="font-weight:400;">Корзина</h2>
+        <h2>🛒 Корзина</h2>
         <div id="cartItems"><div class="empty-cart">Пока пусто</div></div>
         <div class="total">💰 Итого: <span id="totalSum">0</span> ₽</div>
-        <div class="order-form" id="orderForm" style="display:none;">
-            <h3 style="margin:10px 0 5px;">Для заказа</h3>
-            <input type="text" id="customerName" placeholder="Ваше имя *">
-            <input type="email" id="customerEmail" placeholder="Email *">
-            <input type="tel" id="customerPhone" placeholder="Телефон *">
-            <textarea id="customerAddress" placeholder="Адрес доставки" rows="2"></textarea>
-            <div id="captchaContainer"></div>
-            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ в Telegram</button>
+        <div class="order-form" id="orderForm">
+            <h3>Оформление заказа</h3>
+            <input type="text" id="userName" placeholder="Ваше имя *">
+            <input type="email" id="userEmail" placeholder="Email *">
+            <input type="tel" id="userPhone" placeholder="Телефон *">
+            <textarea id="userAddress" placeholder="Адрес доставки" rows="2"></textarea>
+            <div id="captchaBlock"></div>
+            <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ</button>
         </div>
     </div>
 </div>
@@ -341,57 +252,56 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ВСЕ ТОВАРЫ (37 штук) ==========
+    // ========== ТОВАРЫ ==========
     const products = [
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x450/e8cfb0/white?text=Печь+325", hasAddons:true},
-        {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=325+бак+чёрн", hasAddons:true},
-        {id:3, name:"Печь Ø325 + бак нерж", price:24000, specs:"🏠 до 15 м³ + нерж.бак 65 л<br>💧 1 мм нержавейка", img:"https://placehold.co/600x450/e8cfb0/white?text=325+нерж", hasAddons:true},
-        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>🔥 Конвекция", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж", hasAddons:true},
-        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+бак", hasAddons:true},
-        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Нержавейка 1 мм, 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+нерж", hasAddons:true},
-        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³, 426×550 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр", hasAddons:true},
-        {id:8, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+бак", hasAddons:true},
-        {id:9, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Нержавейка 1 мм, 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+нерж", hasAddons:true},
-        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³ (12 м²)<br>🔄 Поворотная", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт", hasAddons:true},
-        {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+бак", hasAddons:true},
-        {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Нерж 1 мм, 85 л", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+нерж", hasAddons:true},
-        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³ (6 м²)<br>📐 530×600×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+печь", hasAddons:true},
-        {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+чёрн", hasAddons:true},
-        {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Нерж 50 л, 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+нерж", hasAddons:true},
-        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³, лабиринт<br>💧 Бак 75 л, чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=3+помещ", hasAddons:true},
-        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"🏠 Лабиринт, 75 л нерж", img:"https://placehold.co/600x450/e8cfb0/white?text=3+пом+нерж", hasAddons:true},
-        {id:18, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³, 8 мм + кружок", img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+426", hasAddons:true},
-        {id:19, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 до 200 м³, 8 мм + кружок", img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+530", hasAddons:true},
-        {id:20, name:"Буржуйка Талти", price:18000, specs:"🏠 до 200 м³, 24 ч горения", img:"https://placehold.co/600x450/e8cfb0/white?text=Талти", hasAddons:true},
-        {id:21, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м², 550×430×600", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+малый", hasAddons:true},
-        {id:22, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 100-130 м², 720×430×600", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+большой", hasAddons:true},
-        {id:23, name:"Котёл с водяным верхом", price:27500, specs:"🏠 до 200 м², водяной контур", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+ВВ", hasAddons:true},
-        {id:24, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³, лабиринт", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка", hasAddons:true},
-        {id:25, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 бак 65 л чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+бак", hasAddons:true},
-        {id:26, name:"Печь бочка + бак нерж", price:39000, specs:"💧 нерж 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+нерж", hasAddons:true},
-        {id:27, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³, сталь 4/8 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль", hasAddons:true},
-        {id:28, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 бак 85 л чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+бак", hasAddons:true},
-        {id:29, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 нерж 85 л, 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+нерж", hasAddons:true},
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм", img:"https://placehold.co/600x450/d35400/white?text=Печь+325", hasAddons:true},
+        {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e67e22/white?text=325+бак", hasAddons:true},
+        {id:3, name:"Печь Ø325 + бак нерж", price:24000, specs:"💧 Бак нержавейка 65 л", img:"https://placehold.co/600x450/27ae60/white?text=325+нерж", hasAddons:true},
+        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³<br>🔥 Конвекция", img:"https://placehold.co/600x450/3498db/white?text=426+леж", hasAddons:true},
+        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"💧 Бак 65 л", img:"https://placehold.co/600x450/1abc9c/white?text=426+леж+бак", hasAddons:true},
+        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Нержавейка 65 л", img:"https://placehold.co/600x450/9b59b6/white?text=426+леж+нерж", hasAddons:true},
+        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³", img:"https://placehold.co/600x450/c0392b/white?text=426+откр", hasAddons:true},
+        {id:8, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак 65 л", img:"https://placehold.co/600x450/f39c12/white?text=426+откр+бак", hasAddons:true},
+        {id:9, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Нержавейка 65 л", img:"https://placehold.co/600x450/2ecc71/white?text=426+откр+нерж", hasAddons:true},
+        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³<br>🔄 Поворотная", img:"https://placehold.co/600x450/e74c3c/white?text=530+поворт", hasAddons:true},
+        {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л", img:"https://placehold.co/600x450/16a085/white?text=530+поворт+бак", hasAddons:true},
+        {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Нержавейка 85 л", img:"https://placehold.co/600x450/8e44ad/white?text=530+поворт+нерж", hasAddons:true},
+        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³<br>📐 530×600×500 мм", img:"https://placehold.co/600x450/d35400/white?text=Соц+печь", hasAddons:true},
+        {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л", img:"https://placehold.co/600x450/e67e22/white?text=Соц+чёрн", hasAddons:true},
+        {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Нержавейка 50 л", img:"https://placehold.co/600x450/27ae60/white?text=Соц+нерж", hasAddons:true},
+        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л", img:"https://placehold.co/600x450/2980b9/white?text=3+помещ", hasAddons:true},
+        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"💧 Нержавейка 75 л", img:"https://placehold.co/600x450/8e44ad/white?text=3+пом+нерж", hasAddons:true},
+        {id:18, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³<br>🍳 С кружком", img:"https://placehold.co/600x450/7f8c8d/white?text=Буржуйка+426", hasAddons:true},
+        {id:19, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 до 200 м³", img:"https://placehold.co/600x450/95a5a6/white?text=Буржуйка+530", hasAddons:true},
+        {id:20, name:"Буржуйка Талти", price:18000, specs:"⏱️ 24 ч горения", img:"https://placehold.co/600x450/bdc3c7/white?text=Талти", hasAddons:true},
+        {id:21, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м²", img:"https://placehold.co/600x450/3498db/white?text=Котёл+малый", hasAddons:true},
+        {id:22, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 100-130 м²", img:"https://placehold.co/600x450/9b59b6/white?text=Котёл+большой", hasAddons:true},
+        {id:23, name:"Котёл с водяным верхом", price:27500, specs:"🏠 до 200 м²<br>💧 Водяной контур", img:"https://placehold.co/600x450/f39c12/white?text=Котёл+ВВ", hasAddons:true},
+        {id:24, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³<br>🔥 Лабиринт", img:"https://placehold.co/600x450/d35400/white?text=Бочка", hasAddons:true},
+        {id:25, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 Бак 65 л", img:"https://placehold.co/600x450/e67e22/white?text=Бочка+бак", hasAddons:true},
+        {id:26, name:"Печь бочка + бак нерж", price:39000, specs:"💧 Нержавейка 65 л", img:"https://placehold.co/600x450/27ae60/white?text=Бочка+нерж", hasAddons:true},
+        {id:27, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³<br>🔥 Сталь 4/8 мм", img:"https://placehold.co/600x450/2980b9/white?text=Корабль", hasAddons:true},
+        {id:28, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 Бак 85 л", img:"https://placehold.co/600x450/8e44ad/white?text=Корабль+бак", hasAddons:true},
+        {id:29, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 Нержавейка 85 л", img:"https://placehold.co/600x450/f39c12/white?text=Корабль+нерж", hasAddons:true},
         {id:30, name:"Банный чан 100 л, нержавейка", price:12500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л", hasAddons:false},
-        {id:31, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л", hasAddons:false},
-        {id:32, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л", hasAddons:false},
-        {id:33, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 Объём 250 л<br>📐 900×900×550 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+250л", hasAddons:false},
-        {id:34, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 Объём 300 л<br>📐 1000×1000×600 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+300л", hasAddons:false},
-        {id:35, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л+чёрн", hasAddons:false},
-        {id:36, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л+чёрн", hasAddons:false},
-        {id:37, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false}
+        {id:31, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 Объём 150 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л", hasAddons:false},
+        {id:32, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 Объём 200 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л", hasAddons:false},
+        {id:33, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 Объём 250 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+250л", hasAddons:false},
+        {id:34, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 Объём 300 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+300л", hasAddons:false},
+        {id:35, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 Объём 100 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л+чёрн", hasAddons:false},
+        {id:36, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 Объём 150 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л+чёрн", hasAddons:false},
+        {id:37, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false}
     ];
 
-    // ========== ВСЕ ДОПЫ (9 штук) ==========
-    const addonsList = [
+    const allAddons = [
         {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
         {id:"b3", name:"Бак нерж 85 л, 1 мм", price:13500},
         {id:"b4", name:"Бак нерж 85 л, 1.5 мм", price:15500},
-        {id:"b5", name:"Бак чёрный 65 л, 2 мм (400 мм)", price:6000},
-        {id:"b6", name:"Бак чёрный 85 л, 2 мм (530 мм)", price:6500},
-        {id:"elbow", name:"Колено Ø115 мм 45° (нерж. 0.5 мм)", price:600},
-        {id:"roof", name:"Зонт Ø115 мм (нерж. 0.5 мм)", price:1000},
+        {id:"b5", name:"Бак чёрный 65 л, 2 мм", price:6000},
+        {id:"b6", name:"Бак чёрный 85 л, 2 мм", price:6500},
+        {id:"elbow", name:"Колено Ø115 мм 45°", price:600},
+        {id:"roof", name:"Зонт Ø115 мм", price:1000},
         {id:"clamp", name:"Хомут обжимной Ø115 мм", price:350}
     ];
 
@@ -401,47 +311,37 @@
     let captchaAnswer = 0;
 
     function generateCaptcha() {
-        let num1 = Math.floor(Math.random() * 10) + 1;
-        let num2 = Math.floor(Math.random() * 10) + 1;
-        captchaAnswer = num1 + num2;
-        const container = document.getElementById('captchaContainer');
-        if(container) {
-            container.innerHTML = `
-                <div class="captcha-container">
-                    <span class="captcha-question">🔒 ${num1} + ${num2} = ?</span>
-                    <input type="text" id="captchaInput" class="captcha-input" placeholder="Ответ *">
-                </div>
-            `;
-        }
+        let a = Math.floor(Math.random() * 10) + 1;
+        let b = Math.floor(Math.random() * 10) + 1;
+        captchaAnswer = a + b;
+        document.getElementById('captchaBlock').innerHTML = `
+            <div class="captcha-block">
+                <span>🔒 ${a} + ${b} = ?</span>
+                <input type="text" id="captchaInput" placeholder="Ответ" style="flex:1; margin:0;">
+            </div>
+        `;
     }
 
     function checkCaptcha() {
-        const input = document.getElementById('captchaInput');
+        let input = document.getElementById('captchaInput');
         if(!input) return false;
-        let userAnswer = parseInt(input.value.trim());
-        return userAnswer === captchaAnswer;
+        return parseInt(input.value) === captchaAnswer;
     }
 
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    function showMessage(text, isErr) {
-        let m = document.createElement('div');
-        m.className = 'success-msg';
-        m.innerText = text;
-        if(isErr) m.style.background = "#d9ae84";
-        document.body.appendChild(m);
-        setTimeout(()=>m.remove(), 2800);
+    function showMessage(msg, isErr) {
+        let div = document.createElement('div');
+        div.className = 'success-msg';
+        div.textContent = msg;
+        if(isErr) div.style.background = "#c0392b";
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
     }
 
     function loadDropdown() {
         let html = '';
         for(let p of products) {
             html += `<div class="dropdown-item" onclick="selectProduct(${p.id})">
-                        <h4>${p.name.includes('Чан') ? '🛢️' : '🔥'} ${p.name}</h4>
-                        <p>${p.specs.split('<br>')[0]}</p>
+                        <h4>${p.name}</h4>
                         <div class="price-drop">${p.price.toLocaleString('ru-RU')} ₽</div>
                     </div>`;
         }
@@ -449,144 +349,112 @@
     }
 
     function renderAddons() {
-        const container = document.getElementById('addonsContainer');
+        let container = document.getElementById('addonsBlock');
         if(!currentProduct.hasAddons) {
             container.innerHTML = '';
             return;
         }
-        
-        let html = '<div class="addons"><h3 style="margin:15px 0 8px;">➕ Дополнительное оборудование</h3>';
-        for(let a of addonsList) {
-            let isChecked = selectedAddons[a.id] ? 'checked' : '';
-            html += `<div class="addon-item" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}">
-                        <label>
-                            <input type="checkbox" class="addon-checkbox" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}" ${isChecked}>
-                            ${a.name}
-                        </label>
-                        <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
+        let html = '<div class="addons"><h3>➕ Допы</h3>';
+        for(let a of allAddons) {
+            let checked = selectedAddons[a.id] ? 'checked' : '';
+            html += `<div class="addon-item" onclick="toggleAddon('${a.id}', '${a.name}', ${a.price})">
+                        <label><input type="checkbox" ${checked} onclick="event.stopPropagation()"> ${a.name}</label>
+                        <span>${a.price.toLocaleString('ru-RU')} ₽</span>
                     </div>`;
         }
         html += '</div>';
         container.innerHTML = html;
-
-        document.querySelectorAll('.addon-item').forEach(item => {
-            const checkbox = item.querySelector('.addon-checkbox');
-            const id = checkbox.getAttribute('data-id');
-            const name = checkbox.getAttribute('data-name');
-            const price = parseInt(checkbox.getAttribute('data-price'));
-            
-            item.addEventListener('click', (e) => {
-                if(e.target.tagName !== 'INPUT') {
-                    checkbox.checked = !checkbox.checked;
-                    if(checkbox.checked) {
-                        selectedAddons[id] = { name, price };
-                    } else {
-                        delete selectedAddons[id];
-                    }
-                    updateCurrentPriceDisplay();
-                }
-            });
-            
-            checkbox.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if(checkbox.checked) {
-                    selectedAddons[id] = { name, price };
-                } else {
-                    delete selectedAddons[id];
-                }
-                updateCurrentPriceDisplay();
-            });
-        });
     }
 
-    function updateCurrentPriceDisplay() {
+    window.toggleAddon = function(id, name, price) {
+        let cb = document.querySelector(`#addonsBlock input[onclick*="${id}"]`);
+        if(!cb) cb = document.querySelector(`.addon-item label input`);
+        if(selectedAddons[id]) {
+            delete selectedAddons[id];
+            if(cb) cb.checked = false;
+        } else {
+            selectedAddons[id] = { name, price };
+            if(cb) cb.checked = true;
+        }
+        updatePrice();
+    };
+
+    function updatePrice() {
         if(!currentProduct) return;
         let addSum = 0;
-        for(let key in selectedAddons) {
-            addSum += selectedAddons[key].price;
-        }
+        for(let k in selectedAddons) addSum += selectedAddons[k].price;
         let total = currentProduct.price + addSum;
         document.getElementById('cardPrice').innerHTML = `💰 ${total.toLocaleString('ru-RU')} ₽`;
     }
 
     function selectProduct(id) {
-        currentProduct = products.find(p=>p.id===id);
+        currentProduct = products.find(p => p.id === id);
         selectedAddons = {};
-        let cardDiv = document.getElementById('pechkaCard');
+        document.getElementById('productCard').classList.add('show');
         document.getElementById('cardImage').src = currentProduct.img;
         document.getElementById('cardName').innerText = currentProduct.name;
         document.getElementById('cardSpecs').innerHTML = currentProduct.specs;
         document.getElementById('cardPrice').innerHTML = `💰 ${currentProduct.price.toLocaleString('ru-RU')} ₽`;
         renderAddons();
-        cardDiv.classList.add('show');
         document.getElementById('dropdownContent').classList.remove('show');
     }
 
-    function updateCartDisplay() {
+    function updateCart() {
         let container = document.getElementById('cartItems');
         let totalSpan = document.getElementById('totalSum');
-        if(cart.length===0) {
-            container.innerHTML = '<div class="empty-cart">Пока пусто</div>';
+        if(cart.length === 0) {
+            container.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
             totalSpan.innerText = '0';
-            document.getElementById('orderForm').style.display = 'none';
             return;
         }
-        let total=0, html='';
-        for(let i=0;i<cart.length;i++) {
+        let total = 0;
+        let html = '';
+        for(let i = 0; i < cart.length; i++) {
             html += `<div class="cart-item">
                         <span><strong>${cart[i].name}</strong> — ${cart[i].price.toLocaleString('ru-RU')} ₽</span>
-                        <button class="remove-item" onclick="removeFromCart(${i})">Убрать</button>
+                        <button class="remove-item" onclick="removeFromCart(${i})">Удалить</button>
                     </div>`;
             total += cart[i].price;
         }
         container.innerHTML = html;
         totalSpan.innerText = total.toLocaleString('ru-RU');
-        document.getElementById('orderForm').style.display = 'block';
-        generateCaptcha();
     }
 
     function removeFromCart(idx) {
-        cart.splice(idx,1);
-        updateCartDisplay();
+        cart.splice(idx, 1);
+        updateCart();
+        showMessage('🗑 Товар удалён из корзины');
     }
 
     function addToCart() {
-        if(!currentProduct) { showMessage('Сначала выберите товар', true); return; }
+        if(!currentProduct) {
+            showMessage('❌ Сначала выберите товар', true);
+            return;
+        }
         cart.push({ name: currentProduct.name, price: currentProduct.price });
         for(let k in selectedAddons) {
             cart.push({ name: selectedAddons[k].name, price: selectedAddons[k].price });
         }
-        updateCartDisplay();
+        updateCart();
         showMessage(`✓ ${currentProduct.name} добавлен в корзину`);
     }
 
     async function sendOrder() {
-        let name = document.getElementById('customerName').value.trim();
-        let email = document.getElementById('customerEmail').value.trim();
-        let phone = document.getElementById('customerPhone').value.trim();
-        let address = document.getElementById('customerAddress').value;
-        
-        document.getElementById('customerEmail').classList.remove('error-border');
-        
+        let name = document.getElementById('userName').value.trim();
+        let email = document.getElementById('userEmail').value.trim();
+        let phone = document.getElementById('userPhone').value.trim();
+        let address = document.getElementById('userAddress').value;
+
         if(!name || !email || !phone) {
             showMessage('❌ Заполните имя, email и телефон', true);
-            if(!email) document.getElementById('customerEmail').classList.add('error-border');
             return;
         }
-        
-        if(!isValidEmail(email)) {
-            showMessage('❌ Введите корректный email (например, name@mail.ru)', true);
-            document.getElementById('customerEmail').classList.add('error-border');
-            return;
-        }
-        
-        if(cart.length===0) {
+        if(cart.length === 0) {
             showMessage('❌ Корзина пуста', true);
             return;
         }
-        
         if(!checkCaptcha()) {
-            showMessage('❌ Неправильный ответ капчи!', true);
+            showMessage('❌ Неправильный ответ капчи', true);
             generateCaptcha();
             return;
         }
@@ -600,27 +468,38 @@
         let msg = `🔥 НОВЫЙ ЗАКАЗ!\nИмя: ${name}\nEmail: ${email}\nТелефон: ${phone}\nАдрес: ${address || 'не указан'}\n\nЗаказ:\n${items}\nИТОГО: ${total.toLocaleString('ru-RU')} ₽`;
         try {
             let res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST', headers: {'Content-Type':'application/json'},
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
             });
             let json = await res.json();
             if(json.ok) {
-                showMessage('✅ Заказ отправлен в Telegram');
+                showMessage('✅ Заказ отправлен!');
                 cart = [];
-                updateCartDisplay();
-                document.getElementById('customerName').value = '';
-                document.getElementById('customerEmail').value = '';
-                document.getElementById('customerPhone').value = '';
-                document.getElementById('customerAddress').value = '';
+                updateCart();
+                document.getElementById('userName').value = '';
+                document.getElementById('userEmail').value = '';
+                document.getElementById('userPhone').value = '';
+                document.getElementById('userAddress').value = '';
                 generateCaptcha();
             } else {
-                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
+                showMessage('⚠️ Ошибка, но заказ сохранён', true);
             }
         } catch(e) {
-            showMessage('⚠️ Ошибка соединения (проверьте интернет или VPN)', true);
+            showMessage('⚠️ Ошибка соединения (включите VPN)', true);
         }
     }
 
-    document.getElementById('dropdownBtn').onclick = () => document.getElementById('dropdownContent').classList.toggle('show');
+    document.getElementById('dropdownBtn').onclick = () => {
+        document.getElementById('dropdownContent').classList.toggle('show');
+    };
+    document.getElementById('addToCartBtn').onclick = addToCart;
+    document.getElementById('sendOrderBtn').onclick = sendOrder;
+
+    loadDropdown();
+    generateCaptcha();
+</script>
+</body>
+</html>ck = () => document.getElementById('dropdownContent').classList.toggle('show');
     document.getElementById('addToCartBtn').onclick = addToCart;
     document.getElementById('sendOrderBtn
