@@ -24,6 +24,8 @@
         .refresh-btn{background:#27ae60;color:white;border:none;padding:8px 20px;border-radius:10px;cursor:pointer;margin-right:10px;}
         .loading{text-align:center;padding:30px;color:#888;}
         .error{color:#c0392b;text-align:center;padding:30px;}
+        .back-link{display:inline-block;margin-top:20px;color:#888;text-decoration:none;}
+        .back-link:hover{color:#d97a2b;}
     </style>
 </head>
 <body>
@@ -57,12 +59,14 @@
                 </tbody>
             </table>
         </div>
+        
+        <a href="https://roman180808h-droid.github.io" class="back-link">← Вернуться на сайт</a>
     </div>
 </div>
 
 <script>
-    // ========== ТВОЯ ССЫЛКА НА APPS SCRIPT ==========
-    const ORDERS_API_URL = "https://script.google.com/macros/s/AKfycbwsiqO7hVUatxsf2Nw-IOxIxiDvdySL17wTZTyS2bsQx_lzDODuj8FdmP6q0rRhEWnL/exec";
+    // ========== ТВОЯ НОВАЯ ССЫЛКА НА APPS SCRIPT ==========
+    const ORDERS_API_URL = "https://script.google.com/macros/s/AKfycbyEYyFbxUQOFosSzvGtQ4-RpzByFzHfnVmW0wbermEAR2fDDC1ev51C-4XtUCRbb4MS/exec";
     const ADMIN_PASSWORD = "admin123";
 
     function checkPassword() {
@@ -101,7 +105,7 @@
             }
         } catch(e) {
             console.error('Ошибка:', e);
-            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки заказов. Проверьте, что скрипт развернут.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки заказов. Проверьте соединение.</td></tr>';
             statsDiv.innerHTML = '<div class="stat-card"><h3>❌</h3><p>Ошибка</p></div>';
         }
     }
