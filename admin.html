@@ -22,14 +22,13 @@
         .hidden{display:none;}
         .logout-btn{background:#c0392b;color:white;border:none;padding:8px 20px;border-radius:10px;cursor:pointer;}
         .refresh-btn{background:#27ae60;color:white;border:none;padding:8px 20px;border-radius:10px;cursor:pointer;margin-right:10px;}
-        .table-link{background:#16213e;padding:20px;border-radius:15px;margin-top:20px;text-align:center;}
-        .table-link a{background:#d97a2b;color:#1a1a2e;padding:10px 20px;border-radius:10px;text-decoration:none;}
         .loading{text-align:center;padding:30px;color:#888;}
+        .error{color:#c0392b;text-align:center;padding:30px;}
     </style>
 </head>
 <body>
 <div class="container" id="app">
-    <!-- Форма входа (пароль не показывается) -->
+    <!-- Форма входа -->
     <div id="loginForm" class="login-form">
         <h2>🔐 Вход в админ-панель</h2>
         <input type="password" id="password" placeholder="Введите пароль">
@@ -46,10 +45,8 @@
             </div>
         </div>
 
-        <!-- Статистика -->
         <div class="stats" id="stats"></div>
 
-        <!-- Таблица заказов -->
         <div style="overflow-x: auto;">
             <table class="orders-table" id="ordersTable">
                 <thead>
@@ -60,20 +57,13 @@
                 </tbody>
             </table>
         </div>
-
-        <!-- Ссылка на таблицу -->
-        <div class="table-link">
-            <a href="https://docs.google.com/spreadsheets/d/1pVQFhA2p4gBSUJNVfV9q3PU4aUhlingoQ6Es-KUZ5YI/edit" target="_blank">📊 Открыть Google Таблицу</a>
-        </div>
     </div>
 </div>
 
 <script>
-    // ВАШИ ДАННЫЕ
-    const GOOGLE_SHEET_ID = "1pVQFhA2p4gBSUJNVfV9q3PU4aUhlingoQ6Es-KUZ5YI";
+    // ========== ТВОЯ ССЫЛКА НА APPS SCRIPT ==========
+    const ORDERS_API_URL = "https://script.google.com/macros/s/AKfycbwsiqO7hVUatxsf2Nw-IOxIxiDvdySL17wTZTyS2bsQx_lzDODuj8FdmP6q0rRhEWnL/exec";
     const ADMIN_PASSWORD = "admin123";
-
-    let ordersData = [];
 
     function checkPassword() {
         const pass = document.getElementById('password').value;
@@ -94,32 +84,62 @@
 
     async function loadOrders() {
         const tbody = document.getElementById('ordersBody');
+        const statsDiv = document.getElementById('stats');
+        
         tbody.innerHTML = '<tr><td colspan="7" class="loading">Загрузка заказов...</td></tr>';
         
         try {
-            // Используем Google Sheets API для чтения данных
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/Лист1?key=AIzaSyDpVxU5KkFzZyvJ5hLZqjK8sY9a0Lp1QwE`;
+            const response = await fetch(ORDERS_API_URL);
+            const orders = await response.json();
             
-            // Для демонстрации показываем, что заказы сохраняются в таблицу
-            // Реальное чтение требует API ключа, поэтому показываем ссылку на таблицу
-            
-            tbody.innerHTML = `<tr><td colspan="7" class="loading">
-                📊 Заказы сохраняются в Google Таблицу<br><br>
-                <a href="https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/edit" target="_blank" style="color:#d97a2b;">📋 Нажмите здесь, чтобы открыть таблицу с заказами</a>
-                <br><br>
-                После оформления заказа данные появятся в таблице.
-            </td></tr>`;
-            
-            // Обновляем статистику
-            document.getElementById('stats').innerHTML = `
-                <div class="stat-card"><h3>📊</h3><p>Заказы в таблице</p></div>
-                <div class="stat-card"><h3>✅</h3><p>Система работает</p></div>
-            `;
-            
+            if(orders && orders.length > 0) {
+                displayOrders(orders);
+                calculateStats(orders);
+            } else {
+                tbody.innerHTML = '<tr><td colspan="7" class="loading">Нет заказов</td></tr>';
+                statsDiv.innerHTML = '<div class="stat-card"><h3>0</h3><p>Всего заказов</p></div><div class="stat-card"><h3>0 ₽</h3><p>Общая выручка</p></div>';
+            }
         } catch(e) {
             console.error('Ошибка:', e);
-            tbody.innerHTML = `<tr><td colspan="7" class="loading">Ошибка загрузки. Нажмите "Обновить" или откройте таблицу вручную.</td></tr>`;
+            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки заказов. Проверьте, что скрипт развернут.</td></tr>';
+            statsDiv.innerHTML = '<div class="stat-card"><h3>❌</h3><p>Ошибка</p></div>';
         }
+    }
+
+    function displayOrders(orders) {
+        const tbody = document.getElementById('ordersBody');
+        let html = '';
+        
+        for(let order of orders) {
+            html += `<tr>
+                <td>${order.Дата || order.date || ''}</td>
+                <td>${order.Имя || order.name || ''}</td>
+                <td>${order.Email || order.email || ''}</td>
+                <td>${order.Телефон || order.phone || ''}</td>
+                <td>${order.Адрес || order.address || ''}</td>
+                <td style="max-width:300px;">${order.Заказ || order.order || ''}</td>
+                <td>${order.Итого || order.total || ''}</td>
+            </tr>`;
+        }
+        
+        tbody.innerHTML = html;
+    }
+
+    function calculateStats(orders) {
+        const statsDiv = document.getElementById('stats');
+        const totalOrders = orders.length;
+        
+        let totalSum = 0;
+        for(let order of orders) {
+            const sumStr = order.Итого || order.total || '0';
+            const sumNum = parseInt(sumStr.replace(/[^\d]/g, ''));
+            if(!isNaN(sumNum)) totalSum += sumNum;
+        }
+        
+        statsDiv.innerHTML = `
+            <div class="stat-card"><h3>${totalOrders}</h3><p>Всего заказов</p></div>
+            <div class="stat-card"><h3>${totalSum.toLocaleString('ru-RU')} ₽</h3><p>Общая выручка</p></div>
+        `;
     }
 </script>
 </body>
