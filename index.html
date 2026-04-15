@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи — полный ассортимент</title>
+    <title>Банные печи — проверка почты</title>
     <style>
         * {
             margin: 0;
@@ -136,7 +136,6 @@
             display: block;
         }
 
-        /* ЯРКАЯ КАРТИНКА — усиленная */
         .pechka-card img {
             width: 100%;
             max-height: 350px;
@@ -148,11 +147,6 @@
             display: block;
             border: 1px solid #ecdbba;
             filter: brightness(1.08) contrast(1.12) saturate(1.05);
-            transition: filter 0.2s;
-        }
-
-        .pechka-card img:hover {
-            filter: brightness(1.12) contrast(1.15) saturate(1.08);
         }
 
         .pechka-card h2 {
@@ -301,6 +295,11 @@
             background: white;
         }
 
+        .error-border {
+            border: 2px solid #c0392b !important;
+            background: #fff5f5 !important;
+        }
+
         .success-msg {
             position: fixed;
             bottom: 20px;
@@ -417,6 +416,21 @@
     let currentProduct = null;
     let selectedAddons = {};
 
+    // ========== ФУНКЦИЯ ПРОВЕРКИ EMAIL ==========
+    function isValidEmail(email) {
+        // Регулярное выражение для проверки email
+        const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+        if (!emailRegex.test(email)) return false;
+        
+        // Дополнительная проверка на типичные ошибки
+        const invalidDomains = ['example.com', 'test.com', 'mail.ru.com', '@.com'];
+        for (let invalid of invalidDomains) {
+            if (email.toLowerCase().includes(invalid)) return false;
+        }
+        
+        return true;
+    }
+
     function showMessage(text, isErr) {
         let m = document.createElement('div');
         m.className = 'success-msg';
@@ -459,7 +473,6 @@
         html += '</div>';
         container.innerHTML = html;
 
-        // Навешиваем обработчики на каждый доп
         document.querySelectorAll('.addon-item').forEach(item => {
             const checkbox = item.querySelector('.addon-checkbox');
             const id = checkbox.getAttribute('data-id');
@@ -555,8 +568,29 @@
         let email = document.getElementById('customerEmail').value.trim();
         let phone = document.getElementById('customerPhone').value.trim();
         let address = document.getElementById('customerAddress').value;
-        if(!name || !email || !phone) { showMessage('Заполните имя, email и телефон', true); return; }
-        if(cart.length===0) { showMessage('Корзина пуста', true); return; }
+        
+        // Убираем подсветку ошибок
+        document.getElementById('customerEmail').classList.remove('error-border');
+        
+        let hasError = false;
+        
+        if(!name || !email || !phone) {
+            showMessage('❌ Заполните имя, email и телефон', true);
+            if(!email) document.getElementById('customerEmail').classList.add('error-border');
+            return;
+        }
+        
+        // ПРОВЕРКА EMAIL
+        if(!isValidEmail(email)) {
+            showMessage('❌ Введите корректный email (например, name@mail.ru)', true);
+            document.getElementById('customerEmail').classList.add('error-border');
+            return;
+        }
+        
+        if(cart.length===0) {
+            showMessage('❌ Корзина пуста', true);
+            return;
+        }
 
         let items = '';
         let total = 0;
@@ -578,13 +612,20 @@
                 document.getElementById('customerEmail').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
-            } else showMessage('Ошибка, но заказ сохранён', true);
-        } catch(e) { showMessage('Ошибка соединения (проверьте интернет или VPN)', true); }
+                document.getElementById('customerEmail').classList.remove('error-border');
+            } else showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
+        } catch(e) { showMessage('⚠️ Ошибка соединения (проверьте интернет или VPN)', true); }
     }
 
     document.getElementById('dropdownBtn').onclick = () => document.getElementById('dropdownContent').classList.toggle('show');
     document.getElementById('addToCartBtn').onclick = addToCart;
     document.getElementById('sendOrderBtn').onclick = sendOrder;
+    
+    // Убираем подсветку ошибки при вводе email
+    document.getElementById('customerEmail').addEventListener('input', function() {
+        this.classList.remove('error-border');
+    });
+    
     document.onclick = (e) => { if(!e.target.closest('.dropdown-container')) document.getElementById('dropdownContent').classList.remove('show'); };
     loadDropdown();
 </script>
