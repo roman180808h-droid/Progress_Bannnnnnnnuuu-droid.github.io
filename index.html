@@ -45,8 +45,6 @@
         .order-form input,.order-form textarea{width:100%;padding:10px;margin:8px 0;border-radius:40px;border:1px solid #d9c7b4;}
         .success-msg{position:fixed;bottom:20px;right:20px;background:#27ae60;color:white;padding:10px 20px;border-radius:30px;z-index:1000;animation:fadeOut 3s forwards;}
         @keyframes fadeOut{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;visibility:hidden;}}
-        .admin-link{text-align:center;margin-top:30px;}
-        .admin-link a{color:#7e6856;text-decoration:none;font-size:14px;}
     </style>
 </head>
 <body>
@@ -81,16 +79,13 @@
             <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ</button>
         </div>
     </div>
-    <div class="admin-link">
-        <a href="admin.html">🔒 Админ-панель</a>
-    </div>
 </div>
 
 <script>
-    // ========== РАБОЧАЯ ССЫЛКА НА APPS SCRIPT ==========
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqVOIveTdfiWE0TKH3BX98CkvELUsRWkSu2lk7ZUgMII4VM_Ak5rkmnmGhoZ4Xql6D/exec";
+    // ========== ТВОЯ ССЫЛКА НА APPS SCRIPT (ЗАМЕНИ НА СВОЮ) ==========
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-LKvOC9A5-5QhuiMEWMChseepb4TYdLnPyVfXdSBux3e8SYPOXwL94UdIxFNdRM-r/exec";
 
-    // ========== ТОВАРЫ (для примера 3 штуки, добавь остальные) ==========
+    // ========== ТОВАРЫ (для примера 3, добавь остальные) ==========
     const products = [
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 мм", img:"https://i.ibb.co/jkzwkbh6/325.jpg", hasAddons:true},
         {id:2, name:"Печь Ø325 сквозная + бак чёрный", price:18500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/nqLW15dt/325.jpg", hasAddons:true},
@@ -263,6 +258,7 @@
         showMessage(`✓ ${currentProduct.name} и выбранные допы добавлены в корзину`);
     }
 
+    // ========== ОТПРАВКА В GOOGLE ТАБЛИЦУ ЧЕРЕЗ APPS SCRIPT ==========
     async function sendOrder() {
         let name = document.getElementById('userName').value.trim();
         let email = document.getElementById('userEmail').value.trim();
