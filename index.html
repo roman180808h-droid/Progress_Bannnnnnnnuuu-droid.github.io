@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи и чаны — полный каталог</title>
+    <title>Банные печи и чаны — каталог</title>
     <style>
         * {
             margin: 0;
@@ -310,7 +310,7 @@
             background: #e8d9ca;
             padding: 8px 16px;
             border-radius: 40px;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .captcha-input {
@@ -382,7 +382,7 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ВСЕ ТОВАРЫ (печи + чаны) ==========
+    // ========== ТОВАРЫ ==========
     const products = [
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x450/e8cfb0/white?text=Печь+325", hasAddons:true},
         {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=325+бак+чёрн", hasAddons:true},
@@ -423,7 +423,6 @@
         {id:37, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false}
     ];
 
-    // ========== ВСЕ ДОПЫ ИЗ ДОКУМЕНТА ==========
     const addonsList = [
         {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
@@ -459,7 +458,7 @@
     function checkCaptcha() {
         const input = document.getElementById('captchaInput');
         if(!input) return false;
-        const userAnswer = parseInt(input.value.trim());
+        let userAnswer = parseInt(input.value.trim());
         return userAnswer === captchaAnswer;
     }
 
@@ -647,11 +646,21 @@
             let json = await res.json();
             if(json.ok) {
                 showMessage('✅ Заказ отправлен в Telegram');
-                cart = []; updateCartDisplay();
+                cart = [];
+                updateCartDisplay();
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerEmail').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
                 generateCaptcha();
-            } else showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
-        } catch(e) { showMessage('⚠️ Ошибка
+            } else {
+                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
+            }
+        } catch(e) {
+            showMessage('⚠️ Ошибка соединения (проверьте интернет или VPN)', true);
+        }
+    }
+
+    document.getElementById('dropdownBtn').onclick = () => document.getElementById('dropdownContent').classList.toggle('show');
+    document.getElementById('addToCartBtn').onclick = addToCart;
+    document.getElementById('sendOrderBtn').onclick = sendOrder
