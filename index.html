@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Банные чаны из нержавейки</title>
+    <title>Банные печи и чаны</title>
     <style>
         * {
             margin: 0;
@@ -116,6 +116,54 @@
             text-align: center;
             margin: 15px 0;
         }
+        .addons {
+            background: #fdf8f1;
+            border-radius: 20px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 50px;
+            border: 1px solid #eadbcb;
+        }
+        .addon-name {
+            flex: 2;
+            font-weight: 500;
+        }
+        .addon-price {
+            flex: 1;
+            color: #bd631e;
+            font-weight: 500;
+        }
+        .addon-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .addon-controls button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: #d97a2b;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .addon-controls button:hover {
+            background: #c06622;
+        }
+        .addon-count {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
         .add-to-cart, .send-btn {
             background: #d97a2b;
             color: white;
@@ -186,19 +234,20 @@
 </head>
 <body>
 <div class="container">
-    <h1>🛢️ Банные чаны из нержавейки</h1>
-    <div class="subtitle">Надёжные, долговечные чаны для настоящей парной</div>
+    <h1>🔥 Банные печи и чаны</h1>
+    <div class="subtitle">Печи, баки, чаны — всё для парной</div>
 
     <div class="dropdown-container">
-        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать чан ▼</button>
+        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар ▼</button>
         <div class="dropdown-content" id="dropdownContent"></div>
     </div>
 
     <div id="productCard" class="product-card">
-        <img id="cardImage" src="" alt="Чан">
+        <img id="cardImage" src="" alt="Товар">
         <h2 id="cardName"></h2>
         <div class="specs" id="cardSpecs"></div>
         <div class="price" id="cardPrice"></div>
+        <div id="addonsBlock"></div>
         <button class="add-to-cart" id="addToCartBtn">➕ Добавить в корзину</button>
     </div>
 
@@ -221,47 +270,63 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ТОЛЬКО БАННЫЕ ЧАНЫ ИЗ НЕРЖАВЕЙКИ ==========
+    // ========== ВСЕ ТОВАРЫ (37 штук) ==========
     const products = [
-        { 
-            id: 1, 
-            name: "Банный чан 100 л, нержавейка", 
-            price: 12500, 
-            specs: "💧 Объём: 100 литров<br>📐 Размеры: 600×600×400 мм<br>🔩 Материал: нержавеющая сталь<br>📏 Толщина: 1 мм<br>🛢️ Пищевая нержавейка, не ржавеет<br>🧼 Легко моется, долговечный<br>⚙️ Подходит для дровяных печей",
-            img: "https://placehold.co/600x450/e8cfb0/white?text=Чан+100л"
-        },
-        { 
-            id: 2, 
-            name: "Банный чан 150 л, нержавейка", 
-            price: 16500, 
-            specs: "💧 Объём: 150 литров<br>📐 Размеры: 700×700×450 мм<br>🔩 Материал: нержавеющая сталь<br>📏 Толщина: 1 мм<br>🛢️ Пищевая нержавейка, не ржавеет<br>🧼 Легко моется, долговечный<br>⚙️ Оптимальный размер для семьи",
-            img: "https://placehold.co/600x450/e8cfb0/white?text=Чан+150л"
-        },
-        { 
-            id: 3, 
-            name: "Банный чан 200 л, нержавейка", 
-            price: 19500, 
-            specs: "💧 Объём: 200 литров<br>📐 Размеры: 800×800×500 мм<br>🔩 Материал: нержавеющая сталь<br>📏 Толщина: 1.2 мм<br>🛢️ Пищевая нержавейка, не ржавеет<br>🧼 Легко моется, долговечный<br>⚙️ Утолщённая стенка для надёжности",
-            img: "https://placehold.co/600x450/e8cfb0/white?text=Чан+200л"
-        },
-        { 
-            id: 4, 
-            name: "Банный чан 250 л, нержавейка", 
-            price: 24500, 
-            specs: "💧 Объём: 250 литров<br>📐 Размеры: 900×900×550 мм<br>🔩 Материал: нержавеющая сталь<br>📏 Толщина: 1.2 мм<br>🛢️ Пищевая нержавейка, не ржавеет<br>🧼 Легко моется, долговечный<br>⚙️ Для большой компании",
-            img: "https://placehold.co/600x450/e8cfb0/white?text=Чан+250л"
-        },
-        { 
-            id: 5, 
-            name: "Банный чан 300 л, нержавейка", 
-            price: 28500, 
-            specs: "💧 Объём: 300 литров<br>📐 Размеры: 1000×1000×600 мм<br>🔩 Материал: нержавеющая сталь<br>📏 Толщина: 1.5 мм<br>🛢️ Пищевая нержавейка, не ржавеет<br>🧼 Легко моется, долговечный<br>⚙️ Максимальная прочность и вместительность",
-            img: "https://placehold.co/600x450/e8cfb0/white?text=Чан+300л"
-        }
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм", img:"https://placehold.co/600x450/d35400/white?text=Печь+325", hasAddons:true},
+        {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e67e22/white?text=325+бак", hasAddons:true},
+        {id:3, name:"Печь Ø325 + бак нерж", price:24000, specs:"💧 Бак нержавейка 65 л", img:"https://placehold.co/600x450/27ae60/white?text=325+нерж", hasAddons:true},
+        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³<br>🔥 Конвекция", img:"https://placehold.co/600x450/3498db/white?text=426+леж", hasAddons:true},
+        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"💧 Бак 65 л", img:"https://placehold.co/600x450/1abc9c/white?text=426+леж+бак", hasAddons:true},
+        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Нержавейка 65 л", img:"https://placehold.co/600x450/9b59b6/white?text=426+леж+нерж", hasAddons:true},
+        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³", img:"https://placehold.co/600x450/c0392b/white?text=426+откр", hasAddons:true},
+        {id:8, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак 65 л", img:"https://placehold.co/600x450/f39c12/white?text=426+откр+бак", hasAddons:true},
+        {id:9, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Нержавейка 65 л", img:"https://placehold.co/600x450/2ecc71/white?text=426+откр+нерж", hasAddons:true},
+        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³<br>🔄 Поворотная", img:"https://placehold.co/600x450/e74c3c/white?text=530+поворт", hasAddons:true},
+        {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л", img:"https://placehold.co/600x450/16a085/white?text=530+поворт+бак", hasAddons:true},
+        {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Нержавейка 85 л", img:"https://placehold.co/600x450/8e44ad/white?text=530+поворт+нерж", hasAddons:true},
+        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³<br>📐 530×600×500 мм", img:"https://placehold.co/600x450/d35400/white?text=Соц+печь", hasAddons:true},
+        {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л", img:"https://placehold.co/600x450/e67e22/white?text=Соц+чёрн", hasAddons:true},
+        {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Нержавейка 50 л", img:"https://placehold.co/600x450/27ae60/white?text=Соц+нерж", hasAddons:true},
+        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л", img:"https://placehold.co/600x450/2980b9/white?text=3+помещ", hasAddons:true},
+        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"💧 Нержавейка 75 л", img:"https://placehold.co/600x450/8e44ad/white?text=3+пом+нерж", hasAddons:true},
+        {id:18, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³<br>🍳 С кружком", img:"https://placehold.co/600x450/7f8c8d/white?text=Буржуйка+426", hasAddons:true},
+        {id:19, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 до 200 м³", img:"https://placehold.co/600x450/95a5a6/white?text=Буржуйка+530", hasAddons:true},
+        {id:20, name:"Буржуйка Талти", price:18000, specs:"⏱️ 24 ч горения", img:"https://placehold.co/600x450/bdc3c7/white?text=Талти", hasAddons:true},
+        {id:21, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м²", img:"https://placehold.co/600x450/3498db/white?text=Котёл+малый", hasAddons:true},
+        {id:22, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 100-130 м²", img:"https://placehold.co/600x450/9b59b6/white?text=Котёл+большой", hasAddons:true},
+        {id:23, name:"Котёл с водяным верхом", price:27500, specs:"🏠 до 200 м²<br>💧 Водяной контур", img:"https://placehold.co/600x450/f39c12/white?text=Котёл+ВВ", hasAddons:true},
+        {id:24, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³<br>🔥 Лабиринт", img:"https://placehold.co/600x450/d35400/white?text=Бочка", hasAddons:true},
+        {id:25, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 Бак 65 л", img:"https://placehold.co/600x450/e67e22/white?text=Бочка+бак", hasAddons:true},
+        {id:26, name:"Печь бочка + бак нерж", price:39000, specs:"💧 Нержавейка 65 л", img:"https://placehold.co/600x450/27ae60/white?text=Бочка+нерж", hasAddons:true},
+        {id:27, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³<br>🔥 Сталь 4/8 мм", img:"https://placehold.co/600x450/2980b9/white?text=Корабль", hasAddons:true},
+        {id:28, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 Бак 85 л", img:"https://placehold.co/600x450/8e44ad/white?text=Корабль+бак", hasAddons:true},
+        {id:29, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 Нержавейка 85 л", img:"https://placehold.co/600x450/f39c12/white?text=Корабль+нерж", hasAddons:true},
+        {id:30, name:"Банный чан 100 л, нержавейка", price:12500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм<br>🔩 Нержавейка 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л", hasAddons:false},
+        {id:31, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм<br>🔩 Нержавейка 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л", hasAddons:false},
+        {id:32, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм<br>🔩 Нержавейка 1.2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л", hasAddons:false},
+        {id:33, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 Объём 250 л<br>📐 900×900×550 мм<br>🔩 Нержавейка 1.2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+250л", hasAddons:false},
+        {id:34, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 Объём 300 л<br>📐 1000×1000×600 мм<br>🔩 Нержавейка 1.5 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+300л", hasAddons:false},
+        {id:35, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм<br>🔩 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л+чёрн", hasAddons:false},
+        {id:36, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм<br>🔩 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л+чёрн", hasAddons:false},
+        {id:37, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм<br>🔩 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false}
+    ];
+
+    // ========== ДОПЫ (С ВОЗМОЖНОСТЬЮ ВЫБРАТЬ КОЛИЧЕСТВО) ==========
+    const addonsList = [
+        {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
+        {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
+        {id:"b3", name:"Бак нерж 85 л, 1 мм", price:13500},
+        {id:"b4", name:"Бак нерж 85 л, 1.5 мм", price:15500},
+        {id:"b5", name:"Бак чёрный 65 л, 2 мм", price:6000},
+        {id:"b6", name:"Бак чёрный 85 л, 2 мм", price:6500},
+        {id:"elbow", name:"Колено Ø115 мм 45°", price:600},
+        {id:"roof", name:"Зонт Ø115 мм", price:1000},
+        {id:"clamp", name:"Хомут обжимной Ø115 мм", price:350}
     ];
 
     let cart = [];
     let currentProduct = null;
+    let selectedAddons = {}; // { id: { name, price, quantity } }
 
     function showMessage(msg, isErr) {
         let div = document.createElement('div');
@@ -276,20 +341,82 @@
         let html = '';
         for(let p of products) {
             html += `<div class="dropdown-item" onclick="selectProduct(${p.id})">
-                        <h4>🛢️ ${p.name}</h4>
+                        <h4>${p.name.includes('Чан') ? '🛢️' : '🔥'} ${p.name}</h4>
                         <div class="price-drop">${p.price.toLocaleString('ru-RU')} ₽</div>
                     </div>`;
         }
         document.getElementById('dropdownContent').innerHTML = html;
     }
 
+    function renderAddons() {
+        let container = document.getElementById('addonsBlock');
+        if(!currentProduct.hasAddons) {
+            container.innerHTML = '';
+            return;
+        }
+        let html = '<div class="addons"><h3>➕ Допы (можно выбрать несколько)</h3>';
+        for(let a of addonsList) {
+            let count = selectedAddons[a.id] ? selectedAddons[a.id].quantity : 0;
+            html += `<div class="addon-item">
+                        <span class="addon-name">${a.name}</span>
+                        <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
+                        <div class="addon-controls">
+                            <button onclick="changeAddonCount('${a.id}', '${a.name}', ${a.price}, -1)">−</button>
+                            <span class="addon-count" id="count_${a.id}">${count}</span>
+                            <button onclick="changeAddonCount('${a.id}', '${a.name}', ${a.price}, 1)">+</button>
+                        </div>
+                    </div>`;
+        }
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    window.changeAddonCount = function(id, name, price, delta) {
+        if(!selectedAddons[id]) {
+            if(delta > 0) {
+                selectedAddons[id] = { name, price, quantity: 1 };
+            }
+        } else {
+            let newQty = selectedAddons[id].quantity + delta;
+            if(newQty <= 0) {
+                delete selectedAddons[id];
+            } else {
+                selectedAddons[id].quantity = newQty;
+            }
+        }
+        updateAddonsDisplay();
+        updatePrice();
+    };
+
+    function updateAddonsDisplay() {
+        for(let a of addonsList) {
+            let span = document.getElementById('count_' + a.id);
+            if(span) {
+                let qty = selectedAddons[a.id] ? selectedAddons[a.id].quantity : 0;
+                span.textContent = qty;
+            }
+        }
+    }
+
+    function updatePrice() {
+        if(!currentProduct) return;
+        let addSum = 0;
+        for(let k in selectedAddons) {
+            addSum += selectedAddons[k].price * selectedAddons[k].quantity;
+        }
+        let total = currentProduct.price + addSum;
+        document.getElementById('cardPrice').innerHTML = `💰 ${total.toLocaleString('ru-RU')} ₽`;
+    }
+
     function selectProduct(id) {
         currentProduct = products.find(p => p.id === id);
+        selectedAddons = {};
         document.getElementById('productCard').classList.add('show');
         document.getElementById('cardImage').src = currentProduct.img;
         document.getElementById('cardName').innerText = currentProduct.name;
         document.getElementById('cardSpecs').innerHTML = currentProduct.specs;
         document.getElementById('cardPrice').innerHTML = `💰 ${currentProduct.price.toLocaleString('ru-RU')} ₽`;
+        renderAddons();
         document.getElementById('dropdownContent').classList.remove('show');
     }
 
@@ -328,8 +455,14 @@
             return;
         }
         cart.push({ name: currentProduct.name, price: currentProduct.price });
+        for(let k in selectedAddons) {
+            let addon = selectedAddons[k];
+            for(let i = 0; i < addon.quantity; i++) {
+                cart.push({ name: addon.name, price: addon.price });
+            }
+        }
         updateCart();
-        showMessage(`✓ ${currentProduct.name} добавлен в корзину`);
+        showMessage(`✓ ${currentProduct.name} и выбранные допы добавлены в корзину`);
     }
 
     async function sendOrder() {
@@ -353,7 +486,7 @@
             items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
             total += it.price;
         }
-        let msg = `🛢️ НОВЫЙ ЗАКАЗ (чаны)!\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'не указан'}\n\n📦 Заказ:\n${items}\n💰 ИТОГО: ${total.toLocaleString('ru-RU')} ₽`;
+        let msg = `🔥 НОВЫЙ ЗАКАЗ!\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'не указан'}\n\n📦 Заказ:\n${items}\n💰 ИТОГО: ${total.toLocaleString('ru-RU')} ₽`;
         
         try {
             let res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -371,10 +504,10 @@
                 document.getElementById('userPhone').value = '';
                 document.getElementById('userAddress').value = '';
             } else {
-                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
+                showMessage('⚠️ Ошибка, но заказ сохранён', true);
             }
         } catch(e) {
-            showMessage('⚠️ Ошибка соединения (включите VPN для отправки в Telegram)', true);
+            showMessage('⚠️ Ошибка соединения (включите VPN)', true);
         }
     }
 
