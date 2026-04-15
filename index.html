@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Банные печи — заказы в Telegram</title>
+    <title>Банные печи — Telegram + допы</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Georgia',serif;background:linear-gradient(135deg,#2c1810,#8b4513);padding:20px;min-height:100vh;}
@@ -19,15 +19,21 @@
         .dropdown-item p{font-size:12px;color:#666;}
         .dropdown-item .price-drop{color:#c0392b;font-weight:bold;}
 
-        .pechka-card{background:white;border-radius:20px;padding:20px;max-width:500px;margin:20px auto;border:2px solid #d35400;display:none;}
+        .pechka-card{background:white;border-radius:20px;padding:20px;max-width:600px;margin:20px auto;border:2px solid #d35400;display:none;}
         .pechka-card.show{display:block;}
-        .pechka-card img{width:100%;border-radius:15px;height:250px;object-fit:cover;}
+        .pechka-card img{width:100%;border-radius:15px;height:200px;object-fit:cover;background:#f4f4f4;}
         .pechka-card h2{color:#d35400;margin:10px 0;text-align:center;}
         .pechka-card .price{font-size:24px;font-weight:bold;color:#c0392b;text-align:center;margin:10px 0;}
         .pechka-card .specs{background:#fff8f0;padding:10px;border-radius:10px;border-left:4px solid #d35400;margin:10px 0;line-height:1.5;}
-        .add-to-cart{width:100%;padding:12px;background:#d35400;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
 
-        .cart-section{background:white;border-radius:20px;padding:20px;max-width:500px;margin:30px auto;}
+        .addons{background:#fff8f0;padding:15px;border-radius:15px;margin:15px 0;}
+        .addon-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #ddd;}
+        .addon-item label{font-weight:bold;}
+        .addon-price{color:#c0392b;font-weight:bold;}
+
+        .add-to-cart{width:100%;padding:12px;background:#d35400;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px;}
+
+        .cart-section{background:white;border-radius:20px;padding:20px;max-width:600px;margin:30px auto;}
         .cart-section h2{color:#d35400;text-align:center;margin-bottom:10px;}
         .cart-item{background:#fff9f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between;margin-bottom:8px;}
         .remove-item{background:#c0392b;color:white;border:none;border-radius:20px;padding:3px 10px;cursor:pointer;}
@@ -35,10 +41,9 @@
         .empty-cart{text-align:center;color:#999;padding:15px;}
 
         .order-form{margin-top:15px;padding:15px;background:#fff8f0;border-radius:15px;}
-        .order-form h3{color:#d35400;text-align:center;margin-bottom:10px;}
         .order-form input{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:8px;}
         .order-form textarea{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:8px;}
-        .send-btn{width:100%;padding:10px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
+        .send-btn{width:100%;padding:10px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px;}
 
         .success-msg{position:fixed;top:20px;right:20px;background:#27ae60;color:white;padding:10px 20px;border-radius:10px;z-index:1000;animation:fadeOut 3s forwards;}
         @keyframes fadeOut{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;visibility:hidden;}}
@@ -47,7 +52,7 @@
 <body>
 
 <h1>🔥 Печи для бани и сауны 🔥</h1>
-<div class="subtitle">Каменные печи от производителя — доставка по России</div>
+<div class="subtitle">Каменные печи + дополнительное оборудование</div>
 
 <div class="dropdown-container">
     <button class="dropdown-btn" id="dropdownBtn">📋 Выберите банную печь ▼</button>
@@ -59,7 +64,10 @@
     <h2 id="cardName"></h2>
     <div class="specs" id="cardSpecs"></div>
     <div class="price" id="cardPrice"></div>
-    <button class="add-to-cart" id="addToCartBtn">🛒 В корзину</button>
+
+    <div class="addons" id="addonsBlock"></div>
+
+    <button class="add-to-cart" id="addToCartBtn">🛒 Добавить в корзину</button>
 </div>
 
 <div class="cart-section">
@@ -77,36 +85,33 @@
 </div>
 
 <script>
-    // ========== НАСТРОЙКИ TELEGRAM ==========
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== 20 ПЕЧЕЙ ИЗ ТАБЛИЦЫ ==========
+    // ========== ПЕЧИ ==========
     const pechki = [
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x400/d35400/white?text=Печь+325"},
-        {id:2, name:"Печь Ø325 сквозная каменка + бак чёрный", price:18500, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 + бак<br>💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x400/e67e22/white?text=Печь+325+бак"},
-        {id:3, name:"Печь Ø325 сквозная каменка + бак нерж", price:24000, specs:"🏠 Объем бани до 15 м³<br>💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/27ae60/white?text=Печь+325+нерж"},
-        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 мм<br>🔥 Толщина 8 мм, конвекция", img:"https://placehold.co/600x400/3498db/white?text=Печь+426+леж"},
-        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"🏠 Объем бани до 25 м³<br>💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x400/1abc9c/white?text=426+леж+бак"},
-        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"🏠 Объем бани до 25 м³<br>💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/9b59b6/white?text=426+леж+нерж"},
-        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 426×550 мм", img:"https://placehold.co/600x400/c0392b/white?text=426+откр"},
-        {id:8, name:"Печь Ø426 открытая каменка + чёрный бак", price:16500, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x400/f39c12/white?text=426+откр+бак"},
-        {id:9, name:"Печь Ø426 открытая каменка + бак нерж", price:22000, specs:"💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/2ecc71/white?text=426+откр+нерж"},
-        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 550×750×800 мм", img:"https://placehold.co/600x400/e74c3c/white?text=530+поворт"},
-        {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л, сталь 2 мм", img:"https://placehold.co/600x400/16a085/white?text=530+поворт+бак"},
-        {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Бак нержавейка 85 л", img:"https://placehold.co/600x400/8e44ad/white?text=530+поворт+нерж"},
-        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 Объем бани 15 м³ (6 м²)<br>📐 530×600×500 мм", img:"https://placehold.co/600x400/d35400/white?text=Соц+печь"},
-        {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л", img:"https://placehold.co/600x400/e67e22/white?text=Соц+чёрн"},
-        {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Бак нержавейка 50 л", img:"https://placehold.co/600x400/27ae60/white?text=Соц+нерж"},
-        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Объем парилки до 20 м³<br>💧 Бак 75 л", img:"https://placehold.co/600x400/2980b9/white?text=3+помещ"},
-        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"💧 Бак нержавейка 75 л", img:"https://placehold.co/600x400/8e44ad/white?text=3+пом+нерж"},
-        {id:18, name:"Печь Буржуйка №1", price:5000, specs:"🏠 Объем до 20 м³<br>📐 350×300×300 мм", img:"https://placehold.co/600x400/7f8c8d/white?text=Буржуйка+1"},
-        {id:19, name:"Печь Буржуйка №2", price:8000, specs:"🏠 Объем до 40 м³<br>📐 500×350×440 мм", img:"https://placehold.co/600x400/95a5a6/white?text=Буржуйка+2"},
-        {id:20, name:"Печь Буржуйка из трубы Ø530", price:16000, specs:"🏠 Объем до 200 м³<br>🔥 Труба 8 мм, чугунный колосник", img:"https://placehold.co/600x400/bdc3c7/white?text=Буржуйка+530"}
+        {id:1, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 Объем до 25 м³<br>🔥 Труба 426 мм, 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x400/d35400/white?text=Буржуйка+426"},
+        {id:2, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 Объем до 40 м³<br>🔥 Труба 530 мм, 8 мм", img:"https://placehold.co/600x400/e67e22/white?text=Буржуйка+530"},
+        {id:3, name:"Буржуйка Талти", price:18000, specs:"🏠 Объем до 200 м³<br>🔥 Длительного горения", img:"https://placehold.co/600x400/27ae60/white?text=Талти"},
+        {id:4, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 Площадь 80-100 м²<br>🔥 Сталь 3 мм", img:"https://placehold.co/600x400/3498db/white?text=Котёл+малый"},
+        {id:5, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 Площадь 100-130 м²<br>🔥 Сталь 3 мм", img:"https://placehold.co/600x400/9b59b6/white?text=Котёл+большой"},
+        {id:6, name:"Котёл с водяным верхом", price:27500, specs:"🏠 Площадь до 200 м²<br>🔥 Водяной контур", img:"https://placehold.co/600x400/f39c12/white?text=Котёл+ВВ"}
+    ];
+
+    // ========== ДОПЫ ==========
+    const addonsList = [
+        {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
+        {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
+        {id:"b3", name:"Бак нерж 85 л, 1 мм", price:13500},
+        {id:"b4", name:"Бак нерж 85 л, 1.5 мм", price:15500},
+        {id:"elbow", name:"Колено Ø115 мм 45°", price:600},
+        {id:"roof", name:"Зонт Ø115 мм", price:1000},
+        {id:"clamp", name:"Хомут обжимной Ø115 мм", price:350}
     ];
 
     let cart = [];
     let currentPechka = null;
+    let selectedAddons = {};
 
     function showMessage(text, isError = false) {
         let msg = document.createElement('div');
@@ -129,13 +134,47 @@
         document.getElementById('dropdownContent').innerHTML = html;
     }
 
+    function renderAddons() {
+        let html = '<h3 style="margin-bottom:10px;">➕ Дополнительное оборудование</h3>';
+        for(let a of addonsList) {
+            let checked = selectedAddons[a.id] ? 'checked' : '';
+            html += `<div class="addon-item">
+                        <label><input type="checkbox" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}" onchange="toggleAddon(this)" ${checked}> ${a.name}</label>
+                        <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
+                     </div>`;
+        }
+        document.getElementById('addonsBlock').innerHTML = html;
+    }
+
+    window.toggleAddon = function(checkbox) {
+        let id = checkbox.getAttribute('data-id');
+        if(checkbox.checked) {
+            selectedAddons[id] = {
+                name: checkbox.getAttribute('data-name'),
+                price: parseInt(checkbox.getAttribute('data-price'))
+            };
+        } else {
+            delete selectedAddons[id];
+        }
+        updateCurrentPriceDisplay();
+    };
+
+    function updateCurrentPriceDisplay() {
+        if(!currentPechka) return;
+        let addonsTotal = Object.values(selectedAddons).reduce((sum, a) => sum + a.price, 0);
+        let total = currentPechka.price + addonsTotal;
+        document.getElementById('cardPrice').innerHTML = `💰 Цена: ${total.toLocaleString('ru-RU')} ₽`;
+    }
+
     function selectPechka(id) {
         currentPechka = pechki.find(p => p.id === id);
+        selectedAddons = {};
         let card = document.getElementById('pechkaCard');
         document.getElementById('cardImage').src = currentPechka.img;
         document.getElementById('cardName').innerHTML = currentPechka.name;
         document.getElementById('cardSpecs').innerHTML = currentPechka.specs;
         document.getElementById('cardPrice').innerHTML = `💰 ${currentPechka.price.toLocaleString('ru-RU')} ₽`;
+        renderAddons();
         card.classList.add('show');
         document.getElementById('dropdownContent').classList.remove('show');
     }
@@ -168,16 +207,24 @@
     }
 
     function addToCart() {
-        if(currentPechka) {
-            cart.push({...currentPechka});
-            updateCartDisplay();
-            showMessage(`✓ ${currentPechka.name} добавлена в корзину!`);
-        } else {
+        if(!currentPechka) {
             showMessage('❌ Сначала выберите печь');
+            return;
         }
+        let addonsTotal = Object.values(selectedAddons).reduce((sum, a) => sum + a.price, 0);
+        let totalPrice = currentPechka.price + addonsTotal;
+        let addonsText = Object.values(selectedAddons).map(a => ` + ${a.name}`).join('');
+        let cartItem = {
+            name: currentPechka.name + addonsText,
+            price: totalPrice,
+            basePrice: currentPechka.price,
+            addons: {...selectedAddons}
+        };
+        cart.push(cartItem);
+        updateCartDisplay();
+        showMessage(`✓ ${currentPechka.name} добавлена в корзину!`);
     }
 
-    // ========== ОТПРАВКА В TELEGRAM ==========
     async function sendOrder() {
         let name = document.getElementById('customerName').value.trim();
         let email = document.getElementById('customerEmail').value.trim();
@@ -210,7 +257,7 @@
             });
             let result = await response.json();
             if(result.ok) {
-                showMessage('✅ Заказ отправлен в Telegram! Мы свяжемся с вами');
+                showMessage('✅ Заказ отправлен в Telegram!');
                 cart = [];
                 updateCartDisplay();
                 document.getElementById('customerName').value = '';
@@ -218,10 +265,10 @@
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
             } else {
-                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
+                showMessage('⚠️ Ошибка, но заказ сохранён', true);
             }
         } catch(e) {
-            showMessage('⚠️ Ошибка соединения. Проверьте интернет или VPN', true);
+            showMessage('⚠️ Ошибка соединения. Проверьте VPN', true);
         }
     }
 
