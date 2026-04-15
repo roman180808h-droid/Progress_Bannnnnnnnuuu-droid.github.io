@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи и чаны — каталог</title>
+    <title>Банные печи и чаны — полный каталог</title>
     <style>
         * {
             margin: 0;
@@ -295,29 +295,6 @@
             background: white;
         }
 
-        .captcha-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin: 15px 0;
-            background: #fef8f2;
-            padding: 12px;
-            border-radius: 60px;
-        }
-
-        .captcha-question {
-            font-weight: bold;
-            background: #e8d9ca;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 1rem;
-        }
-
-        .captcha-input {
-            flex: 1;
-            margin: 0 !important;
-        }
-
         .error-border {
             border: 2px solid #c0392b !important;
             background: #fff5f5 !important;
@@ -372,7 +349,6 @@
             <input type="email" id="customerEmail" placeholder="Email *">
             <input type="tel" id="customerPhone" placeholder="Телефон *">
             <textarea id="customerAddress" placeholder="Адрес доставки" rows="2"></textarea>
-            <div id="captchaContainer"></div>
             <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ в Telegram</button>
         </div>
     </div>
@@ -382,45 +358,157 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ТОВАРЫ ==========
+    // ========== ВСЕ ТОВАРЫ С ПОЛНЫМИ ОПИСАНИЯМИ ==========
     const products = [
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x450/e8cfb0/white?text=Печь+325", hasAddons:true},
-        {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=325+бак+чёрн", hasAddons:true},
-        {id:3, name:"Печь Ø325 + бак нерж", price:24000, specs:"🏠 до 15 м³ + нерж.бак 65 л<br>💧 1 мм нержавейка", img:"https://placehold.co/600x450/e8cfb0/white?text=325+нерж", hasAddons:true},
-        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>🔥 Конвекция", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж", hasAddons:true},
-        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+бак", hasAddons:true},
-        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Нержавейка 1 мм, 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+нерж", hasAddons:true},
-        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³, 426×550 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр", hasAddons:true},
-        {id:8, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+бак", hasAddons:true},
-        {id:9, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Нержавейка 1 мм, 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+нерж", hasAddons:true},
-        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³ (12 м²)<br>🔄 Поворотная", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт", hasAddons:true},
-        {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+бак", hasAddons:true},
-        {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Нерж 1 мм, 85 л", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+нерж", hasAddons:true},
-        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³ (6 м²)<br>📐 530×600×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+печь", hasAddons:true},
-        {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+чёрн", hasAddons:true},
-        {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Нерж 50 л, 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+нерж", hasAddons:true},
-        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³, лабиринт<br>💧 Бак 75 л, чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=3+помещ", hasAddons:true},
-        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"🏠 Лабиринт, 75 л нерж", img:"https://placehold.co/600x450/e8cfb0/white?text=3+пом+нерж", hasAddons:true},
-        {id:18, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³, 8 мм + кружок", img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+426", hasAddons:true},
-        {id:19, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 до 200 м³, 8 мм + кружок", img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+530", hasAddons:true},
-        {id:20, name:"Буржуйка Талти", price:18000, specs:"🏠 до 200 м³, 24 ч горения", img:"https://placehold.co/600x450/e8cfb0/white?text=Талти", hasAddons:true},
-        {id:21, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м², 550×430×600", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+малый", hasAddons:true},
-        {id:22, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 100-130 м², 720×430×600", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+большой", hasAddons:true},
-        {id:23, name:"Котёл с водяным верхом", price:27500, specs:"🏠 до 200 м², водяной контур", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+ВВ", hasAddons:true},
-        {id:24, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³, лабиринт", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка", hasAddons:true},
-        {id:25, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 бак 65 л чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+бак", hasAddons:true},
-        {id:26, name:"Печь бочка + бак нерж", price:39000, specs:"💧 нерж 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+нерж", hasAddons:true},
-        {id:27, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³, сталь 4/8 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль", hasAddons:true},
-        {id:28, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 бак 85 л чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+бак", hasAddons:true},
-        {id:29, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 нерж 85 л, 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+нерж", hasAddons:true},
-        {id:30, name:"Банный чан 100 л, нержавейка", price:12500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л", hasAddons:false},
-        {id:31, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л", hasAddons:false},
-        {id:32, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л", hasAddons:false},
-        {id:33, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 Объём 250 л<br>📐 900×900×550 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+250л", hasAddons:false},
-        {id:34, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 Объём 300 л<br>📐 1000×1000×600 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+300л", hasAddons:false},
-        {id:35, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л+чёрн", hasAddons:false},
-        {id:36, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л+чёрн", hasAddons:false},
-        {id:37, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false}
+        // --- ПЕЧИ (полные описания) ---
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, 
+         specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм<br>📏 Длина выступа топки 200 мм<br>⚙️ Каменка слева, справа, с торца", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Печь+325", hasAddons:true},
+         
+        {id:2, name:"Печь Ø325 сквозная каменка + бак чёрный", price:18500, 
+         specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 + 500 мм бак<br>💧 Бак из чёрной стали 2 мм, 65 л<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм<br>📏 Длина выступа топки 200 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=325+бак+чёрн", hasAddons:true},
+         
+        {id:3, name:"Печь Ø325 сквозная каменка + бак нерж", price:24000, 
+         specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 + 500 мм бак<br>💧 Бак из нержавеющей стали 1 мм, 65 л<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=325+нерж", hasAddons:true},
+         
+        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, 
+         specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 мм<br>🔥 Толщина стали 8 мм, обшита листовой сталью 2 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм<br>🔥 Конвекция", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж", hasAddons:true},
+         
+        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, 
+         specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 655×450×600 + 700 мм бак<br>💧 Бак из листовой стали 2 мм, 65 л<br>🔥 Толщина стали 8 мм, конвекция<br>🪵 Колосник чугунный", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+бак", hasAddons:true},
+         
+        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, 
+         specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 + 700 мм бак<br>💧 Бак из нержавеющей стали 1 мм, 65 л<br>🔥 Толщина стали 8 мм, конвекция<br>🪵 Колосник чугунный", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+нерж", hasAddons:true},
+         
+        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, 
+         specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 426×550 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр", hasAddons:true},
+         
+        {id:8, name:"Печь Ø426 открытая каменка + чёрный бак", price:16500, 
+         specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 426×550 + 800 мм бак<br>💧 Бак из чёрной стали 2 мм, 65 л<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+бак", hasAddons:true},
+         
+        {id:9, name:"Печь Ø426 открытая каменка + бак нерж", price:22000, 
+         specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 426×550 + 800 мм бак<br>💧 Бак из нержавеющей стали 1 мм, 65 л<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+нерж", hasAddons:true},
+         
+        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, 
+         specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 550×750×800 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм<br>📏 Длина выступа топки 200 мм<br>🔄 Каменка поворотная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт", hasAddons:true},
+         
+        {id:11, name:"Печь Ø530 поворотная каменка + чёрный бак", price:26500, 
+         specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 550×750×800 + 500 мм бак<br>💧 Бак из чёрной стали 2 мм, 85 л<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>🔄 Каменка поворотная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+бак", hasAddons:true},
+         
+        {id:12, name:"Печь Ø530 поворотная каменка + бак нерж", price:32500, 
+         specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 550×750×800 + 500 мм бак<br>💧 Бак из нержавеющей стали 1 мм, 85 л<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>🔄 Каменка поворотная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+нерж", hasAddons:true},
+         
+        {id:13, name:"Печь социальная, без выступа", price:14000, 
+         specs:"🏠 Объем бани 15 м³ (6 м²)<br>📐 530×600×500 мм<br>🔥 Из листовой стали 4 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 89 мм<br>💧 Бак слева/справа, объём 50 л", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+печь", hasAddons:true},
+         
+        {id:14, name:"Печь социальная + чёрный бак", price:19500, 
+         specs:"🏠 Объем бани 15 м³ (6 м²)<br>📐 530×600×500 мм<br>💧 Бак из чёрной стали 2 мм, 50 л<br>🔥 Из листовой стали 4 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+чёрн", hasAddons:true},
+         
+        {id:15, name:"Печь социальная + бак нерж", price:24000, 
+         specs:"🏠 Объем бани 15 м³ (6 м²)<br>📐 530×600×500 мм<br>💧 Бак из нержавеющей стали 1 мм, 50 л<br>🔥 Из листовой стали 4 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+нерж", hasAddons:true},
+         
+        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, 
+         specs:"🏠 Объем парилки до 20 м³ (8 м²)<br>🔥 Труба Ø530 мм, толщина 8 мм, газопламенный лабиринт<br>💧 Бак из чёрной стали 2 мм, 75 л<br>🪵 Колосник чугунный<br>📏 Выступ топки 150 мм<br>🔄 Каменка поворотная<br>🔥 Печь может топиться из предбанника и из бани", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=3+помещ", hasAddons:true},
+         
+        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, 
+         specs:"🏠 Объем парилки до 20 м³ (8 м²)<br>🔥 Труба Ø530 мм, толщина 8 мм, газопламенный лабиринт<br>💧 Бак из нержавеющей стали 1 мм, 75 л<br>🪵 Колосник чугунный<br>📏 Выступ топки 150 мм<br>🔄 Каменка поворотная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=3+пом+нерж", hasAddons:true},
+         
+        {id:18, name:"Буржуйка №1 (426 труба)", price:9000, 
+         specs:"🏠 Объем помещения до 150 м³ (до 70 м²)<br>📐 500×426×450 мм<br>🔥 Труба Ø426 мм, толщина 8 мм, обшита листовой сталью 2 мм<br>🪵 Колосник чугунный<br>🍳 Оборудована кружком для приготовления пищи", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+426", hasAddons:true},
+         
+        {id:19, name:"Буржуйка №2 (530 труба)", price:10000, 
+         specs:"🏠 Объем помещения до 200 м³ (до 100 м²)<br>📐 500×530×450 мм<br>🔥 Труба Ø530 мм, толщина 8 мм, обшита листовой сталью 2 мм<br>🪵 Колосник чугунный<br>🍳 Оборудована кружком для приготовления пищи", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+530", hasAddons:true},
+         
+        {id:20, name:"Буржуйка Талти", price:18000, 
+         specs:"🏠 Объем помещения до 200 м³ (до 100 м²)<br>📐 1020×340×840 мм<br>🔥 Толщина металла 3-4 мм<br>⏱️ Горение поддерживается не менее 24 часов<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 102 мм<br>📦 Объём загрузочной камеры 120 л", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Талти", hasAddons:true},
+         
+        {id:21, name:"Котёл малый 1/2 плиты", price:20500, 
+         specs:"🏠 Площадь обогрева 80-100 м²<br>📐 550×430×600 мм<br>🔥 Сталь 3 мм<br>🪵 Колосник, зольник в комплекте<br>📏 Дымоход расположен сзади снизу", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+малый", hasAddons:true},
+         
+        {id:22, name:"Котёл большой 1/2 плиты", price:26500, 
+         specs:"🏠 Площадь обогрева 100-130 м²<br>📐 720×430×600 мм<br>🔥 Сталь 3 мм<br>🪵 Колосник, зольник в комплекте<br>📏 Дымоход расположен сзади снизу", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+большой", hasAddons:true},
+         
+        {id:23, name:"Котёл с водяным верхом", price:27500, 
+         specs:"🏠 Площадь обогрева до 200 м²<br>📐 600×430×600 мм<br>🔥 Сталь 3 мм<br>💧 Водяной контур<br>🪵 Колосник, зольник в комплекте", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+ВВ", hasAddons:true},
+         
+        {id:24, name:"Печь бочка, без бака", price:29000, 
+         specs:"🏠 Объем бани до 25 м³ (10 м²)<br>🔥 Труба Ø426 мм, толщина 8 мм<br>🪵 Колосник чугунный<br>📏 Выступ топки 250 мм<br>🔥 Газопламенный лабиринт, конвективный кожух", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка", hasAddons:true},
+         
+        {id:25, name:"Печь бочка + чёрный бак", price:34500, 
+         specs:"🏠 Объем бани до 25 м³ (10 м²)<br>🔥 Труба Ø426 мм, толщина 8 мм, лабиринт<br>💧 Бак из чёрной стали 2 мм, 65 л<br>🪵 Колосник чугунный<br>📏 Выступ топки 250 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+бак", hasAddons:true},
+         
+        {id:26, name:"Печь бочка + бак нерж", price:39000, 
+         specs:"🏠 Объем бани до 25 м³ (10 м²)<br>🔥 Труба Ø426 мм, толщина 8 мм, лабиринт<br>💧 Бак из нержавеющей стали 1 мм, 65 л<br>🪵 Колосник чугунный<br>📏 Выступ топки 250 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+нерж", hasAddons:true},
+         
+        {id:27, name:"Печь 'Корабль', без бака", price:36000, 
+         specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 530×800 мм<br>🔥 Корпус печи сталь 4 мм, свод каменки 8 мм<br>🪵 Колосник чугунный<br>📏 Выступ топки 200 мм<br>📏 Диаметр дымохода 115 мм", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль", hasAddons:true},
+         
+        {id:28, name:"Печь 'Корабль' + чёрный бак", price:41000, 
+         specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 530×800 мм + бак<br>💧 Бак из чёрного металла 2 мм, 85 л<br>🔥 Корпус печи сталь 4 мм, свод каменки 8 мм<br>🪵 Колосник чугунный", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+бак", hasAddons:true},
+         
+        {id:29, name:"Печь 'Корабль' + бак нерж", price:46000, 
+         specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 530×800 мм + бак<br>💧 Бак из нержавеющей стали 1 мм, 85 л<br>🔥 Корпус печи сталь 4 мм, свод каменки 8 мм<br>🪵 Колосник чугунный", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+нерж", hasAddons:true},
+         
+        // --- БАННЫЕ ЧАНЫ (без допов) ---
+        {id:30, name:"Банный чан 100 л, нержавейка", price:12500, 
+         specs:"💧 Объём 100 л<br>📐 600×600×400 мм<br>🔥 Нержавеющая сталь 1 мм<br>🛢️ Изготовлен из пищевой нержавейки<br>🧼 Легко моется, не ржавеет", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л", hasAddons:false},
+         
+        {id:31, name:"Банный чан 150 л, нержавейка", price:16500, 
+         specs:"💧 Объём 150 л<br>📐 700×700×450 мм<br>🔥 Нержавеющая сталь 1 мм<br>🛢️ Изготовлен из пищевой нержавейки<br>🧼 Легко моется, не ржавеет", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л", hasAddons:false},
+         
+        {id:32, name:"Банный чан 200 л, нержавейка", price:19500, 
+         specs:"💧 Объём 200 л<br>📐 800×800×500 мм<br>🔥 Нержавеющая сталь 1.2 мм<br>🛢️ Изготовлен из пищевой нержавейки<br>🧼 Легко моется, не ржавеет", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л", hasAddons:false},
+         
+        {id:33, name:"Банный чан 250 л, нержавейка", price:24500, 
+         specs:"💧 Объём 250 л<br>📐 900×900×550 мм<br>🔥 Нержавеющая сталь 1.2 мм<br>🛢️ Изготовлен из пищевой нержавейки<br>🧼 Легко моется, не ржавеет", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+250л", hasAddons:false},
+         
+        {id:34, name:"Банный чан 300 л, нержавейка", price:28500, 
+         specs:"💧 Объём 300 л<br>📐 1000×1000×600 мм<br>🔥 Нержавеющая сталь 1.5 мм<br>🛢️ Изготовлен из пищевой нержавейки<br>🧼 Легко моется, не ржавеет", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+300л", hasAddons:false},
+         
+        {id:35, name:"Банный чан 100 л, чёрная сталь", price:8500, 
+         specs:"💧 Объём 100 л<br>📐 600×600×400 мм<br>🔥 Чёрная сталь 2 мм<br>🛢️ Надёжная конструкция, долговечная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л+чёрн", hasAddons:false},
+         
+        {id:36, name:"Банный чан 150 л, чёрная сталь", price:11500, 
+         specs:"💧 Объём 150 л<br>📐 700×700×450 мм<br>🔥 Чёрная сталь 2 мм<br>🛢️ Надёжная конструкция, долговечная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л+чёрн", hasAddons:false},
+         
+        {id:37, name:"Банный чан 200 л, чёрная сталь", price:14500, 
+         specs:"💧 Объём 200 л<br>📐 800×800×500 мм<br>🔥 Чёрная сталь 2 мм<br>🛢️ Надёжная конструкция, долговечная", 
+         img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false}
     ];
 
     const addonsList = [
@@ -428,39 +516,14 @@
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
         {id:"b3", name:"Бак нерж 85 л, 1 мм", price:13500},
         {id:"b4", name:"Бак нерж 85 л, 1.5 мм", price:15500},
-        {id:"b5", name:"Бак чёрный 65 л, 2 мм (400 мм)", price:6000},
-        {id:"b6", name:"Бак чёрный 85 л, 2 мм (530 мм)", price:6500},
-        {id:"elbow", name:"Колено Ø115 мм 45° (нерж. 0.5 мм)", price:600},
-        {id:"roof", name:"Зонт Ø115 мм (нерж. 0.5 мм)", price:1000},
+        {id:"elbow", name:"Колено Ø115 мм 45° (нерж)", price:600},
+        {id:"roof", name:"Зонт Ø115 мм (нерж)", price:1000},
         {id:"clamp", name:"Хомут обжимной Ø115 мм", price:350}
     ];
 
     let cart = [];
     let currentProduct = null;
     let selectedAddons = {};
-    let captchaAnswer = 0;
-
-    function generateCaptcha() {
-        let num1 = Math.floor(Math.random() * 10) + 1;
-        let num2 = Math.floor(Math.random() * 10) + 1;
-        captchaAnswer = num1 + num2;
-        const container = document.getElementById('captchaContainer');
-        if(container) {
-            container.innerHTML = `
-                <div class="captcha-container">
-                    <span class="captcha-question">🔒 ${num1} + ${num2} = ?</span>
-                    <input type="text" id="captchaInput" class="captcha-input" placeholder="Ответ *">
-                </div>
-            `;
-        }
-    }
-
-    function checkCaptcha() {
-        const input = document.getElementById('captchaInput');
-        if(!input) return false;
-        let userAnswer = parseInt(input.value.trim());
-        return userAnswer === captchaAnswer;
-    }
 
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
@@ -582,7 +645,6 @@
         container.innerHTML = html;
         totalSpan.innerText = total.toLocaleString('ru-RU');
         document.getElementById('orderForm').style.display = 'block';
-        generateCaptcha();
     }
 
     function removeFromCart(idx) {
@@ -624,12 +686,6 @@
             showMessage('❌ Корзина пуста', true);
             return;
         }
-        
-        if(!checkCaptcha()) {
-            showMessage('❌ Неправильный ответ капчи!', true);
-            generateCaptcha();
-            return;
-        }
 
         let items = '';
         let total = 0;
@@ -646,21 +702,25 @@
             let json = await res.json();
             if(json.ok) {
                 showMessage('✅ Заказ отправлен в Telegram');
-                cart = [];
-                updateCartDisplay();
+                cart = []; updateCartDisplay();
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerEmail').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
-                generateCaptcha();
-            } else {
-                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
-            }
-        } catch(e) {
-            showMessage('⚠️ Ошибка соединения (проверьте интернет или VPN)', true);
-        }
+            } else showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
+        } catch(e) { showMessage('⚠️ Ошибка соединения (проверьте интернет или VPN)', true); }
     }
 
     document.getElementById('dropdownBtn').onclick = () => document.getElementById('dropdownContent').classList.toggle('show');
     document.getElementById('addToCartBtn').onclick = addToCart;
-    document.getElementById('sendOrderBtn').onclick = sendOrder
+    document.getElementById('sendOrderBtn').onclick = sendOrder;
+    
+    document.getElementById('customerEmail').addEventListener('input', function() {
+        this.classList.remove('error-border');
+    });
+    
+    document.onclick = (e) => { if(!e.target.closest('.dropdown-container')) document.getElementById('dropdownContent').classList.remove('show'); };
+    loadDropdown();
+</script>
+</body>
+</html>
