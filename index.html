@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи — яркие картинки</title>
+    <title>Банные печи — допы работают чётко</title>
     <style>
         * {
             margin: 0;
@@ -136,7 +136,6 @@
             display: block;
         }
 
-        /* ЯРКАЯ КАРТИНКА — увеличен контраст и яркость */
         .pechka-card img {
             width: 100%;
             max-height: 350px;
@@ -435,29 +434,60 @@
     }
 
     function renderAddons() {
-        let html = '<h3 style="margin:15px 0 8px;">➕ Допы (кликабельная строка целиком)</h3>';
+        let html = '<h3 style="margin:15px 0 8px;">➕ Допы (кликай по строке — галочка появится)</h3>';
         for(let a of addonsList) {
             let checked = selectedAddons[a.id] ? 'checked' : '';
-            html += `<div class="addon-item" onclick="toggleAddonById('${a.id}', '${a.name}', ${a.price})">
-                        <label><input type="checkbox" id="chk_${a.id}" ${checked} onclick="event.stopPropagation()"> ${a.name}</label>
+            html += `<div class="addon-item" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}">
+                        <label><input type="checkbox" id="chk_${a.id}" ${checked}> ${a.name}</label>
                         <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
                     </div>`;
         }
         document.getElementById('addonsBlock').innerHTML = html;
+
+        // Навешиваем обработчики на каждую строку допа
+        document.querySelectorAll('.addon-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Чтобы не срабатывало дважды при клике на label
+                if(e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                const id = item.getAttribute('data-id');
+                const name = item.getAttribute('data-name');
+                const price = parseInt(item.getAttribute('data-price'));
+                toggleAddon(id, name, price);
+            });
+            
+            // Отдельно обрабатываем клик по чекбоксу
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            if(checkbox) {
+                checkbox.addEventListener('change', (e) => {
+                    e.stopPropagation();
+                    const id = item.getAttribute('data-id');
+                    const name = item.getAttribute('data-name');
+                    const price = parseInt(item.getAttribute('data-price'));
+                    toggleAddon(id, name, price);
+                });
+            }
+        });
     }
 
-    window.toggleAddonById = function(id, name, price) {
-        let cb = document.getElementById('chk_'+id);
-        let newState = !cb.checked;
-        cb.checked = newState;
-        if(newState) selectedAddons[id] = { name, price };
-        else delete selectedAddons[id];
+    function toggleAddon(id, name, price) {
+        const checkbox = document.getElementById('chk_'+id);
+        if(!checkbox) return;
+        
+        if(checkbox.checked) {
+            // Если галочка уже стоит — убираем
+            checkbox.checked = false;
+            delete selectedAddons[id];
+        } else {
+            // Если галочки нет — ставим
+            checkbox.checked = true;
+            selectedAddons[id] = { name, price };
+        }
         updateCurrentPriceDisplay();
-    };
+    }
 
     function updateCurrentPriceDisplay() {
         if(!currentPechka) return;
-        let addSum = Object.values(selectedAddons).reduce((s,a)=>s+a.price,0);
+        let addSum = Object.values(selectedAddons).reduce((s,a)=>s+a.price, 0);
         let total = currentPechka.price + addSum;
         document.getElementById('cardPrice').innerHTML = `💰 ${total.toLocaleString('ru-RU')} ₽`;
     }
