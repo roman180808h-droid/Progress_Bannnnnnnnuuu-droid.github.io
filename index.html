@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Банные печи — Telegram + допы</title>
+    <title>Банные печи — допы в корзине</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Georgia',serif;background:linear-gradient(135deg,#2c1810,#8b4513);padding:20px;min-height:100vh;}
@@ -35,8 +35,9 @@
 
         .cart-section{background:white;border-radius:20px;padding:20px;max-width:600px;margin:30px auto;}
         .cart-section h2{color:#d35400;text-align:center;margin-bottom:10px;}
-        .cart-item{background:#fff9f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between;margin-bottom:8px;}
-        .remove-item{background:#c0392b;color:white;border:none;border-radius:20px;padding:3px 10px;cursor:pointer;}
+        .cart-item{background:#fff9f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+        .cart-item-name{flex:1;}
+        .remove-item{background:#c0392b;color:white;border:none;border-radius:20px;padding:3px 10px;cursor:pointer;margin-left:10px;}
         .total{text-align:right;font-size:18px;font-weight:bold;padding-top:10px;border-top:1px solid #d35400;}
         .empty-cart{text-align:center;color:#999;padding:15px;}
 
@@ -88,17 +89,15 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ПЕЧИ ==========
     const pechki = [
-        {id:1, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 Объем до 25 м³<br>🔥 Труба 426 мм, 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x400/d35400/white?text=Буржуйка+426"},
+        {id:1, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 Объем до 25 м³<br>🔥 Труба 426 мм, 8 мм", img:"https://placehold.co/600x400/d35400/white?text=Буржуйка+426"},
         {id:2, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 Объем до 40 м³<br>🔥 Труба 530 мм, 8 мм", img:"https://placehold.co/600x400/e67e22/white?text=Буржуйка+530"},
         {id:3, name:"Буржуйка Талти", price:18000, specs:"🏠 Объем до 200 м³<br>🔥 Длительного горения", img:"https://placehold.co/600x400/27ae60/white?text=Талти"},
-        {id:4, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 Площадь 80-100 м²<br>🔥 Сталь 3 мм", img:"https://placehold.co/600x400/3498db/white?text=Котёл+малый"},
-        {id:5, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 Площадь 100-130 м²<br>🔥 Сталь 3 мм", img:"https://placehold.co/600x400/9b59b6/white?text=Котёл+большой"},
-        {id:6, name:"Котёл с водяным верхом", price:27500, specs:"🏠 Площадь до 200 м²<br>🔥 Водяной контур", img:"https://placehold.co/600x400/f39c12/white?text=Котёл+ВВ"}
+        {id:4, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 Площадь 80-100 м²", img:"https://placehold.co/600x400/3498db/white?text=Котёл+малый"},
+        {id:5, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 Площадь 100-130 м²", img:"https://placehold.co/600x400/9b59b6/white?text=Котёл+большой"},
+        {id:6, name:"Котёл с водяным верхом", price:27500, specs:"🏠 Площадь до 200 м²", img:"https://placehold.co/600x400/f39c12/white?text=Котёл+ВВ"}
     ];
 
-    // ========== ДОПЫ ==========
     const addonsList = [
         {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
@@ -109,7 +108,7 @@
         {id:"clamp", name:"Хомут обжимной Ø115 мм", price:350}
     ];
 
-    let cart = [];
+    let cart = [];        // каждый элемент: { type, name, price, parentId? }
     let currentPechka = null;
     let selectedAddons = {};
 
@@ -188,10 +187,11 @@
             document.getElementById('orderForm').style.display = 'none';
             return;
         }
-        let total = 0, html = '';
+        let total = 0;
+        let html = '';
         for(let i=0; i<cart.length; i++) {
             html += `<div class="cart-item">
-                        <span><strong>${cart[i].name}</strong> - ${cart[i].price.toLocaleString('ru-RU')} ₽</span>
+                        <span class="cart-item-name"><strong>${cart[i].name}</strong> - ${cart[i].price.toLocaleString('ru-RU')} ₽</span>
                         <button class="remove-item" onclick="removeFromCart(${i})">Удалить</button>
                      </div>`;
             total += cart[i].price;
@@ -211,18 +211,25 @@
             showMessage('❌ Сначала выберите печь');
             return;
         }
-        let addonsTotal = Object.values(selectedAddons).reduce((sum, a) => sum + a.price, 0);
-        let totalPrice = currentPechka.price + addonsTotal;
-        let addonsText = Object.values(selectedAddons).map(a => ` + ${a.name}`).join('');
-        let cartItem = {
-            name: currentPechka.name + addonsText,
-            price: totalPrice,
-            basePrice: currentPechka.price,
-            addons: {...selectedAddons}
-        };
-        cart.push(cartItem);
+
+        // Добавляем печь
+        cart.push({
+            type: 'pech',
+            name: currentPechka.name,
+            price: currentPechka.price
+        });
+
+        // Добавляем каждый выбранный доп отдельной строкой
+        for(let key in selectedAddons) {
+            cart.push({
+                type: 'addon',
+                name: selectedAddons[key].name,
+                price: selectedAddons[key].price
+            });
+        }
+
         updateCartDisplay();
-        showMessage(`✓ ${currentPechka.name} добавлена в корзину!`);
+        showMessage(`✓ ${currentPechka.name} и выбранные опции добавлены в корзину`);
     }
 
     async function sendOrder() {
