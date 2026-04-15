@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Магазин банных печей</title>
+    <title>Банные печи — заказы в Telegram</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Georgia',serif;background:linear-gradient(135deg,#2c1810,#8b4513);padding:20px;min-height:100vh;}
@@ -72,26 +72,46 @@
         <input type="email" id="customerEmail" placeholder="Email *">
         <input type="tel" id="customerPhone" placeholder="Телефон *">
         <textarea id="customerAddress" placeholder="Адрес доставки" rows="2"></textarea>
-        <button class="send-btn" id="sendOrderBtn">📧 Отправить заказ</button>
+        <button class="send-btn" id="sendOrderBtn">📨 Отправить заказ в Telegram</button>
     </div>
 </div>
 
 <script>
-    // ========== НАСТРОЙКА ==========
-    const YOUR_EMAIL = "Rom4ik180808@yandex.ru";
+    // ========== НАСТРОЙКИ TELEGRAM ==========
+    const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
+    const CHAT_ID = "2013568102";
 
+    // ========== 20 ПЕЧЕЙ ИЗ ТАБЛИЦЫ ==========
     const pechki = [
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x400/d35400/white?text=Печь+325"},
         {id:2, name:"Печь Ø325 сквозная каменка + бак чёрный", price:18500, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 + бак<br>💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x400/e67e22/white?text=Печь+325+бак"},
-        {id:3, name:"Печь Ø325 сквозная каменка + бак нерж", price:24000, specs:"🏠 Объем бани до 15 м³<br>💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/27ae60/white?text=Печь+325+нерж"}
+        {id:3, name:"Печь Ø325 сквозная каменка + бак нерж", price:24000, specs:"🏠 Объем бани до 15 м³<br>💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/27ae60/white?text=Печь+325+нерж"},
+        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 мм<br>🔥 Толщина 8 мм, конвекция", img:"https://placehold.co/600x400/3498db/white?text=Печь+426+леж"},
+        {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"🏠 Объем бани до 25 м³<br>💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x400/1abc9c/white?text=426+леж+бак"},
+        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"🏠 Объем бани до 25 м³<br>💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/9b59b6/white?text=426+леж+нерж"},
+        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 426×550 мм", img:"https://placehold.co/600x400/c0392b/white?text=426+откр"},
+        {id:8, name:"Печь Ø426 открытая каменка + чёрный бак", price:16500, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x400/f39c12/white?text=426+откр+бак"},
+        {id:9, name:"Печь Ø426 открытая каменка + бак нерж", price:22000, specs:"💧 Бак нержавейка 65 л", img:"https://placehold.co/600x400/2ecc71/white?text=426+откр+нерж"},
+        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 Объем бани до 35 м³ (12 м²)<br>📐 550×750×800 мм", img:"https://placehold.co/600x400/e74c3c/white?text=530+поворт"},
+        {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л, сталь 2 мм", img:"https://placehold.co/600x400/16a085/white?text=530+поворт+бак"},
+        {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Бак нержавейка 85 л", img:"https://placehold.co/600x400/8e44ad/white?text=530+поворт+нерж"},
+        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 Объем бани 15 м³ (6 м²)<br>📐 530×600×500 мм", img:"https://placehold.co/600x400/d35400/white?text=Соц+печь"},
+        {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л", img:"https://placehold.co/600x400/e67e22/white?text=Соц+чёрн"},
+        {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Бак нержавейка 50 л", img:"https://placehold.co/600x400/27ae60/white?text=Соц+нерж"},
+        {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Объем парилки до 20 м³<br>💧 Бак 75 л", img:"https://placehold.co/600x400/2980b9/white?text=3+помещ"},
+        {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"💧 Бак нержавейка 75 л", img:"https://placehold.co/600x400/8e44ad/white?text=3+пом+нерж"},
+        {id:18, name:"Печь Буржуйка №1", price:5000, specs:"🏠 Объем до 20 м³<br>📐 350×300×300 мм", img:"https://placehold.co/600x400/7f8c8d/white?text=Буржуйка+1"},
+        {id:19, name:"Печь Буржуйка №2", price:8000, specs:"🏠 Объем до 40 м³<br>📐 500×350×440 мм", img:"https://placehold.co/600x400/95a5a6/white?text=Буржуйка+2"},
+        {id:20, name:"Печь Буржуйка из трубы Ø530", price:16000, specs:"🏠 Объем до 200 м³<br>🔥 Труба 8 мм, чугунный колосник", img:"https://placehold.co/600x400/bdc3c7/white?text=Буржуйка+530"}
     ];
 
     let cart = [];
     let currentPechka = null;
 
-    function showMessage(text) {
+    function showMessage(text, isError = false) {
         let msg = document.createElement('div');
         msg.className = 'success-msg';
+        msg.style.background = isError ? '#c0392b' : '#27ae60';
         msg.textContent = text;
         document.body.appendChild(msg);
         setTimeout(() => msg.remove(), 3000);
@@ -157,6 +177,7 @@
         }
     }
 
+    // ========== ОТПРАВКА В TELEGRAM ==========
     async function sendOrder() {
         let name = document.getElementById('customerName').value.trim();
         let email = document.getElementById('customerEmail').value.trim();
@@ -164,11 +185,11 @@
         let address = document.getElementById('customerAddress').value;
 
         if(!name || !email || !phone) {
-            showMessage('❌ Заполните имя, email и телефон');
+            showMessage('❌ Заполните имя, email и телефон', true);
             return;
         }
         if(cart.length === 0) {
-            showMessage('❌ Корзина пуста');
+            showMessage('❌ Корзина пуста', true);
             return;
         }
 
@@ -179,22 +200,17 @@
             total += cart[i].price;
         }
 
+        let message = `🔥 НОВЫЙ ЗАКАЗ! 🔥\n\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'не указан'}\n\n📦 Заказ:\n${items}\n💰 ИТОГО: ${total.toLocaleString('ru-RU')} ₽`;
+
         try {
-            let response = await fetch('https://formsubmit.co/ajax/' + YOUR_EMAIL, {
+            let response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    address: address,
-                    order: items,
-                    total: total,
-                    _subject: "🔥 НОВЫЙ ЗАКАЗ с сайта печей"
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
             });
-            if(response.ok) {
-                showMessage('✅ Заказ отправлен! Мы свяжемся с вами');
+            let result = await response.json();
+            if(result.ok) {
+                showMessage('✅ Заказ отправлен в Telegram! Мы свяжемся с вами');
                 cart = [];
                 updateCartDisplay();
                 document.getElementById('customerName').value = '';
@@ -202,10 +218,10 @@
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
             } else {
-                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами');
+                showMessage('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами', true);
             }
         } catch(e) {
-            showMessage('⚠️ Ошибка соединения, заказ не отправлен. Попробуйте позже');
+            showMessage('⚠️ Ошибка соединения. Проверьте интернет или VPN', true);
         }
     }
 
