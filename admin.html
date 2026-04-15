@@ -65,8 +65,8 @@
 </div>
 
 <script>
-    // ========== ПРЯМАЯ CSV ССЫЛКА ==========
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/1pVQFhA2p4gBSUJNVfV9q3PU4aUhlingoQ6Es-KUZ5YI/export?format=csv&gid=0";
+    // ========== ТВОЯ НОВАЯ ССЫЛКА НА APPS SCRIPT ==========
+    const ORDERS_API_URL = "https://script.google.com/macros/s/AKfycbwqVOIveTdfiWE0TKH3BX98CkvELUsRWkSu2lk7ZUgMII4VM_Ak5rkmnmGhoZ4Xql6D/exec";
     const ADMIN_PASSWORD = "admin123";
 
     function checkPassword() {
@@ -93,45 +93,25 @@
         tbody.innerHTML = '<tr><td colspan="7" class="loading">Загрузка заказов...</td></tr>';
         
         try {
-            const response = await fetch(CSV_URL);
-            const csvText = await response.text();
+            const response = await fetch(ORDERS_API_URL);
+            const orders = await response.json();
             
-            const rows = csvText.trim().split('\n');
-            if(rows.length < 2) {
+            if(orders && orders.length > 0) {
+                // Сортируем от новых к старым
+                orders.sort((a, b) => {
+                    const dateA = new Date(a.Дата || '1970-01-01');
+                    const dateB = new Date(b.Дата || '1970-01-01');
+                    return dateB - dateA;
+                });
+                displayOrders(orders);
+                calculateStats(orders);
+            } else {
                 tbody.innerHTML = '<tr><td colspan="7" class="loading">Нет заказов</td></tr>';
                 statsDiv.innerHTML = '<div class="stat-card"><h3>0</h3><p>Всего заказов</p></div><div class="stat-card"><h3>0 ₽</h3><p>Общая выручка</p></div>';
-                return;
             }
-            
-            // Получаем заголовки
-            const headers = rows[0].split(',');
-            const orders = [];
-            
-            // Парсим все заказы
-            for(let i = 1; i < rows.length; i++) {
-                const values = rows[i].split(',');
-                const order = {};
-                for(let j = 0; j < headers.length; j++) {
-                    let value = values[j] || '';
-                    value = value.replace(/^"|"$/g, '');
-                    order[headers[j]] = value;
-                }
-                orders.push(order);
-            }
-            
-            // СОРТИРУЕМ: новые заказы сверху (по дате, от новых к старым)
-            orders.sort((a, b) => {
-                const dateA = new Date(a.Дата || '1970-01-01');
-                const dateB = new Date(b.Дата || '1970-01-01');
-                return dateB - dateA;
-            });
-            
-            displayOrders(orders);
-            calculateStats(orders);
-            
         } catch(e) {
             console.error('Ошибка:', e);
-            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки. Проверьте ссылку.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="error">Ошибка загрузки заказов. Проверьте соединение.</td></tr>';
             statsDiv.innerHTML = '<div class="stat-card"><h3>❌</h3><p>Ошибка</p></div>';
         }
     }
@@ -141,9 +121,6 @@
         let html = '';
         
         for(let order of orders) {
-            // Пропускаем пустые строки
-            if(!order.Имя && !order.Телефон) continue;
-            
             html += `<tr>
                 <td>${order.Дата || ''}</td>
                 <td>${order.Имя || ''}</td>
