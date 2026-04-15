@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Банные печи — полные описания</title>
+    <title>Банные печи — увеличенная картинка</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Georgia',serif;background:linear-gradient(135deg,#2c1810,#8b4513);padding:20px;min-height:100vh;}
@@ -21,15 +21,19 @@
 
         .pechka-card{background:white;border-radius:20px;padding:20px;max-width:600px;margin:20px auto;border:2px solid #d35400;display:none;}
         .pechka-card.show{display:block;}
-        .pechka-card img{width:100%;border-radius:15px;height:200px;object-fit:cover;background:#f4f4f4;}
+        
+        /* КАРТИНКА УВЕЛИЧЕНА ПО ВЫСОТЕ */
+        .pechka-card img{width:100%;height:auto;max-height:250px;min-height:180px;object-fit:contain;border-radius:15px;margin:0 auto 15px auto;display:block;background:#f4f4f4;}
+        
         .pechka-card h2{color:#d35400;margin:10px 0;text-align:center;}
         .pechka-card .price{font-size:24px;font-weight:bold;color:#c0392b;text-align:center;margin:10px 0;}
         .pechka-card .specs{background:#fff8f0;padding:10px;border-radius:10px;border-left:4px solid #d35400;margin:10px 0;line-height:1.5;}
 
         .addons{background:#fff8f0;padding:15px;border-radius:15px;margin:15px 0;}
-        .addon-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #ddd;}
-        .addon-item label{font-weight:bold;}
-        .addon-price{color:#c0392b;font-weight:bold;}
+        .addon-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #ddd;cursor:pointer;transition:background 0.2s;}
+        .addon-item:hover{background:#fde7e0;}
+        .addon-item label{font-weight:bold;cursor:pointer;flex:1;}
+        .addon-price{color:#c0392b;font-weight:bold;cursor:pointer;padding-left:10px;}
 
         .add-to-cart{width:100%;padding:12px;background:#d35400;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px;}
 
@@ -91,7 +95,7 @@
 
     // ========== ВСЕ ПЕЧИ С ПОЛНЫМИ ОПИСАНИЯМИ ==========
     const pechki = [
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм<br>📏 Длина выступа топки 200 мм", img:"https://i.ibb.co/Yg94PQq/2026-04-15-121718.png"},
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм<br>📏 Длина выступа топки 200 мм", img:"https://placehold.co/600x400/d35400/white?text=Печь+325"},
         {id:2, name:"Печь Ø325 сквозная каменка + бак чёрный", price:18500, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 + 500 бак<br>💧 Бак из чёрной стали 2 мм, 65 л<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x400/e67e22/white?text=Печь+325+бак"},
         {id:3, name:"Печь Ø325 сквозная каменка + бак нерж", price:24000, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 + 500 бак<br>💧 Бак из нержавеющей стали 1 мм, 65 л<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x400/27ae60/white?text=Печь+325+нерж"},
         {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 мм<br>🔥 Толщина 8 мм, обшита листовой сталью 2 мм, конвекция<br>🪵 Колосник чугунный<br>📏 Диаметр дымохода 115 мм", img:"https://placehold.co/600x400/3498db/white?text=426+леж"},
@@ -162,21 +166,21 @@
         let html = '<h3 style="margin-bottom:10px;">➕ Дополнительное оборудование</h3>';
         for(let a of addonsList) {
             let checked = selectedAddons[a.id] ? 'checked' : '';
-            html += `<div class="addon-item">
-                        <label><input type="checkbox" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}" onchange="toggleAddon(this)" ${checked}> ${a.name}</label>
+            html += `<div class="addon-item" onclick="toggleAddonById('${a.id}', '${a.name}', ${a.price})">
+                        <label><input type="checkbox" id="chk_${a.id}" ${checked} onclick="event.stopPropagation()"> ${a.name}</label>
                         <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
                      </div>`;
         }
         document.getElementById('addonsBlock').innerHTML = html;
     }
 
-    window.toggleAddon = function(checkbox) {
-        let id = checkbox.getAttribute('data-id');
-        if(checkbox.checked) {
-            selectedAddons[id] = {
-                name: checkbox.getAttribute('data-name'),
-                price: parseInt(checkbox.getAttribute('data-price'))
-            };
+    window.toggleAddonById = function(id, name, price) {
+        let checkbox = document.getElementById('chk_' + id);
+        let isChecked = !checkbox.checked;
+        checkbox.checked = isChecked;
+        
+        if(isChecked) {
+            selectedAddons[id] = { name: name, price: price };
         } else {
             delete selectedAddons[id];
         }
@@ -195,6 +199,7 @@
         selectedAddons = {};
         let card = document.getElementById('pechkaCard');
         document.getElementById('cardImage').src = currentPechka.img;
+        document.getElementById('cardImage').style.objectFit = 'contain';
         document.getElementById('cardName').innerHTML = currentPechka.name;
         document.getElementById('cardSpecs').innerHTML = currentPechka.specs;
         document.getElementById('cardPrice').innerHTML = `💰 ${currentPechka.price.toLocaleString('ru-RU')} ₽`;
