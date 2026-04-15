@@ -252,7 +252,7 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ТОВАРЫ ==========
+    // ========== ТОВАРЫ (37 штук) ==========
     const products = [
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм", img:"https://placehold.co/600x450/d35400/white?text=Печь+325", hasAddons:true},
         {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e67e22/white?text=325+бак", hasAddons:true},
@@ -314,12 +314,15 @@
         let a = Math.floor(Math.random() * 10) + 1;
         let b = Math.floor(Math.random() * 10) + 1;
         captchaAnswer = a + b;
-        document.getElementById('captchaBlock').innerHTML = `
-            <div class="captcha-block">
-                <span>🔒 ${a} + ${b} = ?</span>
-                <input type="text" id="captchaInput" placeholder="Ответ" style="flex:1; margin:0;">
-            </div>
-        `;
+        let block = document.getElementById('captchaBlock');
+        if(block) {
+            block.innerHTML = `
+                <div class="captcha-block">
+                    <span>🔒 ${a} + ${b} = ?</span>
+                    <input type="text" id="captchaInput" placeholder="Ответ" style="flex:1; margin:0;">
+                </div>
+            `;
+        }
     }
 
     function checkCaptcha() {
@@ -367,16 +370,14 @@
     }
 
     window.toggleAddon = function(id, name, price) {
-        let cb = document.querySelector(`#addonsBlock input[onclick*="${id}"]`);
-        if(!cb) cb = document.querySelector(`.addon-item label input`);
         if(selectedAddons[id]) {
             delete selectedAddons[id];
-            if(cb) cb.checked = false;
         } else {
             selectedAddons[id] = { name, price };
-            if(cb) cb.checked = true;
         }
         updatePrice();
+        let cb = document.querySelector(`.addon-item input`);
+        if(cb) cb.checked = !!selectedAddons[id];
     };
 
     function updatePrice() {
@@ -405,6 +406,7 @@
         if(cart.length === 0) {
             container.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
             totalSpan.innerText = '0';
+            document.getElementById('orderForm').style.display = 'none';
             return;
         }
         let total = 0;
@@ -418,6 +420,8 @@
         }
         container.innerHTML = html;
         totalSpan.innerText = total.toLocaleString('ru-RU');
+        document.getElementById('orderForm').style.display = 'block';
+        generateCaptcha();
     }
 
     function removeFromCart(idx) {
@@ -500,6 +504,4 @@
     generateCaptcha();
 </script>
 </body>
-</html>ck = () => document.getElementById('dropdownContent').classList.toggle('show');
-    document.getElementById('addToCartBtn').onclick = addToCart;
-    document.getElementById('sendOrderBtn
+</html>
