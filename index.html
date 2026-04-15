@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Банные печи — допы работают чётко</title>
+    <title>Банные печи — допы работают отлично</title>
     <style>
         * {
             margin: 0;
@@ -147,11 +147,6 @@
             display: block;
             border: 1px solid #ecdbba;
             filter: brightness(1.05) contrast(1.1);
-            transition: filter 0.2s;
-        }
-
-        .pechka-card img:hover {
-            filter: brightness(1.08) contrast(1.12);
         }
 
         .pechka-card h2 {
@@ -203,7 +198,6 @@
 
         .addon-item:hover {
             background: #fff3e8;
-            border-color: #cfaa83;
         }
 
         .addon-item label {
@@ -232,9 +226,7 @@
             cursor: pointer;
             transition: 0.2s;
             color: white;
-            letter-spacing: 0.3px;
             margin-top: 24px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
 
         .add-to-cart:hover, .send-btn:hover {
@@ -268,8 +260,6 @@
             border-radius: 40px;
             padding: 5px 16px;
             cursor: pointer;
-            font-family: inherit;
-            transition: 0.15s;
         }
 
         .remove-item:hover {
@@ -360,40 +350,38 @@
 </div>
 
 <script>
-    // ========== ТВОИ ДАННЫЕ TELEGRAM ==========
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ВСЕ ПЕЧИ (30 штук) ==========
     const pechki = [
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Печь+325"},
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина 8 мм<br>🪵 Колосник чугунный", img:"https://placehold.co/600x450/e8cfb0/white?text=Печь+325"},
         {id:2, name:"Печь Ø325 + бак чёрный", price:18500, specs:"🏠 до 15 м³ + бак 65 л<br>📐 +500 мм бак<br>💧 Чёрная сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=325+бак+чёрн"},
         {id:3, name:"Печь Ø325 + бак нерж", price:24000, specs:"🏠 до 15 м³ + нерж.бак 65 л<br>💧 1 мм нержавейка", img:"https://placehold.co/600x450/e8cfb0/white?text=325+нерж"},
-        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 мм<br>🔥 Конвекция, чугунный колосник", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж"},
+        {id:4, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>📐 650×450×600 мм<br>🔥 Конвекция", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж"},
         {id:5, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"🏠 до 25 м³ + бак 65 л<br>💧 Сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+бак"},
-        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Нержавейка 1 мм, 65 л<br>🔥 Конвекция", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+нерж"},
-        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³, 426×550 мм<br>🪵 Чугунный колосник", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр"},
+        {id:6, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Нержавейка 1 мм, 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=426+леж+нерж"},
+        {id:7, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³, 426×550 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр"},
         {id:8, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак 65 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+бак"},
         {id:9, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Нержавейка 1 мм, 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=426+откр+нерж"},
-        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³ (12 м²)<br>📐 550×750×800 мм<br>🔥 Дымоход 115 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт"},
+        {id:10, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³ (12 м²)<br>📐 550×750×800 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт"},
         {id:11, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак 85 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+бак"},
         {id:12, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Нерж 1 мм, 85 л", img:"https://placehold.co/600x450/e8cfb0/white?text=530+поворт+нерж"},
-        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³ (6 м²)<br>📐 530×600×500 мм<br>🔥 Сталь 4 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+печь"},
+        {id:13, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³ (6 м²)<br>📐 530×600×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+печь"},
         {id:14, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак 50 л, сталь 2 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+чёрн"},
         {id:15, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Нерж 50 л, 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Соц+нерж"},
         {id:16, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³, лабиринт<br>💧 Бак 75 л, чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=3+помещ"},
         {id:17, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"🏠 Лабиринт, 75 л нерж", img:"https://placehold.co/600x450/e8cfb0/white?text=3+пом+нерж"},
         {id:18, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³, 500×426×450<br>🔥 8 мм + кружок", img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+426"},
         {id:19, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 до 200 м³, 8 мм + кружок", img:"https://placehold.co/600x450/e8cfb0/white?text=Буржуйка+530"},
-        {id:20, name:"Буржуйка Талти", price:18000, specs:"🏠 до 200 м³, 24 ч горения<br>📐 1020×340×840 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Талти"},
-        {id:21, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м², 550×430×600<br>🔥 сталь 3 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+малый"},
+        {id:20, name:"Буржуйка Талти", price:18000, specs:"🏠 до 200 м³, 24 ч горения", img:"https://placehold.co/600x450/e8cfb0/white?text=Талти"},
+        {id:21, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м², 550×430×600", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+малый"},
         {id:22, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 100-130 м², 720×430×600", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+большой"},
         {id:23, name:"Котёл с водяным верхом", price:27500, specs:"🏠 до 200 м², водяной контур", img:"https://placehold.co/600x450/e8cfb0/white?text=Котёл+ВВ"},
-        {id:24, name:"Печь-буржуйка TALTY (повтор)", price:18000, specs:"24 ч горения, чугунный колосник", img:"https://placehold.co/600x450/e8cfb0/white?text=TALTY"},
-        {id:25, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³, лабиринт, выступ 250 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка"},
+        {id:24, name:"Печь-буржуйка TALTY", price:18000, specs:"24 ч горения", img:"https://placehold.co/600x450/e8cfb0/white?text=TALTY"},
+        {id:25, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³, лабиринт", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка"},
         {id:26, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 бак 65 л чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+бак"},
         {id:27, name:"Печь бочка + бак нерж", price:39000, specs:"💧 нерж 65 л", img:"https://placehold.co/600x450/e8cfb0/white?text=Бочка+нерж"},
-        {id:28, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³, сталь 4/8 мм, выступ 200 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль"},
+        {id:28, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³, сталь 4/8 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль"},
         {id:29, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 бак 85 л чёрный", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+бак"},
         {id:30, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 нерж 85 л, 1 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Корабль+нерж"}
     ];
@@ -434,60 +422,58 @@
     }
 
     function renderAddons() {
-        let html = '<h3 style="margin:15px 0 8px;">➕ Допы (кликай по строке — галочка появится)</h3>';
+        let html = '<h3 style="margin:15px 0 8px;">➕ Дополнительное оборудование</h3>';
         for(let a of addonsList) {
-            let checked = selectedAddons[a.id] ? 'checked' : '';
+            let isChecked = selectedAddons[a.id] ? 'checked' : '';
             html += `<div class="addon-item" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}">
-                        <label><input type="checkbox" id="chk_${a.id}" ${checked}> ${a.name}</label>
+                        <label>
+                            <input type="checkbox" class="addon-checkbox" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}" ${isChecked}>
+                            ${a.name}
+                        </label>
                         <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
                     </div>`;
         }
         document.getElementById('addonsBlock').innerHTML = html;
 
-        // Навешиваем обработчики на каждую строку допа
+        // Навешиваем обработчики на каждый доп
         document.querySelectorAll('.addon-item').forEach(item => {
+            const checkbox = item.querySelector('.addon-checkbox');
+            const id = checkbox.getAttribute('data-id');
+            const name = checkbox.getAttribute('data-name');
+            const price = parseInt(checkbox.getAttribute('data-price'));
+            
+            // Обработчик клика по всей строке
             item.addEventListener('click', (e) => {
-                // Чтобы не срабатывало дважды при клике на label
-                if(e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
-                const id = item.getAttribute('data-id');
-                const name = item.getAttribute('data-name');
-                const price = parseInt(item.getAttribute('data-price'));
-                toggleAddon(id, name, price);
+                if(e.target.tagName !== 'INPUT') {
+                    checkbox.checked = !checkbox.checked;
+                    if(checkbox.checked) {
+                        selectedAddons[id] = { name, price };
+                    } else {
+                        delete selectedAddons[id];
+                    }
+                    updateCurrentPriceDisplay();
+                }
             });
             
-            // Отдельно обрабатываем клик по чекбоксу
-            const checkbox = item.querySelector('input[type="checkbox"]');
-            if(checkbox) {
-                checkbox.addEventListener('change', (e) => {
-                    e.stopPropagation();
-                    const id = item.getAttribute('data-id');
-                    const name = item.getAttribute('data-name');
-                    const price = parseInt(item.getAttribute('data-price'));
-                    toggleAddon(id, name, price);
-                });
-            }
+            // Обработчик клика по чекбоксу
+            checkbox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(checkbox.checked) {
+                    selectedAddons[id] = { name, price };
+                } else {
+                    delete selectedAddons[id];
+                }
+                updateCurrentPriceDisplay();
+            });
         });
-    }
-
-    function toggleAddon(id, name, price) {
-        const checkbox = document.getElementById('chk_'+id);
-        if(!checkbox) return;
-        
-        if(checkbox.checked) {
-            // Если галочка уже стоит — убираем
-            checkbox.checked = false;
-            delete selectedAddons[id];
-        } else {
-            // Если галочки нет — ставим
-            checkbox.checked = true;
-            selectedAddons[id] = { name, price };
-        }
-        updateCurrentPriceDisplay();
     }
 
     function updateCurrentPriceDisplay() {
         if(!currentPechka) return;
-        let addSum = Object.values(selectedAddons).reduce((s,a)=>s+a.price, 0);
+        let addSum = 0;
+        for(let key in selectedAddons) {
+            addSum += selectedAddons[key].price;
+        }
         let total = currentPechka.price + addSum;
         document.getElementById('cardPrice').innerHTML = `💰 ${total.toLocaleString('ru-RU')} ₽`;
     }
