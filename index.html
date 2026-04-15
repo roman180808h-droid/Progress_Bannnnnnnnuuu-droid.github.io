@@ -2,251 +2,54 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Банные печи и чаны</title>
+    <title>ТЕРМОГРАД - Банные печи, котлы и чаны</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', 'Georgia', serif;
-            background: #f5ede2;
-            padding: 30px 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            color: #b45a2b;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #7e6856;
-            margin-bottom: 40px;
-        }
-        .dropdown-container {
-            max-width: 500px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-        .dropdown-btn {
-            width: 100%;
-            background: #d97a2b;
-            color: white;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: left;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #dccdbd;
-            z-index: 100;
-            margin-top: 5px;
-        }
-        .dropdown-content.show {
-            display: block;
-        }
-        .dropdown-item {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .dropdown-item:hover {
-            background: #fef3e9;
-        }
-        .dropdown-item.selected {
-            background: #d97a2b;
-            color: white;
-        }
-        .dropdown-item.selected h4 {
-            color: white;
-        }
-        .dropdown-item.selected .price-drop {
-            color: #ffd700;
-        }
-        .dropdown-item h4 {
-            color: #a55826;
-        }
-        .dropdown-item .price-drop {
-            font-weight: bold;
-            color: #b45a2b;
-            margin-top: 5px;
-        }
-        .product-card {
-            background: white;
-            border-radius: 30px;
-            padding: 25px;
-            max-width: 700px;
-            margin: 20px auto;
-            display: none;
-            border: 1px solid #eadbcb;
-        }
-        .product-card.show {
-            display: block;
-        }
-        .product-card img {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border-radius: 20px;
-            background: #fef9f2;
-            margin-bottom: 20px;
-        }
-        .product-card h2 {
-            text-align: center;
-            color: #9b4f23;
-            margin-bottom: 15px;
-        }
-        .specs {
-            background: #fef8f2;
-            padding: 15px;
-            border-radius: 20px;
-            margin: 15px 0;
-            line-height: 1.6;
-        }
-        .price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #bc631c;
-            text-align: center;
-            margin: 15px 0;
-        }
-        .addons {
-            background: #fdf8f1;
-            border-radius: 20px;
-            padding: 10px;
-            margin-top: 15px;
-        }
-        .addon-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            margin: 5px 0;
-            background: white;
-            border-radius: 50px;
-            border: 1px solid #eadbcb;
-        }
-        .addon-name {
-            flex: 2;
-            font-weight: 500;
-        }
-        .addon-price {
-            flex: 1;
-            color: #bd631e;
-            font-weight: 500;
-        }
-        .addon-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .addon-controls button {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            background: #d97a2b;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .addon-controls button:hover {
-            background: #c06622;
-        }
-        .addon-count {
-            font-weight: bold;
-            min-width: 30px;
-            text-align: center;
-        }
-        .add-to-cart, .send-btn {
-            background: #d97a2b;
-            color: white;
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .cart-section {
-            background: white;
-            border-radius: 30px;
-            padding: 20px;
-            max-width: 700px;
-            margin: 40px auto;
-        }
-        .cart-item {
-            background: #fef8f2;
-            padding: 12px;
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .remove-item {
-            background: #c0392b;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 5px 15px;
-            cursor: pointer;
-        }
-        .total {
-            text-align: right;
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-        .empty-cart {
-            text-align: center;
-            color: #aa8f72;
-            padding: 20px;
-        }
-        .order-form {
-            margin-top: 25px;
-            display: none;
-        }
-        .order-form input, .order-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 40px;
-            border: 1px solid #d9c7b4;
-        }
-        .success-msg {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #27ae60;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            z-index: 1000;
-        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI','Georgia',serif;background:#f5ede2;padding:30px 20px;}
+        .container{max-width:1200px;margin:0 auto;}
+        h1{text-align:center;color:#b45a2b;margin-bottom:10px;font-size:2.2rem;}
+        h1 span{color:#d97a2b;font-weight:bold;}
+        .subtitle{text-align:center;color:#7e6856;margin-bottom:40px;}
+        .dropdown-container{max-width:500px;margin:0 auto 30px;position:relative;}
+        .dropdown-btn{width:100%;background:#d97a2b;color:white;padding:14px 20px;border:none;border-radius:50px;font-size:16px;cursor:pointer;text-align:left;}
+        .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:white;border-radius:20px;max-height:300px;overflow-y:auto;border:1px solid #dccdbd;z-index:100;margin-top:5px;}
+        .dropdown-content.show{display:block;}
+        .dropdown-item{padding:12px 15px;border-bottom:1px solid #eee;cursor:pointer;transition:all 0.2s;}
+        .dropdown-item:hover{background:#fef3e9;}
+        .dropdown-item.selected{background:#d97a2b;color:white;}
+        .dropdown-item.selected h4{color:white;}
+        .dropdown-item.selected .price-drop{color:#ffd700;}
+        .dropdown-item h4{color:#a55826;}
+        .dropdown-item .price-drop{font-weight:bold;color:#b45a2b;margin-top:5px;}
+        .product-card{background:white;border-radius:30px;padding:25px;max-width:700px;margin:20px auto;display:none;border:1px solid #eadbcb;}
+        .product-card.show{display:block;}
+        .product-card img{width:100%;max-height:300px;object-fit:contain;border-radius:20px;background:#fef9f2;margin-bottom:20px;}
+        .product-card h2{text-align:center;color:#9b4f23;margin-bottom:15px;}
+        .specs{background:#fef8f2;padding:15px;border-radius:20px;margin:15px 0;line-height:1.6;}
+        .price{font-size:28px;font-weight:bold;color:#bc631c;text-align:center;margin:15px 0;}
+        .addons{background:#fdf8f1;border-radius:20px;padding:10px;margin-top:15px;}
+        .addon-item{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;margin:5px 0;background:white;border-radius:50px;border:1px solid #eadbcb;}
+        .addon-name{flex:2;font-weight:500;}
+        .addon-price{flex:1;color:#bd631e;font-weight:500;}
+        .addon-controls{display:flex;gap:10px;align-items:center;}
+        .addon-controls button{width:30px;height:30px;border-radius:50%;border:none;background:#d97a2b;color:white;font-size:18px;cursor:pointer;}
+        .addon-controls button:hover{background:#c06622;}
+        .addon-count{font-weight:bold;min-width:30px;text-align:center;}
+        .add-to-cart,.send-btn{background:#d97a2b;color:white;width:100%;padding:14px;border:none;border-radius:50px;font-size:16px;cursor:pointer;margin-top:20px;}
+        .cart-section{background:white;border-radius:30px;padding:20px;max-width:700px;margin:40px auto;}
+        .cart-item{background:#fef8f2;padding:12px;border-radius:50px;display:flex;justify-content:space-between;margin-bottom:10px;}
+        .remove-item{background:#c0392b;color:white;border:none;border-radius:30px;padding:5px 15px;cursor:pointer;}
+        .total{text-align:right;font-size:20px;font-weight:bold;margin-top:15px;}
+        .empty-cart{text-align:center;color:#aa8f72;padding:20px;}
+        .order-form{margin-top:25px;display:none;}
+        .order-form input,.order-form textarea{width:100%;padding:10px;margin:8px 0;border-radius:40px;border:1px solid #d9c7b4;}
+        .success-msg{position:fixed;bottom:20px;right:20px;background:#27ae60;color:white;padding:10px 20px;border-radius:30px;z-index:1000;}
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🔥 Банные печи, котлы и чаны</h1>
-    <div class="subtitle">Печи, котлы, баки, чаны — всё для отопления и парной</div>
+    <h1>🔥 <span>ТЕРМОГРАД</span> 🔥</h1>
+    <div class="subtitle">Банные печи, котлы, чаны — всё для отопления и парной</div>
 
     <div class="dropdown-container">
         <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар ▼</button>
@@ -267,7 +70,7 @@
         <div id="cartItems"><div class="empty-cart">Пока пусто</div></div>
         <div class="total">💰 Итого: <span id="totalSum">0</span> ₽</div>
         <div class="order-form" id="orderForm">
-            <h3>Оформление заказа</h3>
+            <h3>📝 Оформление заказа</h3>
             <input type="text" id="userName" placeholder="Ваше имя *">
             <input type="email" id="userEmail" placeholder="Email *">
             <input type="tel" id="userPhone" placeholder="Телефон *">
@@ -281,85 +84,123 @@
     const BOT_TOKEN = "8765410107:AAGkrWF4g0XzQzdUyYAOcX7DS019zGjmSBA";
     const CHAT_ID = "2013568102";
 
-    // ========== ВСЕ ТОВАРЫ (56 штук) ==========
+    // ========== ВСЕ ТОВАРЫ (92 шт.) ==========
     const products = [
-        // --- ПЕЧИ СКВОЗНЫЕ/ОТКРЫТЫЕ Ø325 ---
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм", img:"https://placehold.co/600x450/d35400/white?text=Печь+325", hasAddons:true},
-        {id:2, name:"Печь Ø325 сквозная + бак чёрный", price:18500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://placehold.co/600x450/e67e22/white?text=325+бак", hasAddons:true},
-        {id:3, name:"Печь Ø325 сквозная + бак нерж", price:24000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://placehold.co/600x450/27ae60/white?text=325+нерж", hasAddons:true},
-        {id:4, name:"Печь Ø325 открытая каменка, без бака", price:11000, specs:"📐 500×400×550 мм", img:"https://placehold.co/600x450/d35400/white?text=325+откр", hasAddons:true},
-        {id:5, name:"Печь Ø325 открытая + бак чёрный", price:15000, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://placehold.co/600x450/e67e22/white?text=325+откр+бак", hasAddons:true},
-        {id:6, name:"Печь Ø325 открытая + бак нерж", price:21000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://placehold.co/600x450/27ae60/white?text=325+откр+нерж", hasAddons:true},
+        // --- ПЕЧИ Ø325 (6 шт.) ---
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм", img:"https://i.ibb.co/jkzwkbh6/325.jpg", hasAddons:true},
+        {id:2, name:"Печь Ø325 сквозная + бак чёрный", price:18500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/nqLW15dt/325.jpg", hasAddons:true},
+        {id:3, name:"Печь Ø325 сквозная + бак нерж", price:24000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/dJDBRLJK/325.jpg", hasAddons:true},
+        {id:4, name:"Печь Ø325 открытая каменка, без бака", price:11000, specs:"📐 500×400×550 мм", img:"https://i.ibb.co/1pjZnj8/325.jpg", hasAddons:true},
+        {id:5, name:"Печь Ø325 открытая + бак чёрный", price:15000, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/Vc8jrpW5/325.jpg", hasAddons:true},
+        {id:6, name:"Печь Ø325 открытая + бак нерж", price:21000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/vv3CBPjN/325.jpg", hasAddons:true},
         
-        // --- ПЕЧИ Ø426 ---
-        {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³ (9 м²)<br>🔥 Конвекция", img:"https://placehold.co/600x450/3498db/white?text=426+леж", hasAddons:true},
-        {id:8, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://placehold.co/600x450/1abc9c/white?text=426+леж+бак", hasAddons:true},
-        {id:9, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://placehold.co/600x450/9b59b6/white?text=426+леж+нерж", hasAddons:true},
-        {id:10, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³", img:"https://placehold.co/600x450/c0392b/white?text=426+откр", hasAddons:true},
-        {id:11, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://placehold.co/600x450/f39c12/white?text=426+откр+бак", hasAddons:true},
-        {id:12, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://placehold.co/600x450/2ecc71/white?text=426+откр+нерж", hasAddons:true},
-        {id:13, name:"Печь Ø426 сквозная каменка, без бака", price:16000, specs:"🏠 Объем бани до 20 м³ (10 м²)", img:"https://placehold.co/600x450/3498db/white?text=426+сквозн", hasAddons:true},
-        {id:14, name:"Печь Ø426 сквозная + чёрный бак", price:20000, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://placehold.co/600x450/1abc9c/white?text=426+сквозн+бак", hasAddons:true},
-        {id:15, name:"Печь Ø426 сквозная + бак нерж", price:26000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://placehold.co/600x450/9b59b6/white?text=426+сквозн+нерж", hasAddons:true},
+        // --- ПЕЧИ Ø426 (15 шт.) ---
+        {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, specs:"🏠 Объем бани до 25 м³<br>🔥 Конвекция", img:"https://i.ibb.co/99KT2Vss/426.jpg", hasAddons:true},
+        {id:8, name:"Печь Ø426 лежачая + чёрный бак", price:21000, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/ns53QpVb/426.jpg", hasAddons:true},
+        {id:9, name:"Печь Ø426 лежачая + бак нерж", price:26500, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/7NL0dnVS/426.jpg", hasAddons:true},
+        {id:10, name:"Печь Ø426 открытая каменка, без бака", price:12000, specs:"🏠 15 м³", img:"https://i.ibb.co/JjvpB3Gs/426.jpg", hasAddons:true},
+        {id:11, name:"Печь Ø426 открытая + чёрный бак", price:16500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/WvvwnQQ8/426.jpg", hasAddons:true},
+        {id:12, name:"Печь Ø426 открытая + бак нерж", price:22000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/JRWFC5yK/426.jpg", hasAddons:true},
+        {id:13, name:"Печь Ø426 сквозная каменка, без бака", price:16000, specs:"🏠 Объем бани до 20 м³", img:"https://i.ibb.co/Kz07GZg2/426.jpg", hasAddons:true},
+        {id:14, name:"Печь Ø426 сквозная + чёрный бак", price:20000, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/kg2j3f3S/426.jpg", hasAddons:true},
+        {id:15, name:"Печь Ø426 сквозная + бак нерж", price:26000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/LzmWTdHn/426.jpg", hasAddons:true},
+        {id:16, name:"Печь Ø426 с выступом сквозная + чёрный бак", price:21000, specs:"📏 Выступ 200 мм", img:"https://i.ibb.co/KjQPN66G/426.jpg", hasAddons:true},
+        {id:17, name:"Печь Ø426 с выступом сквозная + бак нерж", price:27000, specs:"💧 Бак нерж 1 мм", img:"https://i.ibb.co/HfNbq2qX/426.jpg", hasAddons:true},
+        {id:18, name:"Печь Ø426 поворотная каменка, без бака", price:19000, specs:"🔄 Поворотная", img:"https://i.ibb.co/m5pYq8SL/426.jpg", hasAddons:true},
+        {id:19, name:"Печь Ø426 поворотная + чёрный бак", price:23000, specs:"💧 Бак чёрный", img:"https://i.ibb.co/4R7Xdry7/426.jpg", hasAddons:true},
+        {id:20, name:"Печь Ø426 поворотная + бак нерж", price:29500, specs:"💧 Бак нерж", img:"https://i.ibb.co/GfBZ3cFM/426.jpg", hasAddons:true},
+        {id:21, name:"Печь Ø426 открытая с выступом, без бака", price:13000, specs:"📏 Выступ 150 мм", img:"https://i.ibb.co/5Xr3pQW4/426.jpg", hasAddons:true},
         
-        // --- ПЕЧИ Ø530 ---
-        {id:16, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³ (12 м²)<br>🔄 Поворотная", img:"https://placehold.co/600x450/e74c3c/white?text=530+поворт", hasAddons:true},
-        {id:17, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://placehold.co/600x450/16a085/white?text=530+поворт+бак", hasAddons:true},
-        {id:18, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Бак нерж 1 мм, 85 л", img:"https://placehold.co/600x450/8e44ad/white?text=530+поворт+нерж", hasAddons:true},
-        {id:19, name:"Печь Ø530 открытая каменка, без бака", price:15500, specs:"📐 750×530×550 мм", img:"https://placehold.co/600x450/f39c12/white?text=530+откр", hasAddons:true},
-        {id:20, name:"Печь Ø530 открытая + чёрный бак", price:20000, specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://placehold.co/600x450/e67e22/white?text=530+откр+бак", hasAddons:true},
-        {id:21, name:"Печь Ø530 открытая + бак нерж", price:25500, specs:"💧 Бак нерж 1 мм, 85 л", img:"https://placehold.co/600x450/27ae60/white?text=530+откр+нерж", hasAddons:true},
-        {id:22, name:"Печь Ø530 сквозная каменка, без бака", price:19500, specs:"📐 550×750×700 мм", img:"https://placehold.co/600x450/3498db/white?text=530+сквозн", hasAddons:true},
-        {id:23, name:"Печь Ø530 сквозная + чёрный бак", price:24500, specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://placehold.co/600x450/1abc9c/white?text=530+сквозн+бак", hasAddons:true},
-        {id:24, name:"Печь Ø530 сквозная + бак нерж", price:30500, specs:"💧 Бак нерж 1 мм, 85 л", img:"https://placehold.co/600x450/9b59b6/white?text=530+сквозн+нерж", hasAddons:true},
+        // --- ПЕЧИ Ø530 (14 шт.) ---
+        {id:22, name:"Печь Ø530 поворотная каменка, без бака", price:21500, specs:"🏠 до 35 м³<br>🔄 Поворотная", img:"https://i.ibb.co/nNcZfDHt/530.jpg", hasAddons:true},
+        {id:23, name:"Печь Ø530 поворотная + чёрный бак", price:26500, specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg", hasAddons:true},
+        {id:24, name:"Печь Ø530 поворотная + бак нерж", price:32500, specs:"💧 Бак нерж 1 мм, 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg", hasAddons:true},
+        {id:25, name:"Печь Ø530 открытая каменка, без бака", price:15500, specs:"📐 750×530×550 мм", img:"https://i.ibb.co/xK8TC9rN/530.jpg", hasAddons:true},
+        {id:26, name:"Печь Ø530 открытая + чёрный бак", price:20000, specs:"💧 Бак чёрный 2 мм", img:"https://i.ibb.co/Wpf5gCf9/530.jpg", hasAddons:true},
+        {id:27, name:"Печь Ø530 открытая + бак нерж", price:25500, specs:"💧 Бак нерж 1 мм", img:"https://i.ibb.co/yc0YrmfD/530.jpg", hasAddons:true},
+        {id:28, name:"Печь Ø530 сквозная каменка, без бака", price:19500, specs:"📐 550×750×700 мм", img:"https://i.ibb.co/x87c6Bfc/530.jpg", hasAddons:true},
+        {id:29, name:"Печь Ø530 сквозная + чёрный бак", price:24500, specs:"💧 Бак чёрный 2 мм", img:"https://i.ibb.co/ZR5GqJyf/530.jpg", hasAddons:true},
+        {id:30, name:"Печь Ø530 сквозная + бак нерж", price:30500, specs:"💧 Бак нерж 1 мм", img:"https://i.ibb.co/DPcLGQWw/530.jpg", hasAddons:true},
+        {id:31, name:"Печь Ø530 с выступом сквозная, без бака", price:19500, specs:"📏 Выступ 200 мм", img:"https://i.ibb.co/Y7VXSGc8/530.jpg", hasAddons:true},
+        {id:32, name:"Печь Ø530 с выступом сквозная + чёрный бак", price:24500, specs:"💧 Бак чёрный", img:"https://i.ibb.co/V0R4ZtcC/530.jpg", hasAddons:true},
+        {id:33, name:"Печь Ø530 с выступом сквозная + бак нерж", price:30500, specs:"💧 Бак нерж", img:"https://i.ibb.co/3mrqYvYH/530.jpg", hasAddons:true},
+        {id:34, name:"Печь Ø530 открытая лежачая, без бака", price:19500, specs:"📐 550×650×700 мм", img:"https://i.ibb.co/RTrhYgXK/530.jpg", hasAddons:true},
+        {id:35, name:"Печь Ø530 открытая лежачая + бак нерж", price:29500, specs:"💧 Бак нерж", img:"https://i.ibb.co/DPcLGQWw/530.jpg", hasAddons:true},
         
-        // --- ПЕЧИ СОЦИАЛЬНЫЕ ---
-        {id:25, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³ (6 м²)<br>📐 530×600×500 мм", img:"https://placehold.co/600x450/d35400/white?text=Соц+печь", hasAddons:true},
-        {id:26, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак чёрный 2 мм, 50 л", img:"https://placehold.co/600x450/e67e22/white?text=Соц+чёрн", hasAddons:true},
-        {id:27, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Бак нерж 1 мм, 50 л", img:"https://placehold.co/600x450/27ae60/white?text=Соц+нерж", hasAddons:true},
-        {id:28, name:"Печь социальная Лабиринт, без бака", price:17000, specs:"🔥 Лабиринт сохраняет тепло", img:"https://placehold.co/600x450/d35400/white?text=Лабиринт", hasAddons:true},
-        {id:29, name:"Печь социальная Лабиринт + чёрный бак", price:22500, specs:"💧 Бак чёрный 2 мм, 50 л", img:"https://placehold.co/600x450/e67e22/white?text=Лабиринт+чёрн", hasAddons:true},
-        {id:30, name:"Печь социальная Лабиринт + бак нерж", price:27500, specs:"💧 Бак нерж 1 мм, 50 л", img:"https://placehold.co/600x450/27ae60/white?text=Лабиринт+нерж", hasAddons:true},
+        // --- ПЕЧИ СОЦИАЛЬНЫЕ (6 шт.) ---
+        {id:36, name:"Печь социальная, без выступа", price:14000, specs:"🏠 15 м³<br>📐 530×600×500 мм", img:"https://i.ibb.co/67ksLJxm/image.jpg", hasAddons:true},
+        {id:37, name:"Печь социальная + чёрный бак", price:19500, specs:"💧 Бак чёрный 2 мм, 50 л", img:"https://i.ibb.co/cc1Pmr5B/image.png", hasAddons:true},
+        {id:38, name:"Печь социальная + бак нерж", price:24000, specs:"💧 Бак нерж 1 мм, 50 л", img:"https://i.ibb.co/WWr3QxYy/image.jpg", hasAddons:true},
+        {id:39, name:"Печь социальная Лабиринт, без бака", price:17000, specs:"🔥 Лабиринт сохраняет тепло", img:"https://i.ibb.co/Y7rGXs9K/image.jpg", hasAddons:true},
+        {id:40, name:"Печь социальная Лабиринт + чёрный бак", price:22500, specs:"💧 Бак чёрный", img:"https://i.ibb.co/WNCGNkHF/image.jpg", hasAddons:true},
+        {id:41, name:"Печь социальная Лабиринт + бак нерж", price:27500, specs:"💧 Бак нерж", img:"https://i.ibb.co/99XsDJJ6/image.jpg", hasAddons:true},
         
-        // --- ПЕЧЬ НА 2-3 ПОМЕЩЕНИЯ ---
-        {id:31, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л", img:"https://placehold.co/600x450/2980b9/white?text=3+помещ", hasAddons:true},
-        {id:32, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"💧 Бак нерж 1 мм, 75 л", img:"https://placehold.co/600x450/8e44ad/white?text=3+пом+нерж", hasAddons:true},
+        // --- ПЕЧЬ НА 2-3 ПОМЕЩЕНИЯ (3 шт.) ---
+        {id:42, name:"Печь на 2-3 помещения + чёрный бак", price:38000, specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л", img:"https://i.ibb.co/DHFFnXCC/2-3.jpg", hasAddons:true},
+        {id:43, name:"Печь на 2-3 помещения + бак нерж", price:45000, specs:"💧 Бак нерж 1 мм, 75 л", img:"https://i.ibb.co/0pbBWHVg/2-3.png", hasAddons:true},
+        {id:44, name:"Печь на 2-3 помещения дверца со стеклом + бак нерж", price:59000, specs:"🔥 Дверца со стеклом", img:"https://i.ibb.co/SwNk00xp/2-3.jpg", hasAddons:true},
         
-        // --- ПЕЧЬ БОЧКА ---
-        {id:33, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³<br>🔥 Лабиринт", img:"https://placehold.co/600x450/d35400/white?text=Бочка", hasAddons:true},
-        {id:34, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://placehold.co/600x450/e67e22/white?text=Бочка+бак", hasAddons:true},
-        {id:35, name:"Печь бочка + бак нерж", price:39000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://placehold.co/600x450/27ae60/white?text=Бочка+нерж", hasAddons:true},
+        // --- ПЕЧЬ БОЧКА (3 шт.) ---
+        {id:45, name:"Печь бочка, без бака", price:29000, specs:"🏠 до 25 м³<br>🔥 Лабиринт", img:"https://i.ibb.co/ch3yqw89/image.png", hasAddons:true},
+        {id:46, name:"Печь бочка + чёрный бак", price:34500, specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/Z6L1dLxM/image.png", hasAddons:true},
+        {id:47, name:"Печь бочка + бак нерж", price:39000, specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/rRF9DncR/image.png", hasAddons:true},
         
-        // --- ПЕЧЬ КОРАБЛЬ ---
-        {id:36, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³<br>🔥 Сталь 4/8 мм", img:"https://placehold.co/600x450/2980b9/white?text=Корабль", hasAddons:true},
-        {id:37, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://placehold.co/600x450/8e44ad/white?text=Корабль+бак", hasAddons:true},
-        {id:38, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 Бак нерж 1 мм, 85 л", img:"https://placehold.co/600x450/f39c12/white?text=Корабль+нерж", hasAddons:true},
+        // --- ПЕЧЬ КОРАБЛЬ (3 шт.) ---
+        {id:48, name:"Печь 'Корабль', без бака", price:36000, specs:"🏠 до 35 м³<br>🔥 Сталь 4/8 мм", img:"https://i.ibb.co/RG7S6mrw/image.png", hasAddons:true},
+        {id:49, name:"Печь 'Корабль' + чёрный бак", price:41000, specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://i.ibb.co/21NHY9F0/image.png", hasAddons:true},
+        {id:50, name:"Печь 'Корабль' + бак нерж", price:46000, specs:"💧 Бак нерж 1 мм, 85 л", img:"https://i.ibb.co/BK3k5XN7/image.png", hasAddons:true},
         
-        // --- КОТЛЫ ---
-        {id:39, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 Площадь 80-100 м²<br>📐 550×430×600 мм<br>🔥 Сталь 3 мм", img:"https://placehold.co/600x450/3498db/white?text=Котёл+малый", hasAddons:true},
-        {id:40, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 Площадь 100-130 м²<br>📐 720×430×600 мм", img:"https://placehold.co/600x450/9b59b6/white?text=Котёл+большой", hasAddons:true},
-        {id:41, name:"Котёл большой, целая плита", price:23000, specs:"🏠 Площадь до 120 м²<br>📐 720×430×600 мм", img:"https://placehold.co/600x450/f39c12/white?text=Котёл+ЦП", hasAddons:true},
-        {id:42, name:"Котёл с водяным верхом", price:24000, specs:"🏠 Площадь до 200 м²<br>💧 Водяной контур", img:"https://placehold.co/600x450/27ae60/white?text=Котёл+ВВ", hasAddons:true},
-        {id:43, name:"Котёл длительного горения 'Майбах'", price:71500, specs:"🏠 Площадь 50-250 м²<br>📦 Загрузка до 120 л<br>💨 В комплекте вентилятор, контроллер", img:"https://placehold.co/600x450/e74c3c/white?text=Майбах", hasAddons:true},
+        // --- КОТЛЫ (5 шт.) ---
+        {id:51, name:"Котёл малый 1/2 плиты", price:20500, specs:"🏠 80-100 м²<br>📐 550×430×600 мм", img:"https://i.ibb.co/1Y2dQTM0/1-2.png", hasAddons:true},
+        {id:52, name:"Котёл большой 1/2 плиты", price:26500, specs:"🏠 100-130 м²<br>📐 720×430×600 мм", img:"https://i.ibb.co/B2MDYnm1/1-2.png", hasAddons:true},
+        {id:53, name:"Котёл большой, целая плита", price:23000, specs:"🏠 до 120 м²", img:"https://i.ibb.co/d4RkSvrn/image.png", hasAddons:true},
+        {id:54, name:"Котёл с водяным верхом", price:24000, specs:"🏠 до 200 м²<br>💧 Водяной контур", img:"https://i.ibb.co/hJDDPQsH/image.png", hasAddons:true},
+        {id:55, name:"Котёл длительного горения 'Майбах'", price:71500, specs:"🏠 50-250 м²<br>📦 Загрузка 120 л", img:"https://i.ibb.co/zTW8dpCz/image.jpg", hasAddons:true},
         
-        // --- БУРЖУЙКИ ---
-        {id:44, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³<br>🍳 С кружком", img:"https://placehold.co/600x450/7f8c8d/white?text=Буржуйка+426", hasAddons:true},
-        {id:45, name:"Буржуйка №2 (530 труба)", price:10000, specs:"🏠 до 200 м³", img:"https://placehold.co/600x450/95a5a6/white?text=Буржуйка+530", hasAddons:true},
-        {id:46, name:"Буржуйка Талти", price:18000, specs:"⏱️ 24 ч горения", img:"https://placehold.co/600x450/bdc3c7/white?text=Талти", hasAddons:true},
+        // --- БУРЖУЙКИ (10 шт.) ---
+        {id:56, name:"Буржуйка №1 (426 труба)", price:9000, specs:"🏠 до 150 м³<br>🍳 С кружком", img:"https://i.ibb.co/7dBSHbPF/1.jpg", hasAddons:true},
+        {id:57, name:"Буржуйка №1 с конвекцией", price:6000, specs:"🔥 Конвекция", img:"https://i.ibb.co/Z1W46HcC/1.png", hasAddons:true},
+        {id:58, name:"Буржуйка №1У без конвекции", price:5500, specs:"📐 420×300×300 мм", img:"https://i.ibb.co/wNmkyKc9/1.jpg", hasAddons:true},
+        {id:59, name:"Буржуйка №1,5У с конвекцией", price:6500, specs:"🔥 Конвекция", img:"https://i.ibb.co/LX185Jn6/1-5.jpg", hasAddons:true},
+        {id:60, name:"Буржуйка №2,5 с конвекцией", price:9000, specs:"🏠 до 45 м³", img:"https://i.ibb.co/sdmzy8PK/2-5.jpg", hasAddons:true},
+        {id:61, name:"Буржуйка №3 с кружком, без конвекции", price:8500, specs:"🍳 С кружком", img:"https://i.ibb.co/pjfWK8Ht/3.png", hasAddons:true},
+        {id:62, name:"Буржуйка №3,5 с кружком, с конвекцией", price:9500, specs:"🔥 Конвекция", img:"https://i.ibb.co/FLQRDVQM/3-5.png", hasAddons:true},
+        {id:63, name:"Буржуйка из трубы Ø426", price:13000, specs:"🔥 Труба 426 мм, 8 мм", img:"https://i.ibb.co/4wNk5CR7/426.png", hasAddons:true},
+        {id:64, name:"Буржуйка из трубы Ø530", price:16000, specs:"🔥 Труба 530 мм, 8 мм", img:"https://i.ibb.co/gMPbpV0X/530.jpg", hasAddons:true},
+        {id:65, name:"Буржуйка Талти", price:18000, specs:"⏱️ 24 ч горения", img:"https://i.ibb.co/CpPd7Tng/TALTY.png", hasAddons:true},
         
-        // --- БАННЫЕ ЧАНЫ ---
-        {id:47, name:"Банный чан 100 л, нержавейка", price:12500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л", hasAddons:false},
-        {id:48, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л", hasAddons:false},
-        {id:49, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л", hasAddons:false},
-        {id:50, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 Объём 250 л<br>📐 900×900×550 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+250л", hasAddons:false},
-        {id:51, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 Объём 300 л<br>📐 1000×1000×600 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+300л", hasAddons:false},
-        {id:52, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+100л+чёрн", hasAddons:false},
-        {id:53, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 Объём 150 л<br>📐 700×700×450 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+150л+чёрн", hasAddons:false},
-        {id:54, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л<br>📐 800×800×500 мм", img:"https://placehold.co/600x450/e8cfb0/white?text=Чан+200л+чёрн", hasAddons:false},
+        // --- ПЕЧИ ЛИСТОВЫЕ (11 шт.) ---
+        {id:66, name:"Печь листовая социальная, без выступа", price:14000, specs:"🔥 Листовая сталь 4 мм", img:"https://i.ibb.co/67ksLJxm/image.jpg", hasAddons:true},
+        {id:67, name:"Печь листовая социальная + нерж бак", price:24000, specs:"💧 Бак нерж", img:"https://i.ibb.co/n240zXB/image.png", hasAddons:true},
+        {id:68, name:"Печь БВ-350, без бака", price:13000, specs:"📐 450×350×700 мм", img:"https://i.ibb.co/Pst69zWv/350.jpg", hasAddons:true},
+        {id:69, name:"Печь БВ-350 + чёрный бак", price:18000, specs:"💧 Бак чёрный", img:"https://i.ibb.co/0jd99m1y/350.jpg", hasAddons:true},
+        {id:70, name:"Печь БВ-350 + бак нерж", price:23000, specs:"💧 Бак нерж", img:"https://i.ibb.co/KpthjKy6/350.jpg", hasAddons:true},
+        {id:71, name:"Печь НВ-350, без бака", price:14000, specs:"📐 600×350×700 мм", img:"https://i.ibb.co/2YYvstY3/350.jpg", hasAddons:true},
+        {id:72, name:"Печь НВ-350 + чёрный бак", price:19000, specs:"💧 Бак чёрный", img:"https://i.ibb.co/gZ2nC9r1/350.jpg", hasAddons:true},
+        {id:73, name:"Печь НВ-350 + бак нерж", price:24000, specs:"💧 Бак нерж", img:"https://i.ibb.co/dsrbCHj4/350.jpg", hasAddons:true},
+        {id:74, name:"Печь ВВ-350, без бака", price:17000, specs:"🔥 С конвекцией", img:"https://i.ibb.co/yBqbb0Rd/350.jpg", hasAddons:true},
+        {id:75, name:"Печь ВВ-350 + чёрный бак", price:22000, specs:"💧 Бак чёрный", img:"https://i.ibb.co/GvSj9cFc/350.jpg", hasAddons:true},
+        {id:76, name:"Печь ВВ-350 + бак нерж", price:27000, specs:"💧 Бак нерж", img:"https://i.ibb.co/Q3Dz1H5G/350.jpg", hasAddons:true},
         
-        // --- ДОПОЛНИТЕЛЬНЫЕ ТОВАРЫ ---
-        {id:55, name:"Теплообменник", price:8500, specs:"🔥 Для отопления воды", img:"https://placehold.co/600x450/3498db/white?text=Теплообменник", hasAddons:false},
-        {id:56, name:"Духовка", price:2000, specs:"📐 300×300×400 мм<br>🔥 Толщина металла 1 мм", img:"https://placehold.co/600x450/7f8c8d/white?text=Духовка", hasAddons:false}
+        // --- ЧУГУННЫЕ ПЕЧИ (8 шт.) ---
+        {id:77, name:"Печь чугунная без бака, 15 кВт", price:29500, specs:"🔥 Чугун", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:78, name:"Печь чугунная без бака, 18 кВт", price:33000, specs:"🔥 Чугун", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:79, name:"Печь чугунная без бака, 20 кВт", price:33500, specs:"🔥 Чугун", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:80, name:"Печь чугунная без бака, 24 кВт", price:40000, specs:"🔥 Чугун", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:81, name:"Печь чугунная + бак нерж 60 л, 15 кВт", price:38000, specs:"💧 Бак нерж", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:82, name:"Печь чугунная + бак нерж, 18 кВт", price:41500, specs:"💧 Бак нерж", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:83, name:"Печь чугунная + бак нерж, 20 кВт", price:42000, specs:"💧 Бак нерж", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        {id:84, name:"Печь чугунная + бак нерж, 24 кВт", price:48500, specs:"💧 Бак нерж", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
+        
+        // --- БАННЫЕ ЧАНЫ (8 шт.) ---
+        {id:85, name:"Банный чан 100 л, нержавейка", price:12500, specs:"💧 Объём 100 л<br>📐 600×600×400 мм", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:86, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 Объём 150 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:87, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 Объём 200 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:88, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 Объём 250 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:89, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 Объём 300 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:90, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 Объём 100 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:91, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 Объём 150 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:92, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 Объём 200 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false}
     ];
 
     const addonsList = [
@@ -550,7 +391,7 @@
             items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
             total += it.price;
         }
-        let msg = `🔥 НОВЫЙ ЗАКАЗ!\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'не указан'}\n\n📦 Заказ:\n${items}\n💰 ИТОГО: ${total.toLocaleString('ru-RU')} ₽`;
+        let msg = `🔥 НОВЫЙ ЗАКАЗ! (ТЕРМОГРАД)\n👤 Имя: ${name}\n📧 Email: ${email}\n📞 Телефон: ${phone}\n🏠 Адрес: ${address || 'не указан'}\n\n📦 Заказ:\n${items}\n💰 ИТОГО: ${total.toLocaleString('ru-RU')} ₽`;
         
         try {
             let res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
