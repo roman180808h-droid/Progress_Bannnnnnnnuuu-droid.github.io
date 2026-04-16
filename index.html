@@ -45,6 +45,9 @@
         .order-form input,.order-form textarea{width:100%;padding:10px;margin:8px 0;border-radius:40px;border:1px solid #d9c7b4;}
         .success-msg{position:fixed;bottom:20px;right:20px;background:#27ae60;color:white;padding:10px 20px;border-radius:30px;z-index:1000;animation:fadeOut 3s forwards;}
         @keyframes fadeOut{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;visibility:hidden;}}
+        .contacts-footer{text-align:center;margin-top:40px;padding:20px;background:#e8d9ca;border-radius:20px;}
+        .contacts-footer a{color:#b45a2b;text-decoration:none;}
+        .contacts-footer a:hover{text-decoration:underline;}
     </style>
 </head>
 <body>
@@ -81,11 +84,18 @@
     </div>
 </div>
 
+<div class="contacts-footer">
+    <p>📞 <strong>Контакты для заказов:</strong></p>
+    <p>Телефон / WhatsApp / Telegram: <a href="tel:+79609471278">+7-960-947-12-78</a></p>
+    <p>Email: <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p>
+    <p>📍 Адрес: Алтайский край, г.Барнаул, Эмилии Алексеевой 94</p>
+</div>
+
 <script>
     // ========== ТВОЯ РАБОЧАЯ ССЫЛКА НА APPS SCRIPT ==========
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec";
 
-    // ========== ПОЛНЫЙ КАТАЛОГ (92 ТОВАРА) ==========
+    // ========== ПОЛНЫЙ КАТАЛОГ (92+ ТОВАРА) ==========
     const products = [
         // --- ПЕЧИ Ø325 (6 шт.) ---
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм", img:"https://i.ibb.co/jkzwkbh6/325.jpg", hasAddons:true},
@@ -193,15 +203,13 @@
         {id:83, name:"Печь чугунная + бак нерж, 20 кВт", price:42000, specs:"💧 Бак нерж 60 л<br>🔥 20 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
         {id:84, name:"Печь чугунная + бак нерж, 24 кВт", price:48500, specs:"💧 Бак нерж 60 л<br>🔥 24 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
         
-        // --- БАННЫЕ ЧАНЫ (8 шт.) ---
-        {id:85, name:"Банный чан 100 л, нержавейка", price:12500, specs:"💧 100 л<br>📐 600×600×400 мм", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:86, name:"Банный чан 150 л, нержавейка", price:16500, specs:"💧 150 л<br>📐 700×700×450 мм", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:87, name:"Банный чан 200 л, нержавейка", price:19500, specs:"💧 200 л<br>📐 800×800×500 мм", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:88, name:"Банный чан 250 л, нержавейка", price:24500, specs:"💧 250 л<br>📐 900×900×550 мм", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:89, name:"Банный чан 300 л, нержавейка", price:28500, specs:"💧 300 л<br>📐 1000×1000×600 мм", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:90, name:"Банный чан 100 л, чёрная сталь", price:8500, specs:"💧 100 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:91, name:"Банный чан 150 л, чёрная сталь", price:11500, specs:"💧 150 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:92, name:"Банный чан 200 л, чёрная сталь", price:14500, specs:"💧 200 л", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false}
+        // --- БАННЫЕ ЧАНЫ ИЗ ДОКУМЕНТА (6 шт.) ---
+        {id:85, name:"Банный чан «Дуэт» Aisi304 (пищевая)", price:200000, specs:"💧 Объём: 800 л<br>👥 Вместимость: 2-4 человека<br>📐 Ширина: 150 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:86, name:"Банный чан «Дуэт» Aisi430 (техническая)", price:170000, specs:"💧 Объём: 800 л<br>👥 Вместимость: 2-4 человека<br>📐 Ширина: 150 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:87, name:"Банный чан «Компашка» Aisi304 (пищевая)", price:270000, specs:"💧 Объём: 1440 л<br>👥 Вместимость: 4-6 человек<br>📐 Ширина: 180 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:88, name:"Банный чан «Компашка» Aisi430 (техническая)", price:230000, specs:"💧 Объём: 1440 л<br>👥 Вместимость: 4-6 человек<br>📐 Ширина: 180 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:89, name:"Банный чан «Макси» Aisi304 (пищевая)", price:350000, specs:"💧 Объём: 2900 л<br>👥 Вместимость: 6-8 человек<br>📐 Ширина: 250 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
+        {id:90, name:"Банный чан «Макси» Aisi430 (техническая)", price:290000, specs:"💧 Объём: 2900 л<br>👥 Вместимость: 6-8 человек<br>📐 Ширина: 250 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false}
     ];
 
     const addonsList = [
