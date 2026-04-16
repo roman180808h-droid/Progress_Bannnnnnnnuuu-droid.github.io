@@ -11,8 +11,8 @@
         h1 span{color:#d97a2b;font-weight:bold;}
         .subtitle{text-align:center;color:#7e6856;margin-bottom:40px;}
 
-        /* --- Стили для поиска и сортировки и фильтра --- */
-        .search-sort-bar {
+        /* Панель фильтров */
+        .filters-bar {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -30,7 +30,7 @@
             font-family: inherit;
             background: white;
         }
-        .sort-select, .filter-select {
+        .sort-select, .shape-filter {
             flex: 1;
             min-width: 160px;
             padding: 12px 20px;
@@ -88,15 +88,15 @@
     <h1>🔥 <span>ТЕРМОГРАД</span> 🔥</h1>
     <div class="subtitle">Банные печи, котлы, чаны — всё для отопления и парной</div>
 
-    <!-- Панель поиска, сортировки и фильтра -->
-    <div class="search-sort-bar">
+    <!-- Панель фильтров: поиск + сортировка + фильтр по форме -->
+    <div class="filters-bar">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по названию...">
         <select id="sortSelect" class="sort-select">
             <option value="default">📊 Сортировать: по умолчанию</option>
             <option value="price-asc">💰 Сначала дешёвые</option>
             <option value="price-desc">💰 Сначала дорогие</option>
         </select>
-        <select id="filterSelect" class="filter-select">
+        <select id="shapeFilter" class="shape-filter">
             <option value="all">🎨 Все печи</option>
             <option value="round">🔴 Круглые (из трубы)</option>
             <option value="rect">🟦 Прямоугольные (листовые)</option>
@@ -143,10 +143,10 @@
     // ========== ТВОЯ РАБОЧАЯ ССЫЛКА НА APPS SCRIPT ==========
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec";
 
-    // ========== ПОЛНЫЙ КАТАЛОГ С ТИПАМИ ФОРМЫ ==========
+    // ========== ВСЕ ТОВАРЫ С ТИПАМИ ФОРМЫ ==========
     // type: "round" - круглые (из трубы), "rect" - прямоугольные (листовые), null - не фильтруется
     const products = [
-        // --- ПЕЧИ КРУГЛЫЕ Ø325 (6 шт.) ---
+        // --- КРУГЛЫЕ ПЕЧИ (из трубы) Ø325 (6 шт.) ---
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, type:"round", specs:"🏠 Объем бани до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм", img:"https://i.ibb.co/jkzwkbh6/325.jpg", hasAddons:true},
         {id:2, name:"Печь Ø325 сквозная + бак чёрный", price:18500, type:"round", specs:"🏠 Объем бани до 15 м³<br>💧 Бак чёрный 2 мм, 65 л<br>🪵 Колосник чугунный", img:"https://i.ibb.co/nqLW15dt/325.jpg", hasAddons:true},
         {id:3, name:"Печь Ø325 сквозная + бак нерж", price:24000, type:"round", specs:"🏠 Объем бани до 15 м³<br>💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/dJDBRLJK/325.jpg", hasAddons:true},
@@ -154,7 +154,7 @@
         {id:5, name:"Печь Ø325 открытая + бак чёрный", price:15000, type:"round", specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/Vc8jrpW5/325.jpg", hasAddons:true},
         {id:6, name:"Печь Ø325 открытая + бак нерж", price:21000, type:"round", specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/vv3CBPjN/325.jpg", hasAddons:true},
         
-        // --- ПЕЧИ КРУГЛЫЕ Ø426 (15 шт.) ---
+        // --- КРУГЛЫЕ ПЕЧИ Ø426 (15 шт.) ---
         {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, type:"round", specs:"🏠 Объем бани до 25 м³<br>🔥 Конвекция", img:"https://i.ibb.co/99KT2Vss/426.jpg", hasAddons:true},
         {id:8, name:"Печь Ø426 лежачая + чёрный бак", price:21000, type:"round", specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/ns53QpVb/426.jpg", hasAddons:true},
         {id:9, name:"Печь Ø426 лежачая + бак нерж", price:26500, type:"round", specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/7NL0dnVS/426.jpg", hasAddons:true},
@@ -171,7 +171,7 @@
         {id:20, name:"Печь Ø426 поворотная + бак нерж", price:29500, type:"round", specs:"💧 Бак нерж", img:"https://i.ibb.co/GfBZ3cFM/426.jpg", hasAddons:true},
         {id:21, name:"Печь Ø426 открытая с выступом, без бака", price:13000, type:"round", specs:"📏 Выступ 150 мм", img:"https://i.ibb.co/5Xr3pQW4/426.jpg", hasAddons:true},
         
-        // --- ПЕЧИ КРУГЛЫЕ Ø530 (14 шт.) ---
+        // --- КРУГЛЫЕ ПЕЧИ Ø530 (14 шт.) ---
         {id:22, name:"Печь Ø530 поворотная каменка, без бака", price:21500, type:"round", specs:"🏠 до 35 м³<br>🔄 Поворотная", img:"https://i.ibb.co/nNcZfDHt/530.jpg", hasAddons:true},
         {id:23, name:"Печь Ø530 поворотная + чёрный бак", price:26500, type:"round", specs:"💧 Бак чёрный 2 мм, 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg", hasAddons:true},
         {id:24, name:"Печь Ø530 поворотная + бак нерж", price:32500, type:"round", specs:"💧 Бак нерж 1 мм, 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg", hasAddons:true},
@@ -187,7 +187,7 @@
         {id:34, name:"Печь Ø530 открытая лежачая, без бака", price:19500, type:"round", specs:"📐 550×650×700 мм", img:"https://i.ibb.co/RTrhYgXK/530.jpg", hasAddons:true},
         {id:35, name:"Печь Ø530 открытая лежачая + бак нерж", price:29500, type:"round", specs:"💧 Бак нерж", img:"https://i.ibb.co/DPcLGQWw/530.jpg", hasAddons:true},
         
-        // --- ПЕЧИ ПРЯМОУГОЛЬНЫЕ (социальные, листовые, корабль, бочка) (36 шт.) ---
+        // --- ПРЯМОУГОЛЬНЫЕ ПЕЧИ (листовые, социальные, корабль, бочка) (36 шт.) ---
         {id:36, name:"Печь социальная, без выступа", price:14000, type:"rect", specs:"🏠 15 м³<br>📐 530×600×500 мм", img:"https://i.ibb.co/67ksLJxm/image.jpg", hasAddons:true},
         {id:37, name:"Печь социальная + чёрный бак", price:19500, type:"rect", specs:"💧 Бак чёрный 2 мм, 50 л", img:"https://i.ibb.co/cc1Pmr5B/image.png", hasAddons:true},
         {id:38, name:"Печь социальная + бак нерж", price:24000, type:"rect", specs:"💧 Бак нерж 1 мм, 50 л", img:"https://i.ibb.co/WWr3QxYy/image.jpg", hasAddons:true},
@@ -283,25 +283,24 @@
     function applyFilterAndSort() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const sortValue = document.getElementById('sortSelect').value;
-        const filterValue = document.getElementById('filterSelect').value;
+        const shapeValue = document.getElementById('shapeFilter').value;
 
         let filtered = products.filter(product => {
             // Поиск по названию
             const matchesSearch = product.name.toLowerCase().includes(searchTerm);
             
             // Фильтр по форме
-            let matchesFilter = true;
-            if (filterValue === 'round') {
-                matchesFilter = product.type === 'round';
-            } else if (filterValue === 'rect') {
-                matchesFilter = product.type === 'rect';
-            } else {
-                matchesFilter = true;
+            let matchesShape = true;
+            if (shapeValue === 'round') {
+                matchesShape = product.type === 'round';
+            } else if (shapeValue === 'rect') {
+                matchesShape = product.type === 'rect';
             }
             
-            return matchesSearch && matchesFilter;
+            return matchesSearch && matchesShape;
         });
 
+        // Сортировка
         if (sortValue === 'price-asc') {
             filtered.sort((a, b) => a.price - b.price);
         } else if (sortValue === 'price-desc') {
@@ -513,13 +512,14 @@
         }
     }
 
+    // Обработчики событий
     document.getElementById('searchInput').addEventListener('input', () => {
         applyFilterAndSort();
     });
     document.getElementById('sortSelect').addEventListener('change', () => {
         applyFilterAndSort();
     });
-    document.getElementById('filterSelect').addEventListener('change', () => {
+    document.getElementById('shapeFilter').addEventListener('change', () => {
         applyFilterAndSort();
     });
 
@@ -529,6 +529,7 @@
     document.getElementById('addToCartBtn').onclick = addToCart;
     document.getElementById('sendOrderBtn').onclick = sendOrder;
 
+    // Инициализация
     applyFilterAndSort();
     if (currentFilteredSortedProducts.length > 0) {
         selectProduct(currentFilteredSortedProducts[0].id);
