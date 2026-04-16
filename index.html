@@ -10,6 +10,38 @@
         h1{text-align:center;color:#b45a2b;margin-bottom:10px;font-size:2.2rem;}
         h1 span{color:#d97a2b;font-weight:bold;}
         .subtitle{text-align:center;color:#7e6856;margin-bottom:40px;}
+
+        /* --- Стили для поиска и сортировки --- */
+        .search-sort-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 0 auto 30px auto;
+            max-width: 700px;
+        }
+        .search-input {
+            flex: 3;
+            min-width: 200px;
+            padding: 12px 20px;
+            border: 1px solid #dccdbd;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: inherit;
+            background: white;
+        }
+        .sort-select {
+            flex: 1;
+            min-width: 180px;
+            padding: 12px 20px;
+            border: 1px solid #dccdbd;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+        }
+
         .dropdown-container{max-width:500px;margin:0 auto 30px;position:relative;}
         .dropdown-btn{width:100%;background:#d97a2b;color:white;padding:14px 20px;border:none;border-radius:50px;font-size:16px;cursor:pointer;text-align:left;}
         .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:white;border-radius:20px;max-height:300px;overflow-y:auto;border:1px solid #dccdbd;z-index:100;margin-top:5px;}
@@ -21,9 +53,9 @@
         .dropdown-item.selected .price-drop{color:#ffd700;}
         .dropdown-item h4{color:#a55826;}
         .dropdown-item .price-drop{font-weight:bold;color:#b45a2b;margin-top:5px;}
+
         .product-card{background:white;border-radius:30px;padding:25px;max-width:700px;margin:20px auto;display:none;border:1px solid #eadbcb;}
         .product-card.show{display:block;}
-        /* ПРАВИЛЬНАЯ ОРИЕНТАЦИЯ КАРТИНОК */
         .product-card img{width:100%;max-height:300px;object-fit:contain;border-radius:20px;background:#fef9f2;margin-bottom:20px;image-orientation:from-image;}
         .product-card h2{text-align:center;color:#9b4f23;margin-bottom:15px;}
         .specs{background:#fef8f2;padding:15px;border-radius:20px;margin:15px 0;line-height:1.6;}
@@ -55,6 +87,16 @@
 <div class="container">
     <h1>🔥 <span>ТЕРМОГРАД</span> 🔥</h1>
     <div class="subtitle">Банные печи, котлы, чаны — всё для отопления и парной</div>
+
+    <!-- Панель поиска и сортировки -->
+    <div class="search-sort-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по названию...">
+        <select id="sortSelect" class="sort-select">
+            <option value="default">📊 Сортировать: по умолчанию</option>
+            <option value="price-asc">💰 Сначала дешёвые</option>
+            <option value="price-desc">💰 Сначала дорогие</option>
+        </select>
+    </div>
 
     <div class="dropdown-container">
         <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар ▼</button>
@@ -204,13 +246,13 @@
         {id:83, name:"Печь чугунная + бак нерж, 20 кВт", price:42000, specs:"💧 Бак нерж 60 л<br>🔥 20 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
         {id:84, name:"Печь чугунная + бак нерж, 24 кВт", price:48500, specs:"💧 Бак нерж 60 л<br>🔥 24 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg", hasAddons:true},
         
-        // --- БАННЫЕ ЧАНЫ (6 шт.) с РОВНЫМИ КАРТИНКАМИ ---
-        {id:85, name:"Банный чан «Дуэт» Aisi304 (пищевая)", price:200000, specs:"💧 Объём: 800 л<br>👥 Вместимость: 2-4 человека<br>📐 Ширина: 150 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:86, name:"Банный чан «Дуэт» Aisi430 (техническая)", price:170000, specs:"💧 Объём: 800 л<br>👥 Вместимость: 2-4 человека<br>📐 Ширина: 150 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:87, name:"Банный чан «Компашка» Aisi304 (пищевая)", price:270000, specs:"💧 Объём: 1440 л<br>👥 Вместимость: 4-6 человек<br>📐 Ширина: 180 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:88, name:"Банный чан «Компашка» Aisi430 (техническая)", price:230000, specs:"💧 Объём: 1440 л<br>👥 Вместимость: 4-6 человек<br>📐 Ширина: 180 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:89, name:"Банный чан «Макси» Aisi304 (пищевая)", price:350000, specs:"💧 Объём: 2900 л<br>👥 Вместимость: 6-8 человек<br>📐 Ширина: 250 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false},
-        {id:90, name:"Банный чан «Макси» Aisi430 (техническая)", price:290000, specs:"💧 Объём: 2900 л<br>👥 Вместимость: 6-8 человек<br>📐 Ширина: 250 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/7JSXJz1q/image.jpg", hasAddons:false}
+        // --- БАННЫЕ ЧАНЫ (6 шт.) с НОВОЙ КАРТИНКОЙ ---
+        {id:85, name:"Банный чан «Дуэт» Aisi304 (пищевая)", price:200000, specs:"💧 Объём: 800 л<br>👥 Вместимость: 2-4 человека<br>📐 Ширина: 150 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/rfz73jSP/image.jpg", hasAddons:false},
+        {id:86, name:"Банный чан «Дуэт» Aisi430 (техническая)", price:170000, specs:"💧 Объём: 800 л<br>👥 Вместимость: 2-4 человека<br>📐 Ширина: 150 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/rfz73jSP/image.jpg", hasAddons:false},
+        {id:87, name:"Банный чан «Компашка» Aisi304 (пищевая)", price:270000, specs:"💧 Объём: 1440 л<br>👥 Вместимость: 4-6 человек<br>📐 Ширина: 180 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/rfz73jSP/image.jpg", hasAddons:false},
+        {id:88, name:"Банный чан «Компашка» Aisi430 (техническая)", price:230000, specs:"💧 Объём: 1440 л<br>👥 Вместимость: 4-6 человек<br>📐 Ширина: 180 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/rfz73jSP/image.jpg", hasAddons:false},
+        {id:89, name:"Банный чан «Макси» Aisi304 (пищевая)", price:350000, specs:"💧 Объём: 2900 л<br>👥 Вместимость: 6-8 человек<br>📐 Ширина: 250 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/rfz73jSP/image.jpg", hasAddons:false},
+        {id:90, name:"Банный чан «Макси» Aisi430 (техническая)", price:290000, specs:"💧 Объём: 2900 л<br>👥 Вместимость: 6-8 человек<br>📐 Ширина: 250 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>🔥 Топка: чёрный металл 3 мм<br>🪜 Лестница с перилами, антискользящее покрытие<br>🛢️ Крышка, дымоход в комплекте<br>⚡ Быстрый нагрев, конструкция «Котёл»", img:"https://i.ibb.co/rfz73jSP/image.jpg", hasAddons:false}
     ];
 
     const addonsList = [
@@ -229,6 +271,7 @@
     let currentProduct = null;
     let selectedAddons = {};
     let currentSelectedId = null;
+    let currentFilteredSortedProducts = [...products]; // Массив для отображения в списке
 
     function showMessage(msg, isErr) {
         let div = document.createElement('div');
@@ -239,16 +282,51 @@
         setTimeout(() => div.remove(), 3000);
     }
 
-    function loadDropdown() {
+    // Применяет текущие фильтр (поиск) и сортировку к глобальному массиву
+    function applyFilterAndSort() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const sortValue = document.getElementById('sortSelect').value;
+
+        // 1. Фильтрация
+        let filtered = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm)
+        );
+
+        // 2. Сортировка
+        if (sortValue === 'price-asc') {
+            filtered.sort((a, b) => a.price - b.price);
+        } else if (sortValue === 'price-desc') {
+            filtered.sort((a, b) => b.price - a.price);
+        } else {
+            // По умолчанию — сортируем по id
+            filtered.sort((a, b) => a.id - b.id);
+        }
+
+        currentFilteredSortedProducts = filtered;
+        renderDropdownList(); // Перерисовываем список
+    }
+
+    // Рисует список товаров в выпадающем меню на основе отфильтрованного и отсортированного массива
+    function renderDropdownList() {
+        const container = document.getElementById('dropdownContent');
         let html = '';
-        for(let p of products) {
+        for(let p of currentFilteredSortedProducts) {
             let icon = p.name.includes('Чан') ? '🛢️' : (p.name.includes('Котёл') ? '⚙️' : '🔥');
+            // Добавляем data-id для правильного выделения
             html += `<div class="dropdown-item" data-id="${p.id}" onclick="selectProduct(${p.id})">
                         <h4>${icon} ${p.name}</h4>
                         <div class="price-drop">${p.price.toLocaleString('ru-RU')} ₽</div>
                     </div>`;
         }
-        document.getElementById('dropdownContent').innerHTML = html;
+        if (html === '') {
+            html = '<div class="dropdown-item" style="cursor:default; color:#888;">Ничего не найдено</div>';
+        }
+        container.innerHTML = html;
+        
+        // Восстанавливаем выделение, если есть выбранный товар
+        if (currentSelectedId) {
+            highlightSelected(currentSelectedId);
+        }
     }
 
     function highlightSelected(id) {
@@ -431,13 +509,26 @@
         }
     }
 
+    // Обработчики событий для поиска и сортировки
+    document.getElementById('searchInput').addEventListener('input', () => {
+        applyFilterAndSort();
+    });
+    document.getElementById('sortSelect').addEventListener('change', () => {
+        applyFilterAndSort();
+    });
+
     document.getElementById('dropdownBtn').onclick = () => {
         document.getElementById('dropdownContent').classList.toggle('show');
     };
     document.getElementById('addToCartBtn').onclick = addToCart;
     document.getElementById('sendOrderBtn').onclick = sendOrder;
 
-    loadDropdown();
+    // Инициализация
+    applyFilterAndSort(); // Заполняем список с учётом фильтра и сортировки по умолчанию
+    // Автоматически выбираем первый товар для отображения карточки, если он есть
+    if (currentFilteredSortedProducts.length > 0) {
+        selectProduct(currentFilteredSortedProducts[0].id);
+    }
 </script>
 </body>
-</html>
+    </html>
