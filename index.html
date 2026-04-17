@@ -24,30 +24,46 @@
             padding: 0 24px;
         }
 
+        /* ШАПКА: логотип ровно по центру, без фоновых переходов */
         .header {
             text-align: center;
-            padding: 24px 0 20px;
+            padding: 20px 0 10px;
+            background: transparent;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            background: transparent;
         }
 
         .header-logo {
+            display: block;
             max-width: 100%;
             height: auto;
-            border-radius: 32px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            border-radius: 0;
+            box-shadow: none;
+            background: transparent;
+            transition: transform 0.2s ease;
+            margin: 0 auto;
         }
         
         .header-logo:hover {
             transform: scale(1.01);
         }
         
+        /* Подпись под логотипом — чуть ниже, чётко отделена */
         .subtitle {
             color: #7a6852;
-            font-size: 1.1rem;
-            margin-top: 16px;
+            font-size: 1.05rem;
+            margin-top: 24px;
             border-bottom: 2px solid #e8dccc;
             display: inline-block;
             padding-bottom: 8px;
+            background: transparent;
+            letter-spacing: 0.3px;
         }
 
         .filters-panel {
@@ -400,16 +416,20 @@
             .addon-name {
                 font-size: 0.8rem;
             }
-            .header-logo {
-                border-radius: 20px;
+            .subtitle {
+                margin-top: 18px;
+                font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
 <div class="container">
+    <!-- ШАПКА: логотип строго по центру, нет лишних обводок/теней, подпись чуть ниже -->
     <div class="header">
-        <img class="header-logo" src="https://i.ibb.co/DfqLT4RQ/IMG-20260417-200601.png" alt="ТЕРМОГРАД логотип">
+        <div class="logo-wrapper">
+            <img class="header-logo" src="https://i.ibb.co/DfqLT4RQ/IMG-20260417-200601.png" alt="ТЕРМОГРАД логотип">
+        </div>
         <div class="subtitle">Банные печи, котлы, чаны — полный заводской каталог</div>
     </div>
 
@@ -465,7 +485,7 @@
 <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec";
 
-    // ========== ДОПОЛНИТЕЛЬНОЕ ОБОРУДОВАНИЕ (для печей, не показываем для чанов) ==========
+    // ========== ДОПОЛНИТЕЛЬНОЕ ОБОРУДОВАНИЕ ==========
     const addonsList = [
         {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
@@ -481,110 +501,105 @@
         {id:"module90", name:"Модуль трубы Ø90 мм 1м (нерж)", price:1000}
     ];
 
-    // ========== ПОЛНЫЙ КАТАЛОГ ПЕЧЕЙ И ЧАНОВ ==========
+    const TUB_IMAGE_URL = "https://i.ibb.co/rfz73jSP/image.jpg";
+
+    // ========== ПОЛНЫЙ КАТАЛОГ (ПЕЧИ + НОВЫЕ ЧАНЫ) ==========
     const products = [
-        // === Ø325 ===
-        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали: 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм<br>📍 Каменка слева/справа/с торца", img:"https://i.ibb.co/jkzwkbh6/325.jpg"},
-        {id:2, name:"Печь Ø325 сквозная каменка, бак из чёрной стали", price:18500, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л<br>🪵 Колосник чугунный<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/nqLW15dt/325.jpg"},
-        {id:3, name:"Печь Ø325 сквозная каменка, бак из нержавеющей стали", price:24000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/dJDBRLJK/325.jpg"},
-        {id:4, name:"Печь Ø325 открытая каменка, без бака", price:11000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>📐 500×400×550 мм<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/1pjZnj8/325.jpg"},
+        // Ø325
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали: 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм", img:"https://i.ibb.co/jkzwkbh6/325.jpg"},
+        {id:2, name:"Печь Ø325 сквозная каменка, бак из чёрной стали", price:18500, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л<br>🪵 Колосник чугунный", img:"https://i.ibb.co/nqLW15dt/325.jpg"},
+        {id:3, name:"Печь Ø325 сквозная каменка, бак из нержавеющей стали", price:24000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/dJDBRLJK/325.jpg"},
+        {id:4, name:"Печь Ø325 открытая каменка, без бака", price:11000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>📐 500×400×550 мм", img:"https://i.ibb.co/1pjZnj8/325.jpg"},
         {id:5, name:"Печь Ø325 открытая каменка, бак из чёрной стали", price:15000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/Vc8jrpW5/325.jpg"},
         {id:6, name:"Печь Ø325 открытая каменка, бак из нержавеющей стали", price:21000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/vv3CBPjN/325.jpg"},
-        
-        // === Ø426 ===
-        {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, type:"round", category:"stove", specs:"🏠 Объем бани: до 25 м³<br>🔥 Конвекция, обшита листом 2 мм<br>📐 650×450×600 мм", img:"https://i.ibb.co/99KT2Vss/426.jpg"},
-        {id:8, name:"Печь Ø426 лежачая, чёрный бак", price:21000, type:"round", category:"stove", specs:"💧 Бак чёрный 2 мм, 65 л<br>🏠 до 25 м³<br>🔥 Конвекция", img:"https://i.ibb.co/ns53QpVb/426.jpg"},
-        {id:9, name:"Печь Ø426 лежачая, бак из нержавеющей стали", price:26500, type:"round", category:"stove", specs:"💧 Бак нерж 1 мм, 65 л<br>🏠 до 25 м³", img:"https://i.ibb.co/7NL0dnVS/426.jpg"},
-        {id:10, name:"Печь Ø426 открытая каменка, без выступа", price:12000, type:"round", category:"stove", specs:"🏠 до 15 м³<br>📐 Ø426×550 мм<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/JjvpB3Gs/426.jpg"},
-        {id:11, name:"Печь Ø426 открытая каменка, без выступа, чёрный бак", price:16500, type:"round", category:"stove", specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/WvvwnQQ8/426.jpg"},
-        {id:12, name:"Печь Ø426 открытая каменка, без выступа, нержавеющий бак", price:22000, type:"round", category:"stove", specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/JRWFC5yK/426.jpg"},
-        {id:13, name:"Печь Ø426 с выступом, открытая каменка, без бака", price:13000, type:"round", category:"stove", specs:"🏠 15 м³<br>Выступ топки 150 мм", img:"https://i.ibb.co/5Xr3pQW4/426.jpg"},
-        {id:14, name:"Печь Ø426 с выступом, открытая каменка, чёрный бак", price:17500, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л<br>Выступ 200 мм", img:"https://i.ibb.co/gFvWxwcG/426.jpg"},
-        {id:15, name:"Печь Ø426 с выступом, открытая каменка, нержавеющий бак", price:23000, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/SDXyDX5d/426.jpg"},
-        {id:16, name:"Печь Ø426 без выступа, каменка сквозная, без бака", price:16000, type:"round", category:"stove", specs:"🏠 20 м³<br>📐 Ø426×700 мм", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
-        {id:17, name:"Печь Ø426 без выступа, каменка сквозная, чёрный бак", price:20000, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/kg2j3f3S/426.jpg"},
-        {id:18, name:"Печь Ø426 без выступа, каменка сквозная, нержавеющий бак", price:26000, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/LzmWTdHn/426.jpg"},
-        {id:19, name:"Печь Ø426 с выступом, каменка сквозная, без бака", price:17000, type:"round", category:"stove", specs:"🏠 20 м³, выступ 200 мм", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
-        {id:20, name:"Печь Ø426 с выступом, каменка сквозная, чёрный бак", price:21000, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/KjQPN66G/426.jpg"},
-        {id:21, name:"Печь Ø426 с выступом, каменка сквозная, нержавеющий бак", price:27000, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/HfNbq2qX/426.jpg"},
-        {id:22, name:"Печь Ø426 с выступом, поворотная каменка, без бака", price:19000, type:"round", category:"stove", specs:"🏠 20 м³, поворотная каменка", img:"https://i.ibb.co/m5pYq8SL/426.jpg"},
-        {id:23, name:"Печь Ø426 с выступом, поворотная каменка, чёрный бак", price:23000, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
-        {id:24, name:"Печь Ø426 с выступом, поворотная каменка, нержавеющий бак", price:29500, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/4R7Xdry7/426.jpg"},
-        
-        // === Ø530 ===
-        {id:25, name:"Печь Ø530 поворотная каменка, без бака", price:21500, type:"round", category:"stove", specs:"🏠 до 35 м³<br>📐 550×750×800 мм<br>Каменка Ø273 мм", img:"https://i.ibb.co/nNcZfDHt/530.jpg"},
-        {id:26, name:"Печь Ø530 поворотная каменка, чёрный бак", price:26500, type:"round", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
-        {id:27, name:"Печь Ø530 поворотная каменка, нержавеющий бак", price:32500, type:"round", category:"stove", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
-        {id:28, name:"Печь Ø530 с выступом, сквозная каменка, без бака", price:19500, type:"round", category:"stove", specs:"🏠 до 35 м³, сквозная каменка", img:"https://i.ibb.co/Y7VXSGc8/530.jpg"},
-        {id:29, name:"Печь Ø530 с выступом, сквозная каменка, чёрный бак", price:24500, type:"round", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/V0R4ZtcC/530.jpg"},
-        {id:30, name:"Печь Ø530 с выступом, сквозная каменка, нержавеющий бак", price:30500, type:"round", category:"stove", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/3mrqYvYH/530.jpg"},
-        {id:31, name:"Печь Ø530 без выступа, сквозная каменка, без бака", price:18500, type:"round", category:"stove", specs:"🏠 до 35 м³, без выступа", img:"https://i.ibb.co/fVzk9L3H/530.jpg"},
-        {id:32, name:"Печь Ø530 без выступа, сквозная каменка, чёрный бак", price:23500, type:"round", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/ZR5GqJyf/530.jpg"},
-        {id:33, name:"Печь Ø530 без выступа, сквозная каменка, нержавеющий бак", price:29500, type:"round", category:"stove", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/x87c6Bfc/530.jpg"},
-        {id:34, name:"Печь Ø530 открытая каменка (ножка), с выступом, без бака", price:15500, type:"round", category:"stove", specs:"🏠 до 35 м³, открытая каменка", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
-        {id:35, name:"Печь Ø530 открытая каменка (ножка), с выступом, чёрный бак", price:20000, type:"round", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
-        {id:36, name:"Печь Ø530 открытая каменка (лежачая), без бака", price:19500, type:"round", category:"stove", specs:"🏠 до 35 м³, лежачая, конвекция", img:"https://i.ibb.co/xK8TC9rN/530.jpg"},
-        {id:37, name:"Печь Ø530 открытая каменка (лежачая), чёрный бак", price:24000, type:"round", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/Wpf5gCf9/530.jpg"},
-        {id:38, name:"Печь Ø530 открытая каменка (лежачая), нержавеющий бак", price:29500, type:"round", category:"stove", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/yc0YrmfD/530.jpg"},
-        {id:39, name:"Печь Ø520 открытая каменка (ножка), без выступа, чёрный бак", price:19000, type:"round", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/JW46KqS7/520.jpg"},
-        
-        // === ПРЯМОУГОЛЬНЫЕ (ЛИСТОВЫЕ) ПЕЧИ ===
-        {id:40, name:"Печь листовая социальная, без выступа", price:14000, type:"rect", category:"stove", specs:"🏠 15 м³<br>📐 530×600×500 мм<br>Сталь 4 мм<br>Дымоход 89 мм", img:"https://i.ibb.co/WWr3QxYy/image.jpg"},
-        {id:41, name:"Печь листовая социальная, с выступом", price:16500, type:"rect", category:"stove", specs:"Выступ 150 мм<br>Дымоход 115 мм", img:"https://i.ibb.co/cc1Pmr5B/image.png"},
-        {id:42, name:"Печь листовая социальная, с навесным баком, топочная часть", price:15500, type:"rect", category:"stove", specs:"Сталь 5 мм, выступ 150 мм", img:"https://i.ibb.co/v627Dm1N/image.jpg"},
-        {id:43, name:"Социальная печь Лабиринт", price:17000, type:"rect", category:"stove", specs:"Лабиринт для сохранения тепла<br>Объём 15 м³", img:"https://i.ibb.co/Y7rGXs9K/image.jpg"},
-        {id:44, name:"Социальная печь Лабиринт, с выступом", price:19500, type:"rect", category:"stove", specs:"Лабиринт + выступ 150 мм", img:"https://i.ibb.co/Dfrnrf0Y/image.jpg"},
+        // Ø426
+        {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, type:"round", category:"stove", specs:"🏠 до 25 м³<br>Конвекция, обшита листом 2 мм", img:"https://i.ibb.co/99KT2Vss/426.jpg"},
+        {id:8, name:"Печь Ø426 лежачая, чёрный бак", price:21000, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/ns53QpVb/426.jpg"},
+        {id:9, name:"Печь Ø426 лежачая, бак из нержавеющей стали", price:26500, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/7NL0dnVS/426.jpg"},
+        {id:10, name:"Печь Ø426 открытая каменка, без выступа", price:12000, type:"round", category:"stove", specs:"🏠 до 15 м³, Ø426×550 мм", img:"https://i.ibb.co/JjvpB3Gs/426.jpg"},
+        {id:11, name:"Печь Ø426 открытая каменка, без выступа, чёрный бак", price:16500, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/WvvwnQQ8/426.jpg"},
+        {id:12, name:"Печь Ø426 открытая каменка, без выступа, нержавеющий бак", price:22000, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/JRWFC5yK/426.jpg"},
+        {id:13, name:"Печь Ø426 с выступом, открытая каменка, без бака", price:13000, type:"round", category:"stove", specs:"Выступ 150 мм", img:"https://i.ibb.co/5Xr3pQW4/426.jpg"},
+        {id:14, name:"Печь Ø426 с выступом, открытая каменка, чёрный бак", price:17500, type:"round", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/gFvWxwcG/426.jpg"},
+        {id:15, name:"Печь Ø426 с выступом, открытая каменка, нержавеющий бак", price:23000, type:"round", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/SDXyDX5d/426.jpg"},
+        {id:16, name:"Печь Ø426 без выступа, каменка сквозная, без бака", price:16000, type:"round", category:"stove", specs:"Сквозная, 20 м³", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:17, name:"Печь Ø426 без выступа, каменка сквозная, чёрный бак", price:20000, type:"round", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/kg2j3f3S/426.jpg"},
+        {id:18, name:"Печь Ø426 без выступа, каменка сквозная, нержавеющий бак", price:26000, type:"round", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/LzmWTdHn/426.jpg"},
+        {id:19, name:"Печь Ø426 с выступом, каменка сквозная, без бака", price:17000, type:"round", category:"stove", specs:"Выступ 200 мм", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:20, name:"Печь Ø426 с выступом, каменка сквозная, чёрный бак", price:21000, type:"round", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/KjQPN66G/426.jpg"},
+        {id:21, name:"Печь Ø426 с выступом, каменка сквозная, нержавеющий бак", price:27000, type:"round", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/HfNbq2qX/426.jpg"},
+        {id:22, name:"Печь Ø426 с выступом, поворотная каменка, без бака", price:19000, type:"round", category:"stove", specs:"Поворотная", img:"https://i.ibb.co/m5pYq8SL/426.jpg"},
+        {id:23, name:"Печь Ø426 с выступом, поворотная каменка, чёрный бак", price:23000, type:"round", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:24, name:"Печь Ø426 с выступом, поворотная каменка, нержавеющий бак", price:29500, type:"round", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/4R7Xdry7/426.jpg"},
+        // Ø530
+        {id:25, name:"Печь Ø530 поворотная каменка, без бака", price:21500, type:"round", category:"stove", specs:"до 35 м³, каменка Ø273 мм", img:"https://i.ibb.co/nNcZfDHt/530.jpg"},
+        {id:26, name:"Печь Ø530 поворотная каменка, чёрный бак", price:26500, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
+        {id:27, name:"Печь Ø530 поворотная каменка, нержавеющий бак", price:32500, type:"round", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
+        {id:28, name:"Печь Ø530 с выступом, сквозная каменка, без бака", price:19500, type:"round", category:"stove", specs:"Сквозная", img:"https://i.ibb.co/Y7VXSGc8/530.jpg"},
+        {id:29, name:"Печь Ø530 с выступом, сквозная каменка, чёрный бак", price:24500, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/V0R4ZtcC/530.jpg"},
+        {id:30, name:"Печь Ø530 с выступом, сквозная каменка, нержавеющий бак", price:30500, type:"round", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/3mrqYvYH/530.jpg"},
+        {id:31, name:"Печь Ø530 без выступа, сквозная каменка, без бака", price:18500, type:"round", category:"stove", specs:"Без выступа", img:"https://i.ibb.co/fVzk9L3H/530.jpg"},
+        {id:32, name:"Печь Ø530 без выступа, сквозная каменка, чёрный бак", price:23500, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/ZR5GqJyf/530.jpg"},
+        {id:33, name:"Печь Ø530 без выступа, сквозная каменка, нержавеющий бак", price:29500, type:"round", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/x87c6Bfc/530.jpg"},
+        {id:34, name:"Печь Ø530 открытая каменка (ножка), с выступом, без бака", price:15500, type:"round", category:"stove", specs:"Открытая, ножка", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
+        {id:35, name:"Печь Ø530 открытая каменка (ножка), с выступом, чёрный бак", price:20000, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
+        {id:36, name:"Печь Ø530 открытая каменка (лежачая), без бака", price:19500, type:"round", category:"stove", specs:"Лежачая, конвекция", img:"https://i.ibb.co/xK8TC9rN/530.jpg"},
+        {id:37, name:"Печь Ø530 открытая каменка (лежачая), чёрный бак", price:24000, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/Wpf5gCf9/530.jpg"},
+        {id:38, name:"Печь Ø530 открытая каменка (лежачая), нержавеющий бак", price:29500, type:"round", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/yc0YrmfD/530.jpg"},
+        {id:39, name:"Печь Ø520 открытая каменка (ножка), без выступа, чёрный бак", price:19000, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/JW46KqS7/520.jpg"},
+        // Прямоугольные печи, соц. печи, бочка, корабль и т.д.
+        {id:40, name:"Печь листовая социальная, без выступа", price:14000, type:"rect", category:"stove", specs:"15 м³, сталь 4 мм", img:"https://i.ibb.co/WWr3QxYy/image.jpg"},
+        {id:41, name:"Печь листовая социальная, с выступом", price:16500, type:"rect", category:"stove", specs:"Выступ 150 мм", img:"https://i.ibb.co/cc1Pmr5B/image.png"},
+        {id:42, name:"Печь листовая социальная, с навесным баком, топочная часть", price:15500, type:"rect", category:"stove", specs:"Сталь 5 мм", img:"https://i.ibb.co/v627Dm1N/image.jpg"},
+        {id:43, name:"Социальная печь Лабиринт", price:17000, type:"rect", category:"stove", specs:"Лабиринт, 15 м³", img:"https://i.ibb.co/Y7rGXs9K/image.jpg"},
+        {id:44, name:"Социальная печь Лабиринт, с выступом", price:19500, type:"rect", category:"stove", specs:"Лабиринт + выступ", img:"https://i.ibb.co/Dfrnrf0Y/image.jpg"},
         {id:45, name:"Социальная печь Лабиринт, с навесным баком, топочная часть", price:18500, type:"rect", category:"stove", specs:"Лабиринт, сталь 5 мм", img:"https://i.ibb.co/gMPDwsTH/image.jpg"},
-        {id:46, name:"Печь на 2-3 помещения, чёрный бак", price:38000, type:"rect", category:"stove", specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л, чёрный<br>Газопламенный лабиринт", img:"https://i.ibb.co/DHFFnXCC/2-3.jpg"},
-        {id:47, name:"Печь на 2-3 помещения, нержавеющий бак", price:45000, type:"rect", category:"stove", specs:"💧 Бак нерж 75 л", img:"https://i.ibb.co/0pbBWHVg/2-3.png"},
-        {id:48, name:"Печь на 2-3 помещения, дверка со стеклом, нержавеющий бак", price:59000, type:"rect", category:"stove", specs:"💧 Бак нерж 75 л<br>Дверка с жаропрочным стеклом", img:"https://i.ibb.co/SwNk00xp/2-3.jpg"},
-        {id:49, name:"Печь бочка, без бака", price:29000, type:"rect", category:"stove", specs:"🏠 до 25 м³<br>🔥 Газопламенный лабиринт, конвекция<br>Ø426 мм", img:"https://i.ibb.co/ch3yqw89/image.png"},
-        {id:50, name:"Печь бочка, чёрный бак", price:34500, type:"rect", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/Z6L1dLxM/image.png"},
-        {id:51, name:"Печь бочка, нержавеющий бак", price:39000, type:"rect", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/rRF9DncR/image.png"},
-        {id:52, name:"Печь Корабль, без бака", price:36000, type:"rect", category:"stove", specs:"🏠 до 35 м³<br>📐 530×800 мм<br>Свод каменки 8 мм", img:"https://i.ibb.co/v4qFTdz9/image.jpg"},
-        {id:53, name:"Печь Корабль, чёрный бак", price:41000, type:"rect", category:"stove", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/21NHY9F0/image.png"},
-        {id:54, name:"Печь Корабль, нержавеющий бак", price:46000, type:"rect", category:"stove", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/BK3k5XN7/image.png"},
-        {id:55, name:"Печь БВ-350, без бака", price:13000, type:"rect", category:"stove", specs:"🏠 до 20 м³<br>📐 450×350×700 мм<br>Сталь 4 мм", img:"https://i.ibb.co/Pst69zWv/350.jpg"},
-        {id:56, name:"Печь БВ-350, чёрный бак", price:18000, type:"rect", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/0jd99m1y/350.jpg"},
-        {id:57, name:"Печь БВ-350, нержавеющий бак", price:23000, type:"rect", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/KpthjKy6/350.jpg"},
-        {id:58, name:"Печь НВ-350, без бака", price:14000, type:"rect", category:"stove", specs:"🏠 до 20 м³, вынос 150 мм", img:"https://i.ibb.co/2YYvstY3/350.jpg"},
-        {id:59, name:"Печь НВ-350, чёрный бак", price:19000, type:"rect", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/gZ2nC9r1/350.jpg"},
-        {id:60, name:"Печь НВ-350, нержавеющий бак", price:24000, type:"rect", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/dsrbCHj4/350.jpg"},
-        {id:61, name:"Печь ВВ-350, без бака", price:17000, type:"rect", category:"stove", specs:"С конвекцией, сталь 4 мм", img:"https://i.ibb.co/yBqbb0Rd/350.jpg"},
-        {id:62, name:"Печь ВВ-350, чёрный бак", price:22000, type:"rect", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/GvSj9cFc/350.jpg"},
-        {id:63, name:"Печь ВВ-350, нержавеющий бак", price:27000, type:"rect", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/Q3Dz1H5G/350.jpg"},
-        
-        // === КОТЛЫ И БУРЖУЙКИ ===
-        {id:64, name:"Буржуйка №1, без конвекции", price:5000, type:"rect", category:"stove", specs:"Объем до 20 м³<br>350×300×300 мм, сталь 2 мм", img:"https://i.ibb.co/7dBSHbPF/1.jpg"},
-        {id:65, name:"Буржуйка №1 с конвекцией", price:6000, type:"rect", category:"stove", specs:"Объем до 25 м³, с конвекцией", img:"https://i.ibb.co/Z1W46HcC/1.png"},
-        {id:66, name:"Буржуйка №1У, без конвекции", price:5500, type:"rect", category:"stove", specs:"Объем до 25 м³, сталь 3 мм", img:"https://i.ibb.co/wNmkyKc9/1.jpg"},
-        {id:67, name:"Буржуйка №1,5У, с конвекцией", price:6500, type:"rect", category:"stove", specs:"Объем до 30 м³", img:"https://i.ibb.co/LX185Jn6/1-5.jpg"},
-        {id:68, name:"Буржуйка №2, без конвекции", price:8000, type:"rect", category:"stove", specs:"Объем 40 м³, сталь 4 мм", img:"https://i.ibb.co/Z1W46HcC/1.png"},
-        {id:69, name:"Буржуйка №2,5, с конвекцией", price:9000, type:"rect", category:"stove", specs:"Объем 45 м³", img:"https://i.ibb.co/sdmzy8PK/2-5.jpg"},
-        {id:70, name:"Буржуйка №3 с кружком, без конвекции", price:8500, type:"rect", category:"stove", specs:"С отверстием для нагрева воды/пищи", img:"https://i.ibb.co/pjfWK8Ht/3.png"},
-        {id:71, name:"Буржуйка №3,5 с кружком, с конвекцией", price:9500, type:"rect", category:"stove", specs:"С кружком + конвекция", img:"https://i.ibb.co/FLQRDVQM/3-5.png"},
-        {id:72, name:"Буржуйка из трубы Ø426 мм", price:13000, type:"round", category:"stove", specs:"Объем до 150 м³, труба 8 мм, кружок", img:"https://i.ibb.co/4wNk5CR7/426.png"},
-        {id:73, name:"Буржуйка из трубы Ø530 мм", price:16000, type:"round", category:"stove", specs:"Объем до 200 м³", img:"https://i.ibb.co/gMPbpV0X/530.jpg"},
-        {id:74, name:"Печь-буржуйка длительного горения TALTY", price:18000, type:"rect", category:"stove", specs:"Объем до 200 м³, горение до 24 ч", img:"https://i.ibb.co/CpPd7Tng/TALTY.png"},
-        {id:75, name:"Котёл малый 1/2 плиты", price:22500, type:"rect", category:"stove", specs:"80-100 м², 550×430×600 мм", img:"https://i.ibb.co/1Y2dQTM0/1-2.png"},
-        {id:76, name:"Котёл большой 1/2 плиты", price:35500, type:"rect", category:"stove", specs:"100-130 м², 720×430×600 мм", img:"https://i.ibb.co/B2MDYnm1/1-2.png"},
-        {id:77, name:"Котёл большой, целая плита ЦП", price:23000, type:"rect", category:"stove", specs:"120 м², цельная плита", img:"https://i.ibb.co/d4RkSvrn/image.png"},
-        {id:78, name:"Котёл с водяным верхом ВВ", price:24000, type:"rect", category:"stove", specs:"до 200 м², водяной верх", img:"https://i.ibb.co/hJDDPQsH/image.png"},
-        {id:79, name:"Котёл длительного горения Майбах", price:71500, type:"rect", category:"stove", specs:"50-250 м², с вентилятором и контроллером", img:"https://i.ibb.co/zTW8dpCz/image.jpg"},
-        
-        // === ЧУГУННЫЕ ПЕЧИ ===
-        {id:80, name:"Печь чугунная без бака, 15 кВт", price:29500, type:"rect", category:"stove", specs:"Чугунная печь, мощность 15 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
-        {id:81, name:"Печь чугунная без бака, 18 кВт", price:33000, type:"rect", category:"stove", specs:"Чугунная печь, мощность 18 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
-        {id:82, name:"Печь чугунная без бака, 20 кВт", price:33500, type:"rect", category:"stove", specs:"Чугунная печь, мощность 20 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
-        {id:83, name:"Печь чугунная без бака, 24 кВт", price:40000, type:"rect", category:"stove", specs:"Чугунная печь, мощность 24 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
-        
-        // === НОВЫЕ БАННЫЕ ЧАНЫ (по данным из PDF) — старые удалены ===
-        {id:84, name:"Банный чан «Дуэт» Aisi304", price:200000, type:"rect", category:"tub", specs:"👥 Количество мест: 2-4<br>💧 Объём: 800 л<br>📏 Ширина: 150 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>✅ В комплекте: чаша из нержавеющей стали с водяной рубашкой в топке, топка (чёрный металл 3 мм), стальная лестница с перилами, антискользящее покрытие, массажный эффект, крышка для чана, дымоход<br>🔥 Топка расположена снизу, самонесущая конструкция, нагревательный элемент в виде «Котла» под днищем", img:"https://i.ibb.co/7JSXJz1q/image.jpg"},
-        {id:85, name:"Банный чан «Дуэт» Aisi430", price:170000, type:"rect", category:"tub", specs:"👥 Количество мест: 2-4<br>💧 Объём: 800 л<br>📏 Ширина: 150 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>✅ В комплекте: чаша из нержавеющей стали с водяной рубашкой в топке, топка (чёрный металл 3 мм), стальная лестница с перилами, антискользящее покрытие, массажный эффект, крышка для чана, дымоход<br>🔥 Топка расположена снизу, самонесущая конструкция", img:"https://i.ibb.co/7JSXJz1q/image.jpg"},
-        {id:86, name:"Банный чан «Компашка» Aisi304", price:270000, type:"rect", category:"tub", specs:"👥 Количество мест: 4-6<br>💧 Объём: 1440 л<br>📏 Ширина: 180 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>✅ В комплекте: чаша из нержавеющей стали с водяной рубашкой в топке, топка (чёрный металл 3 мм), стальная лестница с перилами, антискользящее покрытие, массажный эффект, крышка для чана, дымоход<br>🔥 Топка расположена снизу, самонесущая конструкция", img:"https://i.ibb.co/7JSXJz1q/image.jpg"},
-        {id:87, name:"Банный чан «Компашка» Aisi430", price:230000, type:"rect", category:"tub", specs:"👥 Количество мест: 4-6<br>💧 Объём: 1440 л<br>📏 Ширина: 180 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>✅ В комплекте: чаша из нержавеющей стали с водяной рубашкой в топке, топка (чёрный металл 3 мм), стальная лестница с перилами, антискользящее покрытие, массажный эффект, крышка для чана, дымоход", img:"https://i.ibb.co/7JSXJz1q/image.jpg"},
-        {id:88, name:"Банный чан «Макси» Aisi304", price:350000, type:"rect", category:"tub", specs:"👥 Количество мест: 6-8<br>💧 Объём: 2900 л<br>📏 Ширина: 250 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>✅ В комплекте: чаша из нержавеющей стали с водяной рубашкой в топке, топка (чёрный металл 3 мм), стальная лестница с перилами, антискользящее покрытие, массажный эффект, крышка для чана, дымоход<br>🔥 Топка расположена снизу, самонесущая конструкция", img:"https://i.ibb.co/7JSXJz1q/image.jpg"},
-        {id:89, name:"Банный чан «Макси» Aisi430", price:290000, type:"rect", category:"tub", specs:"👥 Количество мест: 6-8<br>💧 Объём: 2900 л<br>📏 Ширина: 250 см<br>🔩 Материал: Aisi430 (техническая нержавейка)<br>✅ В комплекте: чаша из нержавеющей стали с водяной рубашкой в топке, топка (чёрный металл 3 мм), стальная лестница с перилами, антискользящее покрытие, массажный эффект, крышка для чана, дымоход", img:"https://i.ibb.co/7JSXJz1q/image.jpg"}
+        {id:46, name:"Печь на 2-3 помещения, чёрный бак", price:38000, type:"rect", category:"stove", specs:"до 20 м³, бак 75 л", img:"https://i.ibb.co/DHFFnXCC/2-3.jpg"},
+        {id:47, name:"Печь на 2-3 помещения, нержавеющий бак", price:45000, type:"rect", category:"stove", specs:"Бак нерж 75 л", img:"https://i.ibb.co/0pbBWHVg/2-3.png"},
+        {id:48, name:"Печь на 2-3 помещения, дверка со стеклом, нержавеющий бак", price:59000, type:"rect", category:"stove", specs:"Стекло, бак нерж", img:"https://i.ibb.co/SwNk00xp/2-3.jpg"},
+        {id:49, name:"Печь бочка, без бака", price:29000, type:"rect", category:"stove", specs:"Газопламенный лабиринт", img:"https://i.ibb.co/ch3yqw89/image.png"},
+        {id:50, name:"Печь бочка, чёрный бак", price:34500, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/Z6L1dLxM/image.png"},
+        {id:51, name:"Печь бочка, нержавеющий бак", price:39000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/rRF9DncR/image.png"},
+        {id:52, name:"Печь Корабль, без бака", price:36000, type:"rect", category:"stove", specs:"до 35 м³, свод 8 мм", img:"https://i.ibb.co/v4qFTdz9/image.jpg"},
+        {id:53, name:"Печь Корабль, чёрный бак", price:41000, type:"rect", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/21NHY9F0/image.png"},
+        {id:54, name:"Печь Корабль, нержавеющий бак", price:46000, type:"rect", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/BK3k5XN7/image.png"},
+        {id:55, name:"Печь БВ-350, без бака", price:13000, type:"rect", category:"stove", specs:"до 20 м³, сталь 4 мм", img:"https://i.ibb.co/Pst69zWv/350.jpg"},
+        {id:56, name:"Печь БВ-350, чёрный бак", price:18000, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/0jd99m1y/350.jpg"},
+        {id:57, name:"Печь БВ-350, нержавеющий бак", price:23000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/KpthjKy6/350.jpg"},
+        {id:58, name:"Печь НВ-350, без бака", price:14000, type:"rect", category:"stove", specs:"Вынос 150 мм", img:"https://i.ibb.co/2YYvstY3/350.jpg"},
+        {id:59, name:"Печь НВ-350, чёрный бак", price:19000, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/gZ2nC9r1/350.jpg"},
+        {id:60, name:"Печь НВ-350, нержавеющий бак", price:24000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/dsrbCHj4/350.jpg"},
+        {id:61, name:"Печь ВВ-350, без бака", price:17000, type:"rect", category:"stove", specs:"С конвекцией", img:"https://i.ibb.co/yBqbb0Rd/350.jpg"},
+        {id:62, name:"Печь ВВ-350, чёрный бак", price:22000, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/GvSj9cFc/350.jpg"},
+        {id:63, name:"Печь ВВ-350, нержавеющий бак", price:27000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/Q3Dz1H5G/350.jpg"},
+        // Буржуйки, котлы
+        {id:64, name:"Буржуйка №1, без конвекции", price:5000, type:"rect", category:"stove", specs:"20 м³", img:"https://i.ibb.co/7dBSHbPF/1.jpg"},
+        {id:65, name:"Буржуйка №1 с конвекцией", price:6000, type:"rect", category:"stove", specs:"25 м³", img:"https://i.ibb.co/Z1W46HcC/1.png"},
+        {id:66, name:"Буржуйка №1У, без конвекции", price:5500, type:"rect", category:"stove", specs:"25 м³, сталь 3 мм", img:"https://i.ibb.co/wNmkyKc9/1.jpg"},
+        {id:67, name:"Буржуйка №1,5У, с конвекцией", price:6500, type:"rect", category:"stove", specs:"30 м³", img:"https://i.ibb.co/LX185Jn6/1-5.jpg"},
+        {id:68, name:"Буржуйка №2, без конвекции", price:8000, type:"rect", category:"stove", specs:"40 м³", img:"https://i.ibb.co/Z1W46HcC/1.png"},
+        {id:69, name:"Буржуйка №2,5, с конвекцией", price:9000, type:"rect", category:"stove", specs:"45 м³", img:"https://i.ibb.co/sdmzy8PK/2-5.jpg"},
+        {id:70, name:"Буржуйка №3 с кружком, без конвекции", price:8500, type:"rect", category:"stove", specs:"С кружком", img:"https://i.ibb.co/pjfWK8Ht/3.png"},
+        {id:71, name:"Буржуйка №3,5 с кружком, с конвекцией", price:9500, type:"rect", category:"stove", specs:"Кружок+конвекция", img:"https://i.ibb.co/FLQRDVQM/3-5.png"},
+        {id:72, name:"Буржуйка из трубы Ø426 мм", price:13000, type:"round", category:"stove", specs:"150 м³, кружок", img:"https://i.ibb.co/4wNk5CR7/426.png"},
+        {id:73, name:"Буржуйка из трубы Ø530 мм", price:16000, type:"round", category:"stove", specs:"200 м³", img:"https://i.ibb.co/gMPbpV0X/530.jpg"},
+        {id:74, name:"Печь-буржуйка длительного горения TALTY", price:18000, type:"rect", category:"stove", specs:"до 24 ч горения", img:"https://i.ibb.co/CpPd7Tng/TALTY.png"},
+        {id:75, name:"Котёл малый 1/2 плиты", price:22500, type:"rect", category:"stove", specs:"80-100 м²", img:"https://i.ibb.co/1Y2dQTM0/1-2.png"},
+        {id:76, name:"Котёл большой 1/2 плиты", price:35500, type:"rect", category:"stove", specs:"100-130 м²", img:"https://i.ibb.co/B2MDYnm1/1-2.png"},
+        {id:77, name:"Котёл большой, целая плита ЦП", price:23000, type:"rect", category:"stove", specs:"120 м²", img:"https://i.ibb.co/d4RkSvrn/image.png"},
+        {id:78, name:"Котёл с водяным верхом ВВ", price:24000, type:"rect", category:"stove", specs:"до 200 м²", img:"https://i.ibb.co/hJDDPQsH/image.png"},
+        {id:79, name:"Котёл длительного горения Майбах", price:71500, type:"rect", category:"stove", specs:"50-250 м², с вентилятором", img:"https://i.ibb.co/zTW8dpCz/image.jpg"},
+        {id:80, name:"Печь чугунная без бака, 15 кВт", price:29500, type:"rect", category:"stove", specs:"15 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:81, name:"Печь чугунная без бака, 18 кВт", price:33000, type:"rect", category:"stove", specs:"18 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:82, name:"Печь чугунная без бака, 20 кВт", price:33500, type:"rect", category:"stove", specs:"20 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:83, name:"Печь чугунная без бака, 24 кВт", price:40000, type:"rect", category:"stove", specs:"24 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        // НОВЫЕ ЧАНЫ (единая картинка)
+        {id:84, name:"Банный чан «Дуэт» Aisi304", price:200000, type:"rect", category:"tub", specs:"2-4 места, 800 л, Aisi304, лестница, крышка, дымоход в комплекте", img: TUB_IMAGE_URL},
+        {id:85, name:"Банный чан «Дуэт» Aisi430", price:170000, type:"rect", category:"tub", specs:"2-4 места, 800 л, Aisi430, лестница, крышка, дымоход", img: TUB_IMAGE_URL},
+        {id:86, name:"Банный чан «Компашка» Aisi304", price:270000, type:"rect", category:"tub", specs:"4-6 мест, 1440 л, Aisi304, полный комплект", img: TUB_IMAGE_URL},
+        {id:87, name:"Банный чан «Компашка» Aisi430", price:230000, type:"rect", category:"tub", specs:"4-6 мест, 1440 л, Aisi430, полный комплект", img: TUB_IMAGE_URL},
+        {id:88, name:"Банный чан «Макси» Aisi304", price:350000, type:"rect", category:"tub", specs:"6-8 мест, 2900 л, Aisi304, максимальная комплектация", img: TUB_IMAGE_URL},
+        {id:89, name:"Банный чан «Макси» Aisi430", price:290000, type:"rect", category:"tub", specs:"6-8 мест, 2900 л, Aisi430, максимальная комплектация", img: TUB_IMAGE_URL}
     ];
 
     let cart = [];
@@ -600,20 +615,13 @@
         setTimeout(() => toast.remove(), 2500);
     }
 
-    // Отрисовка дополнительного оборудования — только для печей, для чанов не показываем
     function renderAddons() {
         const container = document.getElementById('addonsContainer');
-        if (!currentProduct) {
+        if (!currentProduct || currentProduct.category === 'tub') {
             container.innerHTML = '';
             return;
         }
-        // Если товар — это чан (категория "tub"), то допы не показываем
-        if (currentProduct.category === 'tub') {
-            container.innerHTML = '';
-            return;
-        }
-        
-        let html = `<div class="addons-section"><div class="addon-title">➕ Дополнительное оборудование (можно выбрать несколько)</div>`;
+        let html = `<div class="addons-section"><div class="addon-title">➕ Дополнительное оборудование</div>`;
         for (let a of addonsList) {
             let cnt = selectedAddons[a.id] ? selectedAddons[a.id].quantity : 0;
             html += `<div class="addon-item">
@@ -691,7 +699,7 @@
     function selectProduct(id) {
         currentProduct = products.find(p => p.id === id);
         currentSelectedId = id;
-        selectedAddons = {}; // сбрасываем допы при смене товара
+        selectedAddons = {};
         if (!currentProduct) return;
         
         document.querySelectorAll('.dropdown-item').forEach(el => {
@@ -743,13 +751,10 @@
             return;
         }
         cart.push({ name: currentProduct.name, price: currentProduct.price });
-        // Добавляем допы только если товар не чан
         if (currentProduct.category !== 'tub') {
             for (let k in selectedAddons) {
                 let a = selectedAddons[k];
-                for (let i = 0; i < a.quantity; i++) {
-                    cart.push({ name: a.name, price: a.price });
-                }
+                for (let i = 0; i < a.quantity; i++) cart.push({ name: a.name, price: a.price });
             }
         }
         updateCartUI();
@@ -761,7 +766,6 @@
         const email = document.getElementById('customerEmail').value.trim();
         const phone = document.getElementById('customerPhone').value.trim();
         const address = document.getElementById('customerAddress').value;
-
         if (!name || !email || !phone) {
             showToast('❌ Заполните имя, email и телефон', true);
             return;
@@ -770,7 +774,6 @@
             showToast('❌ Корзина пуста', true);
             return;
         }
-
         let items = '';
         let total = 0;
         cart.forEach(it => { items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`; total += it.price; });
