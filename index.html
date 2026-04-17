@@ -2,67 +2,414 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ТЕРМОГРАД | Банные печи, котлы, чаны — полный каталог</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(145deg,#f8f5f0 0%,#efe6db 100%);color:#2c241a;min-height:100vh}
-        .container{max-width:1200px;margin:0 auto;padding:0 24px}
-        .header{text-align:center;padding:48px 0 32px}
-        .header h1{font-size:3rem;font-weight:700;background:linear-gradient(135deg,#b45a2b,#e67e22);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .header h1 span{background:none;color:#d97a2b}
-        .subtitle{color:#7a6852;font-size:1.1rem;margin-top:12px;border-bottom:2px solid #e8dccc;display:inline-block;padding-bottom:8px}
-        .filters-panel{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:60px;padding:12px 24px;margin:24px auto 40px;display:flex;flex-wrap:wrap;justify-content:center;gap:16px;box-shadow:0 8px 20px rgba(0,0,0,0.03);border:1px solid rgba(210,180,140,0.3);max-width:900px}
-        .search-input,.sort-select,.shape-filter{padding:12px 20px;border-radius:40px;border:1px solid #e2d4c4;background:white;font-size:0.95rem;font-weight:500;transition:all 0.2s;cursor:pointer;outline:none}
-        .search-input{flex:2;min-width:200px;cursor:text}
-        .search-input:focus,.sort-select:focus,.shape-filter:focus{border-color:#d97a2b;box-shadow:0 0 0 3px rgba(217,122,43,0.1)}
-        .dropdown-container{max-width:600px;margin:0 auto 30px;position:relative}
-        .dropdown-btn{width:100%;background:#d97a2b;color:white;padding:16px 24px;border:none;border-radius:60px;font-size:1rem;font-weight:600;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;transition:all 0.2s}
-        .dropdown-btn:hover{background:#c06622;transform:translateY(-1px)}
-        .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:white;border-radius:24px;max-height:320px;overflow-y:auto;border:2px solid #d97a2b;z-index:100;margin-top:8px;box-shadow:0 10px 25px rgba(0,0,0,0.1)}
-        .dropdown-content.show{display:block}
-        .dropdown-item{padding:14px 20px;border-bottom:1px solid #f0e0d5;cursor:pointer;transition:all 0.2s}
-        .dropdown-item:hover{background:#fef3e9;padding-left:28px}
-        .dropdown-item.selected{background:#d97a2b;color:white}
-        .dropdown-item.selected h4{color:white}
-        .dropdown-item.selected .price-drop{color:#ffd700}
-        .dropdown-item h4{color:#a55826;margin-bottom:5px}
-        .dropdown-item .price-drop{font-weight:700;color:#b45a2b;margin-top:5px}
-        .product-card{background:white;border-radius:32px;padding:28px;max-width:700px;margin:20px auto;display:none;border:1px solid #e6daca;box-shadow:0 8px 24px rgba(0,0,0,0.05)}
-        .product-card.show{display:block}
-        .product-card img{width:100%;max-height:320px;object-fit:contain;border-radius:24px;background:#fefaf5;margin-bottom:20px}
-        .product-card h2{text-align:center;color:#9b4f23;margin-bottom:15px}
-        .specs{background:#fef8f2;padding:16px;border-radius:24px;margin:15px 0;line-height:1.6;border-left:4px solid #d97a2b}
-        .price{font-size:28px;font-weight:700;color:#d97a2b;text-align:center;margin:15px 0}
-        .addons-section{background:#fdf8f1;border-radius:24px;padding:15px;margin-top:20px}
-        .addon-title{font-size:1rem;font-weight:600;color:#b45a2b;margin-bottom:12px}
-        .addon-item{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;margin:6px 0;background:white;border-radius:60px;border:1px solid #eadbcb}
-        .addon-name{flex:2;font-weight:500;font-size:0.9rem}
-        .addon-price{flex:1;color:#bd631e;font-weight:500;font-size:0.9rem}
-        .addon-controls{display:flex;gap:10px;align-items:center}
-        .addon-controls button{width:28px;height:28px;border-radius:50%;background:#d97a2b;color:white;border:none;font-size:16px;cursor:pointer}
-        .addon-count{font-weight:700;min-width:28px;text-align:center}
-        .add-to-cart{background:#d97a2b;color:white;width:100%;padding:14px;border:none;border-radius:60px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:20px}
-        .cart-section{background:white;border-radius:32px;padding:24px;margin:40px 0;box-shadow:0 8px 24px rgba(0,0,0,0.05);border:1px solid #e6daca}
-        .cart-header{font-size:1.5rem;font-weight:600;color:#b45a2b;margin-bottom:20px}
-        .cart-items-list{max-height:300px;overflow-y:auto;margin-bottom:20px}
-        .cart-item{background:#fef9f2;padding:12px 18px;border-radius:60px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-        .cart-remove{background:#c0392b;border:none;color:white;border-radius:40px;padding:5px 15px;cursor:pointer}
-        .cart-total{text-align:right;font-size:1.3rem;font-weight:700;padding-top:15px;border-top:2px solid #e6daca}
-        .cart-total span{color:#d97a2b}
-        .order-form{margin-top:25px;display:none}
-        .order-form input,.order-form textarea{width:100%;padding:12px;margin:8px 0;border-radius:40px;border:1px solid #e2d4c4;font-family:inherit}
-        .send-order-btn{background:#27ae60;width:100%;padding:14px;border:none;border-radius:60px;font-weight:600;color:white;margin-top:16px;cursor:pointer}
-        .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
-        .footer a{color:#b45a2b;text-decoration:none}
-        @media(max-width:720px){.container{padding:0 16px}.filters-panel{border-radius:32px;padding:12px 16px}.product-card{padding:20px}.addon-name{font-size:0.8rem}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f8f5f0 0%, #efe6db 100%);
+            color: #2c241a;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 48px 0 32px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #b45a2b, #e67e22);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header h1 span {
+            background: none;
+            color: #d97a2b;
+        }
+
+        .subtitle {
+            color: #7a6852;
+            font-size: 1.1rem;
+            margin-top: 12px;
+            border-bottom: 2px solid #e8dccc;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .filters-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 12px 24px;
+            margin: 24px auto 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(210, 180, 140, 0.3);
+            max-width: 900px;
+        }
+
+        .search-input, .sort-select, .shape-filter {
+            padding: 12px 20px;
+            border-radius: 40px;
+            border: 1px solid #e2d4c4;
+            background: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .search-input {
+            flex: 2;
+            min-width: 200px;
+            cursor: text;
+        }
+
+        .search-input:focus, .sort-select:focus, .shape-filter:focus {
+            border-color: #d97a2b;
+            box-shadow: 0 0 0 3px rgba(217, 122, 43, 0.1);
+        }
+
+        .dropdown-container {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            background: #d97a2b;
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .dropdown-btn:hover {
+            background: #c06622;
+            transform: translateY(-1px);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 24px;
+            max-height: 320px;
+            overflow-y: auto;
+            border: 2px solid #d97a2b;
+            z-index: 100;
+            margin-top: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0e0d5;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: #fef3e9;
+            padding-left: 28px;
+        }
+
+        .dropdown-item.selected {
+            background: #d97a2b;
+            color: white;
+        }
+
+        .dropdown-item.selected h4 {
+            color: white;
+        }
+
+        .dropdown-item.selected .price-drop {
+            color: #ffd700;
+        }
+
+        .dropdown-item h4 {
+            color: #a55826;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-item .price-drop {
+            font-weight: 700;
+            color: #b45a2b;
+            margin-top: 5px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 32px;
+            padding: 28px;
+            max-width: 700px;
+            margin: 20px auto;
+            display: none;
+            border: 1px solid #e6daca;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-card.show {
+            display: block;
+        }
+
+        .product-card img {
+            width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            border-radius: 24px;
+            background: #fefaf5;
+            margin-bottom: 20px;
+        }
+
+        .product-card h2 {
+            text-align: center;
+            color: #9b4f23;
+            margin-bottom: 15px;
+        }
+
+        .specs {
+            background: #fef8f2;
+            padding: 16px;
+            border-radius: 24px;
+            margin: 15px 0;
+            line-height: 1.6;
+            border-left: 4px solid #d97a2b;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d97a2b;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .addons-section {
+            background: #fdf8f1;
+            border-radius: 24px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .addon-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #b45a2b;
+            margin-bottom: 12px;
+        }
+
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 6px 0;
+            background: white;
+            border-radius: 60px;
+            border: 1px solid #eadbcb;
+        }
+
+        .addon-name {
+            flex: 2;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .addon-price {
+            flex: 1;
+            color: #bd631e;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .addon-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .addon-controls button {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #d97a2b;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .addon-count {
+            font-weight: 700;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .add-to-cart {
+            background: #d97a2b;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .cart-section {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            margin: 40px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e6daca;
+        }
+
+        .cart-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #b45a2b;
+            margin-bottom: 20px;
+        }
+
+        .cart-items-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            background: #fef9f2;
+            padding: 12px 18px;
+            border-radius: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-remove {
+            background: #c0392b;
+            border: none;
+            color: white;
+            border-radius: 40px;
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding-top: 15px;
+            border-top: 2px solid #e6daca;
+        }
+
+        .cart-total span {
+            color: #d97a2b;
+        }
+
+        .order-form {
+            margin-top: 25px;
+            display: none;
+        }
+
+        .order-form input, .order-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 40px;
+            border: 1px solid #e2d4c4;
+            font-family: inherit;
+        }
+
+        .send-order-btn {
+            background: #27ae60;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 600;
+            color: white;
+            margin-top: 16px;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            background: #e8d9ca;
+            border-radius: 48px 48px 24px 24px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #b45a2b;
+            text-decoration: none;
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                padding: 0 16px;
+            }
+            .filters-panel {
+                border-radius: 32px;
+                padding: 12px 16px;
+            }
+            .product-card {
+                padding: 20px;
+            }
+            .addon-name {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
         <h1>🔥 <span>ТЕРМОГРАД</span> 🔥</h1>
-        <div class="subtitle">Банные печи, котлы, чаны — тепло и уют</div>
+        <div class="subtitle">Банные печи, котлы, чаны — полный заводской каталог</div>
     </div>
 
     <div class="filters-panel">
@@ -74,13 +421,13 @@
         </select>
         <select id="shapeFilter" class="shape-filter">
             <option value="all">🎨 Все печи</option>
-            <option value="round">🔴 Круглые</option>
-            <option value="rect">🟦 Прямоугольные</option>
+            <option value="round">🔴 Круглые (труба)</option>
+            <option value="rect">🟦 Прямоугольные (листовые)</option>
         </select>
     </div>
 
     <div class="dropdown-container">
-        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар <span>▼</span></button>
+        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар из каталога <span>▼</span></button>
         <div class="dropdown-content" id="dropdownContent"></div>
     </div>
 
@@ -110,13 +457,14 @@
     <div class="footer">
         <p>📞 <strong>Контакты:</strong> <a href="tel:+79609471278">+7-960-947-12-78</a> | <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p>
         <p>📍 Алтайский край, г.Барнаул, Эмилии Алексеевой 94</p>
+        <p>🔥 Изготовление на заказ — печи, котлы, чаны, баки, дымоходы</p>
     </div>
 </div>
 
 <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec";
 
-    // ========== ВСЕ ДОПЫ ==========
+    // ========== ДОПОЛНИТЕЛЬНОЕ ОБОРУДОВАНИЕ ==========
     const addonsList = [
         {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
@@ -127,38 +475,111 @@
         {id:"elbow", name:"Колено Ø115 мм 45°", price:600},
         {id:"roof", name:"Зонт Ø115 мм", price:1000},
         {id:"clamp", name:"Хомут обжимной Ø115 мм", price:350},
-        {id:"pass", name:"Потолочно-проходной узел", price:3500}
+        {id:"pass", name:"Потолочно-проходной узел", price:3500},
+        {id:"module115", name:"Модуль трубы Ø115 мм 1м (нерж)", price:1200},
+        {id:"module90", name:"Модуль трубы Ø90 мм 1м (нерж)", price:1000}
     ];
 
-    // ========== ВСЕ ТОВАРЫ С ПОЛНЫМИ ОПИСАНИЯМИ ==========
+    // ========== ПОЛНЫЙ КАТАЛОГ ПЕЧЕЙ (ВСЕ ПОЗИЦИИ ИЗ ПРАЙСА) ==========
     const products = [
-        {id:1,name:"Печь Ø325 сквозная каменка, без бака",price:14000,type:"round",specs:"🏠 Объем бани: до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали: 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм",img:"https://i.ibb.co/jkzwkbh6/325.jpg"},
-        {id:2,name:"Печь Ø325 сквозная + бак чёрный",price:18500,type:"round",specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л<br>🪵 Колосник чугунный",img:"https://i.ibb.co/nqLW15dt/325.jpg"},
-        {id:3,name:"Печь Ø325 сквозная + бак нерж",price:24000,type:"round",specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л",img:"https://i.ibb.co/dJDBRLJK/325.jpg"},
-        {id:4,name:"Печь Ø325 открытая каменка, без бака",price:11000,type:"round",specs:"🏠 Объем бани: до 15 м³<br>📐 500×400×550 мм",img:"https://i.ibb.co/1pjZnj8/325.jpg"},
-        {id:5,name:"Печь Ø325 открытая + бак чёрный",price:15000,type:"round",specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л",img:"https://i.ibb.co/Vc8jrpW5/325.jpg"},
-        {id:6,name:"Печь Ø325 открытая + бак нерж",price:21000,type:"round",specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л",img:"https://i.ibb.co/vv3CBPjN/325.jpg"},
-        {id:7,name:"Печь Ø426 лежачая, без бака",price:16500,type:"round",specs:"🏠 Объем бани: до 25 м³<br>🔥 Конвекция",img:"https://i.ibb.co/99KT2Vss/426.jpg"},
-        {id:8,name:"Печь Ø426 лежачая + чёрный бак",price:21000,type:"round",specs:"💧 Бак чёрный 2 мм, 65 л",img:"https://i.ibb.co/ns53QpVb/426.jpg"},
-        {id:9,name:"Печь Ø426 лежачая + бак нерж",price:26500,type:"round",specs:"💧 Бак нерж 1 мм, 65 л",img:"https://i.ibb.co/7NL0dnVS/426.jpg"},
-        {id:10,name:"Печь Ø426 открытая каменка, без бака",price:12000,type:"round",specs:"🏠 15 м³",img:"https://i.ibb.co/JjvpB3Gs/426.jpg"},
-        {id:11,name:"Печь Ø426 открытая + чёрный бак",price:16500,type:"round",specs:"💧 Бак чёрный 2 мм",img:"https://i.ibb.co/WvvwnQQ8/426.jpg"},
-        {id:12,name:"Печь Ø426 открытая + бак нерж",price:22000,type:"round",specs:"💧 Бак нерж 1 мм",img:"https://i.ibb.co/JRWFC5yK/426.jpg"},
-        {id:13,name:"Печь Ø530 поворотная каменка, без бака",price:21500,type:"round",specs:"🏠 до 35 м³<br>🔄 Поворотная",img:"https://i.ibb.co/nNcZfDHt/530.jpg"},
-        {id:14,name:"Печь Ø530 поворотная + чёрный бак",price:26500,type:"round",specs:"💧 Бак чёрный 2 мм, 85 л",img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
-        {id:15,name:"Печь Ø530 поворотная + бак нерж",price:32500,type:"round",specs:"💧 Бак нерж 1 мм, 85 л",img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
-        {id:16,name:"Печь социальная, без выступа",price:14000,type:"rect",specs:"🏠 15 м³<br>📐 530×600×500 мм",img:"https://i.ibb.co/67ksLJxm/image.jpg"},
-        {id:17,name:"Печь социальная + чёрный бак",price:19500,type:"rect",specs:"💧 Бак чёрный 2 мм, 50 л",img:"https://i.ibb.co/cc1Pmr5B/image.png"},
-        {id:18,name:"Печь социальная + бак нерж",price:24000,type:"rect",specs:"💧 Бак нерж 1 мм, 50 л",img:"https://i.ibb.co/WWr3QxYy/image.jpg"},
-        {id:19,name:"Печь на 2-3 помещения + чёрный бак",price:38000,type:"rect",specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л",img:"https://i.ibb.co/DHFFnXCC/2-3.jpg"},
-        {id:20,name:"Печь на 2-3 помещения + бак нерж",price:45000,type:"rect",specs:"💧 Бак нерж 1 мм, 75 л",img:"https://i.ibb.co/0pbBWHVg/2-3.png"},
-        {id:21,name:"Печь бочка, без бака",price:29000,type:"rect",specs:"🏠 до 25 м³<br>🔥 Лабиринт",img:"https://i.ibb.co/ch3yqw89/image.png"},
-        {id:22,name:"Печь бочка + чёрный бак",price:34500,type:"rect",specs:"💧 Бак чёрный 2 мм, 65 л",img:"https://i.ibb.co/Z6L1dLxM/image.png"},
-        {id:23,name:"Печь бочка + бак нерж",price:39000,type:"rect",specs:"💧 Бак нерж 1 мм, 65 л",img:"https://i.ibb.co/rRF9DncR/image.png"},
-        {id:24,name:"Котёл малый 1/2 плиты",price:20500,type:null,specs:"🏠 80-100 м²<br>📐 550×430×600 мм",img:"https://i.ibb.co/1Y2dQTM0/1-2.png"},
-        {id:25,name:"Котёл большой 1/2 плиты",price:26500,type:null,specs:"🏠 100-130 м²<br>📐 720×430×600 мм",img:"https://i.ibb.co/B2MDYnm1/1-2.png"},
-        {id:26,name:"Банный чан «Дуэт» Aisi304",price:200000,type:null,specs:"💧 800 л<br>👥 2-4 чел<br>🔩 Aisi304",img:"https://i.ibb.co/rfz73jSP/image.jpg"},
-        {id:27,name:"Банный чан «Дуэт» Aisi430",price:170000,type:null,specs:"💧 800 л<br>👥 2-4 чел<br>🔩 Aisi430",img:"https://i.ibb.co/rfz73jSP/image.jpg"}
+        // === Ø325 ===
+        {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, type:"round", specs:"🏠 Объем бани: до 15 м³ (6 м²)<br>📐 500×400×700 мм<br>🔥 Толщина стали: 8 мм<br>🪵 Колосник чугунный<br>📏 Дымоход 115 мм<br>📍 Каменка слева/справа/с торца", img:"https://i.ibb.co/jkzwkbh6/325.jpg"},
+        {id:2, name:"Печь Ø325 сквозная каменка, бак из чёрной стали", price:18500, type:"round", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л<br>🪵 Колосник чугунный<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/nqLW15dt/325.jpg"},
+        {id:3, name:"Печь Ø325 сквозная каменка, бак из нержавеющей стали", price:24000, type:"round", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/dJDBRLJK/325.jpg"},
+        {id:4, name:"Печь Ø325 открытая каменка, без бака", price:11000, type:"round", specs:"🏠 Объем бани: до 15 м³<br>📐 500×400×550 мм<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/1pjZnj8/325.jpg"},
+        {id:5, name:"Печь Ø325 открытая каменка, бак из чёрной стали", price:15000, type:"round", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/Vc8jrpW5/325.jpg"},
+        {id:6, name:"Печь Ø325 открытая каменка, бак из нержавеющей стали", price:21000, type:"round", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/vv3CBPjN/325.jpg"},
+        
+        // === Ø426 ===
+        {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, type:"round", specs:"🏠 Объем бани: до 25 м³<br>🔥 Конвекция, обшита листом 2 мм<br>📐 650×450×600 мм", img:"https://i.ibb.co/99KT2Vss/426.jpg"},
+        {id:8, name:"Печь Ø426 лежачая, чёрный бак", price:21000, type:"round", specs:"💧 Бак чёрный 2 мм, 65 л<br>🏠 до 25 м³<br>🔥 Конвекция", img:"https://i.ibb.co/ns53QpVb/426.jpg"},
+        {id:9, name:"Печь Ø426 лежачая, бак из нержавеющей стали", price:26500, type:"round", specs:"💧 Бак нерж 1 мм, 65 л<br>🏠 до 25 м³", img:"https://i.ibb.co/7NL0dnVS/426.jpg"},
+        {id:10, name:"Печь Ø426 открытая каменка, без выступа", price:12000, type:"round", specs:"🏠 до 15 м³<br>📐 Ø426×550 мм<br>🔥 Толщина 8 мм", img:"https://i.ibb.co/JjvpB3Gs/426.jpg"},
+        {id:11, name:"Печь Ø426 открытая каменка, без выступа, чёрный бак", price:16500, type:"round", specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/WvvwnQQ8/426.jpg"},
+        {id:12, name:"Печь Ø426 открытая каменка, без выступа, нержавеющий бак", price:22000, type:"round", specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/JRWFC5yK/426.jpg"},
+        {id:13, name:"Печь Ø426 с выступом, открытая каменка, без бака", price:13000, type:"round", specs:"🏠 15 м³<br>Выступ топки 150 мм", img:"https://i.ibb.co/5Xr3pQW4/426.jpg"},
+        {id:14, name:"Печь Ø426 с выступом, открытая каменка, чёрный бак", price:17500, type:"round", specs:"💧 Бак чёрный 65 л<br>Выступ 200 мм", img:"https://i.ibb.co/gFvWxwcG/426.jpg"},
+        {id:15, name:"Печь Ø426 с выступом, открытая каменка, нержавеющий бак", price:23000, type:"round", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/SDXyDX5d/426.jpg"},
+        {id:16, name:"Печь Ø426 без выступа, каменка сквозная, без бака", price:16000, type:"round", specs:"🏠 20 м³<br>📐 Ø426×700 мм", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:17, name:"Печь Ø426 без выступа, каменка сквозная, чёрный бак", price:20000, type:"round", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/kg2j3f3S/426.jpg"},
+        {id:18, name:"Печь Ø426 без выступа, каменка сквозная, нержавеющий бак", price:26000, type:"round", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/LzmWTdHn/426.jpg"},
+        {id:19, name:"Печь Ø426 с выступом, каменка сквозная, без бака", price:17000, type:"round", specs:"🏠 20 м³, выступ 200 мм", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:20, name:"Печь Ø426 с выступом, каменка сквозная, чёрный бак", price:21000, type:"round", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/KjQPN66G/426.jpg"},
+        {id:21, name:"Печь Ø426 с выступом, каменка сквозная, нержавеющий бак", price:27000, type:"round", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/HfNbq2qX/426.jpg"},
+        {id:22, name:"Печь Ø426 с выступом, поворотная каменка, без бака", price:19000, type:"round", specs:"🏠 20 м³, поворотная каменка", img:"https://i.ibb.co/m5pYq8SL/426.jpg"},
+        {id:23, name:"Печь Ø426 с выступом, поворотная каменка, чёрный бак", price:23000, type:"round", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:24, name:"Печь Ø426 с выступом, поворотная каменка, нержавеющий бак", price:29500, type:"round", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/4R7Xdry7/426.jpg"},
+        
+        // === Ø530 ===
+        {id:25, name:"Печь Ø530 поворотная каменка, без бака", price:21500, type:"round", specs:"🏠 до 35 м³<br>📐 550×750×800 мм<br>Каменка Ø273 мм", img:"https://i.ibb.co/nNcZfDHt/530.jpg"},
+        {id:26, name:"Печь Ø530 поворотная каменка, чёрный бак", price:26500, type:"round", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
+        {id:27, name:"Печь Ø530 поворотная каменка, нержавеющий бак", price:32500, type:"round", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
+        {id:28, name:"Печь Ø530 с выступом, сквозная каменка, без бака", price:19500, type:"round", specs:"🏠 до 35 м³, сквозная каменка", img:"https://i.ibb.co/Y7VXSGc8/530.jpg"},
+        {id:29, name:"Печь Ø530 с выступом, сквозная каменка, чёрный бак", price:24500, type:"round", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/V0R4ZtcC/530.jpg"},
+        {id:30, name:"Печь Ø530 с выступом, сквозная каменка, нержавеющий бак", price:30500, type:"round", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/3mrqYvYH/530.jpg"},
+        {id:31, name:"Печь Ø530 без выступа, сквозная каменка, без бака", price:18500, type:"round", specs:"🏠 до 35 м³, без выступа", img:"https://i.ibb.co/fVzk9L3H/530.jpg"},
+        {id:32, name:"Печь Ø530 без выступа, сквозная каменка, чёрный бак", price:23500, type:"round", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/ZR5GqJyf/530.jpg"},
+        {id:33, name:"Печь Ø530 без выступа, сквозная каменка, нержавеющий бак", price:29500, type:"round", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/x87c6Bfc/530.jpg"},
+        {id:34, name:"Печь Ø530 открытая каменка (ножка), с выступом, без бака", price:15500, type:"round", specs:"🏠 до 35 м³, открытая каменка", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
+        {id:35, name:"Печь Ø530 открытая каменка (ножка), с выступом, чёрный бак", price:20000, type:"round", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
+        {id:36, name:"Печь Ø530 открытая каменка (лежачая), без бака", price:19500, type:"round", specs:"🏠 до 35 м³, лежачая, конвекция", img:"https://i.ibb.co/xK8TC9rN/530.jpg"},
+        {id:37, name:"Печь Ø530 открытая каменка (лежачая), чёрный бак", price:24000, type:"round", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/Wpf5gCf9/530.jpg"},
+        {id:38, name:"Печь Ø530 открытая каменка (лежачая), нержавеющий бак", price:29500, type:"round", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/yc0YrmfD/530.jpg"},
+        {id:39, name:"Печь Ø520 открытая каменка (ножка), без выступа, чёрный бак", price:19000, type:"round", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/JW46KqS7/520.jpg"},
+        
+        // === ПРЯМОУГОЛЬНЫЕ (ЛИСТОВЫЕ) ПЕЧИ ===
+        {id:40, name:"Печь листовая социальная, без выступа", price:14000, type:"rect", specs:"🏠 15 м³<br>📐 530×600×500 мм<br>Сталь 4 мм<br>Дымоход 89 мм", img:"https://i.ibb.co/WWr3QxYy/image.jpg"},
+        {id:41, name:"Печь листовая социальная, с выступом", price:16500, type:"rect", specs:"Выступ 150 мм<br>Дымоход 115 мм", img:"https://i.ibb.co/cc1Pmr5B/image.png"},
+        {id:42, name:"Печь листовая социальная, с навесным баком, топочная часть", price:15500, type:"rect", specs:"Сталь 5 мм, выступ 150 мм", img:"https://i.ibb.co/v627Dm1N/image.jpg"},
+        {id:43, name:"Социальная печь Лабиринт", price:17000, type:"rect", specs:"Лабиринт для сохранения тепла<br>Объём 15 м³", img:"https://i.ibb.co/Y7rGXs9K/image.jpg"},
+        {id:44, name:"Социальная печь Лабиринт, с выступом", price:19500, type:"rect", specs:"Лабиринт + выступ 150 мм", img:"https://i.ibb.co/Dfrnrf0Y/image.jpg"},
+        {id:45, name:"Социальная печь Лабиринт, с навесным баком, топочная часть", price:18500, type:"rect", specs:"Лабиринт, сталь 5 мм", img:"https://i.ibb.co/gMPDwsTH/image.jpg"},
+        {id:46, name:"Печь на 2-3 помещения, чёрный бак", price:38000, type:"rect", specs:"🏠 Парилка до 20 м³<br>💧 Бак 75 л, чёрный<br>Газопламенный лабиринт", img:"https://i.ibb.co/DHFFnXCC/2-3.jpg"},
+        {id:47, name:"Печь на 2-3 помещения, нержавеющий бак", price:45000, type:"rect", specs:"💧 Бак нерж 75 л", img:"https://i.ibb.co/0pbBWHVg/2-3.png"},
+        {id:48, name:"Печь на 2-3 помещения, дверка со стеклом, нержавеющий бак", price:59000, type:"rect", specs:"💧 Бак нерж 75 л<br>Дверка с жаропрочным стеклом", img:"https://i.ibb.co/SwNk00xp/2-3.jpg"},
+        {id:49, name:"Печь бочка, без бака", price:29000, type:"rect", specs:"🏠 до 25 м³<br>🔥 Газопламенный лабиринт, конвекция<br>Ø426 мм", img:"https://i.ibb.co/ch3yqw89/image.png"},
+        {id:50, name:"Печь бочка, чёрный бак", price:34500, type:"rect", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/Z6L1dLxM/image.png"},
+        {id:51, name:"Печь бочка, нержавеющий бак", price:39000, type:"rect", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/rRF9DncR/image.png"},
+        {id:52, name:"Печь Корабль, без бака", price:36000, type:"rect", specs:"🏠 до 35 м³<br>📐 530×800 мм<br>Свод каменки 8 мм", img:"https://i.ibb.co/v4qFTdz9/image.jpg"},
+        {id:53, name:"Печь Корабль, чёрный бак", price:41000, type:"rect", specs:"💧 Бак чёрный 85 л", img:"https://i.ibb.co/21NHY9F0/image.png"},
+        {id:54, name:"Печь Корабль, нержавеющий бак", price:46000, type:"rect", specs:"💧 Бак нерж 85 л", img:"https://i.ibb.co/BK3k5XN7/image.png"},
+        {id:55, name:"Печь БВ-350, без бака", price:13000, type:"rect", specs:"🏠 до 20 м³<br>📐 450×350×700 мм<br>Сталь 4 мм", img:"https://i.ibb.co/Pst69zWv/350.jpg"},
+        {id:56, name:"Печь БВ-350, чёрный бак", price:18000, type:"rect", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/0jd99m1y/350.jpg"},
+        {id:57, name:"Печь БВ-350, нержавеющий бак", price:23000, type:"rect", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/KpthjKy6/350.jpg"},
+        {id:58, name:"Печь НВ-350, без бака", price:14000, type:"rect", specs:"🏠 до 20 м³, вынос 150 мм", img:"https://i.ibb.co/2YYvstY3/350.jpg"},
+        {id:59, name:"Печь НВ-350, чёрный бак", price:19000, type:"rect", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/gZ2nC9r1/350.jpg"},
+        {id:60, name:"Печь НВ-350, нержавеющий бак", price:24000, type:"rect", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/dsrbCHj4/350.jpg"},
+        {id:61, name:"Печь ВВ-350, без бака", price:17000, type:"rect", specs:"С конвекцией, сталь 4 мм", img:"https://i.ibb.co/yBqbb0Rd/350.jpg"},
+        {id:62, name:"Печь ВВ-350, чёрный бак", price:22000, type:"rect", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/GvSj9cFc/350.jpg"},
+        {id:63, name:"Печь ВВ-350, нержавеющий бак", price:27000, type:"rect", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/Q3Dz1H5G/350.jpg"},
+        
+        // === КОТЛЫ И БУРЖУЙКИ ===
+        {id:64, name:"Буржуйка №1, без конвекции", price:5000, type:"rect", specs:"Объем до 20 м³<br>350×300×300 мм, сталь 2 мм", img:"https://i.ibb.co/7dBSHbPF/1.jpg"},
+        {id:65, name:"Буржуйка №1 с конвекцией", price:6000, type:"rect", specs:"Объем до 25 м³, с конвекцией", img:"https://i.ibb.co/Z1W46HcC/1.png"},
+        {id:66, name:"Буржуйка №1У, без конвекции", price:5500, type:"rect", specs:"Объем до 25 м³, сталь 3 мм", img:"https://i.ibb.co/wNmkyKc9/1.jpg"},
+        {id:67, name:"Буржуйка №1,5У, с конвекцией", price:6500, type:"rect", specs:"Объем до 30 м³", img:"https://i.ibb.co/LX185Jn6/1-5.jpg"},
+        {id:68, name:"Буржуйка №2, без конвекции", price:8000, type:"rect", specs:"Объем 40 м³, сталь 4 мм", img:"https://i.ibb.co/Z1W46HcC/1.png"},
+        {id:69, name:"Буржуйка №2,5, с конвекцией", price:9000, type:"rect", specs:"Объем 45 м³", img:"https://i.ibb.co/sdmzy8PK/2-5.jpg"},
+        {id:70, name:"Буржуйка №3 с кружком, без конвекции", price:8500, type:"rect", specs:"С отверстием для нагрева воды/пищи", img:"https://i.ibb.co/pjfWK8Ht/3.png"},
+        {id:71, name:"Буржуйка №3,5 с кружком, с конвекцией", price:9500, type:"rect", specs:"С кружком + конвекция", img:"https://i.ibb.co/FLQRDVQM/3-5.png"},
+        {id:72, name:"Буржуйка из трубы Ø426 мм", price:13000, type:"round", specs:"Объем до 150 м³, труба 8 мм, кружок", img:"https://i.ibb.co/4wNk5CR7/426.png"},
+        {id:73, name:"Буржуйка из трубы Ø530 мм", price:16000, type:"round", specs:"Объем до 200 м³", img:"https://i.ibb.co/gMPbpV0X/530.jpg"},
+        {id:74, name:"Печь-буржуйка длительного горения TALTY", price:18000, type:"rect", specs:"Объем до 200 м³, горение до 24 ч", img:"https://i.ibb.co/CpPd7Tng/TALTY.png"},
+        {id:75, name:"Котёл малый 1/2 плиты", price:22500, type:"rect", specs:"80-100 м², 550×430×600 мм", img:"https://i.ibb.co/1Y2dQTM0/1-2.png"},
+        {id:76, name:"Котёл большой 1/2 плиты", price:35500, type:"rect", specs:"100-130 м², 720×430×600 мм", img:"https://i.ibb.co/B2MDYnm1/1-2.png"},
+        {id:77, name:"Котёл большой, целая плита ЦП", price:23000, type:"rect", specs:"120 м², цельная плита", img:"https://i.ibb.co/d4RkSvrn/image.png"},
+        {id:78, name:"Котёл с водяным верхом ВВ", price:24000, type:"rect", specs:"до 200 м², водяной верх", img:"https://i.ibb.co/hJDDPQsH/image.png"},
+        {id:79, name:"Котёл длительного горения Майбах", price:71500, type:"rect", specs:"50-250 м², с вентилятором и контроллером", img:"https://i.ibb.co/zTW8dpCz/image.jpg"},
+        
+        // === ЧУГУННЫЕ ПЕЧИ ===
+        {id:80, name:"Печь чугунная без бака, 15 кВт", price:29500, type:"rect", specs:"Чугунная печь, мощность 15 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:81, name:"Печь чугунная без бака, 18 кВт", price:33000, type:"rect", specs:"Чугунная печь, мощность 18 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:82, name:"Печь чугунная без бака, 20 кВт", price:33500, type:"rect", specs:"Чугунная печь, мощность 20 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:83, name:"Печь чугунная без бака, 24 кВт", price:40000, type:"rect", specs:"Чугунная печь, мощность 24 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        
+        // === БАННЫЙ ЧАН ===
+        {id:84, name:"Банный чан Дуэт Aisi304", price:200000, type:"rect", specs:"800 л, Aisi304, на 2-4 чел", img:"https://i.ibb.co/7JSXJz1q/image.jpg"},
+        {id:85, name:"Банный чан Дуэт Aisi430", price:170000, type:"rect", specs:"800 л, Aisi430, на 2-4 чел", img:"https://i.ibb.co/7JSXJz1q/image.jpg"}
     ];
 
     let cart = [];
@@ -301,10 +722,10 @@
         document.getElementById('orderFormBlock').style.display = 'block';
     }
 
-    function removeFromCart(idx) {
+    window.removeFromCart = function(idx) {
         cart.splice(idx, 1);
         updateCartUI();
-    }
+    };
 
     function addToCart() {
         if (!currentProduct) {
