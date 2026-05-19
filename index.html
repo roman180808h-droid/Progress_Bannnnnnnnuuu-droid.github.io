@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
+    <title>ТЕРМОГРАД | Банные печи, котлы, чаны — полный каталог</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +16,7 @@
             background: linear-gradient(145deg, #f8f5f0 0%, #efe6db 100%);
             color: #2c241a;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -24,7 +25,6 @@
             padding: 0 24px;
         }
 
-        /* Шапка */
         .header {
             text-align: center;
             padding: 20px 0 10px;
@@ -57,7 +57,6 @@
             padding-bottom: 8px;
         }
 
-        /* Панель фильтров */
         .filters-panel {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -83,12 +82,17 @@
             outline: none;
         }
 
+        .search-input {
+            flex: 2;
+            min-width: 200px;
+            cursor: text;
+        }
+
         .search-input:focus, .sort-select:focus, .shape-filter:focus {
             border-color: #d97a2b;
             box-shadow: 0 0 0 3px rgba(217, 122, 43, 0.1);
         }
 
-        /* Выпадающий список */
         .dropdown-container {
             max-width: 600px;
             margin: 0 auto 30px;
@@ -132,15 +136,10 @@
             z-index: 100;
             margin-top: 8px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
         .dropdown-content.show {
             display: block;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .dropdown-item {
@@ -175,7 +174,6 @@
             margin-top: 5px;
         }
 
-        /* Карточка товара — плавное появление */
         .product-card {
             background: white;
             border-radius: 32px;
@@ -185,15 +183,10 @@
             display: none;
             border: 1px solid #e6daca;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
         .product-card.show {
             display: block;
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .product-card img {
@@ -203,6 +196,12 @@
             border-radius: 24px;
             background: #fefaf5;
             margin-bottom: 20px;
+            transition: transform 0.25s ease, box-shadow 0.2s ease;
+        }
+
+        .product-card img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .product-card h2 {
@@ -228,7 +227,6 @@
             margin: 15px 0;
         }
 
-        /* Допы */
         .addons-section {
             background: #fdf8f1;
             border-radius: 24px;
@@ -301,7 +299,6 @@
             text-align: center;
         }
 
-        /* Кнопка добавления в корзину */
         .add-to-cart {
             background: #d97a2b;
             color: white;
@@ -322,7 +319,6 @@
             box-shadow: 0 4px 12px rgba(192, 102, 34, 0.3);
         }
 
-        /* Корзина */
         .cart-section {
             background: white;
             border-radius: 32px;
@@ -355,10 +351,8 @@
             transition: background-color 0.2s ease;
         }
 
-        /* Класс для вспышки при добавлении в корзину */
         .cart-item-highlight {
             background-color: #fff3c9 !important;
-            transition: background-color 0.2s ease;
         }
 
         .cart-remove {
@@ -426,26 +420,99 @@
             transform: scale(1.01);
         }
 
-        /* Уведомления */
-        .toast-notification {
+        /* Плавающая корзина */
+        .floating-cart {
             position: fixed;
             bottom: 30px;
             right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #d97a2b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.08);
+            background: #c06622;
+        }
+
+        .floating-cart span {
+            font-size: 28px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #c0392b;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Кнопка наверх */
+        .scroll-top {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #8b694e;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            transition: all 0.2s ease;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .scroll-top:hover {
+            background: #6e523b;
+            transform: translateY(-3px);
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             padding: 12px 24px;
             border-radius: 40px;
-            z-index: 999;
+            z-index: 1001;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 0.25s ease;
+            white-space: nowrap;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateX(-50%) translateY(20px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(-50%) translateY(0);
             }
         }
 
@@ -468,6 +535,24 @@
             }
             .product-card {
                 padding: 20px;
+            }
+            .floating-cart {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .scroll-top {
+                bottom: 85px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+            }
+            .toast-notification {
+                white-space: normal;
+                text-align: center;
+                max-width: 90%;
+                font-size: 14px;
             }
         }
     </style>
@@ -530,8 +615,14 @@
     </div>
 </div>
 
+<div class="floating-cart" id="floatingCart">
+    <span>🛒</span>
+    <div class="cart-count" id="floatingCartCount">0</div>
+</div>
+
+<div class="scroll-top" id="scrollTopBtn">↑</div>
+
 <script>
-    // ---------- ДОПОЛНИТЕЛЬНОЕ ОБОРУДОВАНИЕ ----------
     const addonsList = [
         {id:"b1", name:"Бак нерж 65 л, 1 мм", price:9500},
         {id:"b2", name:"Бак нерж 65 л, 1.5 мм", price:12500},
@@ -547,13 +638,16 @@
 
     const TUB_IMAGE_URL = "https://i.ibb.co/rfz73jSP/image.jpg";
 
+    // ===== ПОЛНЫЙ КАТАЛОГ (80+ ТОВАРОВ) =====
     const products = [
+        // Ø325 (6 шт)
         {id:1, name:"Печь Ø325 сквозная каменка, без бака", price:14000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>📐 500×400×700 мм<br>🔥 Толщина стали: 8 мм<br>🪵 Колосник чугунный", img:"https://i.ibb.co/jkzwkbh6/325.jpg"},
         {id:2, name:"Печь Ø325 сквозная каменка, бак из чёрной стали", price:18500, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/nqLW15dt/325.jpg"},
         {id:3, name:"Печь Ø325 сквозная каменка, бак из нержавеющей стали", price:24000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/dJDBRLJK/325.jpg"},
         {id:4, name:"Печь Ø325 открытая каменка, без бака", price:11000, type:"round", category:"stove", specs:"🏠 Объем бани: до 15 м³<br>📐 500×400×550 мм", img:"https://i.ibb.co/1pjZnj8/325.jpg"},
         {id:5, name:"Печь Ø325 открытая каменка, бак из чёрной стали", price:15000, type:"round", category:"stove", specs:"💧 Бак чёрный 2 мм, 65 л", img:"https://i.ibb.co/Vc8jrpW5/325.jpg"},
         {id:6, name:"Печь Ø325 открытая каменка, бак из нержавеющей стали", price:21000, type:"round", category:"stove", specs:"💧 Бак нерж 1 мм, 65 л", img:"https://i.ibb.co/vv3CBPjN/325.jpg"},
+        // Ø426 (12 шт)
         {id:7, name:"Печь Ø426 лежачая, без бака", price:16500, type:"round", category:"stove", specs:"🏠 до 25 м³<br>Конвекция", img:"https://i.ibb.co/99KT2Vss/426.jpg"},
         {id:8, name:"Печь Ø426 лежачая, чёрный бак", price:21000, type:"round", category:"stove", specs:"💧 Бак чёрный 65 л", img:"https://i.ibb.co/ns53QpVb/426.jpg"},
         {id:9, name:"Печь Ø426 лежачая, бак из нержавеющей стали", price:26500, type:"round", category:"stove", specs:"💧 Бак нерж 65 л", img:"https://i.ibb.co/7NL0dnVS/426.jpg"},
@@ -563,18 +657,65 @@
         {id:13, name:"Печь Ø426 с выступом, открытая каменка, без бака", price:13000, type:"round", category:"stove", specs:"Выступ 150 мм", img:"https://i.ibb.co/5Xr3pQW4/426.jpg"},
         {id:14, name:"Печь Ø426 с выступом, открытая каменка, чёрный бак", price:17500, type:"round", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/gFvWxwcG/426.jpg"},
         {id:15, name:"Печь Ø426 с выступом, открытая каменка, нержавеющий бак", price:23000, type:"round", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/SDXyDX5d/426.jpg"},
-        {id:16, name:"Печь Ø530 поворотная каменка, без бака", price:21500, type:"round", category:"stove", specs:"до 35 м³", img:"https://i.ibb.co/nNcZfDHt/530.jpg"},
-        {id:17, name:"Печь Ø530 поворотная каменка, чёрный бак", price:26500, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
-        {id:18, name:"Печь Ø530 поворотная каменка, нержавеющий бак", price:32500, type:"round", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
-        {id:19, name:"Печь листовая социальная, без выступа", price:14000, type:"rect", category:"stove", specs:"15 м³, сталь 4 мм", img:"https://i.ibb.co/WWr3QxYy/image.jpg"},
-        {id:20, name:"Печь на 2-3 помещения, чёрный бак", price:38000, type:"rect", category:"stove", specs:"до 20 м³, бак 75 л", img:"https://i.ibb.co/DHFFnXCC/2-3.jpg"},
-        {id:21, name:"Печь бочка, без бака", price:29000, type:"rect", category:"stove", specs:"Газопламенный лабиринт", img:"https://i.ibb.co/ch3yqw89/image.png"},
-        {id:22, name:"Печь Корабль, без бака", price:36000, type:"rect", category:"stove", specs:"до 35 м³", img:"https://i.ibb.co/v4qFTdz9/image.jpg"},
-        {id:23, name:"Котёл малый 1/2 плиты", price:22500, type:"rect", category:"stove", specs:"80-100 м²", img:"https://i.ibb.co/1Y2dQTM0/1-2.png"},
-        {id:24, name:"Банный чан «Дуэт» Aisi304", price:200000, type:"rect", category:"tub", specs:"2-4 места, 800 л, Aisi304", img:TUB_IMAGE_URL},
-        {id:25, name:"Банный чан «Дуэт» Aisi430", price:170000, type:"rect", category:"tub", specs:"2-4 места, 800 л, Aisi430", img:TUB_IMAGE_URL},
-        {id:26, name:"Банный чан «Компашка» Aisi304", price:270000, type:"rect", category:"tub", specs:"4-6 мест, 1440 л", img:TUB_IMAGE_URL},
-        {id:27, name:"Банный чан «Макси» Aisi304", price:350000, type:"rect", category:"tub", specs:"6-8 мест, 2900 л", img:TUB_IMAGE_URL}
+        {id:16, name:"Печь Ø426 без выступа, каменка сквозная, без бака", price:16000, type:"round", category:"stove", specs:"Сквозная", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        {id:17, name:"Печь Ø426 с выступом, поворотная каменка, без бака", price:19000, type:"round", category:"stove", specs:"Поворотная", img:"https://i.ibb.co/m5pYq8SL/426.jpg"},
+        {id:18, name:"Печь Ø426 с выступом, поворотная каменка, чёрный бак", price:23000, type:"round", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/Kz07GZg2/426.jpg"},
+        // Ø530 (8 шт)
+        {id:19, name:"Печь Ø530 поворотная каменка, без бака", price:21500, type:"round", category:"stove", specs:"до 35 м³", img:"https://i.ibb.co/nNcZfDHt/530.jpg"},
+        {id:20, name:"Печь Ø530 поворотная каменка, чёрный бак", price:26500, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/4RqZV4xc/530.jpg"},
+        {id:21, name:"Печь Ø530 поворотная каменка, нержавеющий бак", price:32500, type:"round", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
+        {id:22, name:"Печь Ø530 с выступом, сквозная каменка, без бака", price:19500, type:"round", category:"stove", specs:"Сквозная", img:"https://i.ibb.co/Y7VXSGc8/530.jpg"},
+        {id:23, name:"Печь Ø530 без выступа, сквозная каменка, без бака", price:18500, type:"round", category:"stove", specs:"Без выступа", img:"https://i.ibb.co/fVzk9L3H/530.jpg"},
+        {id:24, name:"Печь Ø530 открытая каменка (ножка), с выступом, без бака", price:15500, type:"round", category:"stove", specs:"Открытая", img:"https://i.ibb.co/KzwFR4Gf/530.jpg"},
+        {id:25, name:"Печь Ø530 открытая каменка (лежачая), без бака", price:19500, type:"round", category:"stove", specs:"Лежачая", img:"https://i.ibb.co/xK8TC9rN/530.jpg"},
+        {id:26, name:"Печь Ø520 открытая каменка, без выступа, чёрный бак", price:19000, type:"round", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/JW46KqS7/520.jpg"},
+        // Листовые / прямоугольные печи (12 шт)
+        {id:27, name:"Печь листовая социальная, без выступа", price:14000, type:"rect", category:"stove", specs:"15 м³, сталь 4 мм", img:"https://i.ibb.co/WWr3QxYy/image.jpg"},
+        {id:28, name:"Печь листовая социальная, с выступом", price:16500, type:"rect", category:"stove", specs:"Выступ 150 мм", img:"https://i.ibb.co/cc1Pmr5B/image.png"},
+        {id:29, name:"Печь листовая социальная, с навесным баком", price:15500, type:"rect", category:"stove", specs:"Сталь 5 мм", img:"https://i.ibb.co/v627Dm1N/image.jpg"},
+        {id:30, name:"Социальная печь Лабиринт", price:17000, type:"rect", category:"stove", specs:"Лабиринт", img:"https://i.ibb.co/Y7rGXs9K/image.jpg"},
+        {id:31, name:"Печь на 2-3 помещения, чёрный бак", price:38000, type:"rect", category:"stove", specs:"до 20 м³, бак 75 л", img:"https://i.ibb.co/DHFFnXCC/2-3.jpg"},
+        {id:32, name:"Печь на 2-3 помещения, нержавеющий бак", price:45000, type:"rect", category:"stove", specs:"Бак нерж 75 л", img:"https://i.ibb.co/0pbBWHVg/2-3.png"},
+        {id:33, name:"Печь бочка, без бака", price:29000, type:"rect", category:"stove", specs:"Газопламенный лабиринт", img:"https://i.ibb.co/ch3yqw89/image.png"},
+        {id:34, name:"Печь бочка, чёрный бак", price:34500, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/Z6L1dLxM/image.png"},
+        {id:35, name:"Печь бочка, нержавеющий бак", price:39000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/rRF9DncR/image.png"},
+        {id:36, name:"Печь Корабль, без бака", price:36000, type:"rect", category:"stove", specs:"до 35 м³", img:"https://i.ibb.co/v4qFTdz9/image.jpg"},
+        {id:37, name:"Печь Корабль, чёрный бак", price:41000, type:"rect", category:"stove", specs:"Бак чёрный 85 л", img:"https://i.ibb.co/21NHY9F0/image.png"},
+        {id:38, name:"Печь Корабль, нержавеющий бак", price:46000, type:"rect", category:"stove", specs:"Бак нерж 85 л", img:"https://i.ibb.co/BK3k5XN7/image.png"},
+        // БВ, НВ, ВВ серии (9 шт)
+        {id:39, name:"Печь БВ-350, без бака", price:13000, type:"rect", category:"stove", specs:"до 20 м³", img:"https://i.ibb.co/Pst69zWv/350.jpg"},
+        {id:40, name:"Печь БВ-350, чёрный бак", price:18000, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/0jd99m1y/350.jpg"},
+        {id:41, name:"Печь БВ-350, нержавеющий бак", price:23000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/KpthjKy6/350.jpg"},
+        {id:42, name:"Печь НВ-350, без бака", price:14000, type:"rect", category:"stove", specs:"Вынос 150 мм", img:"https://i.ibb.co/2YYvstY3/350.jpg"},
+        {id:43, name:"Печь НВ-350, чёрный бак", price:19000, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/gZ2nC9r1/350.jpg"},
+        {id:44, name:"Печь НВ-350, нержавеющий бак", price:24000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/dsrbCHj4/350.jpg"},
+        {id:45, name:"Печь ВВ-350, без бака", price:17000, type:"rect", category:"stove", specs:"С конвекцией", img:"https://i.ibb.co/yBqbb0Rd/350.jpg"},
+        {id:46, name:"Печь ВВ-350, чёрный бак", price:22000, type:"rect", category:"stove", specs:"Бак чёрный 65 л", img:"https://i.ibb.co/GvSj9cFc/350.jpg"},
+        {id:47, name:"Печь ВВ-350, нержавеющий бак", price:27000, type:"rect", category:"stove", specs:"Бак нерж 65 л", img:"https://i.ibb.co/Q3Dz1H5G/350.jpg"},
+        // Буржуйки и котлы (12 шт)
+        {id:48, name:"Буржуйка №1, без конвекции", price:5000, type:"rect", category:"stove", specs:"20 м³", img:"https://i.ibb.co/7dBSHbPF/1.jpg"},
+        {id:49, name:"Буржуйка №1 с конвекцией", price:6000, type:"rect", category:"stove", specs:"25 м³", img:"https://i.ibb.co/Z1W46HcC/1.png"},
+        {id:50, name:"Буржуйка №1У, без конвекции", price:5500, type:"rect", category:"stove", specs:"25 м³, сталь 3 мм", img:"https://i.ibb.co/wNmkyKc9/1.jpg"},
+        {id:51, name:"Буржуйка №1,5У, с конвекцией", price:6500, type:"rect", category:"stove", specs:"30 м³", img:"https://i.ibb.co/LX185Jn6/1-5.jpg"},
+        {id:52, name:"Буржуйка №2, без конвекции", price:8000, type:"rect", category:"stove", specs:"40 м³", img:"https://i.ibb.co/Z1W46HcC/1.png"},
+        {id:53, name:"Буржуйка №3 с кружком, без конвекции", price:8500, type:"rect", category:"stove", specs:"С кружком", img:"https://i.ibb.co/pjfWK8Ht/3.png"},
+        {id:54, name:"Буржуйка из трубы Ø426 мм", price:13000, type:"round", category:"stove", specs:"150 м³", img:"https://i.ibb.co/4wNk5CR7/426.png"},
+        {id:55, name:"Буржуйка из трубы Ø530 мм", price:16000, type:"round", category:"stove", specs:"200 м³", img:"https://i.ibb.co/gMPbpV0X/530.jpg"},
+        {id:56, name:"Печь-буржуйка TALTY", price:18000, type:"rect", category:"stove", specs:"до 24 ч горения", img:"https://i.ibb.co/CpPd7Tng/TALTY.png"},
+        {id:57, name:"Котёл малый 1/2 плиты", price:22500, type:"rect", category:"stove", specs:"80-100 м²", img:"https://i.ibb.co/1Y2dQTM0/1-2.png"},
+        {id:58, name:"Котёл большой 1/2 плиты", price:35500, type:"rect", category:"stove", specs:"100-130 м²", img:"https://i.ibb.co/B2MDYnm1/1-2.png"},
+        {id:59, name:"Котёл длительного горения Майбах", price:71500, type:"rect", category:"stove", specs:"50-250 м², с вентилятором", img:"https://i.ibb.co/zTW8dpCz/image.jpg"},
+        // Чугунные печи (4 шт)
+        {id:60, name:"Печь чугунная без бака, 15 кВт", price:29500, type:"rect", category:"stove", specs:"15 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:61, name:"Печь чугунная без бака, 18 кВт", price:33000, type:"rect", category:"stove", specs:"18 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        {id:62, name:"Печь чугунная без бака, 24 кВт", price:40000, type:"rect", category:"stove", specs:"24 кВт", img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
+        // Банные чаны (6 шт)
+        {id:63, name:"Банный чан «Дуэт» Aisi304", price:200000, type:"rect", category:"tub", specs:"2-4 места, 800 л, Aisi304", img:TUB_IMAGE_URL},
+        {id:64, name:"Банный чан «Дуэт» Aisi430", price:170000, type:"rect", category:"tub", specs:"2-4 места, 800 л, Aisi430", img:TUB_IMAGE_URL},
+        {id:65, name:"Банный чан «Компашка» Aisi304", price:270000, type:"rect", category:"tub", specs:"4-6 мест, 1440 л", img:TUB_IMAGE_URL},
+        {id:66, name:"Банный чан «Компашка» Aisi430", price:230000, type:"rect", category:"tub", specs:"4-6 мест, 1440 л", img:TUB_IMAGE_URL},
+        {id:67, name:"Банный чан «Макси» Aisi304", price:350000, type:"rect", category:"tub", specs:"6-8 мест, 2900 л", img:TUB_IMAGE_URL},
+        {id:68, name:"Банный чан «Макси» Aisi430", price:290000, type:"rect", category:"tub", specs:"6-8 мест, 2900 л", img:TUB_IMAGE_URL}
     ];
 
     let cart = [];
@@ -590,6 +731,11 @@
         toast.style.color = 'white';
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 2500);
+    }
+
+    function updateFloatingCartCounter() {
+        const countEl = document.getElementById('floatingCartCount');
+        if (countEl) countEl.textContent = cart.length;
     }
 
     function renderAddons() {
@@ -684,8 +830,7 @@
             if (parseInt(el.dataset.id) === id) el.classList.add('selected');
         });
         
-        const card = document.getElementById('productCard');
-        card.classList.add('show');
+        document.getElementById('productCard').classList.add('show');
         document.getElementById('cardImage').src = currentProduct.img;
         document.getElementById('cardName').innerText = currentProduct.name;
         document.getElementById('cardSpecs').innerHTML = currentProduct.specs;
@@ -701,6 +846,7 @@
             container.innerHTML = '<div class="cart-item">Корзина пуста</div>';
             totalSpan.innerText = '0';
             document.getElementById('orderFormBlock').style.display = 'none';
+            updateFloatingCartCounter();
             return;
         }
         let total = 0;
@@ -716,6 +862,7 @@
         container.innerHTML = html;
         totalSpan.innerText = total.toLocaleString('ru-RU');
         document.getElementById('orderFormBlock').style.display = 'block';
+        updateFloatingCartCounter();
     }
 
     function highlightCartItem() {
@@ -723,9 +870,7 @@
         if (items.length === 0) return;
         const lastItem = items[items.length - 1];
         lastItem.classList.add('cart-item-highlight');
-        setTimeout(() => {
-            lastItem.classList.remove('cart-item-highlight');
-        }, 400);
+        setTimeout(() => lastItem.classList.remove('cart-item-highlight'), 400);
     }
 
     window.removeFromCart = function(idx) {
@@ -783,9 +928,26 @@
         }
     }
 
+    // Прокрутка к корзине по клику на плавающую корзину
+    document.getElementById('floatingCart').addEventListener('click', () => {
+        document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Кнопка наверх
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     document.getElementById('dropdownBtn').addEventListener('click', () => {
-        const dropdown = document.getElementById('dropdownContent');
-        dropdown.classList.toggle('show');
+        document.getElementById('dropdownContent').classList.toggle('show');
     });
     document.getElementById('searchInput').addEventListener('input', renderDropdown);
     document.getElementById('sortSelect').addEventListener('change', renderDropdown);
