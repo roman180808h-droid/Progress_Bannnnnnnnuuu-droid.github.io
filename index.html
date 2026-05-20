@@ -519,6 +519,12 @@
             <input type="email" id="customerEmail" placeholder="Email *">
             <input type="tel" id="customerPhone" placeholder="Телефон *">
             <textarea id="customerAddress" rows="2" placeholder="Адрес доставки"></textarea>
+            <!-- ЧЕК-БОКС СОГЛАСИЯ -->
+            <label style="display: flex; align-items: center; gap: 10px; margin: 15px 0; cursor: pointer;">
+                <input type="checkbox" id="consentCheckbox" style="width: 18px; height: 18px;">
+                <span>Я даю согласие на обработку персональных данных</span>
+            </label>
+            <!-- КОНЕЦ ЧЕК-БОКСА -->
             <button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button>
         </div>
     </div>
@@ -528,11 +534,11 @@
         <p>📍 Алтайский край, г.Барнаул, Эмилии Алексеевой 94</p>
         <p>🔥 Изготовление на заказ — печи, котлы, чаны, баки, дымоходы</p>
         <div style="font-size: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #d2c4b4; color: #4a3a2a;">
-    <p><strong>ООО "ПРОГРЕСС"</strong> | ИНН 2221245027 | ОГРН 1192225027510</p>
-    <p>Юридический адрес: 656011, Алтайский край, г. Барнаул, ул. Эмилии Алексеевой, 94</p>
-    <p>Тел.: <a href="tel:+79130894322">+7-913-089-4322</a> | Email: <a href="mailto:Progress6300@mail.ru">Progress6300@mail.ru</a></p>
-    <p>Генеральный директор: Переверзев Алексей Анатольевич</p>
-</div>
+            <p><strong>ООО "ПРОГРЕСС"</strong> | ИНН 2221245027 | ОГРН 1192225027510</p>
+            <p>Юридический адрес: 656011, Алтайский край, г. Барнаул, ул. Эмилии Алексеевой, 94</p>
+            <p>Тел.: <a href="tel:+79130894322">+7-913-089-4322</a> | Email: <a href="mailto:Progress6300@mail.ru">Progress6300@mail.ru</a></p>
+            <p>Генеральный директор: Переверзев Алексей Анатольевич</p>
+        </div>
     </div>
 </div>
 
@@ -761,6 +767,12 @@
         const email = document.getElementById('customerEmail').value.trim();
         const phone = document.getElementById('customerPhone').value.trim();
         const address = document.getElementById('customerAddress').value;
+        const consent = document.getElementById('consentCheckbox');
+
+        if (!consent || !consent.checked) {
+            showToast('❌ Подтвердите согласие на обработку персональных данных', true);
+            return;
+        }
         if (!name || !email || !phone) {
             showToast('❌ Заполните имя, email и телефон', true);
             return;
@@ -784,6 +796,7 @@
             document.getElementById('customerEmail').value = '';
             document.getElementById('customerPhone').value = '';
             document.getElementById('customerAddress').value = '';
+            if (consent) consent.checked = false;
         } catch(e) { 
             showToast('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами по телефону.', true); 
         }
