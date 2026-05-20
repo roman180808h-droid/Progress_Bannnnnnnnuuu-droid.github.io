@@ -761,24 +761,18 @@
     }
 
     async function sendOrder() {
-    const name = document.getElementById('customerName').value.trim();
-    const email = document.getElementById('customerEmail').value.trim();
-    const phone = document.getElementById('customerPhone').value.trim();
-    const address = document.getElementById('customerAddress').value;
-    const consent = document.getElementById('consentCheckbox');
-
-    if (!consent || !consent.checked) {
-        showToast('❌ Подтвердите согласие на обработку персональных данных', true);
-        return;
-    }
-    if (!name || !email || !phone) {
-        showToast('❌ Заполните имя, email и телефон', true);
-        return;
-    }
-    if (!cart.length) {
-        showToast('❌ Корзина пуста', true);
-        return;
-    }
+        const name = document.getElementById('customerName').value.trim();
+        const email = document.getElementById('customerEmail').value.trim();
+        const phone = document.getElementById('customerPhone').value.trim();
+        const address = document.getElementById('customerAddress').value;
+        if (!name || !email || !phone) {
+            showToast('❌ Заполните имя, email и телефон', true);
+            return;
+        }
+        if (!cart.length) {
+            showToast('❌ Корзина пуста', true);
+            return;
+        }
     
     let items = '';
     let total = 0;
