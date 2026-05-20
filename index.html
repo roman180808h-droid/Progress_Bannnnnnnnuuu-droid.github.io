@@ -153,14 +153,6 @@
         .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
         .footer a{color:#b45a2b;text-decoration:none}
         @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}}
-        
-        /* Кнопки мессенджеров */
-        .messenger-buttons{position:fixed;bottom:120px;left:20px;z-index:999;display:flex;flex-direction:column;gap:10px}
-        .messenger-buttons a{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;text-decoration:none;transition:transform .2s}
-        .messenger-buttons a:hover{transform:scale(1.1)}
-        .whatsapp{background:#25D366}
-        .telegram{background:#0088cc}
-        @media(max-width:720px){.messenger-buttons{bottom:100px;left:15px}.messenger-buttons a{width:44px;height:44px;font-size:20px}}
     </style>
 </head>
 <body>
@@ -229,10 +221,6 @@
 
 <div class="floating-cart" id="floatingCart"><span>🛒</span><div class="cart-count" id="floatingCartCount">0</div></div>
 <div class="scroll-top" id="scrollTopBtn">↑</div>
-<div class="messenger-buttons">
-    <a href="https://wa.me/79609471278" class="whatsapp" target="_blank">📱</a>
-    <a href="tg://resolve?domain=termograd" class="telegram" target="_blank">✈️</a>
-</div>
 
 <script>
 const addonsList=[{id:"b1",name:"Бак нерж 65 л, 1 мм",price:9500},{id:"b2",name:"Бак нерж 65 л, 1.5 мм",price:12500},{id:"b3",name:"Бак нерж 85 л, 1 мм",price:13500},{id:"b4",name:"Бак нерж 85 л, 1.5 мм",price:15500},{id:"b5",name:"Бак чёрный 65 л, 2 мм",price:6000},{id:"b6",name:"Бак чёрный 85 л, 2 мм",price:6500},{id:"elbow",name:"Колено Ø115 мм 45°",price:600},{id:"roof",name:"Зонт Ø115 мм",price:1000},{id:"clamp",name:"Хомут обжимной Ø115 мм",price:350},{id:"module115",name:"Модуль трубы Ø115 мм 1м",price:1200}];
@@ -329,7 +317,7 @@ function showToast(msg,isErr){
     t.style.background=isErr?'#c0392b':'#27ae60';
     t.style.color='white';
     document.body.appendChild(t);
-    setTimeout(()=>t.remove(),2500);
+    setTimeout(()=>t.remove(),3000);
 }
 
 function updateFloatingCartCounter(){
@@ -506,6 +494,27 @@ function addToCart(){
     }
 }
 
+// Функция проверки телефона (расширенная)
+function isValidPhone(phone) {
+    // Удаляем все пробелы, скобки, тире, точки
+    let clean = phone.replace(/[\s\-\(\)\.]/g, '');
+    // Проверяем российские номера:
+    // +7XXXXXXXXXX (12 символов), 8XXXXXXXXXX (11), 7XXXXXXXXXX (11), XXXXXXXXXX (10)
+    const patterns = [
+        /^\+7[0-9]{10}$/,      // +7XXXXXXXXXX
+        /^8[0-9]{10}$/,        // 8XXXXXXXXXX
+        /^7[0-9]{10}$/,        // 7XXXXXXXXXX
+        /^[0-9]{10}$/          // XXXXXXXXXX
+    ];
+    return patterns.some(p => p.test(clean));
+}
+
+// Функция проверки email (расширенная)
+function isValidEmail(email) {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(email);
+}
+
 async function sendOrder(){
     const n = document.getElementById('customerName').value.trim();
     const e = document.getElementById('customerEmail').value.trim();
@@ -519,21 +528,35 @@ async function sendOrder(){
         document.getElementById('customerName').focus();
         return;
     }
+    
+    if (n.length < 2) {
+        showToast('❌ Введите полное имя (минимум 2 буквы)', true);
+        document.getElementById('customerName').focus();
+        return;
+    }
 
     // 2. Проверка телефона
-    const cleanPhone = p.replace(/[\s\-\(\)]/g, '');
-    const phoneValid = /^(\+7|7|8)?[0-9]{10}$/.test(cleanPhone);
+    if (!p) {
+        showToast('❌ Введите номер телефона', true);
+        document.getElementById('customerPhone').focus();
+        return;
+    }
     
-    if (!p || !phoneValid) {
-        showToast('❌ Введите корректный номер телефона (10 цифр)', true);
+    if (!isValidPhone(p)) {
+        showToast('❌ Некорректный телефон. Примеры: +79991234567, 89991234567, 9991234567', true);
         document.getElementById('customerPhone').focus();
         return;
     }
 
     // 3. Проверка email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!e || !emailRegex.test(e)) {
-        showToast('❌ Введите корректный email (например: name@mail.ru)', true);
+    if (!e) {
+        showToast('❌ Введите email', true);
+        document.getElementById('customerEmail').focus();
+        return;
+    }
+    
+    if (!isValidEmail(e)) {
+        showToast('❌ Некорректный email. Пример: name@mail.ru', true);
         document.getElementById('customerEmail').focus();
         return;
     }
@@ -546,20 +569,32 @@ async function sendOrder(){
 
     // 5. Проверка корзины
     if (!cart.length) {
-        showToast('❌ Корзина пуста', true);
+        showToast('❌ Корзина пуста. Добавьте товары', true);
         return;
     }
 
+    // Формируем заказ
     let items = '', total = 0;
     cart.forEach(it => {
         items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
         total += it.price;
     });
-    const data = {name: n, email: e, phone: p, address: a, order: items, total: total.toLocaleString('ru-RU')};
+    
+    const data = {
+        name: n, 
+        email: e, 
+        phone: p, 
+        address: a, 
+        order: items, 
+        total: total.toLocaleString('ru-RU'),
+        date: new Date().toLocaleString('ru-RU')
+    };
     
     if (typeof ym !== 'undefined') {
         ym(109310228, 'reachGoal', 'order_submit');
     }
+    
+    showToast('📤 Отправка заказа...', false);
     
     try{
         await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec',{
@@ -569,6 +604,8 @@ async function sendOrder(){
             body:JSON.stringify(data)
         });
         showToast('✅ Заказ отправлен! Мы свяжемся с вами', false);
+        
+        // Очищаем корзину и форму
         cart = [];
         updateCartUI();
         document.getElementById('customerName').value = '';
@@ -576,11 +613,14 @@ async function sendOrder(){
         document.getElementById('customerPhone').value = '';
         document.getElementById('customerAddress').value = '';
         c.checked = false;
+        
     } catch(e){
-        showToast('⚠️ Ошибка, но заказ сохранён', true);
+        console.error('Ошибка отправки:', e);
+        showToast('⚠️ Ошибка отправки, но заказ сохранён локально. Перезвоните нам по телефону', true);
     }
 }
 
+// Event Listeners
 document.getElementById('floatingCart').addEventListener('click',()=>{
     document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'});
 });
@@ -615,7 +655,7 @@ document.addEventListener('click',(e)=>{
 renderDropdown();
 updateCartUI();
 
-console.log('✅ Сайт полностью загружен, все проверки работают');
+console.log('✅ Сайт полностью загружен, проверки телефона и email работают');
 </script>
 </body>
-    </html>
+</html>
