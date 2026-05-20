@@ -519,10 +519,6 @@
             <input type="email" id="customerEmail" placeholder="Email *">
             <input type="tel" id="customerPhone" placeholder="Телефон *">
             <textarea id="customerAddress" rows="2" placeholder="Адрес доставки"></textarea>
-            <label style="display: flex; align-items: center; gap: 10px; margin: 15px 0; cursor: pointer;">
-    <input type="checkbox" id="consentCheckbox" style="width: 18px; height: 18px;">
-    <span>Я даю согласие на обработку персональных данных</span>
-</label>
             <button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button>
         </div>
     </div>
@@ -773,37 +769,6 @@
             showToast('❌ Корзина пуста', true);
             return;
         }
-    
-    let items = '';
-    let total = 0;
-    cart.forEach(it => { 
-        items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`; 
-        total += it.price; 
-    });
-    const orderData = { 
-        name, email, phone, address, 
-        order: items, 
-        total: total.toLocaleString('ru-RU') 
-    };
-    try {
-        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec', {
-            method: 'POST', 
-            mode: 'no-cors', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify(orderData)
-        });
-        showToast('✅ Заказ отправлен! Мы свяжемся с вами');
-        cart = [];
-        updateCartUI();
-        document.getElementById('customerName').value = '';
-        document.getElementById('customerEmail').value = '';
-        document.getElementById('customerPhone').value = '';
-        document.getElementById('customerAddress').value = '';
-        if (consent) consent.checked = false;
-    } catch(e) { 
-        showToast('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами по телефону.', true); 
-    }
-}
         let items = '';
         let total = 0;
         cart.forEach(it => { items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`; total += it.price; });
