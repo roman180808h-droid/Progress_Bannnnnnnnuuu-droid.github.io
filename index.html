@@ -59,13 +59,12 @@
     </noscript>
     <!-- /Yandex.Metrika counter -->
     
-    <!-- Schema.org для локального бизнеса -->
+    <!-- Schema.org -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "ТЕРМОГРАД",
-      "description": "Банные печи, котлы, чаны от производителя",
       "telephone": "+79609471278",
       "address": {
         "@type": "PostalAddress",
@@ -87,11 +86,85 @@
         .logo-wrapper{display:flex;justify-content:center;margin:0 auto}
         .header-logo{max-width:100%;height:auto;transition:transform .2s}
         .header-logo:hover{transform:scale(1.01)}
-        .subtitle{color:#7a6852;font-size:1.05rem;margin-top:24px;border-bottom:2px solid #e8dccc;display:inline-block;padding-bottom:8px}
+        .subtitle{color:#7a6852;font-size:1.05rem;margin-top:24px;margin-bottom:20px;border-bottom:2px solid #e8dccc;display:inline-block;padding-bottom:8px}
         
-        /* SEO-текст (виден всем, но полезен) */
-        .seo-text{background:#fef8f2;padding:25px;border-radius:24px;margin:20px 0;font-size:14px;line-height:1.5;color:#4a3a2a;text-align:center}
-        .seo-text h2{font-size:18px;color:#9b4f23;margin-bottom:10px}
+        /* Горизонтальные кнопки */
+        .info-buttons-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0 30px;
+        }
+        .info-btn {
+            background: #d97a2b;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .info-btn:hover {
+            background: #c06622;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+        .info-btn.active {
+            background: #a0521a;
+            transform: translateY(0);
+        }
+        
+        /* Контейнер для текста */
+        .info-text-container {
+            background: #fffef7;
+            border-left: 5px solid #d97a2b;
+            border-radius: 24px;
+            padding: 25px;
+            margin: 10px 0 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            font-size: 15px;
+            line-height: 1.6;
+            color: #2c241a;
+            display: none;
+        }
+        .info-text-container.show {
+            display: block;
+        }
+        .info-text-container h3 {
+            color: #9b4f23;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .info-text-container h4 {
+            color: #b45a2b;
+            margin: 15px 0 5px;
+        }
+        .info-text-container p {
+            margin-bottom: 12px;
+        }
+        .info-text-container strong {
+            color: #b45a2b;
+        }
+        .info-text-container em {
+            color: #7a6852;
+            font-size: 0.9rem;
+        }
+        .close-info {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: 0.2s;
+        }
+        .close-info:hover {
+            color: #c0392b;
+        }
         
         .filters-panel{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:60px;padding:12px 24px;margin:24px auto 40px;display:flex;flex-wrap:wrap;justify-content:center;gap:16px;border:1px solid rgba(210,180,140,0.3);max-width:900px}
         .search-input,.sort-select,.shape-filter{padding:12px 20px;border-radius:40px;border:1px solid #e2d4c4;background:#fff;font-size:.95rem;font-weight:500;transition:all .2s;outline:none}
@@ -148,11 +221,12 @@
         .scroll-top{position:fixed;bottom:110px;right:30px;width:50px;height:50px;background:#8b694e;border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff;z-index:1000}
         .scroll-top:hover{background:#6e523b}
         .scroll-top.show{display:flex}
-        .toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:40px;z-index:1001;box-shadow:0 4px 12px rgba(0,0,0,0.2);animation:fadeInUp .25s}
+        .toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:40px;z-index:1001;box-shadow:0 4px 12px rgba(0,0,0,0.2);animation:fadeInUp .25s;background:#27ae60;color:white}
+        .toast-notification.error{background:#c0392b}
         @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
         .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
         .footer a{color:#b45a2b;text-decoration:none}
-        @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}}
+        @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}.info-buttons-row{gap:12px}.info-btn{padding:10px 20px;font-size:0.9rem}.info-text-container{padding:18px}}
     </style>
 </head>
 <body>
@@ -162,10 +236,47 @@
         <div class="subtitle">Банные печи, котлы, чаны — полный заводской каталог</div>
     </div>
     
-    <!-- SEO-текст для поисковиков -->
-    <div class="seo-text">
-        <h2>🔥 Банные печи и котлы от производителя</h2>
-        <p>Компания <strong>ТЕРМОГРАД</strong> производит банные печи, котлы отопления и нержавеющие чаны. В каталоге более 80 моделей: круглые и прямоугольные печи, с баком и без, буржуйки, котлы длительного горения. <strong>Купить банную печь в Барнауле</strong> можно с доставкой по России. Работаем напрямую, без посредников. Звоните: <strong>+7-960-947-12-78</strong></p>
+    <!-- Три кнопки горизонтально -->
+    <div class="info-buttons-row">
+        <button class="info-btn" data-info="delivery">🚚 Доставка</button>
+        <button class="info-btn" data-info="warranty">🛡️ Гарантия</button>
+        <button class="info-btn" data-info="return">🔄 Возврат</button>
+    </div>
+    
+    <!-- Контейнеры для текста (по одному на каждую кнопку) -->
+    <div id="deliveryContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('delivery')">✖</button>
+        <h3>🚚 Доставка</h3>
+        <p><strong>Отправляем оборудование любой транспортной компанией за ваш счёт</strong></p>
+        <p>Мы сотрудничаем со всеми основными транспортными компаниями России (ТК Энергия, Деловые Линии, ПЭК, и др.) или готовы отправить выбранным вами перевозчиком.</p>
+        <p><strong>Как заказать доставку:</strong> После оформления заказа наш менеджер свяжется с вами для согласования удобной ТК. Вы можете также предложить свою транспортную компанию — мы отправим оборудование любым способом.</p>
+        <p><strong>Стоимость:</strong> Доставка оплачивается покупателем самостоятельно при получении груза (тариф перевозчика). Либо по счёту ТК — по договорённости.</p>
+        <p><strong>Отправка:</strong> оплачиваете по Qr-коду стоимость выбранного товара. После этого оборудование тщательно упаковывается и передаётся транспортной компании в ближайшие 1-2 рабочих дня после подтверждения заказа.</p>
+        <p><strong>Страхование:</strong> По желанию клиента груз может быть застрахован (стоимость страховки включена в тариф ТК или оплачивается отдельно).</p>
+        <p><em>Обратите внимание: после передачи груза транспортной компании сроки и сохранность груза контролируются перевозчиком. Мы предоставляем все необходимые документы и помогаем отслеживать отправление.</em></p>
+    </div>
+    
+    <div id="warrantyContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('warranty')">✖</button>
+        <h3>🛡️ Гарантия</h3>
+        <p><strong>Официальная гарантия на оборудование — 12 месяцев</strong></p>
+        <p>Вся техника и оборудование, реализуемые нашим магазином, имеют гарантийный срок <strong>12 месяцев</strong> (1 год) с момента передачи товара покупателю.</p>
+        <p><strong>Что гарантируем:</strong> Исправность оборудования, отсутствие производственных дефектов и соответствие заявленным характеристикам.</p>
+        <p><strong>Гарантийное обслуживание:</strong> При выявлении недостатков в течение 12 месяцев (если они не возникли по вине покупателя) мы организуем ремонт или замену оборудования. Подробные условия прописаны в гарантийном талоне, который выдаётся вместе с товаром.</p>
+        <p><strong>Не является гарантийным случаем:</strong> Механические повреждения, нарушение правил эксплуатации, размерзание, перегрузки, скачки напряжения, неправильное подключение, а также естественный износ.</p>
+        <p><em>Для гарантийного обслуживания обязательно сохраняйте товарный или кассовый чек и заполненный гарантийный талон.</em></p>
+    </div>
+    
+    <div id="returnContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('return')">✖</button>
+        <h3>🔄 Возврат и обмен</h3>
+        <p><strong>Возврат товара осуществляется в соответствии с законодательством РФ</strong></p>
+        <p>Мы строго соблюдаем права потребителей, установленные <strong>Законом РФ от 07.02.1992 № 2300-1 «О защите прав потребителей»</strong> и Гражданским кодексом РФ.</p>
+        <p><strong>Обмен и возврат надлежащего качества:</strong> Вы можете вернуть или обменять товар надлежащего качества в течение <strong>7 дней</strong> после получения (а если срок не установлен — в течение 3 месяцев согласно ст. 26.1). Товар не должен быть в употреблении, сохранены его товарный вид, потребительские свойства, фабричные пломбы, ярлыки, а также все документы и упаковка.</p>
+        <p><strong>Исключения:</strong> Возврату не подлежит технически сложное оборудование надлежащего качества, если оно включено в Перечень, утверждённый Постановлением Правительства РФ № 2463 (для некоторых категорий товаров — при отсутствии недостатков). Мы в любом случае рассмотрим вашу ситуацию индивидуально.</p>
+        <p><strong>Возврат ненадлежащего качества (брак):</strong> Если в течение гарантийного срока (12 месяцев) вы обнаружили недостаток, вы вправе потребовать: замены, ремонта, соразмерного уменьшения цены или возврата денег. Сроки и порядок — в соответствии со ст. 18-22 Закона «О защите прав потребителей».</p>
+        <p><strong>Как оформить возврат:</strong> Напишите заявление в свободной форме на нашу электронную почту или свяжитесь с нами по телефону. Мы предоставим инструкцию и адрес для отправки (возврат возможен за ваш счёт, кроме случаев брака, где пересылка оплачивается продавцом).</p>
+        <p><em>Для ускорения процесса просим предварительно предоставить фото/видео дефекта (при споре о качестве) и копию чека.</em></p>
     </div>
     
     <div class="filters-panel">
@@ -314,8 +425,7 @@ function showToast(msg,isErr){
     const t=document.createElement('div');
     t.textContent=msg;
     t.className='toast-notification';
-    t.style.background=isErr?'#c0392b':'#27ae60';
-    t.style.color='white';
+    if(isErr) t.classList.add('error');
     document.body.appendChild(t);
     setTimeout(()=>t.remove(),3000);
 }
@@ -494,25 +604,51 @@ function addToCart(){
     }
 }
 
-// Функция проверки телефона (расширенная)
 function isValidPhone(phone) {
-    // Удаляем все пробелы, скобки, тире, точки
     let clean = phone.replace(/[\s\-\(\)\.]/g, '');
-    // Проверяем российские номера:
-    // +7XXXXXXXXXX (12 символов), 8XXXXXXXXXX (11), 7XXXXXXXXXX (11), XXXXXXXXXX (10)
     const patterns = [
-        /^\+7[0-9]{10}$/,      // +7XXXXXXXXXX
-        /^8[0-9]{10}$/,        // 8XXXXXXXXXX
-        /^7[0-9]{10}$/,        // 7XXXXXXXXXX
-        /^[0-9]{10}$/          // XXXXXXXXXX
+        /^\+7[0-9]{10}$/,
+        /^8[0-9]{10}$/,
+        /^7[0-9]{10}$/,
+        /^[0-9]{10}$/
     ];
     return patterns.some(p => p.test(clean));
 }
 
-// Функция проверки email (расширенная)
 function isValidEmail(email) {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return re.test(email);
+}
+
+// Функция открытия/закрытия по одной кнопке
+function toggleInfo(type) {
+    const container = document.getElementById(`${type}Container`);
+    const btn = document.querySelector(`.info-btn[data-info="${type}"]`);
+    const allContainers = ['deliveryContainer', 'warrantyContainer', 'returnContainer'];
+    const allBtns = document.querySelectorAll('.info-btn');
+    
+    // Если текущий контейнер уже открыт — закрываем его
+    if (container.classList.contains('show')) {
+        container.classList.remove('show');
+        btn.classList.remove('active');
+    } else {
+        // Закрываем все другие
+        allContainers.forEach(c => {
+            document.getElementById(c).classList.remove('show');
+        });
+        allBtns.forEach(b => b.classList.remove('active'));
+        // Открываем нужный
+        container.classList.add('show');
+        btn.classList.add('active');
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function closeInfo(type) {
+    const container = document.getElementById(`${type}Container`);
+    const btn = document.querySelector(`.info-btn[data-info="${type}"]`);
+    container.classList.remove('show');
+    if (btn) btn.classList.remove('active');
 }
 
 async function sendOrder(){
@@ -522,58 +658,45 @@ async function sendOrder(){
     const a = document.getElementById('customerAddress').value;
     const c = document.getElementById('consentCheckbox');
 
-    // 1. Проверка имени
     if (!n) {
         showToast('❌ Введите ваше имя', true);
         document.getElementById('customerName').focus();
         return;
     }
-    
     if (n.length < 2) {
         showToast('❌ Введите полное имя (минимум 2 буквы)', true);
         document.getElementById('customerName').focus();
         return;
     }
-
-    // 2. Проверка телефона
     if (!p) {
         showToast('❌ Введите номер телефона', true);
         document.getElementById('customerPhone').focus();
         return;
     }
-    
     if (!isValidPhone(p)) {
         showToast('❌ Некорректный телефон. Примеры: +79991234567, 89991234567, 9991234567', true);
         document.getElementById('customerPhone').focus();
         return;
     }
-
-    // 3. Проверка email
     if (!e) {
         showToast('❌ Введите email', true);
         document.getElementById('customerEmail').focus();
         return;
     }
-    
     if (!isValidEmail(e)) {
         showToast('❌ Некорректный email. Пример: name@mail.ru', true);
         document.getElementById('customerEmail').focus();
         return;
     }
-
-    // 4. Проверка согласия
     if (!c || !c.checked) {
         showToast('❌ Подтвердите согласие на обработку персональных данных', true);
         return;
     }
-
-    // 5. Проверка корзины
     if (!cart.length) {
         showToast('❌ Корзина пуста. Добавьте товары', true);
         return;
     }
 
-    // Формируем заказ
     let items = '', total = 0;
     cart.forEach(it => {
         items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
@@ -581,13 +704,7 @@ async function sendOrder(){
     });
     
     const data = {
-        name: n, 
-        email: e, 
-        phone: p, 
-        address: a, 
-        order: items, 
-        total: total.toLocaleString('ru-RU'),
-        date: new Date().toLocaleString('ru-RU')
+        name: n, email: e, phone: p, address: a, order: items, total: total.toLocaleString('ru-RU'), date: new Date().toLocaleString('ru-RU')
     };
     
     if (typeof ym !== 'undefined') {
@@ -604,8 +721,6 @@ async function sendOrder(){
             body:JSON.stringify(data)
         });
         showToast('✅ Заказ отправлен! Мы свяжемся с вами', false);
-        
-        // Очищаем корзину и форму
         cart = [];
         updateCartUI();
         document.getElementById('customerName').value = '';
@@ -613,14 +728,19 @@ async function sendOrder(){
         document.getElementById('customerPhone').value = '';
         document.getElementById('customerAddress').value = '';
         c.checked = false;
-        
     } catch(e){
         console.error('Ошибка отправки:', e);
-        showToast('⚠️ Ошибка отправки, но заказ сохранён локально. Перезвоните нам по телефону', true);
+        showToast('⚠️ Ошибка отправки. Перезвоните нам по телефону', true);
     }
 }
 
-// Event Listeners
+// Навешиваем обработчики на кнопки
+document.querySelectorAll('.info-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        toggleInfo(btn.dataset.info);
+    });
+});
+
 document.getElementById('floatingCart').addEventListener('click',()=>{
     document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'});
 });
@@ -655,7 +775,7 @@ document.addEventListener('click',(e)=>{
 renderDropdown();
 updateCartUI();
 
-console.log('✅ Сайт полностью загружен, проверки телефона и email работают');
+console.log('✅ Сайт полностью загружен');
 </script>
 </body>
 </html>
