@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
-       <!-- Yandex.Metrika counter -->
+    <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -45,51 +45,58 @@
         .dropdown-item.selected h4{color:#fff}
         .dropdown-item h4{color:#a55826;margin-bottom:5px}
         .dropdown-item .price-drop{font-weight:700;color:#b45a2b;margin-top:5px}
+        
+        /* Карточка товара — скрыта по умолчанию */
         .product-card{background:#fff;border-radius:32px;padding:28px;max-width:700px;margin:20px auto;display:none;border:1px solid #e6daca;box-shadow:0 8px 24px rgba(0,0,0,0.05);opacity:0;transform:translateY(15px);transition:opacity .25s,transform .25s}
         .product-card.show{display:block;opacity:1;transform:translateY(0)}
-        .product-card img{width:100%;max-height:320px;object-fit:contain;border-radius:24px;background:#fefaf5;margin-bottom:20px;transition:transform .25s,box-shadow .2s}
-        .product-card img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+        .product-card img{width:100%;max-height:320px;object-fit:contain;border-radius:24px;background:#fefaf5;margin-bottom:20px}
         .product-card h2{text-align:center;color:#9b4f23;margin-bottom:15px}
         .specs{background:#fef8f2;padding:16px;border-radius:24px;margin:15px 0;line-height:1.6;border-left:4px solid #d97a2b}
         .price{font-size:28px;font-weight:700;color:#d97a2b;text-align:center;margin:15px 0}
         .addons-section{background:#fdf8f1;border-radius:24px;padding:15px;margin-top:20px}
         .addon-title{font-size:1rem;font-weight:600;color:#b45a2b;margin-bottom:12px}
         .addon-item{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;margin:6px 0;background:#fff;border-radius:60px;border:1px solid #eadbcb;transition:all .2s}
-        .addon-item:hover{border-color:#d97a2b;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+        .addon-item:hover{border-color:#d97a2b}
         .addon-name{flex:2;font-weight:500;font-size:.9rem}
         .addon-price{flex:1;color:#bd631e;font-weight:500}
         .addon-controls{display:flex;gap:10px;align-items:center}
         .addon-controls button{width:28px;height:28px;border-radius:50%;background:#d97a2b;color:#fff;border:none;font-size:16px;cursor:pointer;transition:all .15s}
-        .addon-controls button:hover{background:#c06622;transform:scale(1.05)}
+        .addon-controls button:hover{background:#c06622}
         .addon-count{font-weight:700;min-width:28px;text-align:center}
         .add-to-cart{background:#d97a2b;color:#fff;width:100%;padding:14px;border:none;border-radius:60px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:20px;transition:all .2s}
         .add-to-cart:hover{background:#c06622;transform:scale(1.01);box-shadow:0 4px 12px rgba(192,102,34,0.3)}
+        
+        /* Корзина всегда видна, но форма заказа — только после добавления товара */
         .cart-section{background:#fff;border-radius:32px;padding:24px;margin:40px 0;border:1px solid #e6daca}
         .cart-header{font-size:1.5rem;font-weight:600;color:#b45a2b;margin-bottom:20px}
         .cart-items-list{max-height:300px;overflow:auto;margin-bottom:20px}
-        .cart-item{background:#fef9f2;padding:12px 18px;border-radius:60px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;transition:background-color .2s}
+        .cart-item{background:#fef9f2;padding:12px 18px;border-radius:60px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
         .cart-item-highlight{background-color:#fff3c9 !important}
-        .cart-remove{background:#c0392b;border:none;color:#fff;border-radius:40px;padding:5px 15px;cursor:pointer;transition:all .15s}
-        .cart-remove:hover{background:#a93226;transform:scale(1.02)}
+        .cart-remove{background:#c0392b;border:none;color:#fff;border-radius:40px;padding:5px 15px;cursor:pointer}
+        .cart-remove:hover{background:#a93226}
         .cart-total{text-align:right;font-size:1.3rem;font-weight:700;padding-top:15px;border-top:2px solid #e6daca}
         .cart-total span{color:#d97a2b}
-        .order-form{margin-top:25px;display:none}
-        .order-form input,.order-form textarea{width:100%;padding:12px;margin:8px 0;border-radius:40px;border:1px solid #e2d4c4;font-family:inherit;transition:border-color .2s}
+        
+        /* Форма заказа — скрыта по умолчанию */
+        .order-form{display:none;margin-top:25px}
+        .order-form.show{display:block}
+        .order-form input,.order-form textarea{width:100%;padding:12px;margin:8px 0;border-radius:40px;border:1px solid #e2d4c4;font-family:inherit}
         .order-form input:focus,.order-form textarea:focus{border-color:#d97a2b;outline:none}
-        .send-order-btn{background:#27ae60;width:100%;padding:14px;border:none;border-radius:60px;font-weight:600;color:#fff;margin-top:16px;cursor:pointer;transition:all .2s}
-        .send-order-btn:hover{background:#219a52;transform:scale(1.01)}
-        .floating-cart{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#d97a2b;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:all .2s;z-index:1000}
+        .send-order-btn{background:#27ae60;width:100%;padding:14px;border:none;border-radius:60px;font-weight:600;color:#fff;margin-top:16px;cursor:pointer}
+        .send-order-btn:hover{background:#219a52}
+        
+        .floating-cart{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#d97a2b;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);z-index:1000}
         .floating-cart:hover{transform:scale(1.08);background:#c06622}
         .floating-cart span{font-size:28px}
         .cart-count{position:absolute;top:-5px;right:-5px;background:#c0392b;color:#fff;font-size:12px;font-weight:700;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-        .scroll-top{position:fixed;bottom:110px;right:30px;width:50px;height:50px;background:#8b694e;border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff;transition:all .2s;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
-        .scroll-top:hover{background:#6e523b;transform:translateY(-3px)}
+        .scroll-top{position:fixed;bottom:110px;right:30px;width:50px;height:50px;background:#8b694e;border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff;z-index:1000}
+        .scroll-top:hover{background:#6e523b}
         .scroll-top.show{display:flex}
-        .toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:40px;z-index:1001;box-shadow:0 4px 12px rgba(0,0,0,0.2);animation:fadeInUp .25s;white-space:nowrap}
+        .toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:40px;z-index:1001;box-shadow:0 4px 12px rgba(0,0,0,0.2);animation:fadeInUp .25s}
         @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
         .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
         .footer a{color:#b45a2b;text-decoration:none}
-        @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px;width:44px;height:44px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}}
+        @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}}
     </style>
 </head>
 <body>
@@ -103,12 +110,27 @@
         <select id="sortSelect" class="sort-select"><option value="default">📊 По умолчанию</option><option value="price-asc">💰 Сначала дешёвые</option><option value="price-desc">💰 Сначала дорогие</option></select>
         <select id="shapeFilter" class="shape-filter"><option value="all">🎨 Все печи</option><option value="round">🔴 Круглые</option><option value="rect">🟦 Прямоугольные</option></select>
     </div>
-    <div class="dropdown-container"><button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар <span>▼</span></button><div class="dropdown-content" id="dropdownContent"></div></div>
-    <div id="productCard" class="product-card"><img id="cardImage" src=""><h2 id="cardName"></h2><div class="specs" id="cardSpecs"></div><div class="price" id="cardPrice"></div><div id="addonsContainer"></div><button class="add-to-cart" id="addToCartBtn">➕ Добавить в корзину</button></div>
+    <div class="dropdown-container">
+        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар <span>▼</span></button>
+        <div class="dropdown-content" id="dropdownContent"></div>
+    </div>
+    
+    <!-- Карточка товара (скрыта до выбора) -->
+    <div id="productCard" class="product-card">
+        <img id="cardImage" src="">
+        <h2 id="cardName"></h2>
+        <div class="specs" id="cardSpecs"></div>
+        <div class="price" id="cardPrice"></div>
+        <div id="addonsContainer"></div>
+        <button class="add-to-cart" id="addToCartBtn">➕ Добавить в корзину</button>
+    </div>
+    
     <div class="cart-section">
         <div class="cart-header">🛒 Корзина</div>
         <div id="cartItemsList" class="cart-items-list"><div class="cart-item">Корзина пуста</div></div>
         <div class="cart-total">💰 Итого: <span id="cartTotal">0</span> ₽</div>
+        
+        <!-- Форма заказа (скрыта, пока корзина пуста) -->
         <div class="order-form" id="orderFormBlock">
             <h3 style="margin-bottom:12px;">📝 Оформление заказа</h3>
             <input type="text" id="customerName" placeholder="Ваше имя *">
@@ -122,6 +144,7 @@
             <button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button>
         </div>
     </div>
+    
     <div class="footer">
         <p>📞 <strong>Контакты:</strong> <a href="tel:+79609471278">+7-960-947-12-78</a> | <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p>
         <p>📍 Алтайский край, г.Барнаул, Эмилии Алексеевой 94</p>
@@ -136,6 +159,7 @@
 </div>
 <div class="floating-cart" id="floatingCart"><span>🛒</span><div class="cart-count" id="floatingCartCount">0</div></div>
 <div class="scroll-top" id="scrollTopBtn">↑</div>
+
 <script>
 const addonsList=[{id:"b1",name:"Бак нерж 65 л, 1 мм",price:9500},{id:"b2",name:"Бак нерж 65 л, 1.5 мм",price:12500},{id:"b3",name:"Бак нерж 85 л, 1 мм",price:13500},{id:"b4",name:"Бак нерж 85 л, 1.5 мм",price:15500},{id:"b5",name:"Бак чёрный 65 л, 2 мм",price:6000},{id:"b6",name:"Бак чёрный 85 л, 2 мм",price:6500},{id:"elbow",name:"Колено Ø115 мм 45°",price:600},{id:"roof",name:"Зонт Ø115 мм",price:1000},{id:"clamp",name:"Хомут обжимной Ø115 мм",price:350},{id:"module115",name:"Модуль трубы Ø115 мм 1м",price:1200}];
 const TUB_IMAGE_URL="https://i.ibb.co/rfz73jSP/image.jpg";
@@ -221,28 +245,275 @@ const products=[
 {id:79,name:"Банный чан Макси Aisi304",price:350000,type:"rect",category:"tub",specs:"6-8 места, 2900 л, Aisi304",img:TUB_IMAGE_URL},
 {id:80,name:"Банный чан Макси Aisi430",price:290000,type:"rect",category:"tub",specs:"6-8 места, 2900 л, Aisi430",img:TUB_IMAGE_URL}
 ];
-let cart=[],currentProduct=null,selectedAddons={},currentSelectedId=null;
-function showToast(msg,isErr){const t=document.createElement('div');t.textContent=msg;t.className='toast-notification';t.style.background=isErr?'#c0392b':'#27ae60';t.style.color='white';document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
-function updateFloatingCartCounter(){const cnt=document.getElementById('floatingCartCount');if(cnt)cnt.textContent=cart.length;}
-function renderAddons(){const c=document.getElementById('addonsContainer');if(!currentProduct||currentProduct.category==='tub'){c.innerHTML='';return;}let html=`<div class="addons-section"><div class="addon-title">➕ Дополнительное оборудование</div>`;for(let a of addonsList){let cnt=selectedAddons[a.id]?selectedAddons[a.id].quantity:0;html+=`<div class="addon-item"><span class="addon-name">${a.name}</span><span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span><div class="addon-controls"><button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},-1)">−</button><span class="addon-count" id="count_${a.id}">${cnt}</span><button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},1)">+</button></div></div>`;}html+=`</div>`;c.innerHTML=html;}
-window.changeAddonCount=function(id,name,price,delta){if(!selectedAddons[id]){if(delta>0)selectedAddons[id]={name,price,quantity:1};}else{let n=selectedAddons[id].quantity+delta;if(n<=0)delete selectedAddons[id];else selectedAddons[id].quantity=n;}for(let a of addonsList){let s=document.getElementById('count_'+a.id);if(s)s.textContent=selectedAddons[a.id]?selectedAddons[a.id].quantity:0;}if(currentProduct&¤tProduct.category!=='tub'){let s=0;for(let k in selectedAddons)s+=selectedAddons[k].price*selectedAddons[k].quantity;document.getElementById('cardPrice').innerHTML=`💰 ${(currentProduct.price+s).toLocaleString('ru-RU')} ₽`;}};
-function renderDropdown(){const cont=document.getElementById('dropdownContent');const st=document.getElementById('searchInput').value.toLowerCase();const sv=document.getElementById('sortSelect').value;const sh=document.getElementById('shapeFilter').value;let f=products.filter(p=>{const m=p.name.toLowerCase().includes(st);let ms=true;if(sh==='round')ms=p.type==='round';else if(sh==='rect')ms=p.type==='rect';return m&&ms;});if(sv==='price-asc')f.sort((a,b)=>a.price-b.price);else if(sv==='price-desc')f.sort((a,b)=>b.price-a.price);else f.sort((a,b)=>a.id-b.id);if(!f.length){cont.innerHTML='<div class="dropdown-item">🔥 Ничего не найдено</div>';return;}cont.innerHTML=f.map(p=>`<div class="dropdown-item" data-id="${p.id}"><h4>${p.name}</h4><div class="price-drop">${p.price.toLocaleString('ru-RU')} ₽</div></div>`).join('');if(currentSelectedId){document.querySelectorAll('.dropdown-item').forEach(el=>{if(parseInt(el.dataset.id)===currentSelectedId)el.classList.add('selected');});}document.querySelectorAll('.dropdown-item').forEach(el=>{el.addEventListener('click',()=>selectProduct(parseInt(el.dataset.id)));});}
-function selectProduct(id){currentProduct=products.find(p=>p.id===id);currentSelectedId=id;selectedAddons={};if(!currentProduct)return;document.querySelectorAll('.dropdown-item').forEach(el=>{el.classList.remove('selected');if(parseInt(el.dataset.id)===id)el.classList.add('selected');});document.getElementById('productCard').classList.add('show');document.getElementById('cardImage').src=currentProduct.img;document.getElementById('cardName').innerText=currentProduct.name;document.getElementById('cardSpecs').innerHTML=currentProduct.specs;document.getElementById('cardPrice').innerHTML=`💰 ${currentProduct.price.toLocaleString('ru-RU')} ₽`;renderAddons();document.getElementById('dropdownContent').classList.remove('show');}
-function updateCartUI(){const cont=document.getElementById('cartItemsList');const tot=document.getElementById('cartTotal');if(!cart.length){cont.innerHTML='<div class="cart-item">Корзина пуста</div>';tot.innerText='0';document.getElementById('orderFormBlock').style.display='none';updateFloatingCartCounter();return;}let total=0,html='';cart.forEach((it,idx)=>{html+=`<div class="cart-item" data-cart-index="${idx}"><span>${it.name}</span><span>${it.price.toLocaleString('ru-RU')} ₽</span><button class="cart-remove" onclick="removeFromCart(${idx})">Удалить</button></div>`;total+=it.price;});cont.innerHTML=html;tot.innerText=total.toLocaleString('ru-RU');document.getElementById('orderFormBlock').style.display='block';updateFloatingCartCounter();}
-function highlightCartItem(){const items=document.querySelectorAll('.cart-item');if(!items.length)return;const last=items[items.length-1];last.classList.add('cart-item-highlight');setTimeout(()=>last.classList.remove('cart-item-highlight'),400);}
-window.removeFromCart=function(idx){cart.splice(idx,1);updateCartUI();};
-function addToCart(){if(!currentProduct){showToast('❌ Сначала выберите товар',true);return;}cart.push({name:currentProduct.name,price:currentProduct.price});if(currentProduct.category!=='tub'){for(let k in selectedAddons){let a=selectedAddons[k];for(let i=0;i<a.quantity;i++)cart.push({name:a.name,price:a.price});}}updateCartUI();highlightCartItem();showToast(`✓ ${currentProduct.name} добавлен в корзину`);}
-async function sendOrder(){const n=document.getElementById('customerName').value.trim(),e=document.getElementById('customerEmail').value.trim(),p=document.getElementById('customerPhone').value.trim(),a=document.getElementById('customerAddress').value;const c=document.getElementById('consentCheckbox');if(!c||!c.checked){showToast('❌ Подтвердите согласие на обработку персональных данных',true);return;}if(!n||!e||!p){showToast('❌ Заполните имя, email и телефон',true);return;}if(!cart.length){showToast('❌ Корзина пуста',true);return;}let items='',total=0;cart.forEach(it=>{items+=`${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;total+=it.price;});const data={name:n,email:e,phone:p,address:a,order:items,total:total.toLocaleString('ru-RU')};try{await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});showToast('✅ Заказ отправлен! Мы свяжемся с вами');cart=[];updateCartUI();document.getElementById('customerName').value='';document.getElementById('customerEmail').value='';document.getElementById('customerPhone').value='';document.getElementById('customerAddress').value='';c.checked=false;}catch(e){showToast('⚠️ Ошибка, но заказ сохранён',true);}}
-document.getElementById('floatingCart').addEventListener('click',()=>{document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'});});
-const sc=document.getElementById('scrollTopBtn');window.addEventListener('scroll',()=>{if(window.scrollY>300)sc.classList.add('show');else sc.classList.remove('show');});sc.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});
-document.getElementById('dropdownBtn').addEventListener('click',()=>{document.getElementById('dropdownContent').classList.toggle('show');});
-document.getElementById('searchInput').addEventListener('input',renderDropdown);
-document.getElementById('sortSelect').addEventListener('change',renderDropdown);
-document.getElementById('shapeFilter').addEventListener('change',renderDropdown);
-document.getElementById('addToCartBtn').addEventListener('click',addToCart);
-document.getElementById('sendOrderFinalBtn').addEventListener('click',sendOrder);
-document.addEventListener('click',(e)=>{if(!e.target.closest('.dropdown-container'))document.getElementById('dropdownContent').classList.remove('show');});
-renderDropdown();updateCartUI();
+
+let cart=[], currentProduct=null, selectedAddons={}, currentSelectedId=null;
+
+function showToast(msg,isErr){
+    const t=document.createElement('div');
+    t.textContent=msg;
+    t.className='toast-notification';
+    t.style.background=isErr?'#c0392b':'#27ae60';
+    t.style.color='white';
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),2500);
+}
+
+function updateFloatingCartCounter(){
+    const cnt=document.getElementById('floatingCartCount');
+    if(cnt) cnt.textContent=cart.length;
+}
+
+function renderAddons(){
+    const c=document.getElementById('addonsContainer');
+    if(!currentProduct || currentProduct.category==='tub'){
+        c.innerHTML='';
+        return;
+    }
+    let html=`<div class="addons-section"><div class="addon-title">➕ Дополнительное оборудование</div>`;
+    for(let a of addonsList){
+        let cnt=selectedAddons[a.id]?selectedAddons[a.id].quantity:0;
+        html+=`<div class="addon-item">
+            <span class="addon-name">${a.name}</span>
+            <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
+            <div class="addon-controls">
+                <button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},-1)">−</button>
+                <span class="addon-count" id="count_${a.id}">${cnt}</span>
+                <button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},1)">+</button>
+            </div>
+        </div>`;
+    }
+    html+=`</div>`;
+    c.innerHTML=html;
+}
+
+window.changeAddonCount=function(id,name,price,delta){
+    if(!selectedAddons[id]){
+        if(delta>0) selectedAddons[id]={name,price,quantity:1};
+    }else{
+        let n=selectedAddons[id].quantity+delta;
+        if(n<=0) delete selectedAddons[id];
+        else selectedAddons[id].quantity=n;
+    }
+    for(let a of addonsList){
+        let s=document.getElementById('count_'+a.id);
+        if(s) s.textContent=selectedAddons[a.id]?selectedAddons[a.id].quantity:0;
+    }
+    if(currentProduct && currentProduct.category!=='tub'){
+        let s=0;
+        for(let k in selectedAddons) s+=selectedAddons[k].price*selectedAddons[k].quantity;
+        document.getElementById('cardPrice').innerHTML=`💰 ${(currentProduct.price+s).toLocaleString('ru-RU')} ₽`;
+    }
+};
+
+function renderDropdown(){
+    const cont=document.getElementById('dropdownContent');
+    const st=document.getElementById('searchInput').value.toLowerCase();
+    const sv=document.getElementById('sortSelect').value;
+    const sh=document.getElementById('shapeFilter').value;
+    let f=products.filter(p=>{
+        const m=p.name.toLowerCase().includes(st);
+        let ms=true;
+        if(sh==='round') ms=p.type==='round';
+        else if(sh==='rect') ms=p.type==='rect';
+        return m && ms;
+    });
+    if(sv==='price-asc') f.sort((a,b)=>a.price-b.price);
+    else if(sv==='price-desc') f.sort((a,b)=>b.price-a.price);
+    else f.sort((a,b)=>a.id-b.id);
+    
+    if(!f.length){
+        cont.innerHTML='<div class="dropdown-item">🔥 Ничего не найдено</div>';
+        return;
+    }
+    cont.innerHTML=f.map(p=>`<div class="dropdown-item" data-id="${p.id}">
+        <h4>${p.name}</h4>
+        <div class="price-drop">${p.price.toLocaleString('ru-RU')} ₽</div>
+    </div>`).join('');
+    
+    if(currentSelectedId){
+        document.querySelectorAll('.dropdown-item').forEach(el=>{
+            if(parseInt(el.dataset.id)===currentSelectedId) el.classList.add('selected');
+        });
+    }
+    document.querySelectorAll('.dropdown-item').forEach(el=>{
+        el.addEventListener('click',()=>selectProduct(parseInt(el.dataset.id)));
+    });
+}
+
+function selectProduct(id){
+    currentProduct=products.find(p=>p.id===id);
+    currentSelectedId=id;
+    selectedAddons={};
+    if(!currentProduct) return;
+    
+    document.querySelectorAll('.dropdown-item').forEach(el=>{
+        el.classList.remove('selected');
+        if(parseInt(el.dataset.id)===id) el.classList.add('selected');
+    });
+    
+    // ПОКАЗЫВАЕМ КАРТОЧКУ ТОВАРА
+    const card=document.getElementById('productCard');
+    card.classList.add('show');
+    
+    document.getElementById('cardImage').src=currentProduct.img;
+    document.getElementById('cardName').innerText=currentProduct.name;
+    document.getElementById('cardSpecs').innerHTML=currentProduct.specs;
+    document.getElementById('cardPrice').innerHTML=`💰 ${currentProduct.price.toLocaleString('ru-RU')} ₽`;
+    renderAddons();
+    
+    // Закрываем dropdown после выбора
+    document.getElementById('dropdownContent').classList.remove('show');
+    
+    // Плавно скроллим к карточке
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+    
+    showToast(`✓ Выбран: ${currentProduct.name}`, false);
+}
+
+function updateCartUI(){
+    const cont=document.getElementById('cartItemsList');
+    const tot=document.getElementById('cartTotal');
+    const orderForm=document.getElementById('orderFormBlock');
+    
+    if(!cart.length){
+        cont.innerHTML='<div class="cart-item">Корзина пуста</div>';
+        tot.innerText='0';
+        // СКРЫВАЕМ ФОРМУ ЗАКАЗА, если корзина пуста
+        orderForm.classList.remove('show');
+        updateFloatingCartCounter();
+        return;
+    }
+    let total=0, html='';
+    cart.forEach((it,idx)=>{
+        html+=`<div class="cart-item" data-cart-index="${idx}">
+            <span>${it.name}</span>
+            <span>${it.price.toLocaleString('ru-RU')} ₽</span>
+            <button class="cart-remove" onclick="removeFromCart(${idx})">Удалить</button>
+        </div>`;
+        total+=it.price;
+    });
+    cont.innerHTML=html;
+    tot.innerText=total.toLocaleString('ru-RU');
+    
+    // ПОКАЗЫВАЕМ ФОРМУ ЗАКАЗА, так как корзина не пуста
+    orderForm.classList.add('show');
+    
+    updateFloatingCartCounter();
+}
+
+function highlightCartItem(){
+    const items=document.querySelectorAll('.cart-item');
+    if(!items.length) return;
+    const last=items[items.length-1];
+    last.classList.add('cart-item-highlight');
+    setTimeout(()=>last.classList.remove('cart-item-highlight'),400);
+}
+
+window.removeFromCart=function(idx){
+    cart.splice(idx,1);
+    updateCartUI();
+    showToast('🗑 Товар удалён из корзины', false);
+};
+
+function addToCart(){
+    if(!currentProduct){
+        showToast('❌ Сначала выберите товар из каталога', true);
+        return;
+    }
+    cart.push({name:currentProduct.name, price:currentProduct.price});
+    if(currentProduct.category!=='tub'){
+        for(let k in selectedAddons){
+            let a=selectedAddons[k];
+            for(let i=0;i<a.quantity;i++) cart.push({name:a.name, price:a.price});
+        }
+    }
+    updateCartUI();
+    highlightCartItem();
+    showToast(`✓ ${currentProduct.name} добавлен в корзину`, false);
+}
+
+async function sendOrder(){
+    const n=document.getElementById('customerName').value.trim(),
+          e=document.getElementById('customerEmail').value.trim(),
+          p=document.getElementById('customerPhone').value.trim(),
+          a=document.getElementById('customerAddress').value;
+    const c=document.getElementById('consentCheckbox');
+    
+    if(!c || !c.checked){
+        showToast('❌ Подтвердите согласие на обработку персональных данных', true);
+        return;
+    }
+    if(!n || !e || !p){
+        showToast('❌ Заполните имя, email и телефон', true);
+        return;
+    }
+    if(!cart.length){
+        showToast('❌ Корзина пуста', true);
+        return;
+    }
+    
+    let items='', total=0;
+    cart.forEach(it=>{
+        items+=`${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
+        total+=it.price;
+    });
+    const data={name:n, email:e, phone:p, address:a, order:items, total:total.toLocaleString('ru-RU')};
+    
+    try{
+        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec',{
+            method:'POST',
+            mode:'no-cors',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(data)
+        });
+        showToast('✅ Заказ отправлен! Мы свяжемся с вами', false);
+        cart=[];
+        updateCartUI();
+        document.getElementById('customerName').value='';
+        document.getElementById('customerEmail').value='';
+        document.getElementById('customerPhone').value='';
+        document.getElementById('customerAddress').value='';
+        c.checked=false;
+    }catch(e){
+        showToast('⚠️ Ошибка, но заказ сохранён', true);
+    }
+}
+
+// Event Listeners
+document.getElementById('floatingCart').addEventListener('click',()=>{
+    document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'});
+});
+
+const sc=document.getElementById('scrollTopBtn');
+window.addEventListener('scroll',()=>{
+    if(window.scrollY>300) sc.classList.add('show');
+    else sc.classList.remove('show');
+});
+sc.addEventListener('click',()=>{
+    window.scrollTo({top:0,behavior:'smooth'});
+});
+
+document.getElementById('dropdownBtn').addEventListener('click',(e)=>{
+    e.stopPropagation();
+    const dropdown=document.getElementById('dropdownContent');
+    dropdown.classList.toggle('show');
+    renderDropdown();
+});
+
+document.getElementById('searchInput').addEventListener('input', renderDropdown);
+document.getElementById('sortSelect').addEventListener('change', renderDropdown);
+document.getElementById('shapeFilter').addEventListener('change', renderDropdown);
+document.getElementById('addToCartBtn').addEventListener('click', addToCart);
+document.getElementById('sendOrderFinalBtn').addEventListener('click', sendOrder);
+
+document.addEventListener('click',(e)=>{
+    if(!e.target.closest('.dropdown-container')) 
+        document.getElementById('dropdownContent').classList.remove('show');
+});
+
+// Инициализация
+renderDropdown();
+updateCartUI();
 </script>
 </body>
 </html>
