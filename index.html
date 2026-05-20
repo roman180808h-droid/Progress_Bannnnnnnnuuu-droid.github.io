@@ -761,23 +761,55 @@
     }
 
     async function sendOrder() {
-        const name = document.getElementById('customerName').value.trim();
-        const email = document.getElementById('customerEmail').value.trim();
-        const phone = document.getElementById('customerPhone').value.trim();
-        const address = document.getElementById('customerAddress').value;
-        if (!name || !email || !phone) {
-            showToast('❌ Заполните имя, email и телефон', true);
-            return;
-        }
-        if (!cart.length) {
-            showToast('❌ Корзина пуста', true);
-            return;
-            const consent = document.getElementById('consentCheckbox').checked;
-if (!consent) {
-    showToast('❌ Подтвердите согласие на обработку персональных данных', true);
-    return;
+    const name = document.getElementById('customerName').value.trim();
+    const email = document.getElementById('customerEmail').value.trim();
+    const phone = document.getElementById('customerPhone').value.trim();
+    const address = document.getElementById('customerAddress').value;
+    const consent = document.getElementById('consentCheckbox');
+
+    if (!consent || !consent.checked) {
+        showToast('❌ Подтвердите согласие на обработку персональных данных', true);
+        return;
+    }
+    if (!name || !email || !phone) {
+        showToast('❌ Заполните имя, email и телефон', true);
+        return;
+    }
+    if (!cart.length) {
+        showToast('❌ Корзина пуста', true);
+        return;
+    }
+    
+    let items = '';
+    let total = 0;
+    cart.forEach(it => { 
+        items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`; 
+        total += it.price; 
+    });
+    const orderData = { 
+        name, email, phone, address, 
+        order: items, 
+        total: total.toLocaleString('ru-RU') 
+    };
+    try {
+        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec', {
+            method: 'POST', 
+            mode: 'no-cors', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(orderData)
+        });
+        showToast('✅ Заказ отправлен! Мы свяжемся с вами');
+        cart = [];
+        updateCartUI();
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerEmail').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('customerAddress').value = '';
+        if (consent) consent.checked = false;
+    } catch(e) { 
+        showToast('⚠️ Ошибка, но заказ сохранён. Свяжитесь с нами по телефону.', true); 
+    }
 }
-        }
         let items = '';
         let total = 0;
         cart.forEach(it => { items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`; total += it.price; });
