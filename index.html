@@ -4,23 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
-        ym(109310228, 'init', {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true,
-            webvisor: true
+    
+    <!-- Yandex.Metrika counter with anti-block fallback -->
+    <script>
+        (function() {
+            // Флаг успешной загрузки
+            var metrikaLoaded = false;
+            
+            // Основной домен Метрики
+            var mainScript = document.createElement('script');
+            mainScript.src = 'https://mc.yandex.ru/metrika/tag.js';
+            mainScript.async = true;
+            mainScript.onload = function() { metrikaLoaded = true; };
+            mainScript.onerror = function() {
+                // Если заблокирован основной домен - используем резервный
+                if (!metrikaLoaded) {
+                    var fallbackScript = document.createElement('script');
+                    fallbackScript.src = 'https://yastatic.net/metrika/watch/9.5.0/watch.js';
+                    fallbackScript.async = true;
+                    document.head.appendChild(fallbackScript);
+                }
+            };
+            document.head.appendChild(mainScript);
+            
+            // Инициализируем глобальную функцию ym до загрузки скрипта
+            window.ym = window.ym || function() {
+                (window.ym.a = window.ym.a || []).push(arguments);
+            };
+            window.ym.l = 1 * new Date();
+        })();
+    </script>
+    
+    <script>
+        // Инициализация счётчика с отложенной загрузкой
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (typeof ym !== 'undefined') {
+                    ym(109310228, 'init', {
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true,
+                        webvisor: true,
+                        defer: false
+                    });
+                    
+                    // Отправляем событие о загрузке страницы
+                    ym(109310228, 'hit', window.location.href);
+                    console.log('✅ Яндекс.Метрика успешно инициализирована');
+                } else {
+                    console.warn('⚠️ Яндекс.Метрика не загрузилась, но сайт работает');
+                }
+            }, 500);
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/109310228" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    
+    <!-- Pixel-запрос как резервный вариант (почти никогда не блокируется) -->
+    <noscript>
+        <div>
+            <img src="https://mc.yandex.ru/watch/109310228" style="position:absolute; left:-9999px;" alt="" />
+        </div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
+    
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(145deg,#f8f5f0 0%,#efe6db 100%);color:#2c241a;min-height:100vh;scroll-behavior:smooth}
@@ -368,6 +413,11 @@ function selectProduct(id){
     card.scrollIntoView({behavior:'smooth', block:'start'});
     
     showToast(`✓ Выбран: ${currentProduct.name}`, false);
+    
+    // Отправляем событие в Метрику
+    if(typeof ym !== 'undefined') {
+        ym(109310228, 'reachGoal', 'product_selected', {product_name: currentProduct.name, product_id: currentProduct.id});
+    }
 }
 
 function updateCartUI(){
@@ -430,6 +480,17 @@ function addToCart(){
     updateCartUI();
     highlightCartItem();
     showToast(`✓ ${currentProduct.name} добавлен в корзину`, false);
+    
+    // Отправляем событие добавления в корзину в Метрику
+    if(typeof ym !== 'undefined') {
+        let totalAddons = 0;
+        for(let k in selectedAddons) totalAddons += selectedAddons[k].quantity;
+        ym(109310228, 'reachGoal', 'add_to_cart', {
+            product_name: currentProduct.name, 
+            product_price: currentProduct.price,
+            addons_count: totalAddons
+        });
+    }
 }
 
 async function sendOrder(){
@@ -458,6 +519,11 @@ async function sendOrder(){
         total+=it.price;
     });
     const data={name:n, email:e, phone:p, address:a, order:items, total:total.toLocaleString('ru-RU')};
+    
+    // Отправляем событие оформления заказа в Метрику
+    if(typeof ym !== 'undefined') {
+        ym(109310228, 'reachGoal', 'order_submit', {total: total, items_count: cart.length});
+    }
     
     try{
         await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec',{
@@ -514,6 +580,15 @@ document.addEventListener('click',(e)=>{
 // Инициализация
 renderDropdown();
 updateCartUI();
+
+// Проверка Метрики в консоли
+setTimeout(function() {
+    if(typeof ym !== 'undefined') {
+        console.log('✅ Яндекс.Метрика успешно загружена и готова к работе');
+    } else {
+        console.warn('⚠️ Яндекс.Метрика не загрузилась, проверьте подключение к интернету');
+    }
+}, 1500);
 </script>
 </body>
 </html>
