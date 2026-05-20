@@ -109,7 +109,11 @@
         }
         .info-text-container.show {
             display: block;
-            animation: fadeInUp 0.3s ease;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .info-text-container h3 {
             color: #9b4f23;
@@ -709,7 +713,7 @@ function closeInfo(type) {
     if (btn) btn.classList.remove('active');
 }
 
-// ИНДИВИДУАЛЬНЫЙ ЗАКАЗ (без описания)
+// ИНДИВИДУАЛЬНЫЙ ЗАКАЗ
 document.getElementById('sendSketchBtn').addEventListener('click', async function() {
     const name = document.getElementById('sketchName').value.trim();
     const phone = document.getElementById('sketchPhone').value.trim();
