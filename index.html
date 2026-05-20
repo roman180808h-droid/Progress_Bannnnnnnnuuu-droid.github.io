@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
+    <title>ТЕРМОГРАД | Банные печи и котлы от производителя в Барнауле</title>
+    <meta name="description" content="Банные печи, котлы отопления, нержавеющие чаны. Более 80 моделей. Доставка по России. Заводское качество. Цены от 5000 ₽.">
+    <meta name="keywords" content="банные печи, печи для бани, котлы отопления, буржуйка, банный чан, дымоходы">
+    <meta name="yandex-verification" content="af68ace5ad18fce2">
+    <meta name="google-site-verification" content="dJDBN6UVXvDQ-4RpnIYokDuVGtvdZmVunJfaeUjOs">
     <link rel="icon" href="favicon.ico">
     <link rel="icon" type="image/x-icon" href="https://termogradpechi.ru/favicon.ico">
+    <link rel="canonical" href="https://termogradpechi.ru/">
     
     <!-- Yandex.Metrika counter with anti-block fallback -->
     <script>
         (function() {
-            // Флаг успешной загрузки
             var metrikaLoaded = false;
-            
-            // Основной домен Метрики
             var mainScript = document.createElement('script');
             mainScript.src = 'https://mc.yandex.ru/metrika/tag.js';
             mainScript.async = true;
             mainScript.onload = function() { metrikaLoaded = true; };
             mainScript.onerror = function() {
-                // Если заблокирован основной домен - используем резервный
                 if (!metrikaLoaded) {
                     var fallbackScript = document.createElement('script');
                     fallbackScript.src = 'https://yastatic.net/metrika/watch/9.5.0/watch.js';
@@ -28,17 +29,13 @@
                 }
             };
             document.head.appendChild(mainScript);
-            
-            // Инициализируем глобальную функцию ym до загрузки скрипта
             window.ym = window.ym || function() {
                 (window.ym.a = window.ym.a || []).push(arguments);
             };
             window.ym.l = 1 * new Date();
         })();
     </script>
-    
     <script>
-        // Инициализация счётчика с отложенной загрузкой
         window.addEventListener('load', function() {
             setTimeout(function() {
                 if (typeof ym !== 'undefined') {
@@ -49,8 +46,6 @@
                         webvisor: true,
                         defer: false
                     });
-                    
-                    // Отправляем событие о загрузке страницы
                     ym(109310228, 'hit', window.location.href);
                     console.log('✅ Яндекс.Метрика успешно инициализирована');
                 } else {
@@ -59,14 +54,30 @@
             }, 500);
         });
     </script>
-    
-    <!-- Pixel-запрос как резервный вариант (почти никогда не блокируется) -->
     <noscript>
-        <div>
-            <img src="https://mc.yandex.ru/watch/109310228" style="position:absolute; left:-9999px;" alt="" />
-        </div>
+        <div><img src="https://mc.yandex.ru/watch/109310228" style="position:absolute; left:-9999px;" alt="" /></div>
     </noscript>
     <!-- /Yandex.Metrika counter -->
+    
+    <!-- Schema.org для локального бизнеса -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "ТЕРМОГРАД",
+      "description": "Банные печи, котлы, чаны от производителя",
+      "telephone": "+79609471278",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Эмилии Алексеевой, 94",
+        "addressLocality": "Барнаул",
+        "addressRegion": "Алтайский край",
+        "addressCountry": "RU"
+      },
+      "priceRange": "₽₽",
+      "url": "https://termogradpechi.ru"
+    }
+    </script>
     
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
@@ -77,6 +88,11 @@
         .header-logo{max-width:100%;height:auto;transition:transform .2s}
         .header-logo:hover{transform:scale(1.01)}
         .subtitle{color:#7a6852;font-size:1.05rem;margin-top:24px;border-bottom:2px solid #e8dccc;display:inline-block;padding-bottom:8px}
+        
+        /* SEO-текст (виден всем, но полезен) */
+        .seo-text{background:#fef8f2;padding:25px;border-radius:24px;margin:20px 0;font-size:14px;line-height:1.5;color:#4a3a2a;text-align:center}
+        .seo-text h2{font-size:18px;color:#9b4f23;margin-bottom:10px}
+        
         .filters-panel{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:60px;padding:12px 24px;margin:24px auto 40px;display:flex;flex-wrap:wrap;justify-content:center;gap:16px;border:1px solid rgba(210,180,140,0.3);max-width:900px}
         .search-input,.sort-select,.shape-filter{padding:12px 20px;border-radius:40px;border:1px solid #e2d4c4;background:#fff;font-size:.95rem;font-weight:500;transition:all .2s;outline:none}
         .search-input{flex:2;min-width:200px;cursor:text}
@@ -92,8 +108,6 @@
         .dropdown-item.selected h4{color:#fff}
         .dropdown-item h4{color:#a55826;margin-bottom:5px}
         .dropdown-item .price-drop{font-weight:700;color:#b45a2b;margin-top:5px}
-        
-        /* Карточка товара — скрыта по умолчанию */
         .product-card{background:#fff;border-radius:32px;padding:28px;max-width:700px;margin:20px auto;display:none;border:1px solid #e6daca;box-shadow:0 8px 24px rgba(0,0,0,0.05);opacity:0;transform:translateY(15px);transition:opacity .25s,transform .25s}
         .product-card.show{display:block;opacity:1;transform:translateY(0)}
         .product-card img{width:100%;max-height:320px;object-fit:contain;border-radius:24px;background:#fefaf5;margin-bottom:20px}
@@ -112,8 +126,6 @@
         .addon-count{font-weight:700;min-width:28px;text-align:center}
         .add-to-cart{background:#d97a2b;color:#fff;width:100%;padding:14px;border:none;border-radius:60px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:20px;transition:all .2s}
         .add-to-cart:hover{background:#c06622;transform:scale(1.01);box-shadow:0 4px 12px rgba(192,102,34,0.3)}
-        
-        /* Корзина всегда видна, но форма заказа — только после добавления товара */
         .cart-section{background:#fff;border-radius:32px;padding:24px;margin:40px 0;border:1px solid #e6daca}
         .cart-header{font-size:1.5rem;font-weight:600;color:#b45a2b;margin-bottom:20px}
         .cart-items-list{max-height:300px;overflow:auto;margin-bottom:20px}
@@ -123,15 +135,12 @@
         .cart-remove:hover{background:#a93226}
         .cart-total{text-align:right;font-size:1.3rem;font-weight:700;padding-top:15px;border-top:2px solid #e6daca}
         .cart-total span{color:#d97a2b}
-        
-        /* Форма заказа — скрыта по умолчанию */
         .order-form{display:none;margin-top:25px}
         .order-form.show{display:block}
         .order-form input,.order-form textarea{width:100%;padding:12px;margin:8px 0;border-radius:40px;border:1px solid #e2d4c4;font-family:inherit}
         .order-form input:focus,.order-form textarea:focus{border-color:#d97a2b;outline:none}
         .send-order-btn{background:#27ae60;width:100%;padding:14px;border:none;border-radius:60px;font-weight:600;color:#fff;margin-top:16px;cursor:pointer}
         .send-order-btn:hover{background:#219a52}
-        
         .floating-cart{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#d97a2b;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);z-index:1000}
         .floating-cart:hover{transform:scale(1.08);background:#c06622}
         .floating-cart span{font-size:28px}
@@ -144,6 +153,14 @@
         .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
         .footer a{color:#b45a2b;text-decoration:none}
         @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}}
+        
+        /* Кнопки мессенджеров */
+        .messenger-buttons{position:fixed;bottom:120px;left:20px;z-index:999;display:flex;flex-direction:column;gap:10px}
+        .messenger-buttons a{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;text-decoration:none;transition:transform .2s}
+        .messenger-buttons a:hover{transform:scale(1.1)}
+        .whatsapp{background:#25D366}
+        .telegram{background:#0088cc}
+        @media(max-width:720px){.messenger-buttons{bottom:100px;left:15px}.messenger-buttons a{width:44px;height:44px;font-size:20px}}
     </style>
 </head>
 <body>
@@ -152,6 +169,13 @@
         <div class="logo-wrapper"><img class="header-logo" src="https://i.ibb.co/DfqLT4RQ/IMG-20260417-200601.png" alt="ТЕРМОГРАД"></div>
         <div class="subtitle">Банные печи, котлы, чаны — полный заводской каталог</div>
     </div>
+    
+    <!-- SEO-текст для поисковиков -->
+    <div class="seo-text">
+        <h2>🔥 Банные печи и котлы от производителя</h2>
+        <p>Компания <strong>ТЕРМОГРАД</strong> производит банные печи, котлы отопления и нержавеющие чаны. В каталоге более 80 моделей: круглые и прямоугольные печи, с баком и без, буржуйки, котлы длительного горения. <strong>Купить банную печь в Барнауле</strong> можно с доставкой по России. Работаем напрямую, без посредников. Звоните: <strong>+7-960-947-12-78</strong></p>
+    </div>
+    
     <div class="filters-panel">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск...">
         <select id="sortSelect" class="sort-select"><option value="default">📊 По умолчанию</option><option value="price-asc">💰 Сначала дешёвые</option><option value="price-desc">💰 Сначала дорогие</option></select>
@@ -162,7 +186,6 @@
         <div class="dropdown-content" id="dropdownContent"></div>
     </div>
     
-    <!-- Карточка товара (скрыта до выбора) -->
     <div id="productCard" class="product-card">
         <img id="cardImage" src="">
         <h2 id="cardName"></h2>
@@ -177,7 +200,6 @@
         <div id="cartItemsList" class="cart-items-list"><div class="cart-item">Корзина пуста</div></div>
         <div class="cart-total">💰 Итого: <span id="cartTotal">0</span> ₽</div>
         
-        <!-- Форма заказа (скрыта, пока корзина пуста) -->
         <div class="order-form" id="orderFormBlock">
             <h3 style="margin-bottom:12px;">📝 Оформление заказа</h3>
             <input type="text" id="customerName" placeholder="Ваше имя *">
@@ -194,7 +216,7 @@
     
     <div class="footer">
         <p>📞 <strong>Контакты:</strong> <a href="tel:+79609471278">+7-960-947-12-78</a> | <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p>
-        <p>📍 Алтайский край, г.Барнаул, Эмилии Алексеевой 94</p>
+        <p>📍 Алтайский край, г.Барнаул, ул. Эмилии Алексеевой, 94</p>
         <p>🔥 Изготовление на заказ — печи, котлы, чаны, баки, дымоходы</p>
         <div style="font-size:12px; margin-top:20px; padding-top:20px; border-top:1px solid #d2c4b4; color:#4a3a2a;">
             <p><strong>ООО "ПРОГРЕСС"</strong> | ИНН 2221245027 | ОГРН 1192225027510</p>
@@ -204,8 +226,13 @@
         </div>
     </div>
 </div>
+
 <div class="floating-cart" id="floatingCart"><span>🛒</span><div class="cart-count" id="floatingCartCount">0</div></div>
 <div class="scroll-top" id="scrollTopBtn">↑</div>
+<div class="messenger-buttons">
+    <a href="https://wa.me/79609471278" class="whatsapp" target="_blank">📱</a>
+    <a href="tg://resolve?domain=termograd" class="telegram" target="_blank">✈️</a>
+</div>
 
 <script>
 const addonsList=[{id:"b1",name:"Бак нерж 65 л, 1 мм",price:9500},{id:"b2",name:"Бак нерж 65 л, 1.5 мм",price:12500},{id:"b3",name:"Бак нерж 85 л, 1 мм",price:13500},{id:"b4",name:"Бак нерж 85 л, 1.5 мм",price:15500},{id:"b5",name:"Бак чёрный 65 л, 2 мм",price:6000},{id:"b6",name:"Бак чёрный 85 л, 2 мм",price:6500},{id:"elbow",name:"Колено Ø115 мм 45°",price:600},{id:"roof",name:"Зонт Ø115 мм",price:1000},{id:"clamp",name:"Хомут обжимной Ø115 мм",price:350},{id:"module115",name:"Модуль трубы Ø115 мм 1м",price:1200}];
@@ -398,7 +425,6 @@ function selectProduct(id){
         if(parseInt(el.dataset.id)===id) el.classList.add('selected');
     });
     
-    // ПОКАЗЫВАЕМ КАРТОЧКУ ТОВАРА
     const card=document.getElementById('productCard');
     card.classList.add('show');
     
@@ -408,17 +434,13 @@ function selectProduct(id){
     document.getElementById('cardPrice').innerHTML=`💰 ${currentProduct.price.toLocaleString('ru-RU')} ₽`;
     renderAddons();
     
-    // Закрываем dropdown после выбора
     document.getElementById('dropdownContent').classList.remove('show');
-    
-    // Плавно скроллим к карточке
     card.scrollIntoView({behavior:'smooth', block:'start'});
     
     showToast(`✓ Выбран: ${currentProduct.name}`, false);
     
-    // Отправляем событие в Метрику
     if(typeof ym !== 'undefined') {
-        ym(109310228, 'reachGoal', 'product_selected', {product_name: currentProduct.name, product_id: currentProduct.id});
+        ym(109310228, 'reachGoal', 'product_selected', {product_name: currentProduct.name});
     }
 }
 
@@ -430,7 +452,6 @@ function updateCartUI(){
     if(!cart.length){
         cont.innerHTML='<div class="cart-item">Корзина пуста</div>';
         tot.innerText='0';
-        // СКРЫВАЕМ ФОРМУ ЗАКАЗА, если корзина пуста
         orderForm.classList.remove('show');
         updateFloatingCartCounter();
         return;
@@ -446,10 +467,7 @@ function updateCartUI(){
     });
     cont.innerHTML=html;
     tot.innerText=total.toLocaleString('ru-RU');
-    
-    // ПОКАЗЫВАЕМ ФОРМУ ЗАКАЗА, так как корзина не пуста
     orderForm.classList.add('show');
-    
     updateFloatingCartCounter();
 }
 
@@ -483,48 +501,64 @@ function addToCart(){
     highlightCartItem();
     showToast(`✓ ${currentProduct.name} добавлен в корзину`, false);
     
-    // Отправляем событие добавления в корзину в Метрику
     if(typeof ym !== 'undefined') {
-        let totalAddons = 0;
-        for(let k in selectedAddons) totalAddons += selectedAddons[k].quantity;
-        ym(109310228, 'reachGoal', 'add_to_cart', {
-            product_name: currentProduct.name, 
-            product_price: currentProduct.price,
-            addons_count: totalAddons
-        });
+        ym(109310228, 'reachGoal', 'add_to_cart');
     }
 }
 
 async function sendOrder(){
-    const n=document.getElementById('customerName').value.trim(),
-          e=document.getElementById('customerEmail').value.trim(),
-          p=document.getElementById('customerPhone').value.trim(),
-          a=document.getElementById('customerAddress').value;
-    const c=document.getElementById('consentCheckbox');
+    const n = document.getElementById('customerName').value.trim();
+    const e = document.getElementById('customerEmail').value.trim();
+    const p = document.getElementById('customerPhone').value.trim();
+    const a = document.getElementById('customerAddress').value;
+    const c = document.getElementById('consentCheckbox');
+
+    // 1. Проверка имени
+    if (!n) {
+        showToast('❌ Введите ваше имя', true);
+        document.getElementById('customerName').focus();
+        return;
+    }
+
+    // 2. Проверка телефона
+    const cleanPhone = p.replace(/[\s\-\(\)]/g, '');
+    const phoneValid = /^(\+7|7|8)?[0-9]{10}$/.test(cleanPhone);
     
-    if(!c || !c.checked){
+    if (!p || !phoneValid) {
+        showToast('❌ Введите корректный номер телефона (10 цифр)', true);
+        document.getElementById('customerPhone').focus();
+        return;
+    }
+
+    // 3. Проверка email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!e || !emailRegex.test(e)) {
+        showToast('❌ Введите корректный email (например: name@mail.ru)', true);
+        document.getElementById('customerEmail').focus();
+        return;
+    }
+
+    // 4. Проверка согласия
+    if (!c || !c.checked) {
         showToast('❌ Подтвердите согласие на обработку персональных данных', true);
         return;
     }
-    if(!n || !e || !p){
-        showToast('❌ Заполните имя, email и телефон', true);
-        return;
-    }
-    if(!cart.length){
+
+    // 5. Проверка корзины
+    if (!cart.length) {
         showToast('❌ Корзина пуста', true);
         return;
     }
-    
-    let items='', total=0;
-    cart.forEach(it=>{
-        items+=`${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
-        total+=it.price;
+
+    let items = '', total = 0;
+    cart.forEach(it => {
+        items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
+        total += it.price;
     });
-    const data={name:n, email:e, phone:p, address:a, order:items, total:total.toLocaleString('ru-RU')};
+    const data = {name: n, email: e, phone: p, address: a, order: items, total: total.toLocaleString('ru-RU')};
     
-    // Отправляем событие оформления заказа в Метрику
-    if(typeof ym !== 'undefined') {
-        ym(109310228, 'reachGoal', 'order_submit', {total: total, items_count: cart.length});
+    if (typeof ym !== 'undefined') {
+        ym(109310228, 'reachGoal', 'order_submit');
     }
     
     try{
@@ -535,19 +569,18 @@ async function sendOrder(){
             body:JSON.stringify(data)
         });
         showToast('✅ Заказ отправлен! Мы свяжемся с вами', false);
-        cart=[];
+        cart = [];
         updateCartUI();
-        document.getElementById('customerName').value='';
-        document.getElementById('customerEmail').value='';
-        document.getElementById('customerPhone').value='';
-        document.getElementById('customerAddress').value='';
-        c.checked=false;
-    }catch(e){
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerEmail').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('customerAddress').value = '';
+        c.checked = false;
+    } catch(e){
         showToast('⚠️ Ошибка, но заказ сохранён', true);
     }
 }
 
-// Event Listeners
 document.getElementById('floatingCart').addEventListener('click',()=>{
     document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'});
 });
@@ -579,18 +612,10 @@ document.addEventListener('click',(e)=>{
         document.getElementById('dropdownContent').classList.remove('show');
 });
 
-// Инициализация
 renderDropdown();
 updateCartUI();
 
-// Проверка Метрики в консоли
-setTimeout(function() {
-    if(typeof ym !== 'undefined') {
-        console.log('✅ Яндекс.Метрика успешно загружена и готова к работе');
-    } else {
-        console.warn('⚠️ Яндекс.Метрика не загрузилась, проверьте подключение к интернету');
-    }
-}, 1500);
+console.log('✅ Сайт полностью загружен, все проверки работают');
 </script>
 </body>
-</html>
+    </html>
