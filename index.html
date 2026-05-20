@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
+    <title>ТЕРМОГРАД | Банные печи, котлы, чаны — полный каталог</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(145deg,#f8f5f0 0%,#efe6db 100%);color:#2c241a;min-height:100vh;scroll-behavior:smooth}
@@ -28,9 +28,9 @@
         .dropdown-item.selected h4{color:#fff}
         .dropdown-item h4{color:#a55826;margin-bottom:5px}
         .dropdown-item .price-drop{font-weight:700;color:#b45a2b;margin-top:5px}
-        .product-card{background:#fff;border-radius:32px;padding:28px;max-width:700px;margin:20px auto;display:none;border:1px solid #e6daca;box-shadow:0 8px 24px rgba(0,0,0,0.05);transition:opacity .3s,transform .3s;opacity:0;transform:translateY(15px)}
+        .product-card{background:#fff;border-radius:32px;padding:28px;max-width:700px;margin:20px auto;display:none;border:1px solid #e6daca;box-shadow:0 8px 24px rgba(0,0,0,0.05);transition:opacity .3s ease,transform .3s ease;opacity:0;transform:translateY(15px)}
         .product-card.show{display:block;opacity:1;transform:translateY(0)}
-        .product-card img{width:100%;max-height:320px;object-fit:contain;border-radius:24px;background:#fefaf5;margin-bottom:20px;transition:transform .25s,box-shadow .2s}
+        .product-card img{width:100%;max-height:320px;object-fit:contain;border-radius:24px;background:#fefaf5;margin-bottom:20px;transition:transform .25s ease,box-shadow .2s ease}
         .product-card img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
         .product-card h2{text-align:center;color:#9b4f23;margin-bottom:15px}
         .specs{background:#fef8f2;padding:16px;border-radius:24px;margin:15px 0;line-height:1.6;border-left:4px solid #d97a2b}
@@ -59,8 +59,6 @@
         .order-form{margin-top:25px;display:none}
         .order-form input,.order-form textarea{width:100%;padding:12px;margin:8px 0;border-radius:40px;border:1px solid #e2d4c4;font-family:inherit;transition:border-color .2s}
         .order-form input:focus,.order-form textarea:focus{border-color:#d97a2b;outline:none}
-        .consent-label{display:flex;align-items:center;gap:10px;margin:15px 0;cursor:pointer}
-        .consent-label input{width:18px;height:18px;margin:0}
         .send-order-btn{background:#27ae60;width:100%;padding:14px;border:none;border-radius:60px;font-weight:600;color:#fff;margin-top:16px;cursor:pointer;transition:all .2s}
         .send-order-btn:hover{background:#219a52;transform:scale(1.01)}
         .floating-cart{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#d97a2b;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:all .2s;z-index:1000}
@@ -74,8 +72,6 @@
         @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
         .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
         .footer a{color:#b45a2b;text-decoration:none}
-        .legal-block{font-size:12px;margin-top:20px;padding-top:20px;border-top:1px solid #d2c4b4;color:#6e5e4e}
-        .legal-block p{margin:5px 0}
         @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px;width:44px;height:44px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}}
     </style>
 </head>
@@ -92,32 +88,8 @@
     </div>
     <div class="dropdown-container"><button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар <span>▼</span></button><div class="dropdown-content" id="dropdownContent"></div></div>
     <div id="productCard" class="product-card"><img id="cardImage" src=""><h2 id="cardName"></h2><div class="specs" id="cardSpecs"></div><div class="price" id="cardPrice"></div><div id="addonsContainer"></div><button class="add-to-cart" id="addToCartBtn">➕ Добавить в корзину</button></div>
-    <div class="cart-section">
-        <div class="cart-header">🛒 Корзина</div>
-        <div id="cartItemsList" class="cart-items-list"><div class="cart-item">Корзина пуста</div></div>
-        <div class="cart-total">💰 Итого: <span id="cartTotal">0</span> ₽</div>
-        <div class="order-form" id="orderFormBlock">
-            <h3 style="margin-bottom:12px;">📝 Оформление заказа</h3>
-            <input type="text" id="customerName" placeholder="Ваше имя *">
-            <input type="email" id="customerEmail" placeholder="Email *">
-            <input type="tel" id="customerPhone" placeholder="Телефон *">
-            <textarea id="customerAddress" rows="2" placeholder="Адрес доставки"></textarea>
-            <label class="consent-label">
-                <input type="checkbox" id="consentCheckbox">
-                <span>Я даю согласие на обработку персональных данных</span>
-            </label>
-            <button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="legal-block">
-            <p><strong>ООО "ПРОГРЕСС"</strong> | ИНН 2221245027 | ОГРН 1192225027510</p>
-            <p>Юр. адрес: 656011, Алтайский край, г. Барнаул, ул. Эмилии Алексеевой, 94</p>
-            <p>Тел.: <a href="tel:+79130894322">+7-913-089-4322</a> | Email: <a href="mailto:Progress6300@mail.ru">Progress6300@mail.ru</a></p>
-            <p>Генеральный директор: Переверзев Алексей Анатольевич</p>
-            <p>© 2026 ТЕРМОГРАД</p>
-        </div>
-    </div>
+    <div class="cart-section"><div class="cart-header">🛒 Корзина</div><div id="cartItemsList" class="cart-items-list"><div class="cart-item">Корзина пуста</div></div><div class="cart-total">💰 Итого: <span id="cartTotal">0</span> ₽</div><div class="order-form" id="orderFormBlock"><h3 style="margin-bottom:12px;">📝 Оформление заказа</h3><input type="text" id="customerName" placeholder="Ваше имя *"><input type="email" id="customerEmail" placeholder="Email *"><input type="tel" id="customerPhone" placeholder="Телефон *"><textarea id="customerAddress" rows="2" placeholder="Адрес доставки"></textarea><button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button></div></div>
+    <div class="footer"><p>📞 <strong>Контакты:</strong> <a href="tel:+79609471278">+7-960-947-12-78</a> | <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p><p>📍 Алтайский край, г.Барнаул, Эмилии Алексеевой 94</p><p>🔥 Изготовление на заказ — печи, котлы, чаны, баки, дымоходы</p></div>
 </div>
 <div class="floating-cart" id="floatingCart"><span>🛒</span><div class="cart-count" id="floatingCartCount">0</div></div>
 <div class="scroll-top" id="scrollTopBtn">↑</div>
@@ -201,10 +173,10 @@ const products=[
 {id:74,name:"Печь чугунная 24 кВт, без бака",price:40000,type:"rect",category:"stove",specs:"чугун, 24 кВт",img:"https://i.ibb.co/wZMfvYc7/15.jpg"},
 {id:75,name:"Банный чан Дуэт Aisi304",price:200000,type:"rect",category:"tub",specs:"2-4 места, 800 л, Aisi304",img:TUB_IMAGE_URL},
 {id:76,name:"Банный чан Дуэт Aisi430",price:170000,type:"rect",category:"tub",specs:"2-4 места, 800 л, Aisi430",img:TUB_IMAGE_URL},
-{id:77,name:"Банный чан Компашка Aisi304",price:270000,type:"rect",category:"tub",specs:"4-6 места, 1440 л, Aisi304",img:TUB_IMAGE_URL},
-{id:78,name:"Банный чан Компашка Aisi430",price:230000,type:"rect",category:"tub",specs:"4-6 места, 1440 л, Aisi430",img:TUB_IMAGE_URL},
-{id:79,name:"Банный чан Макси Aisi304",price:350000,type:"rect",category:"tub",specs:"6-8 места, 2900 л, Aisi304",img:TUB_IMAGE_URL},
-{id:80,name:"Банный чан Макси Aisi430",price:290000,type:"rect",category:"tub",specs:"6-8 места, 2900 л, Aisi430",img:TUB_IMAGE_URL}
+{id:77,name:"Банный чан Компашка Aisi304",price:270000,type:"rect",category:"tub",specs:"4-6 мест, 1440 л, Aisi304",img:TUB_IMAGE_URL},
+{id:78,name:"Банный чан Компашка Aisi430",price:230000,type:"rect",category:"tub",specs:"4-6 мест, 1440 л, Aisi430",img:TUB_IMAGE_URL},
+{id:79,name:"Банный чан Макси Aisi304",price:350000,type:"rect",category:"tub",specs:"6-8 мест, 2900 л, Aisi304",img:TUB_IMAGE_URL},
+{id:80,name:"Банный чан Макси Aisi430",price:290000,type:"rect",category:"tub",specs:"6-8 мест, 2900 л, Aisi430",img:TUB_IMAGE_URL}
 ];
 let cart=[],currentProduct=null,selectedAddons={},currentSelectedId=null;
 function showToast(msg,isErr){const t=document.createElement('div');t.textContent=msg;t.className='toast-notification';t.style.background=isErr?'#c0392b':'#27ae60';t.style.color='white';document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
@@ -217,7 +189,7 @@ function updateCartUI(){const cont=document.getElementById('cartItemsList');cons
 function highlightCartItem(){const items=document.querySelectorAll('.cart-item');if(!items.length)return;const last=items[items.length-1];last.classList.add('cart-item-highlight');setTimeout(()=>last.classList.remove('cart-item-highlight'),400);}
 window.removeFromCart=function(idx){cart.splice(idx,1);updateCartUI();};
 function addToCart(){if(!currentProduct){showToast('❌ Сначала выберите товар',true);return;}cart.push({name:currentProduct.name,price:currentProduct.price});if(currentProduct.category!=='tub'){for(let k in selectedAddons){let a=selectedAddons[k];for(let i=0;i<a.quantity;i++)cart.push({name:a.name,price:a.price});}}updateCartUI();highlightCartItem();showToast(`✓ ${currentProduct.name} добавлен в корзину`);}
-async function sendOrder(){const n=document.getElementById('customerName').value.trim(),e=document.getElementById('customerEmail').value.trim(),p=document.getElementById('customerPhone').value.trim(),a=document.getElementById('customerAddress').value;const consent=document.getElementById('consentCheckbox').checked;if(!n||!e||!p){showToast('❌ Заполните имя, email и телефон',true);return;}if(!consent){showToast('❌ Подтвердите согласие на обработку персональных данных',true);return;}if(!cart.length){showToast('❌ Корзина пуста',true);return;}let items='',total=0;cart.forEach(it=>{items+=`${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;total+=it.price;});const data={name:n,email:e,phone:p,address:a,order:items,total:total.toLocaleString('ru-RU')};try{await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});showToast('✅ Заказ отправлен! Мы свяжемся с вами');cart=[];updateCartUI();document.getElementById('customerName').value='';document.getElementById('customerEmail').value='';document.getElementById('customerPhone').value='';document.getElementById('customerAddress').value='';document.getElementById('consentCheckbox').checked=false;}catch(e){showToast('⚠️ Ошибка, но заказ сохранён',true);}}
+async function sendOrder(){const n=document.getElementById('customerName').value.trim(),e=document.getElementById('customerEmail').value.trim(),p=document.getElementById('customerPhone').value.trim(),a=document.getElementById('customerAddress').value;if(!n||!e||!p){showToast('❌ Заполните имя, email и телефон',true);return;}if(!cart.length){showToast('❌ Корзина пуста',true);return;}let items='',total=0;cart.forEach(it=>{items+=`${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;total+=it.price;});const data={name:n,email:e,phone:p,address:a,order:items,total:total.toLocaleString('ru-RU')};try{await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});showToast('✅ Заказ отправлен! Мы свяжемся с вами');cart=[];updateCartUI();document.getElementById('customerName').value='';document.getElementById('customerEmail').value='';document.getElementById('customerPhone').value='';document.getElementById('customerAddress').value='';}catch(e){showToast('⚠️ Ошибка, но заказ сохранён',true);}}
 document.getElementById('floatingCart').addEventListener('click',()=>{document.querySelector('.cart-section').scrollIntoView({behavior:'smooth'});});
 const sc=document.getElementById('scrollTopBtn');window.addEventListener('scroll',()=>{if(window.scrollY>300)sc.classList.add('show');else sc.classList.remove('show');});sc.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});
 document.getElementById('dropdownBtn').addEventListener('click',()=>{document.getElementById('dropdownContent').classList.toggle('show');});
