@@ -55,7 +55,6 @@
                         defer: false
                     });
                     ym(109310228, 'hit', window.location.href);
-                    console.log('✅ Яндекс.Метрика успешно инициализирована');
                 }
             }, 500);
         });
@@ -454,7 +453,7 @@
             <li><strong>Топка расположена снизу</strong> — быстрее нагрев и дольше поддержание температуры</li>
             <li><strong>Дым отводится дымоходом</strong> выше расположения чана (дымоход приобретается отдельно)</li>
             <li><strong>Скамья из нержавеющей стали</strong> обеспечивает комфорт</li>
-            возможен индивидуальный заказ</li>
+            <li><strong>Чаны рассчитаны до 8 человек</strong>, возможен индивидуальный заказ</li>
             <li><strong>В комплекте:</strong> термокрышка, лестница с перилами</li>
         </ul>
         <h4>Модельный ряд:</h4>
@@ -533,7 +532,7 @@ const addonsList = [
 ];
 
 const products = [
-// ПЕЧИ (stove) - полный список
+// ПЕЧИ (stove)
 {id:1,name:"Печь Ø325 сквозная каменка, без бака",price:14000,type:"round",category:"stove",specs:"🏠 до 15 м³<br>500×400×700 мм<br>🔥 сталь 8 мм",img:"https://i.ibb.co/jkzwkbh6/325.jpg", images:[]},
 {id:2,name:"Печь Ø325 сквозная, бак чёрный",price:18500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак чёрный 65 л",img:"https://i.ibb.co/nqLW15dt/325.jpg", images:[]},
 {id:3,name:"Печь Ø325 сквозная, бак нерж",price:24000,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак нерж 65 л",img:"https://i.ibb.co/dJDBRLJK/325.jpg", images:[]},
@@ -610,7 +609,7 @@ const products = [
 {id:72,name:"Печь чугунная 15 кВт, без бака",price:29500,type:"rect",category:"stove",specs:"чугун, 15 кВт",img:"https://i.ibb.co/wZMfvYc7/15.jpg", images:[]},
 {id:73,name:"Печь чугунная 18 кВт, без бака",price:33000,type:"rect",category:"stove",specs:"чугун, 18 кВт",img:"https://i.ibb.co/wZMfvYc7/15.jpg", images:[]},
 {id:74,name:"Печь чугунная 24 кВт, без бака",price:40000,type:"rect",category:"stove",specs:"чугун, 24 кВт",img:"https://i.ibb.co/wZMfvYc7/15.jpg", images:[]},
-// БАННЫЕ ЧАНЫ (tub) — дымохода в комплекте НЕТ
+// БАННЫЕ ЧАНЫ (tub)
 {
   id: 75, name: "Банный чан «Дуэт» Aisi304", price: 195000, type: "rect", category: "tub",
   specs: "👥 2-4 места<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi304 (пищевая)<br>⚙️ сталь нерж 2 мм, топка 3 мм<br>📦 <strong>В комплекте:</strong> термокрышка, лестница с перилами",
@@ -731,6 +730,8 @@ function renderGallery() {
             img.src = src;
             img.className = 'gallery-slide';
             if (idx === 0) img.classList.add('active');
+            img.loading = 'lazy';
+            img.decoding = 'async';
             img.style.width = '100%';
             img.style.height = '400px';
             img.style.objectFit = 'contain';
@@ -753,7 +754,14 @@ function renderGallery() {
             document.getElementById('galleryCounter').textContent = `${currentGallerySlideIndex + 1} / ${slides.length}`;
         });
     } else {
-        container.innerHTML = `<img class="product-single-image" src="${currentProduct.img}" alt="${currentProduct.name}">`;
+        const img = document.createElement('img');
+        img.src = currentProduct.img;
+        img.className = 'product-single-image';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.alt = currentProduct.name;
+        container.innerHTML = '';
+        container.appendChild(img);
     }
 }
 
