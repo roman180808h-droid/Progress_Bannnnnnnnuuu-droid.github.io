@@ -1,3 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ТЕРМОГРАД | Банные печи, котлы, чаны</title>
+    <meta name="description" content="Банные печи, котлы отопления, нержавеющие чаны. Более 80 моделей. Доставка по России. Заводское качество. Цены от 5000 ₽.">
+    <meta name="keywords" content="банные печи, печи для бани, котлы отопления, буржуйка, банный чан, дымоходы">
+    <meta name="yandex-verification" content="af68ace5ad18fce2">
+   meta name="google-site-verification" content="dJDBN6UVXvDQ-4RpnIYokDuVGtvdZmVunJfaeUjOs">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://termogradpechi.ru/favicon.ico">
+    <link rel="canonical" href="https://termogradpechi.ru/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="ТЕРМОГРАД | Банные печи, котлы, чаны">
+    <meta property="og:description" content="Банные печи, котлы отопления, нержавеющие чаны. Более 80 моделей. Доставка по России.">
+    <meta property="og:image" content="https://termogradpechi.ru/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://termogradpechi.ru">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Yandex.Metrika counter -->
+    <script>
+        (function() {
+            var metrikaLoaded = false;
+            var mainScript = document.createElement('script');
+            mainScript.src = 'https://mc.yandex.ru/metrika/tag.js';
+            mainScript.async = true;
+            mainScript.onload = function() { metrikaLoaded = true; };
+            mainScript.onerror = function() {
+                if (!metrikaLoaded) {
+                    var fallbackScript = document.createElement('script');
+                    fallbackScript.src = 'https://yastatic.net/metrika/watch/9.5.0/watch.js';
+                    fallbackScript.async = true;
+                    document.head.appendChild(fallbackScript);
+                }
+            };
+            document.head.appendChild(mainScript);
+            window.ym = window.ym || function() {
+                (window.ym.a = window.ym.a || []).push(arguments);
+            };
+            window.ym.l = 1 * new Date();
+        })();
+    </script>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (typeof ym !== 'undefined') {
+                    ym(109310228, 'init', {
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true,
+                        webvisor: true,
+                        defer: false
+                    });
+                    ym(109310228, 'hit', window.location.href);
+                    console.log('✅ Яндекс.Метрика успешно инициализирована');
+                }
+            }, 500);
+        });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/109310228" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(145deg,#f8f5f0 0%,#efe6db 100%);color:#2c241a;min-height:100vh;scroll-behavior:smooth}
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        .header{text-align:center;padding:20px 0 10px}
+        .logo-wrapper{display:flex;justify-content:center;margin:0 auto}
+        .header-logo{max-width:100%;height:auto;transition:transform .2s}
+        .header-logo:hover{transform:scale(1.01)}
+        .subtitle{color:#7a6852;font-size:1.05rem;margin-top:24px;margin-bottom:20px;border-bottom:2px solid #e8dccc;display:inline-block;padding-bottom:8px}
+        
+        .info-buttons-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0 30px;
+        }
+        .info-btn {
+            background: #d97a2b;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .info-btn:hover {
+            background: #c06622;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+        .info-btn.active {
+            background: #a0521a;
+            transform: translateY(0);
+        }
+        
+        .info-text-container {
+            background: #fffef7;
+            border-left: 5px solid #d97a2b;
+            border-radius: 24px;
+            padding: 25px;
+            margin: 10px 0 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            font-size: 15px;
+            line-height: 1.6;
+            color: #2c241a;
+            display: none;
+        }
+        .info-text-container.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .info-text-container h3 {
+            color: #9b4f23;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .close-info {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: 0.2s;
+        }
+        .close-info:hover {
+            color: #c0392b;
+        }
+        
+        .sketch-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 40px;
+            border: 1px solid #e2d4c4;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .sketch-form input:focus {
+            border-color: #d97a2b;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(217,122,43,0.1);
+        }
+        .order-note {
+            background: #fef5e8;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #7a5a3a;
+            text-align: center;
+        }
+        .send-sketch-btn, .send-order-btn {
+            background: #27ae60;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        .send-sketch-btn:hover, .send-order-btn:hover {
+            background: #219a52;
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(33,154,82,0.3);
+        }
+        
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 25px;
+        }
+        .cat-btn {
+            background: #e8d9ca;
+            color: #5a3a2a;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cat-btn:hover {
+            background: #d97a2b;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .cat-btn.active {
+            background: #d97a2b;
+            color: white;
+            box-shadow: 0 2px 8px rgba(217,122,43,0.3);
+        }
+        
+        .filters-panel{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:60px;padding:12px 24px;margin:24px auto 40px;display:flex;flex-wrap:wrap;justify-content:center;gap:16px;border:1px solid rgba(210,180,140,0.3);max-width:900px}
+        .search-input,.sort-select,.shape-filter{padding:12px 20px;border-radius:40px;border:1px solid #e2d4c4;background:#fff;font-size:.95rem;font-weight:500;transition:all .2s;outline:none}
+        .search-input{flex:2;min-width:200px;cursor:text}
+        .search-input:focus,.sort-select:focus,.shape-filter:focus{border-color:#d97a2b;box-shadow:0 0 0 3px rgba(217,122,43,0.1)}
+        .dropdown-container{max-width:600px;margin:0 auto 30px;position:relative}
+        .dropdown-btn{width:100%;background:#d97a2b;color:#fff;padding:16px 24px;border:none;border-radius:60px;font-size:1rem;font-weight:600;cursor:pointer;text-align:left;display:flex;justify-content:space-between;transition:all .2s}
+        .dropdown-btn:hover{background:#c06622;transform:translateY(-2px);box-shadow:0 4px 12px rgba(192,102,34,0.3)}
+        .dropdown-content{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:24px;max-height:320px;overflow:auto;border:2px solid #d97a2b;z-index:100;margin-top:8px;opacity:0;transform:translateY(-10px);transition:opacity .2s,transform .2s}
+        .dropdown-content.show{display:block;opacity:1;transform:translateY(0)}
+        .dropdown-item{padding:14px 20px;border-bottom:1px solid #f0e0d5;cursor:pointer;transition:all .2s}
+        .dropdown-item:hover{background:#fef3e9;padding-left:28px}
+        .dropdown-item.selected{background:#d97a2b;color:#fff}
+        .dropdown-item.selected h4{color:#fff}
+        .dropdown-item h4{color:#a55826;margin-bottom:5px}
+        .dropdown-item .price-drop{font-weight:700;color:#b45a2b;margin-top:5px}
+        
+        /* Галерея только для чанов */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            max-height: 400px;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #fefaf5;
+        }
+        .gallery-slide {
+            display: none;
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+        }
+        .gallery-slide.active {
+            display: block;
+        }
+        .gallery-prev, .gallery-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .gallery-prev:hover, .gallery-next:hover {
+            background: #d97a2b;
+        }
+        .gallery-prev { left: 10px; }
+        .gallery-next { right: 10px; }
+        .gallery-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 10;
+        }
+        
+        /* Обычное фото для остальных товаров */
+        .product-single-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 24px;
+            background: #fefaf5;
+            margin-bottom: 20px;
+        }
+        
+        .product-card{background:#fff;border-radius:32px;padding:28px;max-width:700px;margin:20px auto;display:none;border:1px solid #e6daca;box-shadow:0 8px 24px rgba(0,0,0,0.05)}
+        .product-card.show{display:block}
+        .product-card h2{text-align:center;color:#9b4f23;margin-bottom:15px}
+        .specs{background:#fef8f2;padding:16px;border-radius:24px;margin:15px 0;line-height:1.6;border-left:4px solid #d97a2b}
+        .price{font-size:28px;font-weight:700;color:#d97a2b;text-align:center;margin:15px 0}
+        .addons-section{background:#fdf8f1;border-radius:24px;padding:15px;margin-top:20px}
+        .addon-title{font-size:1rem;font-weight:600;color:#b45a2b;margin-bottom:12px}
+        .addon-item{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;margin:6px 0;background:#fff;border-radius:60px;border:1px solid #eadbcb}
+        .addon-name{flex:2;font-weight:500;font-size:.9rem}
+        .addon-price{flex:1;color:#bd631e;font-weight:500}
+        .addon-controls{display:flex;gap:10px;align-items:center}
+        .addon-controls button{width:28px;height:28px;border-radius:50%;background:#d97a2b;color:#fff;border:none;font-size:16px;cursor:pointer}
+        .addon-controls button:hover{background:#c06622}
+        .addon-count{font-weight:700;min-width:28px;text-align:center}
+        .add-to-cart{background:#d97a2b;color:#fff;width:100%;padding:14px;border:none;border-radius:60px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:20px}
+        .add-to-cart:hover{background:#c06622}
+        .cart-section{background:#fff;border-radius:32px;padding:24px;margin:40px 0;border:1px solid #e6daca}
+        .cart-header{font-size:1.5rem;font-weight:600;color:#b45a2b;margin-bottom:20px}
+        .cart-items-list{max-height:300px;overflow:auto;margin-bottom:20px}
+        .cart-item{background:#fef9f2;padding:12px 18px;border-radius:60px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+        .cart-item-highlight{background-color:#fff3c9 !important}
+        .cart-remove{background:#c0392b;border:none;color:#fff;border-radius:40px;padding:5px 15px;cursor:pointer}
+        .cart-remove:hover{background:#a93226}
+        .cart-total{text-align:right;font-size:1.3rem;font-weight:700;padding-top:15px;border-top:2px solid #e6daca}
+        .cart-total span{color:#d97a2b}
+        .order-form{display:none;margin-top:25px}
+        .order-form.show{display:block}
+        .order-form input,.order-form textarea{width:100%;padding:12px;margin:8px 0;border-radius:40px;border:1px solid #e2d4c4;font-family:inherit}
+        .floating-cart{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#d97a2b;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);z-index:1000}
+        .floating-cart:hover{transform:scale(1.08);background:#c06622}
+        .cart-count{position:absolute;top:-5px;right:-5px;background:#c0392b;color:#fff;font-size:12px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+        .scroll-top{position:fixed;bottom:110px;right:30px;width:50px;height:50px;background:#8b694e;border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#fff;z-index:1000}
+        .scroll-top:hover{background:#6e523b}
+        .scroll-top.show{display:flex}
+        .toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:40px;z-index:1001;background:#27ae60;color:white;animation:fadeInUp .25s}
+        .toast-notification.error{background:#c0392b}
+        @keyframes fadeInUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+        .footer{text-align:center;padding:32px 20px;background:#e8d9ca;border-radius:48px 48px 24px 24px;margin-top:40px}
+        .footer a{color:#b45a2b;text-decoration:none}
+        @media(max-width:720px){.container{padding:0 16px}.product-card{padding:20px}.floating-cart{width:50px;height:50px;bottom:20px;right:20px}.scroll-top{bottom:85px;right:20px}.toast-notification{white-space:normal;text-align:center;max-width:90%;font-size:14px}.gallery-slide{height:250px}.product-single-image{max-height:250px}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo-wrapper"><img class="header-logo" src="https://i.ibb.co/DfqLT4RQ/IMG-20260417-200601.png" alt="ТЕРМОГРАД"></div>
+        <div class="subtitle">Банные печи, котлы, чаны — полный заводской каталог</div>
+    </div>
+    
+    <div class="info-buttons-row">
+        <button class="info-btn" data-info="delivery">🚚 Доставка</button>
+        <button class="info-btn" data-info="warranty">🛡️ Гарантия</button>
+        <button class="info-btn" data-info="return">🔄 Возврат</button>
+        <button class="info-btn" data-info="sketch">📐 Индивидуальный заказ</button>
+    </div>
+    
+    <div id="deliveryContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('delivery')">✖</button>
+        <h3>🚚 Доставка</h3>
+        <p><strong>Отправляем оборудование любой транспортной компанией за ваш счёт</strong></p>
+        <p>Мы сотрудничаем со всеми основными транспортными компаниями России (ТК Энергия, Деловые Линии, ПЭК, и др.) или готовы отправить выбранным вами перевозчиком.</p>
+        <p><strong>Как заказать доставку:</strong> После оформления заказа наш менеджер свяжется с вами для согласования удобной ТК.</p>
+        <p><strong>Стоимость:</strong> Доставка оплачивается покупателем самостоятельно при получении груза.</p>
+        <p><em>После передачи груза транспортной компании сроки и сохранность контролируются перевозчиком.</em></p>
+    </div>
+    
+    <div id="warrantyContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('warranty')">✖</button>
+        <h3>🛡️ Гарантия</h3>
+        <p><strong>Официальная гарантия на оборудование — 12 месяцев</strong></p>
+        <p>Вся техника и оборудование имеют гарантийный срок <strong>12 месяцев</strong> с момента передачи покупателю.</p>
+        <p><strong>Что гарантируем:</strong> Исправность оборудования, отсутствие производственных дефектов.</p>
+        <p><strong>Не является гарантийным случаем:</strong> Механические повреждения, нарушение правил эксплуатации, неправильное подключение, естественный износ.</p>
+        <p><em>Для гарантийного обслуживания сохраняйте чек и гарантийный талон.</em></p>
+    </div>
+    
+    <div id="returnContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('return')">✖</button>
+        <h3>🔄 Возврат и обмен</h3>
+        <p><strong>Возврат товара осуществляется в соответствии с законодательством РФ</strong></p>
+        <p>Вы можете вернуть товар надлежащего качества в течение <strong>7 дней</strong> после получения.</p>
+        <p><strong>Условия:</strong> Товар не должен быть в употреблении, сохранены фабричные пломбы, упаковка и документы.</p>
+        <p><strong>Как оформить возврат:</strong> Напишите заявление на нашу электронную почту или позвоните.</p>
+        <p><em>Для ускорения процесса пришлите фото/видео дефекта и копию чека.</em></p>
+    </div>
+    
+    <div id="sketchContainer" class="info-text-container">
+        <button class="close-info" onclick="closeInfo('sketch')">✖</button>
+        <h3>📐 Индивидуальный заказ</h3>
+        <div class="order-note">
+            📞 <strong>Не нашли нужную модель?</strong><br>
+            Свяжитесь с нами, и мы изготовим печь, котёл или чан<br>
+            по вашим размерам и пожеланиям.<br>
+            Оставьте контакты — мы перезвоним и обсудим детали.
+        </div>
+        <div class="sketch-form">
+            <input type="text" id="sketchName" placeholder="Ваше имя *">
+            <input type="tel" id="sketchPhone" placeholder="Телефон *">
+            <input type="email" id="sketchEmail" placeholder="Email">
+            <label style="display:flex; align-items:center; gap:10px; margin:15px 0; cursor:pointer;">
+                <input type="checkbox" id="sketchConsent">
+                <span>Я даю согласие на обработку персональных данных</span>
+            </label>
+            <button class="send-sketch-btn" id="sendSketchBtn">📨 Отправить заявку</button>
+        </div>
+    </div>
+    
+    <div class="category-buttons">
+        <button class="cat-btn active" data-cat="all">🔥 Все товары</button>
+        <button class="cat-btn" data-cat="stove">🏠 Печи</button>
+        <button class="cat-btn" data-cat="tub">🛁 Чаны</button>
+        <button class="cat-btn" data-cat="burzhuyka">🪵 Буржуйки</button>
+        <button class="cat-btn" data-cat="boiler">🔥 Котлы</button>
+    </div>
+    
+    <div class="filters-panel">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск...">
+        <select id="sortSelect" class="sort-select"><option value="default">📊 По умолчанию</option><option value="price-asc">💰 Сначала дешёвые</option><option value="price-desc">💰 Сначала дорогие</option></select>
+        <select id="shapeFilter" class="shape-filter"><option value="all">🎨 Все формы</option><option value="round">🔴 Круглые</option><option value="rect">🟦 Прямоугольные</option></select>
+    </div>
+    <div class="dropdown-container">
+        <button class="dropdown-btn" id="dropdownBtn">📋 Выбрать товар <span>▼</span></button>
+        <div class="dropdown-content" id="dropdownContent"></div>
+    </div>
+    
+    <div id="productCard" class="product-card">
+        <!-- Контейнер для фото (галерея или обычное фото) -->
+        <div id="imageContainer"></div>
+        <h2 id="cardName"></h2>
+        <div class="specs" id="cardSpecs"></div>
+        <div class="price" id="cardPrice"></div>
+        <div id="addonsContainer"></div>
+        <button class="add-to-cart" id="addToCartBtn">➕ Добавить в корзину</button>
+    </div>
+    
+    <div class="cart-section">
+        <div class="cart-header">🛒 Корзина</div>
+        <div id="cartItemsList" class="cart-items-list"><div class="cart-item">Корзина пуста</div></div>
+        <div class="cart-total">💰 Итого: <span id="cartTotal">0</span> ₽</div>
+        <div class="order-form" id="orderFormBlock">
+            <h3 style="margin-bottom:12px;">📝 Оформление заказа</h3>
+            <input type="text" id="customerName" placeholder="Ваше имя *">
+            <input type="email" id="customerEmail" placeholder="Email *">
+            <input type="tel" id="customerPhone" placeholder="Телефон *">
+            <textarea id="customerAddress" rows="2" placeholder="Адрес доставки"></textarea>
+            <label style="display:flex; align-items:center; gap:10px; margin:15px 0; cursor:pointer;">
+                <input type="checkbox" id="consentCheckbox" style="width:18px; height:18px;">
+                <span>Я даю согласие на обработку персональных данных</span>
+            </label>
+            <button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>📞 <strong>Контакты:</strong> <a href="tel:+79609471278">+7-960-947-12-78</a> | <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p>
+        <p>📍 Алтайский край, г.Барнаул, ул. Эмилии Алексеевой, 94</p>
+        <p>🔥 Изготовление на заказ — печи, котлы, чаны, баки, дымоходы</p>
+        <div style="font-size:12px; margin-top:20px; padding-top:20px; border-top:1px solid #d2c4b4;">
+            <p><strong>ООО "ПРОГРЕСС"</strong> | ИНН 2221245027 | ОГРН 1192225027510</p>
+            <p>Юридический адрес: 656011, Алтайский край, г. Барнаул, ул. Эмилии Алексеевой, 94</p>
+            <p>Тел.: <a href="tel:+79130894322">+7-913-089-4322</a> | Email: <a href="mailto:Progress6300@mail.ru">Progress6300@mail.ru</a></p>
+            <p>Генеральный директор: Переверзев Алексей Анатольевич</p>
+        </div>
+    </div>
+</div>
+
+<div class="floating-cart" id="floatingCart"><span>🛒</span><div class="cart-count" id="floatingCartCount">0</div></div>
+<div class="scroll-top" id="scrollTopBtn">↑</div>
+
+<script>
+// БАЗОВАЯ ССЫЛКА ДЛЯ КАРТИНОК (GitHub raw)
+const GITHUB_RAW = 'https://raw.githubusercontent.com/roman180808h-droid/Progress_Bannnnnnnuuu-droid.github.io/main/';
+
+const addonsList = [
+    {id:"b1",name:"Бак нерж 65 л, 1 мм",price:9500},
+    {id:"b2",name:"Бак нерж 65 л, 1.5 мм",price:12500},
+    {id:"b3",name:"Бак нерж 85 л, 1 мм",price:13500},
+    {id:"b4",name:"Бак нерж 85 л, 1.5 мм",price:15500},
+    {id:"b5",name:"Бак чёрный 65 л, 2 мм",price:6000},
+    {id:"b6",name:"Бак чёрный 85 л, 2 мм",price:6500},
+    {id:"elbow",name:"Колено Ø115 мм 45°",price:600},
+    {id:"roof",name:"Зонт Ø115 мм",price:1000},
+    {id:"clamp",name:"Хомут обжимной Ø115 мм",price:350},
+    {id:"module115",name:"Модуль трубы Ø115 мм 1м",price:1200}
+];
+
+const products = [
+// ПЕЧИ (stove) - основные модели
+{id:1,name:"Печь Ø325 сквозная каменка, без бака",price:14000,type:"round",category:"stove",specs:"🏠 до 15 м³, сталь 8 мм",img:GITHUB_RAW + "325.jpg", images:[]},
+{id:2,name:"Печь Ø325 сквозная, бак чёрный",price:18500,type:"round",category:"stove",specs:"🏠 до 15 м³, бак чёрный 65 л",img:GITHUB_RAW + "325.jpg", images:[]},
+{id:3,name:"Печь Ø325 сквозная, бак нерж",price:24000,type:"round",category:"stove",specs:"🏠 до 15 м³, бак нерж 65 л",img:GITHUB_RAW + "325.jpg", images:[]},
+{id:4,name:"Печь Ø325 открытая, без бака",price:11000,type:"round",category:"stove",specs:"🏠 до 15 м³",img:GITHUB_RAW + "325.jpg", images:[]},
+{id:5,name:"Печь Ø325 открытая, бак чёрный",price:15000,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "325.jpg", images:[]},
+{id:6,name:"Печь Ø325 открытая, бак нерж",price:21000,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "325.jpg", images:[]},
+{id:7,name:"Печь Ø426 лежачая, без бака",price:16500,type:"round",category:"stove",specs:"🏠 до 25 м³, конвекция",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:8,name:"Печь Ø426 лежачая, чёрный бак",price:21000,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:9,name:"Печь Ø426 лежачая, бак нерж",price:26500,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:10,name:"Печь Ø426 открытая, без выступа",price:12000,type:"round",category:"stove",specs:"🏠 до 15 м³",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:11,name:"Печь Ø426 открытая, без выступа, чёрный бак",price:16500,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:12,name:"Печь Ø426 открытая, без выступа, бак нерж",price:22000,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:13,name:"Печь Ø426 с выступом, открытая, без бака",price:13000,type:"round",category:"stove",specs:"выступ 150 мм",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:14,name:"Печь Ø426 с выступом, открытая, чёрный бак",price:17500,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:15,name:"Печь Ø426 с выступом, открытая, бак нерж",price:23000,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:16,name:"Печь Ø426 без выступа, сквозная, без бака",price:16000,type:"round",category:"stove",specs:"сквозная каменка",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:17,name:"Печь Ø426 без выступа, сквозная, чёрный бак",price:20000,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:18,name:"Печь Ø426 без выступа, сквозная, бак нерж",price:26000,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:19,name:"Печь Ø426 с выступом, сквозная, без бака",price:17000,type:"round",category:"stove",specs:"выступ 200 мм",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:20,name:"Печь Ø426 с выступом, сквозная, чёрный бак",price:21000,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:21,name:"Печь Ø426 с выступом, сквозная, бак нерж",price:27000,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:22,name:"Печь Ø426 поворотная, без бака",price:19000,type:"round",category:"stove",specs:"поворотная каменка",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:23,name:"Печь Ø426 поворотная, чёрный бак",price:23000,type:"round",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:24,name:"Печь Ø426 поворотная, бак нерж",price:29500,type:"round",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "426.jpg", images:[]},
+{id:25,name:"Печь Ø530 поворотная, без бака",price:21500,type:"round",category:"stove",specs:"🏠 до 35 м³",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:26,name:"Печь Ø530 поворотная, чёрный бак",price:26500,type:"round",category:"stove",specs:"бак чёрный 85 л",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:27,name:"Печь Ø530 поворотная, бак нерж",price:32500,type:"round",category:"stove",specs:"бак нерж 85 л",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:28,name:"Печь Ø530 с выступом, сквозная, без бака",price:19500,type:"round",category:"stove",specs:"сквозная",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:29,name:"Печь Ø530 с выступом, сквозная, чёрный бак",price:24500,type:"round",category:"stove",specs:"бак чёрный 85 л",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:30,name:"Печь Ø530 с выступом, сквозная, бак нерж",price:30500,type:"round",category:"stove",specs:"бак нерж 85 л",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:31,name:"Печь Ø530 без выступа, сквозная, без бака",price:18500,type:"round",category:"stove",specs:"без выступа",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:32,name:"Печь Ø530 без выступа, сквозная, чёрный бак",price:23500,type:"round",category:"stove",specs:"бак чёрный 85 л",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:33,name:"Печь Ø530 без выступа, сквозная, бак нерж",price:29500,type:"round",category:"stove",specs:"бак нерж 85 л",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:34,name:"Печь Ø530 открытая, с выступом, без бака",price:15500,type:"round",category:"stove",specs:"открытая",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:35,name:"Печь Ø530 открытая лежачая, без бака",price:19500,type:"round",category:"stove",specs:"лежачая",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:36,name:"Печь листовая социальная, без выступа",price:14000,type:"rect",category:"stove",specs:"15 м³, сталь 4 мм",img:GITHUB_RAW + "image.jpg", images:[]},
+{id:37,name:"Печь листовая социальная, с выступом",price:16500,type:"rect",category:"stove",specs:"выступ 150 мм",img:GITHUB_RAW + "image.png", images:[]},
+{id:38,name:"Печь листовая социальная, с навесным баком",price:15500,type:"rect",category:"stove",specs:"сталь 5 мм",img:GITHUB_RAW + "image.jpg", images:[]},
+{id:39,name:"Социальная печь Лабиринт",price:17000,type:"rect",category:"stove",specs:"лабиринт",img:GITHUB_RAW + "image.jpg", images:[]},
+{id:40,name:"Печь на 2-3 помещения, чёрный бак",price:38000,type:"rect",category:"stove",specs:"до 20 м³, бак 75 л",img:GITHUB_RAW + "2-3.jpg", images:[]},
+{id:41,name:"Печь на 2-3 помещения, бак нерж",price:45000,type:"rect",category:"stove",specs:"бак нерж 75 л",img:GITHUB_RAW + "2-3.png", images:[]},
+{id:42,name:"Печь на 2-3 помещения, дверца со стеклом, бак нерж",price:59000,type:"rect",category:"stove",specs:"дверца стекло",img:GITHUB_RAW + "2-3.jpg", images:[]},
+{id:43,name:"Печь бочка, без бака",price:29000,type:"rect",category:"stove",specs:"газопламенный лабиринт",img:GITHUB_RAW + "image.png", images:[]},
+{id:44,name:"Печь бочка, чёрный бак",price:34500,type:"rect",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "image.png", images:[]},
+{id:45,name:"Печь бочка, бак нерж",price:39000,type:"rect",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "image.png", images:[]},
+{id:46,name:"Печь Корабль, без бака",price:36000,type:"rect",category:"stove",specs:"до 35 м³, свод 8 мм",img:GITHUB_RAW + "image.jpg", images:[]},
+{id:47,name:"Печь Корабль, чёрный бак",price:41000,type:"rect",category:"stove",specs:"бак чёрный 85 л",img:GITHUB_RAW + "image.png", images:[]},
+{id:48,name:"Печь Корабль, бак нерж",price:46000,type:"rect",category:"stove",specs:"бак нерж 85 л",img:GITHUB_RAW + "image.png", images:[]},
+{id:49,name:"Печь БВ-350, без бака",price:13000,type:"rect",category:"stove",specs:"до 20 м³, сталь 4 мм",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:50,name:"Печь БВ-350, чёрный бак",price:18000,type:"rect",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:51,name:"Печь БВ-350, бак нерж",price:23000,type:"rect",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:52,name:"Печь НВ-350, без бака",price:14000,type:"rect",category:"stove",specs:"вынос 150 мм",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:53,name:"Печь НВ-350, чёрный бак",price:19000,type:"rect",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:54,name:"Печь НВ-350, бак нерж",price:24000,type:"rect",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:55,name:"Печь ВВ-350, без бака",price:17000,type:"rect",category:"stove",specs:"с конвекцией",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:56,name:"Печь ВВ-350, чёрный бак",price:22000,type:"rect",category:"stove",specs:"бак чёрный 65 л",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:57,name:"Печь ВВ-350, бак нерж",price:27000,type:"rect",category:"stove",specs:"бак нерж 65 л",img:GITHUB_RAW + "350.jpg", images:[]},
+{id:58,name:"Буржуйка №1, без конвекции",price:5000,type:"rect",category:"burzhuyka",specs:"20 м³",img:GITHUB_RAW + "1.jpg", images:[]},
+{id:59,name:"Буржуйка №1 с конвекцией",price:6000,type:"rect",category:"burzhuyka",specs:"25 м³",img:GITHUB_RAW + "1.png", images:[]},
+{id:60,name:"Буржуйка №1У, без конвекции",price:5500,type:"rect",category:"burzhuyka",specs:"25 м³",img:GITHUB_RAW + "1.jpg", images:[]},
+{id:61,name:"Буржуйка №1,5У, с конвекцией",price:6500,type:"rect",category:"burzhuyka",specs:"30 м³",img:GITHUB_RAW + "1-5.jpg", images:[]},
+{id:62,name:"Буржуйка №2, без конвекции",price:8000,type:"rect",category:"burzhuyka",specs:"40 м³",img:GITHUB_RAW + "1.png", images:[]},
+{id:63,name:"Буржуйка №3 с кружком, без конвекции",price:8500,type:"rect",category:"burzhuyka",specs:"с кружком",img:GITHUB_RAW + "3.png", images:[]},
+{id:64,name:"Буржуйка из трубы Ø426 мм",price:13000,type:"round",category:"burzhuyka",specs:"150 м³",img:GITHUB_RAW + "426.png", images:[]},
+{id:65,name:"Буржуйка из трубы Ø530 мм",price:16000,type:"round",category:"burzhuyka",specs:"200 м³",img:GITHUB_RAW + "530.jpg", images:[]},
+{id:66,name:"Печь-буржуйка TALTY",price:18000,type:"rect",category:"burzhuyka",specs:"до 24 ч горения",img:GITHUB_RAW + "TALTY.png", images:[]},
+{id:67,name:"Котёл малый 1/2 плиты",price:22500,type:"rect",category:"boiler",specs:"80-100 м²",img:GITHUB_RAW + "1-2.png", images:[]},
+{id:68,name:"Котёл большой 1/2 плиты",price:35500,type:"rect",category:"boiler",specs:"100-130 м²",img:GITHUB_RAW + "1-2.png", images:[]},
+{id:69,name:"Котёл большой, целая плита",price:23000,type:"rect",category:"boiler",specs:"120 м²",img:GITHUB_RAW + "image.png", images:[]},
+{id:70,name:"Котёл с водяным верхом ВВ",price:24000,type:"rect",category:"boiler",specs:"до 200 м²",img:GITHUB_RAW + "image.png", images:[]},
+{id:71,name:"Котёл длительного горения Майбах",price:71500,type:"rect",category:"boiler",specs:"50-250 м², с вентилятором",img:GITHUB_RAW + "image.jpg", images:[]},
+{id:72,name:"Печь чугунная 15 кВт, без бака",price:29500,type:"rect",category:"stove",specs:"чугун, 15 кВт",img:GITHUB_RAW + "15.jpg", images:[]},
+{id:73,name:"Печь чугунная 18 кВт, без бака",price:33000,type:"rect",category:"stove",specs:"чугун, 18 кВт",img:GITHUB_RAW + "15.jpg", images:[]},
+{id:74,name:"Печь чугунная 24 кВт, без бака",price:40000,type:"rect",category:"stove",specs:"чугун, 24 кВт",img:GITHUB_RAW + "15.jpg", images:[]},
+
 // БАННЫЕ ЧАНЫ (tub) - ТОЛЬКО У НИХ ГАЛЕРЕЯ!
 {
   id: 75,
@@ -6,12 +560,8 @@
   type: "rect",
   category: "tub",
   specs: "👥 2-4 места<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi304 (пищевая)<br>⚙️ сталь нерж 2 мм, топка 3 мм<br>📦 лестница с перилами, крышка, дымоход",
-  img: "https://i.ibb.co/dstGfb81/dyet.jpg",
-  images: [
-    "https://i.ibb.co/dstGfb81/dyet.jpg",
-    "https://i.ibb.co/wh3YzQr9/dyet1.jpg",
-    "https://i.ibb.co/9HHqxVFB/dyet-risunok.png"
-  ]
+  img: GITHUB_RAW + "dyet.jpg",
+  images: [GITHUB_RAW + "dyet.jpg", GITHUB_RAW + "dyet1.jpg", GITHUB_RAW + "dyet-risunok.png"]
 },
 {
   id: 76,
@@ -20,12 +570,8 @@
   type: "rect",
   category: "tub",
   specs: "👥 2-4 места<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi430 (техническая)<br>⚙️ сталь нерж 2 мм, топка 3 мм<br>📦 лестница с перилами, крышка, дымоход",
-  img: "https://i.ibb.co/dstGfb81/dyet.jpg",
-  images: [
-    "https://i.ibb.co/dstGfb81/dyet.jpg",
-    "https://i.ibb.co/wh3YzQr9/dyet1.jpg",
-    "https://i.ibb.co/9HHqxVFB/dyet-risunok.png"
-  ]
+  img: GITHUB_RAW + "dyet.jpg",
+  images: [GITHUB_RAW + "dyet.jpg", GITHUB_RAW + "dyet1.jpg", GITHUB_RAW + "dyet-risunok.png"]
 },
 {
   id: 77,
@@ -34,12 +580,8 @@
   type: "rect",
   category: "tub",
   specs: "👥 2-4 места<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi304 (пищевая)<br>⚙️ сталь нерж 2 мм, топка 3 мм<br>📦 лестница с перилами, крышка, дымоход",
-  img: "https://i.ibb.co/bjcTCwrq/rymohka.jpg",
-  images: [
-    "https://i.ibb.co/bjcTCwrq/rymohka.jpg",
-    "https://i.ibb.co/0Rhjwv2m/rymohka1.jpg",
-    "https://i.ibb.co/xSdsc1hH/rumohka-riaunok.png"
-  ]
+  img: GITHUB_RAW + "rymohka.jpg",
+  images: [GITHUB_RAW + "rymohka.jpg", GITHUB_RAW + "rymohka1.jpg", GITHUB_RAW + "rumohka-riaunok.png"]
 },
 {
   id: 78,
@@ -48,12 +590,8 @@
   type: "rect",
   category: "tub",
   specs: "👥 2-4 места<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi430 (техническая)<br>⚙️ сталь нерж 2 мм, топка 3 мм",
-  img: "https://i.ibb.co/bjcTCwrq/rymohka.jpg",
-  images: [
-    "https://i.ibb.co/bjcTCwrq/rymohka.jpg",
-    "https://i.ibb.co/0Rhjwv2m/rymohka1.jpg",
-    "https://i.ibb.co/xSdsc1hH/rumohka-riaunok.png"
-  ]
+  img: GITHUB_RAW + "rymohka.jpg",
+  images: [GITHUB_RAW + "rymohka.jpg", GITHUB_RAW + "rymohka1.jpg", GITHUB_RAW + "rumohka-riaunok.png"]
 },
 {
   id: 79,
@@ -82,4 +620,413 @@
   type: "rect",
   category: "tub",
   specs: "👥 6-8 места<br>💧 2900 л<br>📏 ширина 250 см<br>🔩 Aisi304 (пищевая)<br>⚙️ сталь нерж 2 мм, топка 3 мм<br>📦 лестница с перилами, крышка, дымоход",
-  img: "https
+  img: GITHUB_RAW + "bolhoi.jpg",
+  images: [GITHUB_RAW + "bolhoi.jpg", GITHUB_RAW + "bolhoi1.jpg", GITHUB_RAW + "bolhoi2.jpg", GITHUB_RAW + "bolhoq-risynok.png"]
+},
+{
+  id: 82,
+  name: "Банный чан «Макси» Aisi430",
+  price: 290000,
+  type: "rect",
+  category: "tub",
+  specs: "👥 6-8 места<br>💧 2900 л<br>📏 ширина 250 см<br>🔩 Aisi430 (техническая)<br>⚙️ сталь нерж 2 мм, топка 3 мм",
+  img: GITHUB_RAW + "bolhoi.jpg",
+  images: [GITHUB_RAW + "bolhoi.jpg", GITHUB_RAW + "bolhoi1.jpg", GITHUB_RAW + "bolhoi2.jpg", GITHUB_RAW + "bolhoq-risynok.png"]
+}
+];
+
+let cart = [], currentProduct = null, selectedAddons = {}, currentSelectedId = null;
+let currentCategory = "all";
+let currentImageIndex = 0;
+let currentImagesList = [];
+let currentGallerySlideIndex = 0;
+
+function showToast(msg, isErr) {
+    const toast = document.createElement('div');
+    toast.textContent = msg;
+    toast.className = 'toast-notification';
+    if (isErr) toast.classList.add('error');
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function updateFloatingCartCounter() {
+    const cnt = document.getElementById('floatingCartCount');
+    if (cnt) cnt.textContent = cart.length;
+}
+
+function renderAddons() {
+    const c = document.getElementById('addonsContainer');
+    if (!currentProduct || currentProduct.category === 'tub') {
+        c.innerHTML = '';
+        return;
+    }
+    let html = `<div class="addons-section"><div class="addon-title">➕ Дополнительное оборудование</div>`;
+    for (let a of addonsList) {
+        let cnt = selectedAddons[a.id] ? selectedAddons[a.id].quantity : 0;
+        html += `<div class="addon-item">
+            <span class="addon-name">${a.name}</span>
+            <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
+            <div class="addon-controls">
+                <button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},-1)">−</button>
+                <span class="addon-count" id="count_${a.id}">${cnt}</span>
+                <button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},1)">+</button>
+            </div>
+        </div>`;
+    }
+    html += `</div>`;
+    c.innerHTML = html;
+}
+
+window.changeAddonCount = function(id, name, price, delta) {
+    if (!selectedAddons[id]) {
+        if (delta > 0) selectedAddons[id] = { name, price, quantity: 1 };
+    } else {
+        let n = selectedAddons[id].quantity + delta;
+        if (n <= 0) delete selectedAddons[id];
+        else selectedAddons[id].quantity = n;
+    }
+    for (let a of addonsList) {
+        let s = document.getElementById('count_' + a.id);
+        if (s) s.textContent = selectedAddons[a.id] ? selectedAddons[a.id].quantity : 0;
+    }
+    if (currentProduct && currentProduct.category !== 'tub') {
+        let s = 0;
+        for (let k in selectedAddons) s += selectedAddons[k].price * selectedAddons[k].quantity;
+        document.getElementById('cardPrice').innerHTML = `💰 ${(currentProduct.price + s).toLocaleString('ru-RU')} ₽`;
+    }
+};
+
+function renderGallery() {
+    const container = document.getElementById('imageContainer');
+    if (!container) return;
+    
+    // Определяем, есть ли у товара несколько изображений
+    const hasGallery = currentProduct.images && currentProduct.images.length > 1;
+    
+    if (hasGallery) {
+        // Галерея для чанов
+        currentImagesList = [...currentProduct.images];
+        currentGallerySlideIndex = 0;
+        
+        let html = `<div class="gallery-container" id="galleryContainer">
+            <button class="gallery-prev" id="galleryPrev">◀</button>
+            <button class="gallery-next" id="galleryNext">▶</button>
+            <div class="gallery-counter" id="galleryCounter">1 / ${currentImagesList.length}</div>
+        </div>`;
+        container.innerHTML = html;
+        
+        const galleryContainer = document.getElementById('galleryContainer');
+        currentImagesList.forEach((src, idx) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'gallery-slide';
+            if (idx === 0) img.classList.add('active');
+            img.style.width = '100%';
+            img.style.height = '400px';
+            img.style.objectFit = 'contain';
+            galleryContainer.appendChild(img);
+        });
+        
+        // Навешиваем обработчики
+        document.getElementById('galleryPrev')?.addEventListener('click', () => {
+            const slides = document.querySelectorAll('.gallery-slide');
+            if (!slides.length) return;
+            slides[currentGallerySlideIndex].classList.remove('active');
+            currentGallerySlideIndex = (currentGallerySlideIndex - 1 + slides.length) % slides.length;
+            slides[currentGallerySlideIndex].classList.add('active');
+            document.getElementById('galleryCounter').textContent = `${currentGallerySlideIndex + 1} / ${slides.length}`;
+        });
+        
+        document.getElementById('galleryNext')?.addEventListener('click', () => {
+            const slides = document.querySelectorAll('.gallery-slide');
+            if (!slides.length) return;
+            slides[currentGallerySlideIndex].classList.remove('active');
+            currentGallerySlideIndex = (currentGallerySlideIndex + 1) % slides.length;
+            slides[currentGallerySlideIndex].classList.add('active');
+            document.getElementById('galleryCounter').textContent = `${currentGallerySlideIndex + 1} / ${slides.length}`;
+        });
+    } else {
+        // Обычное фото для остальных товаров
+        container.innerHTML = `<img class="product-single-image" src="${currentProduct.img}" alt="${currentProduct.name}">`;
+    }
+}
+
+function filterByCategory() {
+    renderDropdown();
+    if (currentProduct && currentCategory !== "all" && currentProduct.category !== currentCategory) {
+        document.getElementById('productCard').classList.remove('show');
+        currentProduct = null;
+        currentSelectedId = null;
+    }
+}
+
+function renderDropdown() {
+    const cont = document.getElementById('dropdownContent');
+    const st = document.getElementById('searchInput').value.toLowerCase();
+    const sv = document.getElementById('sortSelect').value;
+    const sh = document.getElementById('shapeFilter').value;
+    
+    let f = products.filter(p => {
+        if (currentCategory !== "all" && p.category !== currentCategory) return false;
+        const m = p.name.toLowerCase().includes(st);
+        let ms = true;
+        if (sh === 'round') ms = p.type === 'round';
+        else if (sh === 'rect') ms = p.type === 'rect';
+        return m && ms;
+    });
+    
+    if (sv === 'price-asc') f.sort((a, b) => a.price - b.price);
+    else if (sv === 'price-desc') f.sort((a, b) => b.price - a.price);
+    else f.sort((a, b) => a.id - b.id);
+    
+    if (!f.length) {
+        cont.innerHTML = '<div class="dropdown-item">🔥 Ничего не найдено</div>';
+        return;
+    }
+    cont.innerHTML = f.map(p => `<div class="dropdown-item" data-id="${p.id}">
+        <h4>${p.name}</h4>
+        <div class="price-drop">${p.price.toLocaleString('ru-RU')} ₽</div>
+    </div>`).join('');
+    
+    document.querySelectorAll('.dropdown-item').forEach(el => {
+        el.addEventListener('click', () => selectProduct(parseInt(el.dataset.id)));
+    });
+}
+
+function selectProduct(id) {
+    currentProduct = products.find(p => p.id === id);
+    currentSelectedId = id;
+    selectedAddons = {};
+    if (!currentProduct) return;
+    
+    document.querySelectorAll('.dropdown-item').forEach(el => {
+        el.classList.remove('selected');
+        if (parseInt(el.dataset.id) === id) el.classList.add('selected');
+    });
+    
+    // Отрисовка фото (галерея или обычное)
+    renderGallery();
+    
+    document.getElementById('cardName').innerText = currentProduct.name;
+    document.getElementById('cardSpecs').innerHTML = currentProduct.specs;
+    document.getElementById('cardPrice').innerHTML = `💰 ${currentProduct.price.toLocaleString('ru-RU')} ₽`;
+    renderAddons();
+    
+    const card = document.getElementById('productCard');
+    card.classList.add('show');
+    document.getElementById('dropdownContent').classList.remove('show');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    showToast(`✓ Выбран: ${currentProduct.name}`, false);
+}
+
+function updateCartUI() {
+    const cont = document.getElementById('cartItemsList');
+    const tot = document.getElementById('cartTotal');
+    const orderForm = document.getElementById('orderFormBlock');
+    
+    if (!cart.length) {
+        cont.innerHTML = '<div class="cart-item">Корзина пуста</div>';
+        tot.innerText = '0';
+        orderForm.classList.remove('show');
+        updateFloatingCartCounter();
+        return;
+    }
+    let total = 0, html = '';
+    cart.forEach((it, idx) => {
+        html += `<div class="cart-item" data-cart-index="${idx}">
+            <span>${it.name}</span>
+            <span>${it.price.toLocaleString('ru-RU')} ₽</span>
+            <button class="cart-remove" onclick="removeFromCart(${idx})">Удалить</button>
+        </div>`;
+        total += it.price;
+    });
+    cont.innerHTML = html;
+    tot.innerText = total.toLocaleString('ru-RU');
+    orderForm.classList.add('show');
+    updateFloatingCartCounter();
+}
+
+function highlightCartItem() {
+    const items = document.querySelectorAll('.cart-item');
+    if (!items.length) return;
+    const last = items[items.length - 1];
+    last.classList.add('cart-item-highlight');
+    setTimeout(() => last.classList.remove('cart-item-highlight'), 400);
+}
+
+window.removeFromCart = function(idx) {
+    cart.splice(idx, 1);
+    updateCartUI();
+    showToast('🗑 Товар удалён из корзины', false);
+};
+
+function addToCart() {
+    if (!currentProduct) {
+        showToast('❌ Сначала выберите товар из каталога', true);
+        return;
+    }
+    cart.push({ name: currentProduct.name, price: currentProduct.price });
+    if (currentProduct.category !== 'tub') {
+        for (let k in selectedAddons) {
+            let a = selectedAddons[k];
+            for (let i = 0; i < a.quantity; i++) cart.push({ name: a.name, price: a.price });
+        }
+    }
+    updateCartUI();
+    highlightCartItem();
+    showToast(`✓ ${currentProduct.name} добавлен в корзину`, false);
+}
+
+function isValidPhone(phone) {
+    let clean = phone.replace(/[\s\-\(\)\.]/g, '');
+    return /^(\+7|7|8)?[0-9]{10}$/.test(clean);
+}
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function toggleInfo(type) {
+    const container = document.getElementById(`${type}Container`);
+    const btn = document.querySelector(`.info-btn[data-info="${type}"]`);
+    const allContainers = ['deliveryContainer', 'warrantyContainer', 'returnContainer', 'sketchContainer'];
+    
+    if (container.classList.contains('show')) {
+        container.classList.remove('show');
+        btn.classList.remove('active');
+    } else {
+        allContainers.forEach(c => {
+            const el = document.getElementById(c);
+            if (el) el.classList.remove('show');
+        });
+        document.querySelectorAll('.info-btn').forEach(b => b.classList.remove('active'));
+        container.classList.add('show');
+        btn.classList.add('active');
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function closeInfo(type) {
+    const container = document.getElementById(`${type}Container`);
+    const btn = document.querySelector(`.info-btn[data-info="${type}"]`);
+    if (container) container.classList.remove('show');
+    if (btn) btn.classList.remove('active');
+}
+
+document.getElementById('sendSketchBtn').addEventListener('click', async function() {
+    const name = document.getElementById('sketchName').value.trim();
+    const phone = document.getElementById('sketchPhone').value.trim();
+    const email = document.getElementById('sketchEmail').value.trim();
+    const consent = document.getElementById('sketchConsent').checked;
+    
+    if (!name) { showToast('❌ Введите имя', true); return; }
+    if (!phone) { showToast('❌ Введите телефон', true); return; }
+    if (!consent) { showToast('❌ Подтвердите согласие', true); return; }
+    
+    const data = { type: 'sketch', name, phone, email: email || 'не указан', date: new Date().toLocaleString('ru-RU') };
+    showToast('📤 Отправка...', false);
+    try {
+        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec', {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        });
+        showToast('✅ Заявка отправлена!', false);
+        document.getElementById('sketchName').value = '';
+        document.getElementById('sketchPhone').value = '';
+        document.getElementById('sketchEmail').value = '';
+        document.getElementById('sketchConsent').checked = false;
+        closeInfo('sketch');
+    } catch(e) { showToast('⚠️ Ошибка, позвоните нам', true); }
+});
+
+async function sendOrder() {
+    const n = document.getElementById('customerName').value.trim();
+    const e = document.getElementById('customerEmail').value.trim();
+    const p = document.getElementById('customerPhone').value.trim();
+    const a = document.getElementById('customerAddress').value;
+    const c = document.getElementById('consentCheckbox');
+
+    if (!n) { showToast('❌ Введите имя', true); return; }
+    if (!p) { showToast('❌ Введите телефон', true); return; }
+    if (!e || !isValidEmail(e)) { showToast('❌ Введите корректный email', true); return; }
+    if (!c || !c.checked) { showToast('❌ Подтвердите согласие', true); return; }
+    if (!cart.length) { showToast('❌ Корзина пуста', true); return; }
+
+    let items = '', total = 0;
+    cart.forEach(it => {
+        items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`;
+        total += it.price;
+    });
+    
+    const data = { name: n, email: e, phone: p, address: a, order: items, total: total.toLocaleString('ru-RU'), date: new Date().toLocaleString('ru-RU') };
+    showToast('📤 Отправка заказа...', false);
+    try {
+        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec', {
+            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        });
+        showToast('✅ Заказ отправлен!', false);
+        cart = [];
+        updateCartUI();
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerEmail').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('customerAddress').value = '';
+        c.checked = false;
+    } catch(e) { showToast('⚠️ Ошибка, позвоните нам', true); }
+}
+
+document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.cat;
+        filterByCategory();
+        if (currentProduct && currentCategory !== "all" && currentProduct.category !== currentCategory) {
+            document.getElementById('productCard').classList.remove('show');
+            currentProduct = null;
+            currentSelectedId = null;
+        }
+    });
+});
+
+document.querySelectorAll('.info-btn').forEach(btn => {
+    btn.addEventListener('click', () => toggleInfo(btn.dataset.info));
+});
+
+document.getElementById('floatingCart').addEventListener('click', () => {
+    document.querySelector('.cart-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('scrollTopBtn').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', () => {
+    const btn = document.getElementById('scrollTopBtn');
+    if (window.scrollY > 300) btn.classList.add('show');
+    else btn.classList.remove('show');
+});
+
+document.getElementById('dropdownBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const dropdown = document.getElementById('dropdownContent');
+    dropdown.classList.toggle('show');
+    renderDropdown();
+});
+
+document.getElementById('searchInput').addEventListener('input', renderDropdown);
+document.getElementById('sortSelect').addEventListener('change', renderDropdown);
+document.getElementById('shapeFilter').addEventListener('change', renderDropdown);
+document.getElementById('addToCartBtn').addEventListener('click', addToCart);
+document.getElementById('sendOrderFinalBtn').addEventListener('click', sendOrder);
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-container')) 
+        document.getElementById('dropdownContent').classList.remove('show');
+});
+
+renderDropdown();
+updateCartUI();
+</script>
+</body>
+</html>
