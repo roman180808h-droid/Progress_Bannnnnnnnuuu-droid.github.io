@@ -4,192 +4,560 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кафе Миас — Меню</title>
-    <script src="https://telegram.org"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: #0d0d0d; color: #ffffff; padding: 15px; padding-bottom: 180px; }
-        .header { text-align: center; margin-bottom: 20px; padding: 15px 10px; background: linear-gradient(135deg, #261105 0%, #110702 100%); border-radius: 14px; border: 1px solid #3d1b08; }
-        .header h1 { font-size: 24px; color: #ffaa00; }
-        .header p { font-size: 12px; color: #b3b3b3; margin-top: 4px; }
-        .category-title { font-size: 16px; font-weight: 800; color: #ffaa00; margin: 20px 0 10px 5px; text-transform: uppercase; border-left: 4px solid #ff5500; padding-left: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
-        .menu-item { background-color: #161616; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #262626; }
-        .item-info { flex: 1; padding-right: 10px; }
-        .item-title { font-size: 15px; font-weight: 700; }
-        .item-desc { font-size: 12px; color: #8c8c8c; margin-bottom: 6px; line-height: 1.3; }
-        .item-price { font-size: 15px; color: #ffaa00; font-weight: 800; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
         
-        /* Фиксированные контейнеры кнопок */
-        .controls-wrapper { min-width: 110px; display: flex; justify-content: flex-end; }
-        .counter-container { display: none; align-items: center; background-color: #262626; border-radius: 8px; overflow: hidden; }
-        .count-btn { background-color: #ff5500; color: white; border: none; width: 34px; height: 34px; font-size: 20px; font-weight: bold; cursor: pointer; }
-        .item-count { width: 35px; text-align: center; font-size: 15px; font-weight: bold; }
-        .add-initial-btn { display: block; background: linear-gradient(135deg, #ff5500 0%, #ff8800 100%); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3); }
-
-        .order-bar { position: fixed; bottom: 0; left: 0; right: 0; background-color: rgba(22, 22, 22, 0.98); backdrop-filter: blur(10px); padding: 15px; border-top: 1px solid #2d2d2d; display: none; z-index: 9999; }
-        .phone-input { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #444; background-color: #111; color: white; font-size: 15px; margin-bottom: 10px; text-align: center; }
-        .phone-input:focus { border-color: #ffaa00; outline: none; }
-        .order-btn { width: 100%; background: linear-gradient(135deg, #ff5500 0%, #ffaa00 100%); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        body {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1108 100%);
+            color: #ffffff;
+            padding-bottom: 180px;
+            line-height: 1.4;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, #3a1f0a 0%, #1a0f05 100%);
+            border-bottom: 3px solid #ff5500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 170, 0, 0.15) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffaa00;
+            text-shadow: 0 2px 10px rgba(255, 85, 0, 0.5);
+        }
+        
+        .header p {
+            font-size: 14px;
+            color: #ffddaa;
+            margin-top: 4px;
+        }
+        
+        .hero {
+            height: 180px;
+            background: url('https://picsum.photos/id/1080/800/400') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, #0a0a0a);
+        }
+        
+        .category {
+            padding: 15px;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffaa00;
+            margin: 20px 0 12px;
+            padding-left: 12px;
+            border-left: 5px solid #ff5500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 15px;
+        }
+        
+        .menu-item {
+            background: #1f1b17;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(255, 85, 0, 0.2);
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .item-content {
+            padding: 12px;
+        }
+        
+        .item-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .item-desc {
+            font-size: 12.5px;
+            color: #aaa;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .item-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffaa00;
+        }
+        
+        .add-btn {
+            background: linear-gradient(135deg, #ff5500, #ff8800);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(255, 85, 0, 0.4);
+        }
+        
+        .counter {
+            display: flex;
+            align-items: center;
+            background: #2a2520;
+            border-radius: 9999px;
+            padding: 4px;
+        }
+        
+        .counter button {
+            width: 32px;
+            height: 32px;
+            background: #ff5500;
+            color: white;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .item-count {
+            padding: 0 12px;
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+        
+        /* Корзина */
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 17, 8, 0.98);
+            backdrop-filter: blur(12px);
+            border-top: 2px solid #ff5500;
+            padding: 12px 15px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .cart-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .total {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .cart-btn {
+            background: linear-gradient(135deg, #ff5500, #ffaa00);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        
+        /* Модальное окно корзины */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            z-index: 2000;
+            align-items: flex-end;
+        }
+        
+        .modal-content {
+            background: #1a1108;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #3a2a1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-modal {
+            font-size: 28px;
+            width: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #2a2520;
+        }
+        
+        .order-form {
+            padding: 15px;
+            background: #120c07;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            background: #2a2520;
+            border: 1px solid #444;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .send-order-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff5500, #ffaa00);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
-
     <div class="header">
-        <h1>КАФЕ «МИАС»</h1>
-        <p>Горячий шашлык и свежая шаурма</p>
+        <div class="header-content">
+            <h1>🍖 КАФЕ «МИАС»</h1>
+            <p>Горячий шашлык • Вкусная шаурма • Доставка за 25 минут</p>
+        </div>
     </div>
-
-    <div class="category-title">Мясо на углях & Шаурма</div>
     
-    <!-- Шаурма -->
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">🌯 Шаурма Классическая</div>
-            <div class="item-desc">Мясо, томаты, огурцы, капуста, соус.</div>
-            <div class="item-price">250 ₽</div>
-        </div>
-        <div class="controls-wrapper">
-            <button id="btn-shaurma" class="add-initial-btn" onclick="addItem('shaurma', '🌯 Шаурма Классическая', 250)">Добавить</button>
-            <div id="counter-shaurma" class="counter-container">
-                <button class="count-btn" onclick="changeQuantity('shaurma', -1)">-</button>
-                <div class="item-count" id="count-shaurma">1</div>
-                <button class="count-btn" onclick="changeQuantity('shaurma', 1)">+</button>
+    <div class="hero"></div>
+
+    <!-- Категория 1 -->
+    <div class="category">
+        <div class="category-title">🔥 Шаурма</div>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="selectItem(1)">
+                <img src="https://picsum.photos/id/292/400/300" class="item-image" alt="Шаурма Классическая">
+                <div class="item-content">
+                    <div class="item-title">🌯 Шаурма Классическая</div>
+                    <div class="item-desc">Свинина, овощи, фирменный соус</div>
+                    <div class="item-price">250 ₽</div>
+                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(1, '🌯 Шаурма Классическая', 250)">В корзину</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="selectItem(2)">
+                <img src="https://picsum.photos/id/431/400/300" class="item-image" alt="Шаурма Куриная">
+                <div class="item-content">
+                    <div class="item-title">🌯 Шаурма Куриная</div>
+                    <div class="item-desc">Нежное куриное филе, свежие овощи</div>
+                    <div class="item-price">240 ₽</div>
+                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(2, '🌯 Шаурма Куриная', 240)">В корзину</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Шашлык -->
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">🥩 Шашлык из свинины</div>
-            <div class="item-desc">Сочная свиная шея, лук, соус. 200г.</div>
-            <div class="item-price">380 ₽</div>
-        </div>
-        <div class="controls-wrapper">
-            <button id="btn-shashlyk" class="add-initial-btn" onclick="addItem('shashlyk', '🥩 Шашлык из свинины', 380)">Добавить</button>
-            <div id="counter-shashlyk" class="counter-container">
-                <button class="count-btn" onclick="changeQuantity('shashlyk', -1)">-</button>
-                <div class="item-count" id="count-shashlyk">1</div>
-                <button class="count-btn" onclick="changeQuantity('shashlyk', 1)">+</button>
+    <!-- Категория 2 -->
+    <div class="category">
+        <div class="category-title">🥩 Шашлык на углях</div>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="selectItem(3)">
+                <img src="https://picsum.photos/id/870/400/300" class="item-image" alt="Шашлык из свинины">
+                <div class="item-content">
+                    <div class="item-title">🥩 Шашлык из свинины (200г)</div>
+                    <div class="item-desc">Маринованная шейка, лук, соус</div>
+                    <div class="item-price">380 ₽</div>
+                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(3, '🥩 Шашлык из свинины', 380)">В корзину</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="selectItem(4)">
+                <img src="https://picsum.photos/id/1060/400/300" class="item-image" alt="Шашлык куриный">
+                <div class="item-content">
+                    <div class="item-title">🍗 Шашлык куриный (200г)</div>
+                    <div class="item-desc">Филе бедра в специях</div>
+                    <div class="item-price">340 ₽</div>
+                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(4, '🍗 Шашлык куриный', 340)">В корзину</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Кола -->
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">🥤 Кола (0.5л)</div>
-            <div class="item-desc">Освежающий газированный напиток.</div>
-            <div class="item-price">90 ₽</div>
-        </div>
-        <div class="controls-wrapper">
-            <button id="btn-cola" class="add-initial-btn" onclick="addItem('cola', '🥤 Кола (0.5л)', 90)">Добавить</button>
-            <div id="counter-cola" class="counter-container">
-                <button class="count-btn" onclick="changeQuantity('cola', -1)">-</button>
-                <div class="item-count" id="count-cola">1</div>
-                <button class="count-btn" onclick="changeQuantity('cola', 1)">+</button>
+    <!-- Категория 3 -->
+    <div class="category">
+        <div class="category-title">🍟 Дополнения и напитки</div>
+        <div class="menu-grid">
+            <div class="menu-item" onclick="selectItem(5)">
+                <img src="https://picsum.photos/id/201/400/300" class="item-image" alt="Картофель фри">
+                <div class="item-content">
+                    <div class="item-title">🍟 Картофель фри</div>
+                    <div class="item-desc">Порция 150г</div>
+                    <div class="item-price">120 ₽</div>
+                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(5, '🍟 Картофель фри', 120)">В корзину</button>
+                </div>
+            </div>
+            
+            <div class="menu-item" onclick="selectItem(6)">
+                <img src="https://picsum.photos/id/133/400/300" class="item-image" alt="Кола">
+                <div class="item-content">
+                    <div class="item-title">🥤 Кола 0.5л</div>
+                    <div class="item-price">90 ₽</div>
+                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(6, '🥤 Кола 0.5л', 90)">В корзину</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Нижняя панель оформления заказа -->
-    <div class="order-bar" id="orderBar">
-        <input type="tel" id="userPhone" class="phone-input" placeholder="+7 (999) 000-00-00">
-        <button class="order-btn" id="orderBtn" onclick="sendOrder()">Отправить заказ</button>
+    <!-- Нижняя панель корзины -->
+    <div class="cart-bar" id="cartBar">
+        <div class="cart-content">
+            <div>
+                <span style="color:#aaa">В корзине:</span> <span id="cartCount">0</span> товара
+                <div class="total" id="totalSum">0 ₽</div>
+            </div>
+            <button class="cart-btn" onclick="showCartModal()">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно корзины -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🛒 Ваша корзина</h3>
+                <div class="close-modal" onclick="hideCartModal()">✕</div>
+            </div>
+            
+            <div class="cart-items" id="cartItems"></div>
+            
+            <div class="order-form">
+                <input type="tel" id="userPhone" placeholder="+7 (___) ___-__-__" required>
+                <textarea id="userComment" rows="2" placeholder="Комментарий к заказу (адрес, время и т.д.)"></textarea>
+                <button class="send-order-btn" onclick="sendOrder()">✅ Отправить заказ в Telegram</button>
+            </div>
+        </div>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-
-        const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCMMRofMivR6m2p4k"; 
-        const chat_id = 2013568102; 
-
+        tg.MainButton.hide();
+        
+        // === НАСТРОЙКИ ===
+        const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCMMRofMivR6m2p4k"; // Замените на свой
+        const CHAT_ID = 2013568102; // Ваш ID
+        
         let cart = {};
-        let totalSum = 0;
-
-        // Первая инициализация товара в корзине
-        function addItem(id, title, price) {
-            cart[id] = { title: title, price: price, count: 1 };
-            
-            // Переключаем видимость кнопок
-            document.getElementById(`btn-${id}`).style.display = "none";
-            document.getElementById(`counter-${id}`).style.display = "flex";
-            document.getElementById(`count-${id}`).textContent = "1";
-            
-            calculateTotal();
+        
+        function addToCart(id, title, price) {
+            if (!cart[id]) {
+                cart[id] = { id, title, price, count: 1 };
+            } else {
+                cart[id].count++;
+            }
+            updateCartUI();
+            tg.HapticFeedback.impactOccurred('medium');
         }
-
-        // Изменение количества (+ или -)
+        
         function changeQuantity(id, delta) {
             if (!cart[id]) return;
-            
             cart[id].count += delta;
+            if (cart[id].count <= 0) delete cart[id];
+            updateCartUI();
+        }
+        
+        function updateCartUI() {
+            let total = 0;
+            let count = 0;
             
-            if (cart[id].count <= 0) {
-                // Если сбросили в 0, удаляем из корзины и возвращаем кнопку "Добавить"
-                delete cart[id];
-                document.getElementById(`counter-${id}`).style.display = "none";
-                document.getElementById(`btn-${id}`).style.display = "block";
+            for (let item of Object.values(cart)) {
+                total += item.price * item.count;
+                count += item.count;
+            }
+            
+            document.getElementById('totalSum').textContent = total + ' ₽';
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartBar').style.display = count > 0 ? 'block' : 'none';
+        }
+        
+        function showCartModal() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            
+            if (Object.keys(cart).length === 0) {
+                container.innerHTML = `<div class="empty-cart">Корзина пуста 😢</div>`;
             } else {
-                // Иначе обновляем цифру счетчика
-                document.getElementById(`count-${id}`).textContent = cart[id].count;
+                for (let item of Object.values(cart)) {
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <div style="flex:1">
+                            <div style="font-weight:600">${item.title}</div>
+                            <div style="color:#aaa; font-size:14px">${item.price} ₽ × ${item.count}</div>
+                        </div>
+                        <div class="counter">
+                            <button onclick="changeQuantity(${item.id}, -1)">–</button>
+                            <span class="item-count">${item.count}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)">+</button>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                }
             }
             
-            calculateTotal();
+            document.getElementById('cartModal').style.display = 'flex';
         }
-
-        // Подсчет общей суммы заказа
-        function calculateTotal() {
-            totalSum = 0;
-            let hasItems = false;
-            
-            for (let id in cart) {
-                totalSum += cart[id].price * cart[id].count;
-                hasItems = true;
-            }
-            
-            document.getElementById("orderBar").style.display = hasItems ? "block" : "none";
-            document.getElementById("orderBtn").textContent = `Заказать: ${totalSum} ₽`;
+        
+        function hideCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
         }
-
-        // Отправка готового чека
-        function sendOrder() {
-            const phone = document.getElementById("userPhone").value.trim();
+        
+        async function sendOrder() {
+            const phone = document.getElementById('userPhone').value.trim();
+            const comment = document.getElementById('userComment').value.trim();
+            
             if (!phone) {
-                tg.showAlert("Пожалуйста, введите ваш номер телефона для связи!");
+                tg.showAlert("Введите номер телефона для связи!");
                 return;
             }
-
-            const user = tg.initDataUnsafe?.user;
-            let message = `📥 **НОВЫЙ ПРЕДЗАКАЗ КАФЕ МИАС**\n\n`;
-            message += `👤 **Клиент:** ${user?.first_name || 'Не указано'} ${user?.last_name || ''}\n`;
-            message += `📱 **Телефон:** ${phone}\n`;
-            if (user?.username) message += `✉️ **Юзернейм:** @${user.username}\n`;
-            message += `\n📋 **Состав заказа:**\n`;
             
-            let i = 1;
-            for (let id in cart) {
-                message += `${i}. ${cart[id].title} x${cart[id].count} — ${cart[id].price * cart[id].count} ₽\n`;
-                i++;
+            let total = 0;
+            let orderText = `🍖 *Новый заказ в Кафе Миас!*\n\n`;
+            orderText += `👤 ${tg.initDataUnsafe?.user?.first_name || 'Клиент'} (@${tg.initDataUnsafe?.user?.username || '—'})\n`;
+            orderText += `📱 Телефон: ${phone}\n`;
+            if (comment) orderText += `💬 Комментарий: ${comment}\n\n`;
+            
+            orderText += `📋 *Состав заказа:*\n`;
+            
+            for (let item of Object.values(cart)) {
+                const sum = item.price * item.count;
+                orderText += `${item.title} ×${item.count} — ${sum} ₽\n`;
+                total += sum;
             }
-            message += `\n💰 **ИТОГО К ОПЛАТЕ:** ${totalSum} ₽`;
-
-            fetch(`https://telegram.org{BOT_TOKEN}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ chat_id: chat_id, text: message, parse_mode: "Markdown" })
-            })
-            .then(res => {
-                if (res.ok) {
-                    tg.showAlert("✅ Заказ успешно оформлен! Чек отправлен владельцу.");
+            
+            orderText += `\n💰 *Итого: ${total} ₽*`;
+            
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: orderText,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                if (response.ok) {
+                    tg.showAlert("✅ Заказ успешно отправлен!\nМы свяжемся с вами в ближайшее время.");
+                    cart = {};
+                    updateCartUI();
+                    hideCartModal();
                     tg.close();
                 } else {
-                    tg.showAlert("Ошибка отправки заказа.");
+                    tg.showAlert("Ошибка отправки. Попробуйте ещё раз.");
                 }
-            })
-            .catch(() => tg.showAlert("Ошибка сети."));
+            } catch (e) {
+                tg.showAlert("Ошибка соединения. Проверьте интернет.");
+            }
         }
+        
+        // Клик по карточке (можно добавить просмотр)
+        function selectItem(id) {
+            // Здесь можно открыть модальное окно с подробным описанием
+            tg.showAlert("Добавьте товар через кнопку «В корзину»");
+        }
+        
+        // Инициализация
+        window.onload = () => {
+            tg.ready();
+            updateCartUI();
+        };
     </script>
 </body>
 </html>
