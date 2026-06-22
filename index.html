@@ -3,171 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кафе Миас — Меню</title>
+    <title>Кафе Миас</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: linear-gradient(180deg, #0a0a0a, #1a1108); color: #fff; padding-bottom: 200px; }
-        .header { text-align: center; padding: 25px 15px; background: linear-gradient(135deg, #3a1f0a, #1a0f05); border-bottom: 4px solid #ff5500; }
-        .header h1 { font-size: 29px; color: #ffaa00; }
-        .hero { height: 200px; background: url('https://picsum.photos/id/1080/800/400') center/cover; }
-        .category-title { font-size: 19px; color: #ffaa00; margin: 25px 15px 12px; padding-left: 12px; border-left: 5px solid #ff5500; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 15px; }
-        .menu-item { background: #1f1b17; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        .item-image { width: 100%; height: 130px; object-fit: cover; }
-        .item-content { padding: 12px; }
-        .item-title { font-size: 16px; font-weight: 600; }
-        .item-price { color: #ffaa00; font-size: 18px; font-weight: 700; }
-        .add-btn { width: 100%; padding: 12px; background: linear-gradient(135deg, #ff5500, #ff8800); color: white; border: none; border-radius: 12px; font-weight: 600; margin-top: 8px; }
-        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(26,17,8,0.98); backdrop-filter: blur(10px); padding: 12px 15px; border-top: 3px solid #ff5500; z-index: 1000; display: none; }
-        .cart-btn { background: linear-gradient(#ff5500, #ff8800); color: white; border: none; padding: 14px 25px; border-radius: 999px; font-weight: 700; }
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; z-index: 2000; align-items: flex-end; }
-        .modal-content { background: #1a1108; width: 100%; max-height: 90vh; border-radius: 20px 20px 0 0; overflow: hidden; }
+        body { font-family: Arial, sans-serif; background: #111; color: white; text-align: center; padding: 20px; }
+        h1 { color: #ffaa00; }
+        button { padding: 15px; margin: 10px; background: #ff5500; color: white; border: none; border-radius: 10px; font-size: 16px; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🍖 КАФЕ «МИАС»</h1>
-        <p>Горячий шашлык и свежая шаурма</p>
-    </div>
-    <div class="hero"></div>
-
-    <div class="category">
-        <div class="category-title">🔥 Шаурма</div>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <img src="https://picsum.photos/id/292/400/300" class="item-image">
-                <div class="item-content">
-                    <div class="item-title">🌯 Шаурма Классическая</div>
-                    <div class="item-price">250 ₽</div>
-                    <button class="add-btn" onclick="addToCart(1,'🌯 Шаурма Классическая',250)">В корзину</button>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="https://picsum.photos/id/431/400/300" class="item-image">
-                <div class="item-content">
-                    <div class="item-title">🌯 Шаурма Куриная</div>
-                    <div class="item-price">240 ₽</div>
-                    <button class="add-btn" onclick="addToCart(2,'🌯 Шаурма Куриная',240)">В корзину</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="cart-bar" id="cartBar">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>В корзине: <span id="cartCount">0</span> | <span id="totalSum">0 ₽</span></div>
-            <button class="cart-btn" onclick="showCartModal()">Оформить</button>
-        </div>
-    </div>
-
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <div style="padding:20px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
-                <h3>Корзина</h3>
-                <span onclick="hideCartModal()" style="font-size:28px; cursor:pointer;">✕</span>
-            </div>
-            <div id="cartItems" style="padding:15px; max-height:50vh; overflow:auto;"></div>
-            <div style="padding:15px; background:#120c07;">
-                <input type="tel" id="userPhone" placeholder="+7 (___) ___-__-__" style="width:100%; padding:14px; margin-bottom:10px; border-radius:10px; border:none; background:#2a2520; color:white;">
-                <button onclick="sendOrder()" style="width:100%; padding:16px; background:linear-gradient(#ff5500,#ff8800); color:white; border:none; border-radius:12px; font-size:16px; font-weight:700;">✅ Отправить заказ</button>
-            </div>
-        </div>
-    </div>
+    <h1>🍖 Кафе «Миас»</h1>
+    <p>Тестовое меню</p>
+    <button onclick="alert('Кнопка работает!')">Тест кнопки</button>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.ready();
-
-        const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCoFHYLiSHq1eyfss";
-        const CHAT_ID = -5463348298;
-
-        let cart = {};
-
-        function addToCart(id, title, price) {
-            if (!cart[id]) cart[id] = {id, title, price, count:1};
-            else cart[id].count++;
-            updateCartUI();
-        }
-
-        function changeQuantity(id, delta) {
-            if (!cart[id]) return;
-            cart[id].count += delta;
-            if (cart[id].count <= 0) delete cart[id];
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            let total = 0, count = 0;
-            Object.values(cart).forEach(i => { total += i.price * i.count; count += i.count; });
-            document.getElementById('totalSum').textContent = total + ' ₽';
-            document.getElementById('cartCount').textContent = count;
-            document.getElementById('cartBar').style.display = count > 0 ? 'block' : 'none';
-        }
-
-        function showCartModal() {
-            const container = document.getElementById('cartItems');
-            container.innerHTML = '';
-            if (Object.keys(cart).length === 0) {
-                container.innerHTML = '<p style="text-align:center; padding:40px; color:#888;">Корзина пуста</p>';
-            } else {
-                Object.values(cart).forEach(item => {
-                    const d = document.createElement('div');
-                    d.style.cssText = 'display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #333;';
-                    d.innerHTML = `
-                        <div>${item.title}<br><small style="color:#aaa">${item.price} ₽ × ${item.count}</small></div>
-                        <div style="display:flex; gap:8px;">
-                            <button onclick="changeQuantity(${item.id},-1)" style="width:36px;height:36px;background:#ff5500;color:white;border:none;border-radius:50%;">–</button>
-                            <span style="padding:8px 0;">${item.count}</span>
-                            <button onclick="changeQuantity(${item.id},1)" style="width:36px;height:36px;background:#ff5500;color:white;border:none;border-radius:50%;">+</button>
-                        </div>
-                    `;
-                    container.appendChild(d);
-                });
-            }
-            document.getElementById('cartModal').style.display = 'flex';
-        }
-
-        function hideCartModal() {
-            document.getElementById('cartModal').style.display = 'none';
-        }
-
-        async function sendOrder() {
-            const phone = document.getElementById('userPhone').value.trim();
-            if (!phone) return alert("Введите номер телефона!");
-
-            let total = 0;
-            let text = `Новый заказ в Кафе Миас\n\n`;
-            text += `Клиент: ${tg.initDataUnsafe?.user?.first_name || "Клиент"}\n`;
-            if (tg.initDataUnsafe?.user?.username) text += `Username: @${tg.initDataUnsafe.user.username}\n`;
-            text += `Телефон: ${phone}\n\n`;
-            text += `Заказ:\n`;
-
-            Object.values(cart).forEach(item => {
-                const sum = item.price * item.count;
-                text += `${item.title} ×${item.count} — ${sum} ₽\n`;
-                total += sum;
-            });
-            text += `\nИтого: ${total} ₽`;
-
-            try {
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: text })
-                });
-                alert("✅ Заказ принят! Мы скоро свяжемся с вами.");
-                cart = {};
-                updateCartUI();
-                hideCartModal();
-            } catch (e) {
-                alert("Ошибка отправки. Проверьте интернет.");
-            }
-        }
-
-        window.onload = updateCartUI;
+        console.log("Web App загружен");
     </script>
 </body>
 </html>
