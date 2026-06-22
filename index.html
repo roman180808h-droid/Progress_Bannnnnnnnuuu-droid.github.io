@@ -6,21 +6,406 @@
     <title>Кафе Миас</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; background: #111; color: white; text-align: center; padding: 20px; }
-        h1 { color: #ffaa00; }
-        button { padding: 15px; margin: 10px; background: #ff5500; color: white; border: none; border-radius: 10px; font-size: 16px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--tg-theme-bg-color, #111);
+            color: var(--tg-theme-text-color, white);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .header h1 {
+            color: #ffaa00;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .header .subtitle {
+            color: var(--tg-theme-hint-color, #888);
+            font-size: 14px;
+        }
+        .menu-grid {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-item {
+            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .menu-item:active {
+            transform: scale(0.98);
+        }
+        .item-info {
+            text-align: left;
+        }
+        .item-info h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .item-info .price {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        .item-info .desc {
+            color: var(--tg-theme-hint-color, #888);
+            font-size: 13px;
+        }
+        .btn {
+            background: var(--tg-theme-button-color, #ff5500);
+            color: var(--tg-theme-button-text-color, white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:active {
+            opacity: 0.7;
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--tg-theme-button-color, #ff5500);
+            color: var(--tg-theme-button-color, #ff5500);
+        }
+        .cart {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .cart.active {
+            display: flex;
+        }
+        .cart-count {
+            background: #ff5500;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer button {
+            margin: 5px;
+        }
+        .debug {
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #ff6b6b;
+            display: none;
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .debug.active {
+            display: block;
+        }
+        .error-box {
+            background: #2a1a1a;
+            border: 1px solid #ff4444;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: none;
+        }
+        .error-box.active {
+            display: block;
+        }
+        .error-box h3 {
+            color: #ff4444;
+            margin-bottom: 10px;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--tg-theme-hint-color, #888);
+        }
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s infinite;
+        }
+        @keyframes dots {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
     </style>
 </head>
 <body>
-    <h1>🍖 Кафе «Миас»</h1>
-    <p>Тестовое меню</p>
-    <button onclick="alert('Кнопка работает!')">Тест кнопки</button>
+    <div class="header">
+        <h1>🍖 Кафе «Миас»</h1>
+        <p class="subtitle" id="greeting">Добро пожаловать!</p>
+    </div>
+
+    <!-- Блок ошибок -->
+    <div class="error-box" id="errorBox">
+        <h3>⚠️ Ошибка загрузки</h3>
+        <p id="errorMessage">Что-то пошло не так</p>
+        <button class="btn" onclick="retryLoad()" style="margin-top:10px;">🔄 Попробовать снова</button>
+    </div>
+
+    <!-- Отладочная информация -->
+    <div class="debug" id="debugInfo"></div>
+
+    <!-- Контейнер меню -->
+    <div id="menuContainer">
+        <div class="loading" id="loadingIndicator">Загрузка меню</div>
+        <div class="menu-grid" id="menu"></div>
+    </div>
+
+    <div class="cart" id="cart">
+        <span>🛒 <span id="cartCount">0</span> товаров</span>
+        <span id="cartTotal">0₽</span>
+        <button class="btn" onclick="checkout()">Оформить</button>
+    </div>
+
+    <div class="footer">
+        <button class="btn btn-secondary" onclick="tg.close()">✕ Закрыть</button>
+        <button class="btn btn-secondary" onclick="showDebug()">🐛 Показать диагностику</button>
+    </div>
 
     <script>
+        // ===== ГЛОБАЛЬНАЯ ОБРАБОТКА ОШИБОК =====
+        window.onerror = function(msg, url, line, col, error) {
+            showError('JavaScript ошибка: ' + msg + '\nСтрока: ' + line);
+            console.error('Ошибка:', msg, error);
+            return false;
+        };
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
         const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.ready();
-        console.log("Web App загружен");
+        let cart = [];
+        let debugMode = false;
+
+        try {
+            tg.expand();
+            tg.ready();
+            console.log("✅ Web App загружен успешно");
+            logDebug('Web App инициализирован');
+        } catch(e) {
+            showError('Ошибка инициализации Telegram: ' + e.message);
+            console.error('Telegram init error:', e);
+        }
+
+        // ===== ДАННЫЕ ПОЛЬЗОВАТЕЛЯ =====
+        try {
+            const user = tg.initDataUnsafe?.user;
+            if (user) {
+                document.getElementById('greeting').textContent = `👋 Привет, ${user.first_name}!`;
+                logDebug('Пользователь: ' + JSON.stringify(user));
+            } else {
+                document.getElementById('greeting').textContent = '👋 Добро пожаловать!';
+                logDebug('Пользователь не авторизован');
+            }
+        } catch(e) {
+            console.warn('Ошибка получения данных пользователя:', e);
+            logDebug('Ошибка user data: ' + e.message);
+        }
+
+        // ===== МЕНЮ (с проверкой) =====
+        const menuItems = [
+            { id: 1, name: 'Шашлык из свинины', price: 350, desc: 'Сочный, на углях' },
+            { id: 2, name: 'Люля-кебаб', price: 280, desc: 'С бараниной и специями' },
+            { id: 3, name: 'Салат "Миас"', price: 220, desc: 'Свежий, с овощами' },
+            { id: 4, name: 'Чай с мятой', price: 150, desc: 'Горячий, тонизирующий' },
+        ];
+
+        // ===== ФУНКЦИИ =====
+        function loadMenu() {
+            try {
+                const menuContainer = document.getElementById('menu');
+                const loading = document.getElementById('loadingIndicator');
+                
+                if (!menuContainer) {
+                    throw new Error('Контейнер меню не найден');
+                }
+
+                // Проверяем данные меню
+                if (!menuItems || menuItems.length === 0) {
+                    throw new Error('Меню пустое');
+                }
+
+                logDebug('Загрузка меню, позиций: ' + menuItems.length);
+                
+                // Скрываем загрузку
+                if (loading) loading.style.display = 'none';
+                
+                // Очищаем и заполняем меню
+                menuContainer.innerHTML = '';
+                
+                menuItems.forEach((item, index) => {
+                    try {
+                        const div = document.createElement('div');
+                        div.className = 'menu-item';
+                        div.innerHTML = `
+                            <div class="item-info">
+                                <h3>${item.name}</h3>
+                                <div class="desc">${item.desc || ''}</div>
+                                <div class="price">${item.price}₽</div>
+                            </div>
+                            <button class="btn" onclick="addToCart(${item.id})">В корзину</button>
+                        `;
+                        menuContainer.appendChild(div);
+                        logDebug(`Добавлен пункт ${index+1}: ${item.name}`);
+                    } catch(itemError) {
+                        console.error('Ошибка при добавлении пункта:', itemError);
+                        logDebug('Ошибка пункта ' + index + ': ' + itemError.message);
+                    }
+                });
+
+                // Скрываем ошибку если была
+                document.getElementById('errorBox').classList.remove('active');
+                
+            } catch(e) {
+                showError('Ошибка загрузки меню: ' + e.message);
+                console.error('Menu load error:', e);
+            }
+        }
+
+        function addToCart(id) {
+            try {
+                const item = menuItems.find(i => i.id === id);
+                if (!item) {
+                    throw new Error('Товар не найден');
+                }
+                
+                cart.push(item);
+                updateCart();
+                tg.HapticFeedback?.impactOccurred('light');
+                logDebug('Добавлен в корзину: ' + item.name);
+                
+            } catch(e) {
+                console.error('Add to cart error:', e);
+                showError('Ошибка добавления: ' + e.message);
+            }
+        }
+
+        function updateCart() {
+            try {
+                const cartEl = document.getElementById('cart');
+                const countEl = document.getElementById('cartCount');
+                const totalEl = document.getElementById('cartTotal');
+                
+                if (cart.length > 0) {
+                    cartEl.classList.add('active');
+                    countEl.textContent = cart.length;
+                    const total = cart.reduce((sum, item) => sum + item.price, 0);
+                    totalEl.textContent = total + '₽';
+                } else {
+                    cartEl.classList.remove('active');
+                }
+            } catch(e) {
+                console.error('Update cart error:', e);
+            }
+        }
+
+        function checkout() {
+            try {
+                if (cart.length === 0) {
+                    tg.showAlert('Корзина пуста!');
+                    return;
+                }
+                
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                tg.showAlert(`Заказ на сумму ${total}₽ отправлен!`);
+                cart = [];
+                updateCart();
+                logDebug('Заказ оформлен');
+                
+            } catch(e) {
+                console.error('Checkout error:', e);
+                showError('Ошибка оформления: ' + e.message);
+            }
+        }
+
+        function showError(message) {
+            const box = document.getElementById('errorBox');
+            const msg = document.getElementById('errorMessage');
+            if (box && msg) {
+                box.classList.add('active');
+                msg.textContent = message;
+            }
+            console.error('ERROR:', message);
+        }
+
+        function logDebug(message) {
+            console.log('DEBUG:', message);
+            const debugEl = document.getElementById('debugInfo');
+            if (debugEl) {
+                const time = new Date().toLocaleTimeString();
+                debugEl.textContent += `[${time}] ${message}\n`;
+            }
+        }
+
+        function showDebug() {
+            const debugEl = document.getElementById('debugInfo');
+            if (debugEl) {
+                debugEl.classList.toggle('active');
+                if (debugEl.classList.contains('active')) {
+                    debugEl.textContent += '\n--- Доп. информация ---\n';
+                    debugEl.textContent += `Telegram WebApp: ${!!tg}\n`;
+                    debugEl.textContent += `User: ${!!tg.initDataUnsafe?.user}\n`;
+                    debugEl.textContent += `Меню: ${menuItems.length} позиций\n`;
+                    debugEl.textContent += `Корзина: ${cart.length} товаров\n`;
+                    debugEl.textContent += `URL: ${window.location.href}\n`;
+                    debugEl.textContent += `Screen: ${window.screen.width}x${window.screen.height}`;
+                }
+            }
+        }
+
+        function retryLoad() {
+            document.getElementById('errorBox').classList.remove('active');
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('menu').innerHTML = '';
+            loadMenu();
+        }
+
+        // ===== ЗАГРУЗКА =====
+        // Загружаем с небольшой задержкой для отладки
+        setTimeout(() => {
+            loadMenu();
+        }, 500);
+
+        // Дополнительная проверка через 2 секунды
+        setTimeout(() => {
+            const menu = document.getElementById('menu');
+            if (!menu || menu.children.length === 0) {
+                logDebug('⚠️ Меню не загрузилось через 2 секунды');
+                if (!document.getElementById('errorBox').classList.contains('active')) {
+                    showError('Меню не загрузилось. Проверьте интернет-соединение.');
+                }
+            }
+        }, 2000);
+
+        console.log('✅ Приложение загружено');
+        logDebug('Приложение запущено');
     </script>
 </body>
 </html>
