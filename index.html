@@ -120,7 +120,7 @@
         tg.ready();
 
         const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCoFHYLiSHq1eyfss";
-        const CHAT_ID = -5463348298;   // ← Группа
+        const CHAT_ID = -5463348298;
 
         let cart = {};
 
@@ -186,18 +186,21 @@
             }
 
             let total = 0;
-            let text = `🍖 *Новый заказ в Кафе Миас!*\n\n`;
-            text += `👤 ${tg.initDataUnsafe?.user?.first_name || 'Клиент'} (@${tg.initDataUnsafe?.user?.username || '—'})\n`;
+            let text = `🍖 Новый заказ в Кафе Миас!\n\n`;   // Убрали жирный текст
+            text += `👤 ${tg.initDataUnsafe?.user?.first_name || 'Клиент'}\n`;
+            if (tg.initDataUnsafe?.user?.username) {
+                text += `📌 @${tg.initDataUnsafe.user.username}\n`;
+            }
             text += `📱 Телефон: ${phone}\n\n`;
-            text += `📋 *Состав заказа:*\n`;
+            text += `📋 Состав заказа:\n`;
 
             Object.values(cart).forEach(item => {
                 const sum = item.price * item.count;
-                text += `${item.title} ×${item.count} — ${sum} ₽\n`;
+                text += `• ${item.title} ×${item.count} — ${sum} ₽\n`;
                 total += sum;
             });
 
-            text += `\n💰 *Итого: ${total} ₽*`;
+            text += `\n💰 Итого: ${total} ₽`;
 
             try {
                 const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -213,13 +216,14 @@
                 const data = await res.json();
 
                 if (res.ok) {
-                    alert("✅ Заказ успешно отправлен в группу!");
+                    alert("✅ Заказ успешно отправлен!");
                     cart = {};
                     updateCartUI();
                     hideCartModal();
                     setTimeout(() => tg.close(), 1500);
                 } else {
                     alert("❌ Ошибка: " + (data.description || "Неизвестная ошибка"));
+                    console.log(data);
                 }
             } catch (e) {
                 alert("Ошибка соединения");
