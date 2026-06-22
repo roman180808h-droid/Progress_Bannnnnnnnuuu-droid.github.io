@@ -89,7 +89,6 @@
         </div>
     </div>
 
-    <!-- Нижняя панель корзины -->
     <div class="cart-bar" id="cartBar">
         <div class="cart-content">
             <div>
@@ -100,7 +99,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -121,9 +119,8 @@
         tg.expand();
         tg.ready();
 
-        // Ваши данные
         const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCoFHYLiSHq1eyfss";
-        const CHAT_ID = 2013568102;
+        const CHAT_ID = -5463348298;   // ← Группа
 
         let cart = {};
 
@@ -190,7 +187,7 @@
 
             let total = 0;
             let text = `🍖 *Новый заказ в Кафе Миас!*\n\n`;
-            text += `👤 ${tg.initDataUnsafe?.user?.first_name || 'Клиент'}\n`;
+            text += `👤 ${tg.initDataUnsafe?.user?.first_name || 'Клиент'} (@${tg.initDataUnsafe?.user?.username || '—'})\n`;
             text += `📱 Телефон: ${phone}\n\n`;
             text += `📋 *Состав заказа:*\n`;
 
@@ -213,17 +210,19 @@
                     })
                 });
 
+                const data = await res.json();
+
                 if (res.ok) {
-                    alert("✅ Заказ успешно отправлен!\nМы свяжемся с вами в ближайшее время.");
+                    alert("✅ Заказ успешно отправлен в группу!");
                     cart = {};
                     updateCartUI();
                     hideCartModal();
                     setTimeout(() => tg.close(), 1500);
                 } else {
-                    alert("Ошибка отправки. Убедитесь, что бот добавлен в чат и имеет права.");
+                    alert("❌ Ошибка: " + (data.description || "Неизвестная ошибка"));
                 }
             } catch (e) {
-                alert("Ошибка соединения. Попробуйте ещё раз.");
+                alert("Ошибка соединения");
                 console.error(e);
             }
         }
