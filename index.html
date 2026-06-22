@@ -10,23 +10,15 @@
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
-        body {
-            background: linear-gradient(180deg, #0a0a0a 0%, #1a1108 100%);
-            color: #ffffff;
-            padding-bottom: 180px;
-        }
-        
+        body { background: linear-gradient(180deg, #0a0a0a 0%, #1a1108 100%); color: #ffffff; padding-bottom: 180px; }
         .header { text-align: center; padding: 20px 15px; background: linear-gradient(135deg, #3a1f0a 0%, #1a0f05 100%); border-bottom: 3px solid #ff5500; }
         .header h1 { font-size: 28px; font-weight: 800; color: #ffaa00; }
         .header p { font-size: 14px; color: #ffddaa; }
         
         .hero { height: 180px; background: url('https://picsum.photos/id/1080/800/400') center/cover; }
-        
         .category { padding: 15px; }
         .category-title { font-size: 18px; font-weight: 700; color: #ffaa00; margin: 20px 0 12px; padding-left: 12px; border-left: 5px solid #ff5500; }
-        
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
-        
         .menu-item { background: #1f1b17; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
         .item-image { width: 100%; height: 120px; object-fit: cover; }
         .item-content { padding: 12px; }
@@ -34,16 +26,9 @@
         .item-desc { font-size: 12.5px; color: #aaa; margin-bottom: 8px; }
         .item-price { font-size: 17px; font-weight: 700; color: #ffaa00; }
         
-        .add-btn {
-            background: linear-gradient(135deg, #ff5500, #ff8800); color: white; border: none;
-            padding: 10px; border-radius: 9999px; font-weight: 600; width: 100%; margin-top: 8px;
-        }
+        .add-btn { background: linear-gradient(135deg, #ff5500, #ff8800); color: white; border: none; padding: 10px; border-radius: 9999px; font-weight: 600; width: 100%; margin-top: 8px; }
         
-        .cart-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(26,17,8,0.98);
-            backdrop-filter: blur(12px); border-top: 2px solid #ff5500; padding: 12px 15px;
-            z-index: 1000; display: none;
-        }
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(26,17,8,0.98); backdrop-filter: blur(12px); border-top: 2px solid #ff5500; padding: 12px 15px; z-index: 1000; display: none; }
         .cart-btn { background: linear-gradient(135deg, #ff5500, #ffaa00); color: white; border: none; padding: 12px 24px; border-radius: 9999px; font-weight: 700; }
         
         .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.92); display: none; z-index: 2000; align-items: flex-end; }
@@ -186,21 +171,19 @@
             }
 
             let total = 0;
-            let text = `🍖 Новый заказ в Кафе Миас!\n\n`;   // Убрали жирный текст
-            text += `👤 ${tg.initDataUnsafe?.user?.first_name || 'Клиент'}\n`;
-            if (tg.initDataUnsafe?.user?.username) {
-                text += `📌 @${tg.initDataUnsafe.user.username}\n`;
-            }
-            text += `📱 Телефон: ${phone}\n\n`;
-            text += `📋 Состав заказа:\n`;
+            let text = "Новый заказ в Кафе Миас\n\n";
+            text += "Клиент: " + (tg.initDataUnsafe?.user?.first_name || "Клиент") + "\n";
+            if (tg.initDataUnsafe?.user?.username) text += "Username: @" + tg.initDataUnsafe.user.username + "\n";
+            text += "Телефон: " + phone + "\n\n";
+            text += "Состав заказа:\n";
 
             Object.values(cart).forEach(item => {
                 const sum = item.price * item.count;
-                text += `• ${item.title} ×${item.count} — ${sum} ₽\n`;
+                text += item.title + " x" + item.count + " — " + sum + " руб.\n";
                 total += sum;
             });
 
-            text += `\n💰 Итого: ${total} ₽`;
+            text += "\nИтого: " + total + " руб.";
 
             try {
                 const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -208,8 +191,8 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         chat_id: CHAT_ID,
-                        text: text,
-                        parse_mode: 'Markdown'
+                        text: text
+                        // parse_mode полностью удалён
                     })
                 });
 
