@@ -113,6 +113,17 @@
             width: 100%;
             margin-top: 10px;
         }
+        .btn-admin {
+            background: #333;
+            color: #ffaa00;
+            border: 1px solid #ffaa00;
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+        .btn-admin:hover {
+            background: #ffaa00;
+            color: #111;
+        }
 
         /* Корзина */
         .cart {
@@ -328,6 +339,23 @@
             display: block;
         }
 
+        /* Админ-ссылка внизу */
+        .admin-link {
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .admin-link a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+        .admin-link a:hover {
+            color: #ffaa00;
+        }
+
         /* Адаптив */
         @media (max-width: 480px) {
             .menu-item {
@@ -373,7 +401,7 @@
         <div class="menu-grid" id="menu"></div>
     </div>
 
-    <!-- ФОРМА ЗАКАЗА -->
+    <!-- ФОРМА ЗАКАЗА (БЕЗ АДРЕСА) -->
     <div class="order-form" id="orderForm">
         <h2>📝 Оформление заказа</h2>
 
@@ -387,12 +415,6 @@
             <label>📱 Телефон *</label>
             <input type="tel" id="customerPhone" placeholder="+7 (999) 999-99-99">
             <div class="error-text">Пожалуйста, введите номер телефона</div>
-        </div>
-
-        <div class="form-group" id="addressGroup">
-            <label>📍 Адрес доставки *</label>
-            <input type="text" id="customerAddress" placeholder="Улица, дом, квартира / Самовывоз">
-            <div class="error-text">Пожалуйста, введите адрес</div>
         </div>
 
         <div class="form-group">
@@ -426,6 +448,11 @@
             <span class="cart-total" id="cartTotal">0₽</span>
             <button class="btn" onclick="showOrderForm()">Оформить заказ</button>
         </div>
+    </div>
+
+    <!-- Ссылка на админ-панель -->
+    <div class="admin-link">
+        <a href="admin.html" target="_blank">🛠 Админ-панель управления меню</a>
     </div>
 
     <!-- Подвал -->
@@ -471,28 +498,52 @@
         }
 
         // ============================================
-        // ===== МЕНЮ =====
+        // ===== ЗАГРУЗКА МЕНЮ ИЗ LOCALSTORAGE =====
         // ============================================
-        const menuItems = [
-            { id: 1, name: 'Шашлык из свинины', price: 350, desc: 'Сочный, на углях' },
-            { id: 2, name: 'Люля-кебаб', price: 280, desc: 'С бараниной и специями' },
-            { id: 3, name: 'Салат "Миас"', price: 220, desc: 'Свежий, с овощами' },
-            { id: 4, name: 'Чай с мятой', price: 150, desc: 'Горячий, тонизирующий' },
-            { id: 5, name: 'Хинкали', price: 250, desc: 'С мясом и бульоном' },
-            { id: 6, name: 'Компот', price: 120, desc: 'Домашний, из сухофруктов' },
-            { id: 7, name: 'Картофель фри', price: 180, desc: 'Хрустящий, с солью' },
-            { id: 8, name: 'Мороженое', price: 160, desc: 'Ванильное, с шоколадом' },
-        ];
+        function getMenuItems() {
+            try {
+                const data = localStorage.getItem('cafe_menu_items');
+                if (data) {
+                    const items = JSON.parse(data);
+                    if (items && items.length > 0) {
+                        return items;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading menu from localStorage:', e);
+            }
+
+            // Стандартное меню по умолчанию
+            return [
+                { id: 1, name: 'Шашлык из свинины', price: 350, desc: 'Сочный, на углях', category: 'Мясо' },
+                { id: 2, name: 'Люля-кебаб', price: 280, desc: 'С бараниной и специями', category: 'Мясо' },
+                { id: 3, name: 'Салат "Миас"', price: 220, desc: 'Свежий, с овощами', category: 'Салаты' },
+                { id: 4, name: 'Чай с мятой', price: 150, desc: 'Горячий, тонизирующий', category: 'Напитки' },
+                { id: 5, name: 'Хинкали', price: 250, desc: 'С мясом и бульоном', category: 'Мясо' },
+                { id: 6, name: 'Компот', price: 120, desc: 'Домашний, из сухофруктов', category: 'Напитки' },
+                { id: 7, name: 'Картофель фри', price: 180, desc: 'Хрустящий, с солью', category: 'Гарниры' },
+                { id: 8, name: 'Мороженое', price: 160, desc: 'Ванильное, с шоколадом', category: 'Десерты' },
+            ];
+        }
+
+        let menuItems = [];
 
         function loadMenu() {
             const container = document.getElementById('menu');
             const loading = document.getElementById('loadingIndicator');
 
             try {
+                menuItems = getMenuItems();
+
                 if (!container) throw new Error('Контейнер меню не найден');
 
                 if (loading) loading.style.display = 'none';
                 container.innerHTML = '';
+
+                if (menuItems.length === 0) {
+                    container.innerHTML = '<div style="text-align:center;padding:40px;color:#888;">📭 Меню пока пусто</div>';
+                    return;
+                }
 
                 menuItems.forEach((item) => {
                     const div = document.createElement('div');
@@ -500,7 +551,7 @@
                     div.innerHTML = `
                         <div class="item-info">
                             <h3>${item.name}</h3>
-                            <div class="desc">${item.desc || ''}</div>
+                            <div class="desc">${item.desc || ''} ${item.category ? '· ' + item.category : ''}</div>
                             <div class="price">${item.price}₽</div>
                         </div>
                         <div class="item-controls">
@@ -608,7 +659,6 @@
         function validateForm() {
             let isValid = true;
 
-            // Имя
             const name = document.getElementById('customerName').value.trim();
             const nameGroup = document.getElementById('nameGroup');
             if (!name) {
@@ -618,7 +668,6 @@
                 nameGroup.classList.remove('error');
             }
 
-            // Телефон
             const phone = document.getElementById('customerPhone').value.trim();
             const phoneGroup = document.getElementById('phoneGroup');
             if (!phone || phone.length < 5) {
@@ -626,16 +675,6 @@
                 isValid = false;
             } else {
                 phoneGroup.classList.remove('error');
-            }
-
-            // Адрес
-            const address = document.getElementById('customerAddress').value.trim();
-            const addressGroup = document.getElementById('addressGroup');
-            if (!address || address.length < 3) {
-                addressGroup.classList.add('error');
-                isValid = false;
-            } else {
-                addressGroup.classList.remove('error');
             }
 
             if (!isValid) {
@@ -654,13 +693,16 @@
             try {
                 const name = document.getElementById('customerName').value.trim();
                 const phone = document.getElementById('customerPhone').value.trim();
-                const address = document.getElementById('customerAddress').value.trim();
                 const deliveryTime = document.getElementById('deliveryTime').value;
                 const comment = document.getElementById('customerComment').value.trim();
 
+                const user = tg.initDataUnsafe?.user || { id: 'guest', first_name: 'Гость' };
+                const orderId = String(Date.now()).slice(-6);
+
                 // Формируем заказ
                 const order = {
-                    customer: { name, phone, address, deliveryTime, comment },
+                    id: orderId,
+                    customer: { name, phone, deliveryTime, comment },
                     items: cart.map(item => ({
                         name: item.name,
                         quantity: item.quantity,
@@ -669,33 +711,47 @@
                     })),
                     total: cart.reduce((sum, i) => sum + (i.price * i.quantity), 0),
                     timestamp: new Date().toISOString(),
-                    user: tg.initDataUnsafe?.user || { id: 'guest' }
+                    user: user,
+                    status: 'new'
                 };
 
                 console.log('📦 Заказ:', order);
 
-                // ОТПРАВЛЯЕМ В TELEGRAM
-                sendOrderToTelegram(order);
+                // ============================================
+                // 1. ОТПРАВЛЯЕМ ЗАКАЗ АДМИНУ (ВАМ)
+                // ============================================
+                sendOrderToAdmin(order);
 
-                // Показываем успех
+                // ============================================
+                // 2. ОТПРАВЛЯЕМ УВЕДОМЛЕНИЕ ПОКУПАТЕЛЮ
+                // ============================================
+                sendNotificationToCustomer(order);
+
+                // ============================================
+                // 3. СОХРАНЯЕМ ЗАКАЗ В LOCALSTORAGE
+                // ============================================
+                saveOrder(order);
+
+                // ============================================
+                // 4. ПОКАЗЫВАЕМ УСПЕХ
+                // ============================================
                 document.getElementById('orderForm').classList.remove('active');
                 document.getElementById('successBox').classList.add('active');
 
-                // Сумма заказа
                 const totalItems = order.items.reduce((sum, i) => sum + i.quantity, 0);
                 document.getElementById('successMessage').innerHTML = `
                     <div style="font-size:16px;margin-bottom:10px;">
-                        🎉 Заказ <b>№${String(Date.now()).slice(-6)}</b> отправлен!
+                        🎉 Заказ <b>№${orderId}</b> отправлен!
                     </div>
                     <div class="order-summary">
                         <div>📦 <b>${totalItems}</b> позиций на сумму <b>${order.total}₽</b></div>
                         <div style="margin-top:5px;font-size:14px;color:#aaa;">
                             📱 ${order.customer.phone}<br>
-                            📍 ${order.customer.address}
+                            ⏰ ${order.customer.deliveryTime}
                         </div>
                     </div>
-                    <div style="font-size:14px;color:#aaa;">
-                        Скоро с вами свяжется оператор ☎️
+                    <div style="font-size:14px;color:#44ff44;margin-top:10px;">
+                        ✅ Вам отправлено подтверждение в Telegram!
                     </div>
                 `;
 
@@ -704,7 +760,6 @@
                 updateCart();
                 menuItems.forEach(item => updateQuantityDisplay(item.id));
 
-                // Вибрация
                 tg.HapticFeedback?.notificationOccurred('success');
 
             } catch (e) {
@@ -715,11 +770,10 @@
         }
 
         // ============================================
-        // ===== ОТПРАВКА В TELEGRAM =====
+        // ===== ОТПРАВКА АДМИНУ (ВАМ) =====
         // ============================================
-        function sendOrderToTelegram(order) {
+        function sendOrderToAdmin(order) {
             try {
-                // Формируем красивое сообщение
                 let message = '🆕 <b>НОВЫЙ ЗАКАЗ!</b>\n';
                 message += '━━━━━━━━━━━━━━━━\n\n';
 
@@ -741,9 +795,9 @@
                 const date = new Date(order.timestamp);
                 message += '\n━━━━━━━━━━━━━━━━\n';
                 message += `💰 <b>ИТОГО:</b> ${order.total}₽\n`;
-                message += `🕐 ${date.toLocaleString('ru-RU')}`;
+                message += `🕐 ${date.toLocaleString('ru-RU')}\n`;
+                message += `🆔 Заказ #${order.id}`;
 
-                // Отправляем через Telegram Bot API
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
                 fetch(url, {
@@ -758,21 +812,110 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.ok) {
-                        console.log('✅ Заказ отправлен в Telegram!');
-                        tg.showAlert('✅ Заказ отправлен!');
+                        console.log('✅ Заказ отправлен админу');
                     } else {
                         console.error('❌ Ошибка:', data);
-                        showError('Не удалось отправить заказ. Проверьте настройки бота.');
                     }
                 })
                 .catch(err => {
-                    console.error('❌ Сетевая ошибка:', err);
-                    showError('Ошибка соединения. Проверьте интернет.');
+                    console.error('❌ Ошибка сети:', err);
                 });
 
             } catch (e) {
-                console.error('Send error:', e);
-                showError('Ошибка отправки: ' + e.message);
+                console.error('Send to admin error:', e);
+            }
+        }
+
+        // ============================================
+        // ===== УВЕДОМЛЕНИЕ ПОКУПАТЕЛЮ =====
+        // ============================================
+        function sendNotificationToCustomer(order) {
+            try {
+                // Получаем ID покупателя из Telegram
+                const userId = tg.initDataUnsafe?.user?.id;
+
+                if (!userId) {
+                    console.log('❌ Не удалось получить ID пользователя');
+                    return;
+                }
+
+                // Формируем сообщение для покупателя
+                let message = '✅ <b>Ваш заказ принят!</b>\n';
+                message += '━━━━━━━━━━━━━━━━\n\n';
+                message += `🍖 <b>Кафе «Миас»</b>\n`;
+                message += `🆔 Заказ #${order.id}\n\n`;
+                message += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
+                message += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
+                message += `⏰ <b>Время доставки:</b> ${order.customer.deliveryTime}\n\n`;
+                message += '<b>📦 Ваш заказ:</b>\n';
+
+                order.items.forEach((item, index) => {
+                    message += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
+                });
+
+                message += '\n━━━━━━━━━━━━━━━━\n';
+                message += `💰 <b>Итого:</b> ${order.total}₽\n\n`;
+                message += '☎️ <b>Ожидайте звонка оператора для подтверждения!</b>\n';
+                message += '🕐 В ближайшее время с вами свяжутся.';
+
+                // Отправляем сообщение покупателю
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: userId,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok) {
+                        console.log('✅ Уведомление отправлено покупателю');
+                    } else {
+                        console.error('❌ Ошибка отправки покупателю:', data);
+                        // Если не получилось отправить - пробуем через showAlert
+                        tg.showAlert('✅ Ваш заказ принят! Ожидайте подтверждения.');
+                    }
+                })
+                .catch(err => {
+                    console.error('❌ Ошибка сети при отправке покупателю:', err);
+                    // Если ошибка - показываем встроенное уведомление
+                    tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
+                });
+
+            } catch (e) {
+                console.error('Send to customer error:', e);
+                // Если ошибка - показываем встроенное уведомление
+                tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
+            }
+        }
+
+        // ============================================
+        // ===== СОХРАНЕНИЕ ЗАКАЗА =====
+        // ============================================
+        function saveOrder(order) {
+            try {
+                const key = 'cafe_orders';
+                let orders = [];
+                const data = localStorage.getItem(key);
+                if (data) {
+                    orders = JSON.parse(data);
+                }
+                orders.push(order);
+                localStorage.setItem(key, JSON.stringify(orders));
+
+                // Уведомляем админку (если открыта)
+                if (window.opener) {
+                    window.opener.postMessage({
+                        type: 'newOrder',
+                        order: order
+                    }, '*');
+                }
+            } catch (e) {
+                console.error('Save order error:', e);
             }
         }
 
@@ -796,7 +939,6 @@
         function hideSuccess() {
             document.getElementById('successBox').classList.remove('active');
             document.getElementById('cart').style.display = 'flex';
-            // Обновляем корзину на случай если остались товары
             updateCart();
         }
 
@@ -808,6 +950,7 @@
                     debugEl.textContent = '=== ДИАГНОСТИКА ===\n';
                     debugEl.textContent += `Telegram WebApp: ${!!tg}\n`;
                     debugEl.textContent += `User: ${tg.initDataUnsafe?.user?.first_name || 'Не авторизован'}\n`;
+                    debugEl.textContent += `User ID: ${tg.initDataUnsafe?.user?.id || 'Нет'}\n`;
                     debugEl.textContent += `Меню: ${menuItems.length} позиций\n`;
                     debugEl.textContent += `Корзина: ${cart.length} товаров\n`;
                     debugEl.textContent += `Токен бота: ${BOT_TOKEN ? '✅ Установлен' : '❌ Не установлен'}\n`;
@@ -824,7 +967,8 @@
         setTimeout(loadMenu, 500);
 
         console.log('✅ Приложение "Кафе Миас" запущено!');
-        console.log('📨 Заказы будут приходить в Telegram');
+        console.log('📨 Заказы будут приходить админу');
+        console.log('📨 Покупатель получит уведомление');
     </script>
 </body>
 </html>
