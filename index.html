@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кафе Миас - Заказ еды</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Админ-панель - Кафе Миас</title>
     <style>
         * {
             margin: 0;
@@ -13,175 +12,298 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #111);
-            color: var(--tg-theme-text-color, white);
+            background: #0a0a0a;
+            color: white;
             padding: 20px;
-            min-height: 100vh;
-            padding-bottom: 100px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .header h1 {
             color: #ffaa00;
-            font-size: 28px;
-            margin-bottom: 5px;
+            font-size: 24px;
         }
         .header .subtitle {
-            color: var(--tg-theme-hint-color, #888);
+            color: #888;
             font-size: 14px;
         }
-        .menu-grid {
+        .header .version {
+            color: #444;
+            font-size: 12px;
+            background: #111;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #ffaa00;
+            color: #111;
+        }
+        .tab:hover {
+            opacity: 0.8;
+        }
+        .panel {
+            display: none;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .panel.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #888;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #111;
+            color: white;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffaa00;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:active {
+            opacity: 0.7;
+        }
+        .btn-primary {
+            background: #ffaa00;
+            color: #111;
+        }
+        .btn-success {
+            background: #44bb44;
+            color: white;
+        }
+        .btn-danger {
+            background: #ff4444;
+            color: white;
+        }
+        .btn-secondary {
+            background: #333;
+            color: white;
+        }
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+        .btn-block {
+            width: 100%;
+        }
+
+        .items-grid {
             display: grid;
             gap: 15px;
-            margin: 20px 0;
+            margin-top: 20px;
         }
-        .menu-item {
-            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
+        .item-card {
+            background: #111;
             border-radius: 12px;
             padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: transform 0.2s;
+            border-left: 4px solid #ffaa00;
+            transition: all 0.3s;
         }
-        .menu-item:active {
-            transform: scale(0.98);
+        .item-card:hover {
+            background: #1a1a1a;
         }
-        .item-info {
-            text-align: left;
+        .item-card .info {
             flex: 1;
         }
-        .item-info h3 {
+        .item-card .info h3 {
             font-size: 18px;
             margin-bottom: 4px;
         }
-        .item-info .price {
-            color: #ffaa00;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .item-info .desc {
-            color: var(--tg-theme-hint-color, #888);
-            font-size: 13px;
-        }
-        .item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .item-controls .qty {
-            font-size: 18px;
-            min-width: 30px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .btn {
-            background: var(--tg-theme-button-color, #ff5500);
-            color: var(--tg-theme-button-text-color, white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+        .item-card .info .desc {
+            color: #888;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            touch-action: manipulation;
         }
-        .btn:active {
-            opacity: 0.7;
-        }
-        .btn-sm {
-            padding: 5px 12px;
-            font-size: 16px;
-            min-width: 30px;
-        }
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--tg-theme-button-color, #ff5500);
-            color: var(--tg-theme-button-color, #ff5500);
-        }
-        .btn-danger {
-            background: #ff4444;
-        }
-        .btn-success {
-            background: #44bb44;
-        }
-        .btn-block {
-            width: 100%;
-            margin-top: 10px;
-        }
-        .btn-admin {
-            background: #333;
+        .item-card .info .price {
             color: #ffaa00;
-            border: 1px solid #ffaa00;
-            padding: 8px 16px;
-            font-size: 13px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 4px;
         }
-        .btn-admin:hover {
-            background: #ffaa00;
-            color: #111;
+        .item-card .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #888;
         }
 
-        /* Корзина */
-        .cart {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
-            padding: 15px 20px;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            border-top: 2px solid #ffaa00;
-            z-index: 1000;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        .cart.active {
-            display: flex;
+        .stat-card {
+            background: #111;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
         }
-        .cart-top {
+        .stat-card .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffaa00;
+        }
+        .stat-card .label {
+            color: #888;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .orders-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .order-card {
+            background: #111;
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 4px solid #44bb44;
+        }
+        .order-card .order-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 5px;
         }
-        .cart-items {
-            max-height: 150px;
-            overflow-y: auto;
-            font-size: 14px;
+        .order-card .order-id {
+            color: #ffaa00;
+            font-weight: bold;
         }
-        .cart-item {
+        .order-card .order-time {
+            color: #888;
+            font-size: 13px;
+        }
+        .order-card .order-items {
+            margin: 10px 0;
+            padding: 10px;
+            background: #0a0a0a;
+            border-radius: 8px;
+        }
+        .order-card .order-item {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            padding: 4px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .cart-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-        .cart-total {
+        .order-card .order-total {
             font-size: 18px;
             font-weight: bold;
             color: #ffaa00;
         }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-new {
+            background: #ff5500;
+            color: white;
+        }
+        .status-accepted {
+            background: #44bb44;
+            color: white;
+        }
+        .status-rejected {
+            background: #ff4444;
+            color: white;
+        }
+        .status-done {
+            background: #4488ff;
+            color: white;
+        }
 
-        /* Форма заказа */
-        .order-form {
-            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
+        .back-link {
+            color: #ffaa00;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #44bb44;
+            color: white;
+            padding: 15px 25px;
             border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
             display: none;
             animation: slideUp 0.3s ease;
+            z-index: 9999;
         }
-        .order-form.active {
-            display: block;
+        .toast.error {
+            background: #ff4444;
         }
         @keyframes slideUp {
             from {
@@ -193,327 +315,213 @@
                 transform: translateY(0);
             }
         }
-        .order-form h2 {
-            color: #ffaa00;
-            margin-bottom: 15px;
+
+        /* Стиль для ввода пароля */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .password-box {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
             text-align: center;
         }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+        .password-box h2 {
+            color: #ffaa00;
+            margin-bottom: 10px;
         }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
+        .password-box .sub {
+            color: #888;
+            margin-bottom: 20px;
             font-size: 14px;
-            color: var(--tg-theme-hint-color, #888);
         }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .password-box input {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: var(--tg-theme-bg-color, #111);
-            color: var(--tg-theme-text-color, white);
-            font-size: 16px;
-            transition: border-color 0.3s;
+            border: 1px solid #333;
+            background: #111;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 15px;
         }
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .password-box input:focus {
             outline: none;
             border-color: #ffaa00;
         }
-        .form-group select option {
-            background: #111;
-        }
-
-        .error-box {
-            background: #2a1a1a;
-            border: 1px solid #ff4444;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            display: none;
-        }
-        .error-box.active {
-            display: block;
-        }
-        .error-box h3 {
+        .password-box .error-msg {
             color: #ff4444;
-            margin-bottom: 10px;
-        }
-
-        .success-box {
-            background: #1a2a1a;
-            border: 1px solid #44ff44;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            display: none;
-            text-align: center;
-        }
-        .success-box.active {
-            display: block;
-        }
-        .success-box h3 {
-            color: #44ff44;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-        .success-box .order-summary {
-            margin: 15px 0;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: var(--tg-theme-hint-color, #888);
-        }
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s infinite;
-        }
-        @keyframes dots {
-            0% {
-                content: '.';
-            }
-            33% {
-                content: '..';
-            }
-            66% {
-                content: '...';
-            }
-        }
-
-        .debug {
-            background: #2a2a2a;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 12px;
-            color: #ff6b6b;
-            display: none;
-            text-align: left;
-            white-space: pre-wrap;
-            word-break: break-all;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        .debug.active {
-            display: block;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Стили для полей с ошибками */
-        .form-group.error input,
-        .form-group.error textarea {
-            border-color: #ff4444;
-            box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.2);
-        }
-        .form-group .error-text {
-            color: #ff4444;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-        .form-group.error .error-text {
-            display: block;
-        }
-
-        /* Админ-ссылка внизу */
-        .admin-link {
-            text-align: center;
-            padding: 15px 0;
+            font-size: 14px;
             margin-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: none;
         }
-        .admin-link a {
-            color: #666;
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.3s;
-        }
-        .admin-link a:hover {
-            color: #ffaa00;
-        }
-
-        /* Адаптив */
-        @media (max-width: 480px) {
-            .menu-item {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .item-controls {
-                width: 100%;
-                justify-content: flex-end;
-            }
-            .cart-bottom {
-                flex-direction: column;
-            }
-            .cart-bottom .btn {
-                width: 100%;
-            }
+        .password-box .error-msg.show {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🍖 Кафе «Миас»</h1>
-        <p class="subtitle" id="greeting">👋 Добро пожаловать!</p>
-    </div>
-
-    <!-- Блок ошибок -->
-    <div class="error-box" id="errorBox">
-        <h3>⚠️ Ошибка</h3>
-        <p id="errorMessage">Что-то пошло не так</p>
-        <button class="btn" onclick="hideError()" style="margin-top:10px;">Понятно</button>
-    </div>
-
-    <!-- Блок успеха -->
-    <div class="success-box" id="successBox">
-        <h3>✅ Заказ отправлен!</h3>
-        <p id="successMessage">Ваш заказ принят. Ожидайте подтверждения.</p>
-        <button class="btn" onclick="hideSuccess()" style="margin-top:10px;">🔄 Новый заказ</button>
-    </div>
-
-    <!-- Меню -->
-    <div id="menuContainer">
-        <div class="loading" id="loadingIndicator">Загрузка меню</div>
-        <div class="menu-grid" id="menu"></div>
-    </div>
-
-    <!-- ФОРМА ЗАКАЗА (БЕЗ АДРЕСА) -->
-    <div class="order-form" id="orderForm">
-        <h2>📝 Оформление заказа</h2>
-
-        <div class="form-group" id="nameGroup">
-            <label>👤 Ваше имя *</label>
-            <input type="text" id="customerName" placeholder="Введите ваше имя">
-            <div class="error-text">Пожалуйста, введите имя</div>
-        </div>
-
-        <div class="form-group" id="phoneGroup">
-            <label>📱 Телефон *</label>
-            <input type="tel" id="customerPhone" placeholder="+7 (999) 999-99-99">
-            <div class="error-text">Пожалуйста, введите номер телефона</div>
-        </div>
-
-        <div class="form-group">
-            <label>⏰ Время доставки</label>
-            <select id="deliveryTime">
-                <option value="как можно скорее">Как можно скорее</option>
-                <option value="через 30 минут">Через 30 минут</option>
-                <option value="через 1 час">Через 1 час</option>
-                <option value="через 1.5 часа">Через 1.5 часа</option>
-                <option value="через 2 часа">Через 2 часа</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>💬 Комментарий к заказу</label>
-            <textarea id="customerComment" placeholder="Пожелания, особые указания, аллергии..."></textarea>
-        </div>
-
-        <button class="btn btn-block" onclick="submitOrder()">🚀 Отправить заказ</button>
-        <button class="btn btn-secondary btn-block" onclick="closeOrderForm()">✕ Вернуться к меню</button>
-    </div>
-
-    <!-- Корзина -->
-    <div class="cart" id="cart">
-        <div class="cart-top">
-            <span>🛒 Корзина (<span id="cartCount">0</span> позиций)</span>
-            <button class="btn btn-sm btn-danger" onclick="clearCart()">Очистить</button>
-        </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-bottom">
-            <span class="cart-total" id="cartTotal">0₽</span>
-            <button class="btn" onclick="showOrderForm()">Оформить заказ</button>
+    <!-- Оверлей для ввода пароля -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔒 Админ-панель</h2>
+            <div class="sub">Введите пароль для доступа</div>
+            <input type="password" id="passwordInput" placeholder="Введите пароль" onkeydown="if(event.key==='Enter') checkPassword()">
+            <button class="btn btn-primary btn-block" onclick="checkPassword()">Войти</button>
+            <div class="error-msg" id="errorMsg">❌ Неверный пароль</div>
         </div>
     </div>
 
-    <!-- Ссылка на админ-панель -->
-    <div class="admin-link">
-        <a href="admin.html" target="_blank">🛠 Админ-панель управления меню</a>
+    <!-- Основной контент (скрыт до ввода пароля) -->
+    <div id="mainContent" style="display:none;">
+        <div class="container">
+            <a href="index.html" class="back-link">← Вернуться в меню</a>
+
+            <div class="header">
+                <div>
+                    <h1>🛠 Админ-панель</h1>
+                    <div class="subtitle">Управление меню и заказами</div>
+                </div>
+                <div>
+                    <span class="version">v1.0</span>
+                    <button class="btn btn-secondary btn-sm" onclick="location.reload()">🔄 Обновить</button>
+                </div>
+            </div>
+
+            <!-- Вкладки -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('menu')">📋 Меню</button>
+                <button class="tab" onclick="switchTab('add')">➕ Добавить блюдо</button>
+                <button class="tab" onclick="switchTab('orders')">📦 Заказы</button>
+            </div>
+
+            <!-- Панель: Меню -->
+            <div class="panel active" id="panelMenu">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="number" id="totalItems">0</div>
+                        <div class="label">Всего блюд</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="totalCategories">0</div>
+                        <div class="label">Категорий</div>
+                    </div>
+                </div>
+                <div id="menuList">
+                    <div class="empty">Загрузка меню...</div>
+                </div>
+            </div>
+
+            <!-- Панель: Добавить блюдо -->
+            <div class="panel" id="panelAdd">
+                <h2 style="color:#ffaa00;margin-bottom:20px;">➕ Добавить новое блюдо</h2>
+                <form id="addItemForm" onsubmit="addItem(event)">
+                    <div class="form-group">
+                        <label>Название блюда *</label>
+                        <input type="text" id="itemName" placeholder="Например: Шашлык из свинины" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Цена (₽) *</label>
+                            <input type="number" id="itemPrice" placeholder="350" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Категория</label>
+                            <select id="itemCategory">
+                                <option value="Мясо">Мясо</option>
+                                <option value="Салаты">Салаты</option>
+                                <option value="Гарниры">Гарниры</option>
+                                <option value="Напитки">Напитки</option>
+                                <option value="Десерты">Десерты</option>
+                                <option value="Другое">Другое</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea id="itemDesc" placeholder="Краткое описание блюда..." rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">➕ Добавить блюдо</button>
+                </form>
+            </div>
+
+            <!-- Панель: Заказы -->
+            <div class="panel" id="panelOrders">
+                <h2 style="color:#ffaa00;margin-bottom:20px;">📦 История заказов</h2>
+                <div id="ordersList">
+                    <div class="empty">Загрузка заказов...</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Подвал -->
-    <div class="footer">
-        <button class="btn btn-secondary" onclick="tg.close()">✕ Закрыть</button>
-        <button class="btn btn-secondary" onclick="showDebug()">🐛 Диагностика</button>
-    </div>
-
-    <!-- Отладка -->
-    <div class="debug" id="debugInfo"></div>
+    <!-- Toast уведомления -->
+    <div class="toast" id="toast"></div>
 
     <script>
         // ============================================
-        // ===== НАСТРОЙКИ БОТА (ВАШИ ДАННЫЕ) =====
+        // ===== ПАРОЛЬ ДЛЯ ВХОДА =====
         // ============================================
-        const BOT_TOKEN = '8980208297:AAGm8N55yZ-RN5ao_uxCoFHYLiSHq1eyfss';
-        const CHAT_ID = '2013568102'; // ВАШ Telegram ID
+        const ADMIN_PASSWORD = 'weter180808';
 
-        // ============================================
-        // ===== ИНИЦИАЛИЗАЦИЯ =====
-        // ============================================
-        const tg = window.Telegram.WebApp;
-        let cart = [];
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const password = input.value.trim();
 
-        try {
-            tg.expand();
-            tg.ready();
-            console.log('✅ Web App загружен');
-        } catch (e) {
-            console.error('Telegram init error:', e);
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                // Загружаем данные после входа
+                loadMenu();
+                loadOrders();
+                showToast('✅ Добро пожаловать в админ-панель!');
+            } else {
+                errorMsg.classList.add('show');
+                input.value = '';
+                input.focus();
+                input.style.borderColor = '#ff4444';
+                setTimeout(() => {
+                    input.style.borderColor = '#333';
+                }, 2000);
+            }
         }
 
-        // Получаем данные пользователя
-        try {
-            const user = tg.initDataUnsafe?.user;
-            if (user) {
-                document.getElementById('greeting').textContent = `👋 Привет, ${user.first_name}!`;
-                document.getElementById('customerName').value = user.first_name || '';
-                document.getElementById('customerName').placeholder = user.first_name || 'Ваше имя';
-            }
-        } catch (e) {
-            console.warn('User data error:', e);
+        // Автофокус на поле ввода пароля
+        window.onload = function() {
+            document.getElementById('passwordInput').focus();
+        };
+
+        // ============================================
+        // ===== УПРАВЛЕНИЕ ВКЛАДКАМИ =====
+        // ============================================
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+            document.querySelector(`.tab[onclick*="${tab}"]`).classList.add('active');
+            document.getElementById(`panel${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+
+            if (tab === 'menu') loadMenu();
+            if (tab === 'orders') loadOrders();
         }
 
         // ============================================
-        // ===== ЗАГРУЗКА МЕНЮ ИЗ LOCALSTORAGE =====
+        // ===== РАБОТА С МЕНЮ =====
         // ============================================
-        function getMenuItems() {
-            try {
-                const data = localStorage.getItem('cafe_menu_items');
-                if (data) {
-                    const items = JSON.parse(data);
-                    if (items && items.length > 0) {
-                        return items;
-                    }
-                }
-            } catch (e) {
-                console.error('Error loading menu from localStorage:', e);
-            }
-
-            // Стандартное меню по умолчанию
+        function getDefaultMenu() {
             return [
                 { id: 1, name: 'Шашлык из свинины', price: 350, desc: 'Сочный, на углях', category: 'Мясо' },
                 { id: 2, name: 'Люля-кебаб', price: 280, desc: 'С бараниной и специями', category: 'Мясо' },
@@ -526,449 +534,271 @@
             ];
         }
 
-        let menuItems = [];
+        function getMenuItems() {
+            try {
+                const data = localStorage.getItem('cafe_menu_items');
+                if (data) {
+                    const items = JSON.parse(data);
+                    if (items && items.length > 0) {
+                        return items;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading menu:', e);
+            }
+            const defaultMenu = getDefaultMenu();
+            localStorage.setItem('cafe_menu_items', JSON.stringify(defaultMenu));
+            return defaultMenu;
+        }
+
+        function saveMenuItems(items) {
+            localStorage.setItem('cafe_menu_items', JSON.stringify(items));
+            // Отправляем сообщение об обновлении в основное окно
+            if (window.opener) {
+                window.opener.postMessage({
+                    type: 'menuUpdated',
+                    items: items
+                }, '*');
+            }
+            // Отправляем во все открытые окна
+            window.postMessage({
+                type: 'menuUpdated',
+                items: items
+            }, '*');
+        }
 
         function loadMenu() {
-            const container = document.getElementById('menu');
-            const loading = document.getElementById('loadingIndicator');
+            const items = getMenuItems();
+            const container = document.getElementById('menuList');
 
-            try {
-                menuItems = getMenuItems();
-
-                if (!container) throw new Error('Контейнер меню не найден');
-
-                if (loading) loading.style.display = 'none';
-                container.innerHTML = '';
-
-                if (menuItems.length === 0) {
-                    container.innerHTML = '<div style="text-align:center;padding:40px;color:#888;">📭 Меню пока пусто</div>';
-                    return;
-                }
-
-                menuItems.forEach((item) => {
-                    const div = document.createElement('div');
-                    div.className = 'menu-item';
-                    div.innerHTML = `
-                        <div class="item-info">
-                            <h3>${item.name}</h3>
-                            <div class="desc">${item.desc || ''} ${item.category ? '· ' + item.category : ''}</div>
-                            <div class="price">${item.price}₽</div>
-                        </div>
-                        <div class="item-controls">
-                            <button class="btn btn-sm btn-secondary" onclick="changeQuantity(${item.id}, -1)">−</button>
-                            <span class="qty" id="qty_${item.id}">0</span>
-                            <button class="btn btn-sm" onclick="changeQuantity(${item.id}, 1)">+</button>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-
-                document.getElementById('errorBox').classList.remove('active');
-            } catch (e) {
-                showError('Ошибка загрузки меню: ' + e.message);
-            }
-        }
-
-        // ============================================
-        // ===== КОРЗИНА =====
-        // ============================================
-        function changeQuantity(id, delta) {
-            try {
-                const item = menuItems.find(i => i.id === id);
-                if (!item) throw new Error('Товар не найден');
-
-                const existing = cart.find(i => i.id === id);
-                if (existing) {
-                    existing.quantity = Math.max(0, (existing.quantity || 1) + delta);
-                    if (existing.quantity <= 0) {
-                        cart = cart.filter(i => i.id !== id);
-                    }
-                } else if (delta > 0) {
-                    cart.push({ ...item, quantity: 1 });
-                }
-
-                updateCart();
-                updateQuantityDisplay(id);
-                tg.HapticFeedback?.impactOccurred('light');
-            } catch (e) {
-                console.error('Change quantity error:', e);
-            }
-        }
-
-        function updateQuantityDisplay(id) {
-            const el = document.getElementById(`qty_${id}`);
-            if (el) {
-                const item = cart.find(i => i.id === id);
-                el.textContent = item ? item.quantity : 0;
-            }
-        }
-
-        function updateCart() {
-            const cartEl = document.getElementById('cart');
-            const countEl = document.getElementById('cartCount');
-            const totalEl = document.getElementById('cartTotal');
-            const itemsEl = document.getElementById('cartItems');
-
-            if (cart.length > 0) {
-                cartEl.classList.add('active');
-                const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-                const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-
-                countEl.textContent = totalItems;
-                totalEl.textContent = totalPrice + '₽';
-
-                itemsEl.innerHTML = cart.map(item =>
-                    `<div class="cart-item">
-                        <span>${item.name} × ${item.quantity}</span>
-                        <span>${item.price * item.quantity}₽</span>
-                    </div>`
-                ).join('');
-            } else {
-                cartEl.classList.remove('active');
-            }
-        }
-
-        function clearCart() {
-            if (cart.length === 0) return;
-            if (confirm('Очистить корзину?')) {
-                cart = [];
-                updateCart();
-                menuItems.forEach(item => updateQuantityDisplay(item.id));
-                tg.HapticFeedback?.impactOccurred('medium');
-            }
-        }
-
-        // ============================================
-        // ===== ФОРМА ЗАКАЗА =====
-        // ============================================
-        function showOrderForm() {
-            if (cart.length === 0) {
-                tg.showAlert('🛒 Корзина пуста! Добавьте блюда.');
+            if (items.length === 0) {
+                container.innerHTML = '<div class="empty">📭 Меню пусто. Добавьте блюда!</div>';
                 return;
             }
-            document.getElementById('orderForm').classList.add('active');
-            document.getElementById('cart').style.display = 'none';
-            document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            document.getElementById('totalItems').textContent = items.length;
+            const categories = new Set(items.map(i => i.category));
+            document.getElementById('totalCategories').textContent = categories.size;
+
+            container.innerHTML = items.map(item => `
+                <div class="item-card">
+                    <div class="info">
+                        <h3>${item.name}</h3>
+                        <div class="desc">${item.desc || ''} ${item.category ? '· ' + item.category : ''}</div>
+                        <div class="price">${item.price}₽</div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-sm" onclick="editItem(${item.id})">✏️</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem(${item.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        function closeOrderForm() {
-            document.getElementById('orderForm').classList.remove('active');
-            document.getElementById('cart').style.display = 'flex';
+        function addItem(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('itemName').value.trim();
+            const price = parseInt(document.getElementById('itemPrice').value);
+            const desc = document.getElementById('itemDesc').value.trim();
+            const category = document.getElementById('itemCategory').value;
+
+            if (!name || !price) {
+                showToast('Заполните все поля!', 'error');
+                return;
+            }
+
+            const items = getMenuItems();
+            const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
+
+            items.push({
+                id: newId,
+                name: name,
+                price: price,
+                desc: desc,
+                category: category
+            });
+
+            saveMenuItems(items);
+            loadMenu();
+            document.getElementById('addItemForm').reset();
+            showToast('✅ Блюдо добавлено!');
         }
 
-        function validateForm() {
-            let isValid = true;
+        function deleteItem(id) {
+            if (!confirm('Удалить это блюдо?')) return;
 
-            const name = document.getElementById('customerName').value.trim();
-            const nameGroup = document.getElementById('nameGroup');
-            if (!name) {
-                nameGroup.classList.add('error');
-                isValid = false;
-            } else {
-                nameGroup.classList.remove('error');
-            }
+            let items = getMenuItems();
+            items = items.filter(i => i.id !== id);
+            saveMenuItems(items);
+            loadMenu();
+            showToast('🗑️ Блюдо удалено');
+        }
 
-            const phone = document.getElementById('customerPhone').value.trim();
-            const phoneGroup = document.getElementById('phoneGroup');
-            if (!phone || phone.length < 5) {
-                phoneGroup.classList.add('error');
-                isValid = false;
-            } else {
-                phoneGroup.classList.remove('error');
-            }
+        function editItem(id) {
+            const items = getMenuItems();
+            const item = items.find(i => i.id === id);
+            if (!item) return;
 
-            if (!isValid) {
-                tg.showAlert('⚠️ Заполните все обязательные поля!');
-            }
+            const newName = prompt('Название блюда:', item.name);
+            if (newName === null) return;
+            const newPrice = prompt('Цена (₽):', item.price);
+            if (newPrice === null) return;
+            const newDesc = prompt('Описание:', item.desc || '');
+            if (newDesc === null) return;
 
-            return isValid;
+            item.name = newName.trim() || item.name;
+            item.price = parseInt(newPrice) || item.price;
+            item.desc = newDesc.trim();
+
+            saveMenuItems(items);
+            loadMenu();
+            showToast('✅ Блюдо обновлено!');
         }
 
         // ============================================
-        // ===== ОТПРАВКА ЗАКАЗА =====
+        // ===== ЗАКАЗЫ =====
         // ============================================
-        function submitOrder() {
-            if (!validateForm()) return;
+        function loadOrders() {
+            const container = document.getElementById('ordersList');
 
             try {
-                const name = document.getElementById('customerName').value.trim();
-                const phone = document.getElementById('customerPhone').value.trim();
-                const deliveryTime = document.getElementById('deliveryTime').value;
-                const comment = document.getElementById('customerComment').value.trim();
+                const data = localStorage.getItem('cafe_orders');
+                let orders = data ? JSON.parse(data) : [];
 
-                const user = tg.initDataUnsafe?.user || { id: 'guest', first_name: 'Гость' };
-                const orderId = String(Date.now()).slice(-6);
-
-                // Формируем заказ
-                const order = {
-                    id: orderId,
-                    customer: { name, phone, deliveryTime, comment },
-                    items: cart.map(item => ({
-                        name: item.name,
-                        quantity: item.quantity,
-                        price: item.price,
-                        total: item.price * item.quantity
-                    })),
-                    total: cart.reduce((sum, i) => sum + (i.price * i.quantity), 0),
-                    timestamp: new Date().toISOString(),
-                    user: user,
-                    status: 'new'
-                };
-
-                console.log('📦 Заказ:', order);
-
-                // ============================================
-                // 1. ОТПРАВЛЯЕМ ЗАКАЗ АДМИНУ (ВАМ)
-                // ============================================
-                sendOrderToAdmin(order);
-
-                // ============================================
-                // 2. ОТПРАВЛЯЕМ УВЕДОМЛЕНИЕ ПОКУПАТЕЛЮ
-                // ============================================
-                sendNotificationToCustomer(order);
-
-                // ============================================
-                // 3. СОХРАНЯЕМ ЗАКАЗ В LOCALSTORAGE
-                // ============================================
-                saveOrder(order);
-
-                // ============================================
-                // 4. ПОКАЗЫВАЕМ УСПЕХ
-                // ============================================
-                document.getElementById('orderForm').classList.remove('active');
-                document.getElementById('successBox').classList.add('active');
-
-                const totalItems = order.items.reduce((sum, i) => sum + i.quantity, 0);
-                document.getElementById('successMessage').innerHTML = `
-                    <div style="font-size:16px;margin-bottom:10px;">
-                        🎉 Заказ <b>№${orderId}</b> отправлен!
-                    </div>
-                    <div class="order-summary">
-                        <div>📦 <b>${totalItems}</b> позиций на сумму <b>${order.total}₽</b></div>
-                        <div style="margin-top:5px;font-size:14px;color:#aaa;">
-                            📱 ${order.customer.phone}<br>
-                            ⏰ ${order.customer.deliveryTime}
-                        </div>
-                    </div>
-                    <div style="font-size:14px;color:#44ff44;margin-top:10px;">
-                        ✅ Вам отправлено подтверждение в Telegram!
-                    </div>
-                `;
-
-                // Очищаем корзину
-                cart = [];
-                updateCart();
-                menuItems.forEach(item => updateQuantityDisplay(item.id));
-
-                tg.HapticFeedback?.notificationOccurred('success');
-
-            } catch (e) {
-                console.error('Submit error:', e);
-                showError('Ошибка: ' + e.message);
-                tg.showAlert('❌ Произошла ошибка. Попробуйте еще раз.');
-            }
-        }
-
-        // ============================================
-        // ===== ОТПРАВКА АДМИНУ (ВАМ) =====
-        // ============================================
-        function sendOrderToAdmin(order) {
-            try {
-                let message = '🆕 <b>НОВЫЙ ЗАКАЗ!</b>\n';
-                message += '━━━━━━━━━━━━━━━━\n\n';
-
-                message += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
-                message += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
-                message += `⏰ <b>Время:</b> ${order.customer.deliveryTime}\n`;
-
-                if (order.customer.comment) {
-                    message += `💬 <b>Комментарий:</b> ${order.customer.comment}\n`;
-                }
-
-                message += '\n━━━━━━━━━━━━━━━━\n';
-                message += '<b>📦 ЗАКАЗ:</b>\n\n';
-
-                order.items.forEach((item, index) => {
-                    message += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
-                });
-
-                const date = new Date(order.timestamp);
-                message += '\n━━━━━━━━━━━━━━━━\n';
-                message += `💰 <b>ИТОГО:</b> ${order.total}₽\n`;
-                message += `🕐 ${date.toLocaleString('ru-RU')}\n`;
-                message += `🆔 Заказ #${order.id}`;
-
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML'
-                    })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        console.log('✅ Заказ отправлен админу');
-                    } else {
-                        console.error('❌ Ошибка:', data);
-                    }
-                })
-                .catch(err => {
-                    console.error('❌ Ошибка сети:', err);
-                });
-
-            } catch (e) {
-                console.error('Send to admin error:', e);
-            }
-        }
-
-        // ============================================
-        // ===== УВЕДОМЛЕНИЕ ПОКУПАТЕЛЮ =====
-        // ============================================
-        function sendNotificationToCustomer(order) {
-            try {
-                // Получаем ID покупателя из Telegram
-                const userId = tg.initDataUnsafe?.user?.id;
-
-                if (!userId) {
-                    console.log('❌ Не удалось получить ID пользователя');
+                if (orders.length === 0) {
+                    container.innerHTML = '<div class="empty">📭 Заказов пока нет</div>';
                     return;
                 }
 
-                // Формируем сообщение для покупателя
-                let message = '✅ <b>Ваш заказ принят!</b>\n';
-                message += '━━━━━━━━━━━━━━━━\n\n';
-                message += `🍖 <b>Кафе «Миас»</b>\n`;
-                message += `🆔 Заказ #${order.id}\n\n`;
-                message += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
-                message += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
-                message += `⏰ <b>Время доставки:</b> ${order.customer.deliveryTime}\n\n`;
-                message += '<b>📦 Ваш заказ:</b>\n';
+                orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-                order.items.forEach((item, index) => {
-                    message += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
-                });
-
-                message += '\n━━━━━━━━━━━━━━━━\n';
-                message += `💰 <b>Итого:</b> ${order.total}₽\n\n`;
-                message += '☎️ <b>Ожидайте звонка оператора для подтверждения!</b>\n';
-                message += '🕐 В ближайшее время с вами свяжутся.';
-
-                // Отправляем сообщение покупателю
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: userId,
-                        text: message,
-                        parse_mode: 'HTML'
-                    })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        console.log('✅ Уведомление отправлено покупателю');
-                    } else {
-                        console.error('❌ Ошибка отправки покупателю:', data);
-                        // Если не получилось отправить - пробуем через showAlert
-                        tg.showAlert('✅ Ваш заказ принят! Ожидайте подтверждения.');
-                    }
-                })
-                .catch(err => {
-                    console.error('❌ Ошибка сети при отправке покупателю:', err);
-                    // Если ошибка - показываем встроенное уведомление
-                    tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
-                });
+                container.innerHTML = orders.map(order => `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-id">Заказ #${order.id || 'N/A'}</span>
+                            <span class="status-badge status-${order.status || 'new'}">
+                                ${getStatusText(order.status || 'new')}
+                            </span>
+                            <span class="order-time">${formatDate(order.timestamp)}</span>
+                        </div>
+                        <div>
+                            <div>👤 ${order.customer?.name || 'Неизвестно'}</div>
+                            <div>📱 ${order.customer?.phone || 'Нет телефона'}</div>
+                            <div>⏰ ${order.customer?.deliveryTime || 'Не указано'}</div>
+                            ${order.customer?.comment ? `<div>💬 ${order.customer.comment}</div>` : ''}
+                        </div>
+                        <div class="order-items">
+                            ${order.items?.map(item => `
+                                <div class="order-item">
+                                    <span>${item.name} × ${item.quantity}</span>
+                                    <span>${item.total}₽</span>
+                                </div>
+                            `).join('') || '<div>Нет позиций</div>'}
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                            <span class="order-total">Итого: ${order.total}₽</span>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                                <button class="btn btn-success btn-sm" onclick="updateOrderStatus('${order.id}', 'accepted')">✅ Принять</button>
+                                <button class="btn btn-danger btn-sm" onclick="updateOrderStatus('${order.id}', 'rejected')">❌ Отказать</button>
+                                <button class="btn btn-secondary btn-sm" onclick="deleteOrder('${order.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
 
             } catch (e) {
-                console.error('Send to customer error:', e);
-                // Если ошибка - показываем встроенное уведомление
-                tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
+                console.error('Load orders error:', e);
+                container.innerHTML = '<div class="empty">⚠️ Ошибка загрузки заказов</div>';
             }
         }
 
-        // ============================================
-        // ===== СОХРАНЕНИЕ ЗАКАЗА =====
-        // ============================================
-        function saveOrder(order) {
+        function updateOrderStatus(orderId, status) {
             try {
-                const key = 'cafe_orders';
-                let orders = [];
-                const data = localStorage.getItem(key);
-                if (data) {
-                    orders = JSON.parse(data);
-                }
-                orders.push(order);
-                localStorage.setItem(key, JSON.stringify(orders));
-
-                // Уведомляем админку (если открыта)
-                if (window.opener) {
-                    window.opener.postMessage({
-                        type: 'newOrder',
-                        order: order
-                    }, '*');
+                const data = localStorage.getItem('cafe_orders');
+                let orders = data ? JSON.parse(data) : [];
+                const order = orders.find(o => o.id === orderId);
+                if (order) {
+                    order.status = status;
+                    localStorage.setItem('cafe_orders', JSON.stringify(orders));
+                    loadOrders();
+                    showToast(`Статус заказа обновлен: ${getStatusText(status)}`);
                 }
             } catch (e) {
-                console.error('Save order error:', e);
+                console.error('Update status error:', e);
+                showToast('Ошибка обновления статуса', 'error');
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (!confirm('Удалить заказ?')) return;
+            try {
+                const data = localStorage.getItem('cafe_orders');
+                let orders = data ? JSON.parse(data) : [];
+                orders = orders.filter(o => o.id !== orderId);
+                localStorage.setItem('cafe_orders', JSON.stringify(orders));
+                loadOrders();
+                showToast('Заказ удален');
+            } catch (e) {
+                console.error('Delete order error:', e);
+                showToast('Ошибка удаления', 'error');
             }
         }
 
         // ============================================
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
         // ============================================
-        function showError(message) {
-            const box = document.getElementById('errorBox');
-            const msg = document.getElementById('errorMessage');
-            if (box && msg) {
-                box.classList.add('active');
-                msg.textContent = message;
-                setTimeout(() => box.classList.remove('active'), 8000);
+        function getStatusText(status) {
+            const map = {
+                'new': '🆕 Новый',
+                'accepted': '✅ Принят',
+                'rejected': '❌ Отказан',
+                'done': '📦 Выполнен'
+            };
+            return map[status] || status;
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Нет даты';
+            try {
+                const date = new Date(timestamp);
+                return date.toLocaleString('ru-RU', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch {
+                return timestamp;
             }
         }
 
-        function hideError() {
-            document.getElementById('errorBox').classList.remove('active');
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
         }
 
-        function hideSuccess() {
-            document.getElementById('successBox').classList.remove('active');
-            document.getElementById('cart').style.display = 'flex';
-            updateCart();
-        }
-
-        function showDebug() {
-            const debugEl = document.getElementById('debugInfo');
-            if (debugEl) {
-                debugEl.classList.toggle('active');
-                if (debugEl.classList.contains('active')) {
-                    debugEl.textContent = '=== ДИАГНОСТИКА ===\n';
-                    debugEl.textContent += `Telegram WebApp: ${!!tg}\n`;
-                    debugEl.textContent += `User: ${tg.initDataUnsafe?.user?.first_name || 'Не авторизован'}\n`;
-                    debugEl.textContent += `User ID: ${tg.initDataUnsafe?.user?.id || 'Нет'}\n`;
-                    debugEl.textContent += `Меню: ${menuItems.length} позиций\n`;
-                    debugEl.textContent += `Корзина: ${cart.length} товаров\n`;
-                    debugEl.textContent += `Токен бота: ${BOT_TOKEN ? '✅ Установлен' : '❌ Не установлен'}\n`;
-                    debugEl.textContent += `ID чата: ${CHAT_ID || '❌ Не установлен'}\n`;
-                    debugEl.textContent += `URL: ${window.location.href}\n`;
-                    debugEl.textContent += `Время: ${new Date().toLocaleString()}`;
+        // ============================================
+        // ===== СЛУШАЕМ СООБЩЕНИЯ =====
+        // ============================================
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'newOrder') {
+                if (document.getElementById('panelOrders').classList.contains('active')) {
+                    loadOrders();
                 }
+                showToast('📦 Новый заказ!');
             }
-        }
+        });
 
-        // ============================================
-        // ===== ЗАПУСК =====
-        // ============================================
-        setTimeout(loadMenu, 500);
-
-        console.log('✅ Приложение "Кафе Миас" запущено!');
-        console.log('📨 Заказы будут приходить админу');
-        console.log('📨 Покупатель получит уведомление');
+        console.log('✅ Админ-панель загружена');
+        console.log('🔑 Пароль: weter180808');
     </script>
 </body>
 </html>
