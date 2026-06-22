@@ -3,263 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дорожный сервис 777 в Павловске</title>
+    <title>Кафе Миас — Меню</title>
+    <!-- Официальный скрипт Telegram Web App -->
+    <script src="https://telegram.org"></script>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #0b0b0b; 
-            color: #e0e0e0;
-            padding-bottom: 20px;
-        }
-
-        /* Шапка сайта */
-        header {
-            background-color: rgba(20, 20, 20, 0.95);
+            background-color: #0d0d0d;
+            color: #ffffff;
             padding: 15px;
-            text-align: center;
-            border-bottom: 3px solid #ff1e1e;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            padding-bottom: 110px; /* Отступ снизу под кнопку заказа */
         }
 
-        .logo {
+        /* Шапка с названием кафе */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px 10px;
+            background: linear-gradient(135deg, #261105 0%, #110702 100%);
+            border-radius: 16px;
+            border: 1px solid #3d1b08;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .header h1 {
             font-size: 26px;
             font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 3px;
+            letter-spacing: 1px;
+            color: #ffaa00;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        .logo span {
-            color: #ff1e1e;
-        }
-
-        .location {
+        .header p {
             font-size: 13px;
-            color: #ff1e1e;
+            color: #b3b3b3;
             margin-top: 5px;
-            font-weight: bold;
         }
 
-        /* Главный блок с крутой тачкой на фоне */
-        .hero {
-            padding: 60px 20px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(11, 11, 11, 0.6) 0%, rgba(11, 11, 11, 0.95) 100%), 
-                        url('https://unsplash.com');
-            background-size: cover;
-            background-position: center;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 900;
-            color: #ffffff;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: #ffffff;
-            margin-bottom: 30px;
-            line-height: 1.5;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
-        }
-
-        /* Кнопки действия */
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 16px;
+        /* Заголовки категорий меню */
+        .category-title {
+            font-size: 18px;
             font-weight: 800;
+            color: #ffaa00;
+            margin: 25px 0 15px 5px;
             text-transform: uppercase;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+            letter-spacing: 0.5px;
+            border-left: 4px solid #ff5500;
+            padding-left: 10px;
         }
 
-        .btn-danger {
-            background-color: #ff1e1e;
+        /* Карточка блюда */
+        .menu-item {
+            background-color: #161616;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #262626;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .item-info {
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .item-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .item-desc {
+            font-size: 12px;
+            color: #8c8c8c;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .item-price {
+            font-size: 16px;
+            color: #ffaa00;
+            font-weight: 800;
+        }
+
+        /* Стили кнопок «Добавить» / «В корзине» */
+        .add-btn {
+            background: linear-gradient(135deg, #ff5500 0%, #ff8800 100%);
             color: #ffffff;
             border: none;
-            animation: pulse 2s infinite;
-        }
-
-        .btn-success {
-            background-color: #25d366;
-            color: #ffffff;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 30, 30, 0.8); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 30, 30, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 30, 30, 0); }
-        }
-
-        /* Блок услуг */
-        .services {
-            padding: 25px 15px;
-        }
-
-        h2 {
-            font-size: 22px;
+            padding: 10px 18px;
+            border-radius: 10px;
             font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            border-left: 5px solid #ff1e1e;
-            padding-left: 12px;
-        }
-
-        /* Карточки услуг с картинками */
-        .service-card {
-            background-color: #161616;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid #2a2a2a;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .service-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .service-content {
-            padding: 20px;
-        }
-
-        .service-title {
-            font-size: 19px;
-            font-weight: 800;
-            color: #ff1e1e;
-            margin-bottom: 10px;
-        }
-
-        .service-text {
-            font-size: 14px;
-            color: #cccccc;
-            line-height: 1.5;
-        }
-
-        /* Преимущества */
-        .features {
-            background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
-            padding: 30px 15px;
-            border-top: 1px solid #222;
-        }
-
-        .feature-item {
-            margin-bottom: 18px;
-            font-size: 15px;
-            color: #dddddd;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .feature-item span {
-            color: #ff1e1e;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 18px;
-        }
-
-        /* Футер */
-        footer {
-            text-align: center;
-            padding: 35px 15px;
-            background-color: #101010;
-            margin-top: 20px;
             font-size: 13px;
-            color: #666666;
-            border-top: 2px solid #222;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(255, 85, 0, 0.4);
+            transition: all 0.2s ease;
+            min-width: 105px;
+            text-align: center;
+        }
+
+        .add-btn.added {
+            background: #25d366;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Фиксированная нижняя панель с кнопкой оформления */
+        .order-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(22, 22, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-top: 1px solid #2d2d2d;
+            display: none; /* Скрыта по умолчанию */
+            z-index: 9999;
+        }
+
+        .order-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff5500 0%, #ffaa00 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка -->
-    <header>
-        <div class="logo">СЕРВИС <span>777</span></div>
-        <div class="location">📍 Трасса Р380, Павловск</div>
-    </header>
+    <!-- Шапка кафе -->
+    <div class="header">
+        <h1>КАФЕ «МИАС»</h1>
+        <p>Горячий шашлык и свежая выверенная шаурма</p>
+    </div>
 
-    <!-- Главный экран -->
-    <section class="hero">
-        <h1>Помощь на трассе в Павловске 24/7</h1>
-        <p class="subtitle">Срочный ремонт, эвакуация легковых и грузовых авто. Быстро вернем вашу машину в строй.</p>
-        
-        <a href="tel:+79991234567" class="btn btn-danger">🚨 Вызвать эвакуатор</a>
-        <a href="https://wa.me" class="btn btn-success">💬 Написать в WhatsApp</a>
-    </section>
-
-    <!-- Услуги -->
-    <section class="services">
-        <h2>Наши услуги</h2>
-        
-        <!-- Карта 1: Шиномонтаж -->
-        <div class="service-card">
-            <img src="https://unsplash.com" alt="Шиномонтаж" class="service-image">
-            <div class="service-content">
-                <div class="service-title">🛞 Круглосуточный шиномонтаж</div>
-                <div class="service-text">Ремонт боковых порезов любой сложности, устранение проколов и точная балансировка легковых и грузовых колес.</div>
-            </div>
+    <!-- Раздел: Фирменные блюда -->
+    <div class="category-title">Мясо на углях & Шаурма</div>
+    
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">🌯 Шаурма Классическая (XL)</div>
+            <div class="item-desc">Фирменное мясо, свежие томаты, огурчики, хрустящая капуста, чесночный соус в лаваше.</div>
+            <div class="item-price">250 ₽</div>
         </div>
+        <button class="add-btn" onclick="toggleCart('Шаурма Классическая', 250, this)">Добавить</button>
+    </div>
 
-        <!-- Карта 2: СТО -->
-        <div class="service-card">
-            <img src="https://unsplash.com" alt="Автосервис" class="service-image">
-            <div class="service-content">
-                <div class="service-title">🔧 Ремонт и СТО</div>
-                <div class="service-text">Мелкосрочный ремонт ходовой, замена тормозных колодок, масел и фильтров. Профессиональная диагностика узлов.</div>
-            </div>
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">🥩 Шашлык из свинины</div>
+            <div class="item-desc">Сочная свиная шея на углях, маринованный лук, фирменный томатный соус. 200г.</div>
+            <div class="item-price">380 ₽</div>
         </div>
+        <button class="add-btn" onclick="toggleCart('Шашлык из свинины', 380, this)">Добавить</button>
+    </div>
 
-        <!-- Карта 3: Эвакуатор -->
-        <div class="service-card">
-            <img src="https://unsplash.com" alt="Эвакуатор" class="service-image">
-            <div class="service-content">
-                <div class="service-title">🚚 Эвакуатор 24/7</div>
-                <div class="service-text">Оперативный выезд спецтехники по Павловскому району и Алтайскому краю. Бережная погрузка вашего авто.</div>
-            </div>
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">🍢 Люля-Кебаб из курицы</div>
+            <div class="item-desc">Нежный фарш со специями и зеленью, приготовленный на шампуре. 150г.</div>
+            <div class="item-price">290 ₽</div>
         </div>
+        <button class="add-btn" onclick="toggleCart('Люля-Кебаб из курицы', 290, this)">Добавить</button>
+    </div>
 
-        <!-- Карта 4: Мойка -->
-        <div class="service-card">
-            <img src="https://unsplash.com" alt="Автомойка" class="service-image">
-            <div class="service-content">
-                <div class="service-title">🧽 Автомойка и комплекс</div>
-                <div class="service-text">Качественное мытье кузова, удаление дорожных реагентов и полная химчистка салона. Вернем машине блеск.</div>
-            </div>
+    <!-- Раздел: Гарниры и соусы -->
+    <div class="category-title">Гарниры и соусы</div>
+
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">🍟 Картофель фри</div>
+            <div class="item-desc">Золотистый, хрустящий картофель с солью. Порция 120г.</div>
+            <div class="item-price">140 ₽</div>
         </div>
-    </section>
+        <button class="add-btn" onclick="toggleCart('Картофель фри', 140, this)">Добавить</button>
+    </div>
 
-    <!-- Преимущества -->
-    <section class="features">
-        <h2>Преимущества сервиса</h2>
-        <div class="feature-item"><span>✓</span> <div><strong>Локация:</strong> Находимся прямо у трассы — не нужно блуждать по переулкам.</div></div>
-        <div class="feature-item"><span>✓</span> <div><strong>Универсальность:</strong> Работаем как с легковушками, так и с тяжелыми грузовиками.</div></div>
-        <div class="feature-item"><span>✓</span> <div><strong>Скорость:</strong> Понимаем, что на трассе время — это деньги. Делаем быстро и на совесть.</div></div>
-    </section>
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">🍅 Соус Фирменный красный</div>
+            <div class="item-desc">Томатная основа со свежей зеленью и восточными специями к мясу.</div>
+            <div class="item-price">50 ₽</div>
+        </div>
+        <button class="add-btn" onclick="toggleCart('Соус Фирменный красный', 50, this)">Добавить</button>
+    </div>
 
-    <!-- Подвал -->
-    <footer>
-        <p>© 2026 Комплекс дорожного сервиса «777». Все права защищены.</p>
-        <p style="margin-top: 5px; color: #444;">Разработка сайта: Веб-разработчик Павловск</p>
-    </footer>
+    <!-- Раздел: Напитки -->
+    <div class="category-title">Напитки</div>
 
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">🥤 Кола (пластик 0.5л)</div>
+            <div class="item-desc">Классический газированный освежающий напиток.</div>
+            <div class="item-price">90 ₽</div>
+        </div>
+        <button class="add-btn" onclick="toggleCart('Кола (0.5л)', 90, this)">Добавить</button>
+    </div>
+
+    <div class="menu-item">
+        <div class="item-info">
+            <div class="item-title">☕ Кофе Американо</div>
+            <div class="item-desc">Бодрящий горячий черный кофе из свежемолотых зерен.</div>
+            <div class="item-price">100 ₽</div>
+        </div>
+        <button class="add-btn" onclick="toggleCart('Кофе Американо', 100, this)">Добавить</button>
+    </div>
+
+    <!-- Всплывающая нижняя кнопка корзины -->
+    <div class="order-bar" id="orderBar">
+        <button class="order-btn" id="orderBtn" onclick="sendOrder()">Оформить предзаказ</button>
+    </div>
+
+    <script>
+        // Инициализация WebApp контекста в экосистеме Telegram
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Разворачиваем окно на максимум экрана смартфона
+
+        let cart = [];
+        let totalSum = 0;
+
+        // Функция обработки клика по кнопке товара
+        function toggleCart(title, price, button) {
+            const index = cart.findIndex(item => item.title === title);
+
+            if (index === -1) {
+                // Если товара нет в корзине — добавляем его
+                cart.push({ title: title, price: price });
+                button.textContent = "В корзине ✓";
+                button.classList.add("added");
+                totalSum += price;
+            } else {
+                // Если товар уже был добавлен — удаляем его при повторном клике
+                cart.splice(index, 1);
+                button.textContent = "Добавить";
+                button.classList.remove("added");
+                totalSum -= price;
+            }
+
+            // Логика отображения нижней плашки заказа
+            const orderBar = document.getElementById("orderBar");
+            const orderBtn = document.getElementById("orderBtn");
+            
+            if (cart.length > 0) {
+                orderBar.style.display = "block";
+                orderBtn.textContent = `Оформить предзаказ: ${totalSum} ₽`;
+            } else {
+                orderBar.style.display = "none";
+            }
+        }
+
+        // Функция формирования чека и передачи данных обратно в Телеграм-бот
+        function sendOrder() {
+            if (cart.length === 0) return;
+
+            // Формируем структурированный список для администратора кафе
+            let orderText = "📥 НОВЫЙ ПРЕДЗАКАЗ ИЗ МЕНЮ:\n\n";
+            cart.forEach((item, i) => {
+                orderText += `${i + 1}. ${item.title} — ${item.price} ₽\n`;
+            });
+            orderText += `\nИТОГО К ОПЛАТЕ: ${totalSum} ₽\n`;
+            orderText += "⚠️ Пожалуйста, свяжитесь для подтверждения времени готовности.";
+
+            // Магия передачи данных веб-интерфейса в интерфейс мессенджера
+            tg.sendData(orderText);
+            tg.close(); // Закрываем окно Web App после отправки
+        }
+    </script>
 </body>
 </html>
