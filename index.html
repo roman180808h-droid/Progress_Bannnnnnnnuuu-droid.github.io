@@ -4,288 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кафе Миас — Меню</title>
-    <!-- Официальный скрипт Telegram Web App -->
     <script src="https://telegram.org"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0d0d0d; color: #ffffff; padding: 15px; padding-bottom: 180px; }
+        .header { text-align: center; margin-bottom: 20px; padding: 15px 10px; background: linear-gradient(135deg, #261105 0%, #110702 100%); border-radius: 14px; border: 1px solid #3d1b08; }
+        .header h1 { font-size: 24px; color: #ffaa00; }
+        .header p { font-size: 12px; color: #b3b3b3; margin-top: 4px; }
+        .category-title { font-size: 16px; font-weight: 800; color: #ffaa00; margin: 20px 0 10px 5px; text-transform: uppercase; border-left: 4px solid #ff5500; padding-left: 10px; }
+        
+        .menu-item { background-color: #161616; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #262626; }
+        .item-info { flex: 1; padding-right: 10px; }
+        .item-title { font-size: 15px; font-weight: 700; }
+        .item-desc { font-size: 12px; color: #8c8c8c; margin-bottom: 6px; line-height: 1.3; }
+        .item-price { font-size: 15px; color: #ffaa00; font-weight: 800; }
+        
+        .counter-container { display: flex; align-items: center; background-color: #262626; border-radius: 8px; overflow: hidden; }
+        .count-btn { background-color: #ff5500; color: white; border: none; width: 32px; height: 32px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .item-count { width: 30px; text-align: center; font-size: 14px; font-weight: bold; }
+        .add-initial-btn { background: linear-gradient(135deg, #ff5500 0%, #ff8800 100%); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; }
 
-        body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            padding: 15px;
-            padding-bottom: 110px; /* Отступ снизу под кнопку заказа */
-        }
-
-        /* Шапка с названием кафе */
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 20px 10px;
-            background: linear-gradient(135deg, #261105 0%, #110702 100%);
-            border-radius: 16px;
-            border: 1px solid #3d1b08;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        .header h1 {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            color: #ffaa00;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .header p {
-            font-size: 13px;
-            color: #b3b3b3;
-            margin-top: 5px;
-        }
-
-        /* Заголовки категорий меню */
-        .category-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: #ffaa00;
-            margin: 25px 0 15px 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-left: 4px solid #ff5500;
-            padding-left: 10px;
-        }
-
-        /* Карточка блюда */
-        .menu-item {
-            background-color: #161616;
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #262626;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .item-info {
-            flex: 1;
-            padding-right: 15px;
-        }
-
-        .item-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-
-        .item-desc {
-            font-size: 12px;
-            color: #8c8c8c;
-            line-height: 1.3;
-            margin-bottom: 8px;
-        }
-
-        .item-price {
-            font-size: 16px;
-            color: #ffaa00;
-            font-weight: 800;
-        }
-
-        /* Стили кнопок «Добавить» / «В корзине» */
-        .add-btn {
-            background: linear-gradient(135deg, #ff5500 0%, #ff8800 100%);
-            color: #ffffff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(255, 85, 0, 0.4);
-            transition: all 0.2s ease;
-            min-width: 105px;
-            text-align: center;
-        }
-
-        .add-btn.added {
-            background: #25d366;
-            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.4);
-        }
-
-        /* Фиксированная нижняя панель с кнопкой оформления */
-        .order-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(22, 22, 22, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-top: 1px solid #2d2d2d;
-            display: none; /* Скрыта по умолчанию */
-            z-index: 9999;
-        }
-
-        .order-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #ff5500 0%, #ffaa00 100%);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4);
-            cursor: pointer;
-        }
+        .order-bar { position: fixed; bottom: 0; left: 0; right: 0; background-color: rgba(22, 22, 22, 0.98); backdrop-filter: blur(10px); padding: 15px; border-top: 1px solid #2d2d2d; display: none; z-index: 9999; }
+        .phone-input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background-color: #111; color: white; font-size: 14px; margin-bottom: 10px; text-align: center; }
+        .phone-input:focus { border-color: #ffaa00; outline: none; }
+        .order-btn { width: 100%; background: linear-gradient(135deg, #ff5500 0%, #ffaa00 100%); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Шапка кафе -->
     <div class="header">
         <h1>КАФЕ «МИАС»</h1>
-        <p>Горячий шашлык и свежая выверенная шаурма</p>
+        <p>Горячий шашлык и свежая шаурма</p>
     </div>
 
-    <!-- Раздел: Фирменные блюда -->
     <div class="category-title">Мясо на углях & Шаурма</div>
     
     <div class="menu-item">
         <div class="item-info">
-            <div class="item-title">🌯 Шаурма Классическая (XL)</div>
-            <div class="item-desc">Фирменное мясо, свежие томаты, огурчики, хрустящая капуста, чесночный соус в лаваше.</div>
+            <div class="item-title">🌯 Шаурма Классическая</div>
+            <div class="item-desc">Мясо, томаты, огурцы, капуста, соус.</div>
             <div class="item-price">250 ₽</div>
         </div>
-        <button class="add-btn" onclick="toggleCart('Шаурма Классическая', 250, this)">Добавить</button>
+        <div id="controls-shaurma">
+            <button class="add-initial-btn" onclick="initItem('shaurma', '🌯 Шаурма Классическая', 250)">Добавить</button>
+        </div>
     </div>
 
     <div class="menu-item">
         <div class="item-info">
             <div class="item-title">🥩 Шашлык из свинины</div>
-            <div class="item-desc">Сочная свиная шея на углях, маринованный лук, фирменный томатный соус. 200г.</div>
+            <div class="item-desc">Сочная свиная шея, лук, соус. 200г.</div>
             <div class="item-price">380 ₽</div>
         </div>
-        <button class="add-btn" onclick="toggleCart('Шашлык из свинины', 380, this)">Добавить</button>
-    </div>
-
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">🍢 Люля-Кебаб из курицы</div>
-            <div class="item-desc">Нежный фарш со специями и зеленью, приготовленный на шампуре. 150г.</div>
-            <div class="item-price">290 ₽</div>
+        <div id="controls-shashlyk">
+            <button class="add-initial-btn" onclick="initItem('shashlyk', '🥩 Шашлык из свинины', 380)">Добавить</button>
         </div>
-        <button class="add-btn" onclick="toggleCart('Люля-Кебаб из курицы', 290, this)">Добавить</button>
-    </div>
-
-    <!-- Раздел: Гарниры и соусы -->
-    <div class="category-title">Гарниры и соусы</div>
-
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">🍟 Картофель фри</div>
-            <div class="item-desc">Золотистый, хрустящий картофель с солью. Порция 120г.</div>
-            <div class="item-price">140 ₽</div>
-        </div>
-        <button class="add-btn" onclick="toggleCart('Картофель фри', 140, this)">Добавить</button>
     </div>
 
     <div class="menu-item">
         <div class="item-info">
-            <div class="item-title">🍅 Соус Фирменный красный</div>
-            <div class="item-desc">Томатная основа со свежей зеленью и восточными специями к мясу.</div>
-            <div class="item-price">50 ₽</div>
-        </div>
-        <button class="add-btn" onclick="toggleCart('Соус Фирменный красный', 50, this)">Добавить</button>
-    </div>
-
-    <!-- Раздел: Напитки -->
-    <div class="category-title">Напитки</div>
-
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">🥤 Кола (пластик 0.5л)</div>
-            <div class="item-desc">Классический газированный освежающий напиток.</div>
+            <div class="item-title">🥤 Кола (0.5л)</div>
+            <div class="item-desc">Освежающий газированный напиток.</div>
             <div class="item-price">90 ₽</div>
         </div>
-        <button class="add-btn" onclick="toggleCart('Кола (0.5л)', 90, this)">Добавить</button>
-    </div>
-
-    <div class="menu-item">
-        <div class="item-info">
-            <div class="item-title">☕ Кофе Американо</div>
-            <div class="item-desc">Бодрящий горячий черный кофе из свежемолотых зерен.</div>
-            <div class="item-price">100 ₽</div>
+        <div id="controls-cola">
+            <button class="add-initial-btn" onclick="initItem('cola', '🥤 Кола (0.5л)', 90)">Добавить</button>
         </div>
-        <button class="add-btn" onclick="toggleCart('Кофе Американо', 100, this)">Добавить</button>
     </div>
 
-    <!-- Всплывающая нижняя кнопка корзины -->
     <div class="order-bar" id="orderBar">
-        <button class="order-btn" id="orderBtn" onclick="sendOrder()">Оформить предзаказ</button>
+        <input type="tel" id="userPhone" class="phone-input" placeholder="+7 (999) 000-00-00">
+        <button class="order-btn" id="orderBtn" onclick="sendOrder()">Отправить заказ</button>
     </div>
 
     <script>
-        // Инициализация WebApp контекста в экосистеме Telegram
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачиваем окно на максимум экрана смартфона
+        tg.expand();
 
-        let cart = [];
+        const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCMMRofMivR6m2p4k"; 
+        const chat_id = 2013568102; // Твой личный ID аккаунта
+
+        let cart = {};
         let totalSum = 0;
 
-        // Функция обработки клика по кнопке товара
-        function toggleCart(title, price, button) {
-            const index = cart.findIndex(item => item.title === title);
-
-            if (index === -1) {
-                // Если товара нет в корзине — добавляем его
-                cart.push({ title: title, price: price });
-                button.textContent = "В корзине ✓";
-                button.classList.add("added");
-                totalSum += price;
-            } else {
-                // Если товар уже был добавлен — удаляем его при повторном клике
-                cart.splice(index, 1);
-                button.textContent = "Добавить";
-                button.classList.remove("added");
-                totalSum -= price;
-            }
-
-            // Логика отображения нижней плашки заказа
-            const orderBar = document.getElementById("orderBar");
-            const orderBtn = document.getElementById("orderBtn");
-            
-            if (cart.length > 0) {
-                orderBar.style.display = "block";
-                orderBtn.textContent = `Оформить предзаказ: ${totalSum} ₽`;
-            } else {
-                orderBar.style.display = "none";
-            }
+        function initItem(id, title, price) {
+            cart[id] = { title: title, price: price, count: 1 };
+            updateControls(id);
+            calculateTotal();
         }
 
-        // Функция формирования чека и передачи данных обратно в Телеграм-бот
+        function changeCount(id, delta) {
+            if (!cart[id]) return;
+            cart[id].count += delta;
+            if (cart[id].count <= 0) {
+                delete cart[id];
+                const originalTitle = id === 'shaurma' ? '🌯 Шаурма Классическая' : id === 'shashlyk' ? '🥩 Шашлык из свинины' : '🥤 Кола (0.5л)';
+                const originalPrice = id === 'shaurma' ? 250 : id === 'shashlyk' ? 380 : 90;
+                document.getElementById(`controls-${id}`).innerHTML = `<button class="add-initial-btn" onclick="initItem('${id}', '${originalTitle}', ${originalPrice})">Добавить</button>`;
+            } else {
+                document.getElementById(`count-${id}`).textContent = cart[id].count;
+            }
+            calculateTotal();
+        }
+
+        function updateControls(id) {
+            document.getElementById(`controls-${id}`).innerHTML = `
+                <div class="counter-container">
+                    <button class="count-btn" onclick="changeCount('${id}', -1)">-</button>
+                    <div class="item-count" id="count-${id}">1</div>
+                    <button class="count-btn" onclick="changeCount('${id}', 1)">+</button>
+                </div>
+            `;
+        }
+
+        function calculateTotal() {
+            totalSum = 0;
+            let hasItems = false;
+            for (let id in cart) {
+                totalSum += cart[id].price * cart[id].count;
+                hasItems = true;
+            }
+            document.getElementById("orderBar").style.display = hasItems ? "block" : "none";
+            document.getElementById("orderBtn").textContent = `Заказать: ${totalSum} ₽`;
+        }
+
         function sendOrder() {
-            if (cart.length === 0) return;
+            const phone = document.getElementById("userPhone").value.trim();
+            if (!phone) {
+                tg.showAlert("Пожалуйста, введите ваш номер телефона для связи!");
+                return;
+            }
 
-            // Формируем структурированный список для администратора кафе
-            let orderText = "📥 НОВЫЙ ПРЕДЗАКАЗ ИЗ МЕНЮ:\n\n";
-            cart.forEach((item, i) => {
-                orderText += `${i + 1}. ${item.title} — ${item.price} ₽\n`;
-            });
-            orderText += `\nИТОГО К ОПЛАТЕ: ${totalSum} ₽\n`;
-            orderText += "⚠️ Пожалуйста, свяжитесь для подтверждения времени готовности.";
+            const user = tg.initDataUnsafe?.user;
+            let message = `📥 **НОВЫЙ ПРЕДЗАКАЗ КАФЕ МИАС**\n\n`;
+            message += `👤 **Клиент:** ${user?.first_name || 'Не указано'} ${user?.last_name || ''}\n`;
+            message += `📱 **Телефон:** ${phone}\n`;
+            if (user?.username) message += `✉️ **Юзернейм:** @${user.username}\n`;
+            message += `\n📋 **Состав заказа:**\n`;
+            
+            let i = 1;
+            for (let id in cart) {
+                message += `${i}. ${cart[id].title} x${cart[id].count} — ${cart[id].price * cart[id].count} ₽\n`;
+                i++;
+            }
+            message += `\n💰 **ИТОГО К ОПЛАТЕ:** ${totalSum} ₽`;
 
-            // Магия передачи данных веб-интерфейса в интерфейс мессенджера
-            tg.sendData(orderText);
-            tg.close(); // Закрываем окно Web App после отправки
+            fetch(`https://telegram.org{BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chat_id, text: message, parse_mode: "Markdown" })
+            })
+            .then(res => {
+                if (res.ok) {
+                    tg.showAlert("✅ Заказ успешно оформлен! Чек отправлен владельцу.");
+                    tg.close();
+                } else {
+                    tg.showAlert("Ошибка отправки.");
+                }
+            })
+            .catch(() => tg.showAlert("Ошибка сети."));
         }
     </script>
 </body>
