@@ -1,1 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Кафе Миас</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .header h1 {
+            color: #ffaa00;
+            font-size: 24px;
+        }
+        .header .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+        .header .version {
+            color: #444;
+            font-size: 12px;
+            background: #111;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #ffaa00;
+            color: #111;
+        }
+        .tab:hover {
+            opacity: 0.8;
+        }
+        .panel {
+            display: none;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .panel.active {
+            display: block;
+        }
 
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #888;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #111;
+            color: white;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffaa00;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn:active {
+            opacity: 0.7;
+        }
+        .btn-primary {
+            background: #ffaa00;
+            color: #111;
+        }
+        .btn-success {
+            background: #44bb44;
+            color: white;
+        }
+        .btn-danger {
+            background: #ff4444;
+            color: white;
+        }
+        .btn-secondary {
+            background: #333;
+            color: white;
+        }
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+        .btn-block {
+            width: 100%;
+        }
+
+        .items-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .item-card {
+            background: #111;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #ffaa00;
+            transition: all 0.3s;
+        }
+        .item-card:hover {
+            background: #1a1a1a;
+        }
+        .item-card .info {
+            flex: 1;
+        }
+        .item-card .info h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .item-card .info .desc {
+            color: #888;
+            font-size: 14px;
+        }
+        .item-card .info .price {
+            color: #ffaa00;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 4px;
+        }
+        .item-card .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #111;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffaa00;
+        }
+        .stat-card .label {
+            color: #888;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .orders-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .order-card {
+            background: #111;
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 4px solid #44bb44;
+        }
+        .order-card .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .order-card .order-id {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        .order-card .order-time {
+            color: #888;
+            font-size: 13px;
+        }
+        .order-card .order-items {
+            margin: 10px 0;
+            padding: 10px;
+            background: #0a0a0a;
+            border-radius: 8px;
+        }
+        .order-card .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .order-card .order-total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffaa00;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-new {
+            background: #ff5500;
+            color: white;
+        }
+        .status-accepted {
+            background: #44bb44;
+            color: white;
+        }
+        .status-rejected {
+            background: #ff4444;
+            color: white;
+        }
+        .status-done {
+            background: #4488ff;
+            color: white;
+        }
+
+        .back-link {
+            color: #ffaa00;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #44bb44;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+        .toast.error {
+            background: #ff4444;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Вернуться в меню</a>
+
+        <div class="header">
+            <div>
+                <h1>🛠 Админ-панель</h1>
+                <div class="subtitle">Управление меню и заказами</div>
+            </div>
+            <div>
+                <span class="version">v1.0</span>
+                <button class="btn btn-secondary btn-sm" onclick="location.reload()">🔄 Обновить</button>
+            </div>
+        </div>
+
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('menu')">📋 Меню</button>
+            <button class="tab" onclick="switchTab('add')">➕ Добавить блюдо</button>
+            <button class="tab" onclick="switchTab('orders')">📦 Заказы</button>
+        </div>
+
+        <!-- Панель: Меню -->
+        <div class="panel active" id="panelMenu">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="number" id="totalItems">0</div>
+                    <div class="label">Всего блюд</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="totalCategories">0</div>
+                    <div class="label">Категорий</div>
+                </div>
+            </div>
+            <div id="menuList">
+                <div class="empty">Загрузка меню...</div>
+            </div>
+        </div>
+
+        <!-- Панель: Добавить блюдо -->
+        <div class="panel" id="panelAdd">
+            <h2 style="color:#ffaa00;margin-bottom:20px;">➕ Добавить новое блюдо</h2>
+            <form id="addItemForm" onsubmit="addItem(event)">
+                <div class="form-group">
+                    <label>Название блюда *</label>
+                    <input type="text" id="itemName" placeholder="Например: Шашлык из свинины" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Цена (₽) *</label>
+                        <input type="number" id="itemPrice" placeholder="350" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Категория</label>
+                        <select id="itemCategory">
+                            <option value="Мясо">Мясо</option>
+                            <option value="Салаты">Салаты</option>
+                            <option value="Гарниры">Гарниры</option>
+                            <option value="Напитки">Напитки</option>
+                            <option value="Десерты">Десерты</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="itemDesc" placeholder="Краткое описание блюда..." rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">➕ Добавить блюдо</button>
+            </form>
+        </div>
+
+        <!-- Панель: Заказы -->
+        <div class="panel" id="panelOrders">
+            <h2 style="color:#ffaa00;margin-bottom:20px;">📦 История заказов</h2>
+            <div id="ordersList">
+                <div class="empty">Загрузка заказов...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast уведомления -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================
+        // ===== НАСТРОЙКИ =====
+        // ============================================
+        const STORAGE_KEY = 'cafe_menu_items';
+        const ORDERS_KEY = 'cafe_orders';
+
+        // ============================================
+        // ===== УПРАВЛЕНИЕ ВКЛАДКАМИ =====
+        // ============================================
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+            document.querySelector(`.tab[onclick*="${tab}"]`).classList.add('active');
+            document.getElementById(`panel${tab.charAt(0).toUpperCase() + tab.slice(1)}`).classList.add('active');
+
+            if (tab === 'menu') loadMenu();
+            if (tab === 'orders') loadOrders();
+        }
+
+        // ============================================
+        // ===== РАБОТА С МЕНЮ =====
+        // ============================================
+        function getMenuItems() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                if (data) {
+                    return JSON.parse(data);
+                }
+            } catch (e) {
+                console.error('Error loading menu:', e);
+            }
+            // Стандартное меню по умолчанию
+            return [
+                { id: 1, name: 'Шашлык из свинины', price: 350, desc: 'Сочный, на углях', category: 'Мясо' },
+                { id: 2, name: 'Люля-кебаб', price: 280, desc: 'С бараниной и специями', category: 'Мясо' },
+                { id: 3, name: 'Салат "Миас"', price: 220, desc: 'Свежий, с овощами', category: 'Салаты' },
+                { id: 4, name: 'Чай с мятой', price: 150, desc: 'Горячий, тонизирующий', category: 'Напитки' },
+                { id: 5, name: 'Хинкали', price: 250, desc: 'С мясом и бульоном', category: 'Мясо' },
+                { id: 6, name: 'Компот', price: 120, desc: 'Домашний, из сухофруктов', category: 'Напитки' },
+                { id: 7, name: 'Картофель фри', price: 180, desc: 'Хрустящий, с солью', category: 'Гарниры' },
+                { id: 8, name: 'Мороженое', price: 160, desc: 'Ванильное, с шоколадом', category: 'Десерты' },
+            ];
+        }
+
+        function saveMenuItems(items) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        }
+
+        function loadMenu() {
+            const items = getMenuItems();
+            const container = document.getElementById('menuList');
+
+            if (items.length === 0) {
+                container.innerHTML = '<div class="empty">📭 Меню пусто. Добавьте блюда!</div>';
+                return;
+            }
+
+            // Обновляем статистику
+            document.getElementById('totalItems').textContent = items.length;
+            const categories = new Set(items.map(i => i.category));
+            document.getElementById('totalCategories').textContent = categories.size;
+
+            container.innerHTML = items.map(item => `
+                <div class="item-card">
+                    <div class="info">
+                        <h3>${item.name}</h3>
+                        <div class="desc">${item.desc || ''} ${item.category ? `· ${item.category}` : ''}</div>
+                        <div class="price">${item.price}₽</div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-sm" onclick="editItem(${item.id})">✏️</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteItem(${item.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addItem(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('itemName').value.trim();
+            const price = parseInt(document.getElementById('itemPrice').value);
+            const desc = document.getElementById('itemDesc').value.trim();
+            const category = document.getElementById('itemCategory').value;
+
+            if (!name || !price) {
+                showToast('Заполните все поля!', 'error');
+                return;
+            }
+
+            const items = getMenuItems();
+            const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
+
+            items.push({
+                id: newId,
+                name: name,
+                price: price,
+                desc: desc,
+                category: category
+            });
+
+            saveMenuItems(items);
+            loadMenu();
+            document.getElementById('addItemForm').reset();
+            showToast('✅ Блюдо добавлено!');
+
+            // Обновляем также в основном приложении
+            syncWithMainApp(items);
+        }
+
+        function deleteItem(id) {
+            if (!confirm('Удалить это блюдо?')) return;
+
+            let items = getMenuItems();
+            items = items.filter(i => i.id !== id);
+            saveMenuItems(items);
+            loadMenu();
+            showToast('🗑️ Блюдо удалено');
+
+            // Обновляем основное приложение
+            syncWithMainApp(items);
+        }
+
+        function editItem(id) {
+            const items = getMenuItems();
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            const newName = prompt('Название блюда:', item.name);
+            if (newName === null) return;
+            const newPrice = prompt('Цена (₽):', item.price);
+            if (newPrice === null) return;
+            const newDesc = prompt('Описание:', item.desc || '');
+            if (newDesc === null) return;
+
+            item.name = newName.trim() || item.name;
+            item.price = parseInt(newPrice) || item.price;
+            item.desc = newDesc.trim();
+
+            saveMenuItems(items);
+            loadMenu();
+            showToast('✅ Блюдо обновлено!');
+
+            // Обновляем основное приложение
+            syncWithMainApp(items);
+        }
+
+        // ============================================
+        // ===== СИНХРОНИЗАЦИЯ С ОСНОВНЫМ ПРИЛОЖЕНИЕМ =====
+        // ============================================
+        function syncWithMainApp(items) {
+            // Сохраняем в localStorage для основного приложения
+            localStorage.setItem('cafe_menu_items', JSON.stringify(items));
+
+            // Отправляем сообщение в основное окно (если открыто)
+            if (window.opener) {
+                window.opener.postMessage({
+                    type: 'menuUpdated',
+                    items: items
+                }, '*');
+            }
+        }
+
+        // ============================================
+        // ===== ЗАКАЗЫ =====
+        // ============================================
+        function loadOrders() {
+            const container = document.getElementById('ordersList');
+
+            try {
+                const data = localStorage.getItem(ORDERS_KEY);
+                let orders = data ? JSON.parse(data) : [];
+
+                if (orders.length === 0) {
+                    container.innerHTML = '<div class="empty">📭 Заказов пока нет</div>';
+                    return;
+                }
+
+                // Сортируем по дате (новые сверху)
+                orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                container.innerHTML = orders.map(order => `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-id">Заказ #${order.id || 'N/A'}</span>
+                            <span class="status-badge status-${order.status || 'new'}">
+                                ${getStatusText(order.status || 'new')}
+                            </span>
+                            <span class="order-time">${formatDate(order.timestamp)}</span>
+                        </div>
+                        <div>
+                            <div>👤 ${order.customer?.name || 'Неизвестно'}</div>
+                            <div>📱 ${order.customer?.phone || 'Нет телефона'}</div>
+                            <div>⏰ ${order.customer?.deliveryTime || 'Не указано'}</div>
+                            ${order.customer?.comment ? `<div>💬 ${order.customer.comment}</div>` : ''}
+                        </div>
+                        <div class="order-items">
+                            ${order.items?.map(item => `
+                                <div class="order-item">
+                                    <span>${item.name} × ${item.quantity}</span>
+                                    <span>${item.total}₽</span>
+                                </div>
+                            `).join('') || '<div>Нет позиций</div>'}
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                            <span class="order-total">Итого: ${order.total}₽</span>
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                                <button class="btn btn-success btn-sm" onclick="updateOrderStatus('${order.id}', 'accepted')">✅ Принять</button>
+                                <button class="btn btn-danger btn-sm" onclick="updateOrderStatus('${order.id}', 'rejected')">❌ Отказать</button>
+                                <button class="btn btn-secondary btn-sm" onclick="deleteOrder('${order.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (e) {
+                console.error('Load orders error:', e);
+                container.innerHTML = '<div class="empty">⚠️ Ошибка загрузки заказов</div>';
+            }
+        }
+
+        function updateOrderStatus(orderId, status) {
+            try {
+                const data = localStorage.getItem(ORDERS_KEY);
+                let orders = data ? JSON.parse(data) : [];
+                const order = orders.find(o => o.id === orderId);
+                if (order) {
+                    order.status = status;
+                    localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+                    loadOrders();
+                    showToast(`Статус заказа обновлен: ${getStatusText(status)}`);
+                }
+            } catch (e) {
+                console.error('Update status error:', e);
+                showToast('Ошибка обновления статуса', 'error');
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (!confirm('Удалить заказ?')) return;
+            try {
+                const data = localStorage.getItem(ORDERS_KEY);
+                let orders = data ? JSON.parse(data) : [];
+                orders = orders.filter(o => o.id !== orderId);
+                localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+                loadOrders();
+                showToast('Заказ удален');
+            } catch (e) {
+                console.error('Delete order error:', e);
+                showToast('Ошибка удаления', 'error');
+            }
+        }
+
+        // ============================================
+        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+        // ============================================
+        function getStatusText(status) {
+            const map = {
+                'new': '🆕 Новый',
+                'accepted': '✅ Принят',
+                'rejected': '❌ Отказан',
+                'done': '📦 Выполнен'
+            };
+            return map[status] || status;
+        }
+
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Нет даты';
+            try {
+                const date = new Date(timestamp);
+                return date.toLocaleString('ru-RU', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch {
+                return timestamp;
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // ============================================
+        // ===== СЛУШАЕМ СООБЩЕНИЯ ИЗ ОСНОВНОГО ПРИЛОЖЕНИЯ =====
+        // ============================================
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'newOrder') {
+                // Обновляем список заказов если открыта вкладка
+                if (document.getElementById('panelOrders').classList.contains('active')) {
+                    loadOrders();
+                }
+                // Показываем уведомление
+                showToast('📦 Новый заказ!');
+            }
+        });
+
+        // ============================================
+        // ===== ЗАПУСК =====
+        // ============================================
+        loadMenu();
+
+        console.log('✅ Админ-панель загружена');
+        console.log('📋 Для управления меню используйте вкладки');
+    </script>
+</body>
+</html>
