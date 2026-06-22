@@ -19,15 +19,17 @@
         .item-desc { font-size: 12px; color: #8c8c8c; margin-bottom: 6px; line-height: 1.3; }
         .item-price { font-size: 15px; color: #ffaa00; font-weight: 800; }
         
-        .counter-container { display: flex; align-items: center; background-color: #262626; border-radius: 8px; overflow: hidden; }
-        .count-btn { background-color: #ff5500; color: white; border: none; width: 32px; height: 32px; font-size: 18px; font-weight: bold; cursor: pointer; }
-        .item-count { width: 30px; text-align: center; font-size: 14px; font-weight: bold; }
-        .add-initial-btn { background: linear-gradient(135deg, #ff5500 0%, #ff8800 100%); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; }
+        /* Фиксированные контейнеры кнопок */
+        .controls-wrapper { min-width: 110px; display: flex; justify-content: flex-end; }
+        .counter-container { display: none; align-items: center; background-color: #262626; border-radius: 8px; overflow: hidden; }
+        .count-btn { background-color: #ff5500; color: white; border: none; width: 34px; height: 34px; font-size: 20px; font-weight: bold; cursor: pointer; }
+        .item-count { width: 35px; text-align: center; font-size: 15px; font-weight: bold; }
+        .add-initial-btn { display: block; background: linear-gradient(135deg, #ff5500 0%, #ff8800 100%); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3); }
 
         .order-bar { position: fixed; bottom: 0; left: 0; right: 0; background-color: rgba(22, 22, 22, 0.98); backdrop-filter: blur(10px); padding: 15px; border-top: 1px solid #2d2d2d; display: none; z-index: 9999; }
-        .phone-input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background-color: #111; color: white; font-size: 14px; margin-bottom: 10px; text-align: center; }
+        .phone-input { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid #444; background-color: #111; color: white; font-size: 15px; margin-bottom: 10px; text-align: center; }
         .phone-input:focus { border-color: #ffaa00; outline: none; }
-        .order-btn { width: 100%; background: linear-gradient(135deg, #ff5500 0%, #ffaa00 100%); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        .order-btn { width: 100%; background: linear-gradient(135deg, #ff5500 0%, #ffaa00 100%); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -39,39 +41,58 @@
 
     <div class="category-title">Мясо на углях & Шаурма</div>
     
+    <!-- Шаурма -->
     <div class="menu-item">
         <div class="item-info">
             <div class="item-title">🌯 Шаурма Классическая</div>
             <div class="item-desc">Мясо, томаты, огурцы, капуста, соус.</div>
             <div class="item-price">250 ₽</div>
         </div>
-        <div id="controls-shaurma">
-            <button class="add-initial-btn" onclick="initItem('shaurma', '🌯 Шаурма Классическая', 250)">Добавить</button>
+        <div class="controls-wrapper">
+            <button id="btn-shaurma" class="add-initial-btn" onclick="addItem('shaurma', '🌯 Шаурма Классическая', 250)">Добавить</button>
+            <div id="counter-shaurma" class="counter-container">
+                <button class="count-btn" onclick="changeQuantity('shaurma', -1)">-</button>
+                <div class="item-count" id="count-shaurma">1</div>
+                <button class="count-btn" onclick="changeQuantity('shaurma', 1)">+</button>
+            </div>
         </div>
     </div>
 
+    <!-- Шашлык -->
     <div class="menu-item">
         <div class="item-info">
             <div class="item-title">🥩 Шашлык из свинины</div>
             <div class="item-desc">Сочная свиная шея, лук, соус. 200г.</div>
             <div class="item-price">380 ₽</div>
         </div>
-        <div id="controls-shashlyk">
-            <button class="add-initial-btn" onclick="initItem('shashlyk', '🥩 Шашлык из свинины', 380)">Добавить</button>
+        <div class="controls-wrapper">
+            <button id="btn-shashlyk" class="add-initial-btn" onclick="addItem('shashlyk', '🥩 Шашлык из свинины', 380)">Добавить</button>
+            <div id="counter-shashlyk" class="counter-container">
+                <button class="count-btn" onclick="changeQuantity('shashlyk', -1)">-</button>
+                <div class="item-count" id="count-shashlyk">1</div>
+                <button class="count-btn" onclick="changeQuantity('shashlyk', 1)">+</button>
+            </div>
         </div>
     </div>
 
+    <!-- Кола -->
     <div class="menu-item">
         <div class="item-info">
             <div class="item-title">🥤 Кола (0.5л)</div>
             <div class="item-desc">Освежающий газированный напиток.</div>
             <div class="item-price">90 ₽</div>
         </div>
-        <div id="controls-cola">
-            <button class="add-initial-btn" onclick="initItem('cola', '🥤 Кола (0.5л)', 90)">Добавить</button>
+        <div class="controls-wrapper">
+            <button id="btn-cola" class="add-initial-btn" onclick="addItem('cola', '🥤 Кола (0.5л)', 90)">Добавить</button>
+            <div id="counter-cola" class="counter-container">
+                <button class="count-btn" onclick="changeQuantity('cola', -1)">-</button>
+                <div class="item-count" id="count-cola">1</div>
+                <button class="count-btn" onclick="changeQuantity('cola', 1)">+</button>
+            </div>
         </div>
     </div>
 
+    <!-- Нижняя панель оформления заказа -->
     <div class="order-bar" id="orderBar">
         <input type="tel" id="userPhone" class="phone-input" placeholder="+7 (999) 000-00-00">
         <button class="order-btn" id="orderBtn" onclick="sendOrder()">Отправить заказ</button>
@@ -82,52 +103,57 @@
         tg.expand();
 
         const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCMMRofMivR6m2p4k"; 
-        const chat_id = 2013568102; // Твой личный ID аккаунта
+        const chat_id = 2013568102; 
 
         let cart = {};
         let totalSum = 0;
 
-        function initItem(id, title, price) {
+        // Первая инициализация товара в корзине
+        function addItem(id, title, price) {
             cart[id] = { title: title, price: price, count: 1 };
-            updateControls(id);
+            
+            // Переключаем видимость кнопок
+            document.getElementById(`btn-${id}`).style.display = "none";
+            document.getElementById(`counter-${id}`).style.display = "flex";
+            document.getElementById(`count-${id}`).textContent = "1";
+            
             calculateTotal();
         }
 
-        function changeCount(id, delta) {
+        // Изменение количества (+ или -)
+        function changeQuantity(id, delta) {
             if (!cart[id]) return;
+            
             cart[id].count += delta;
+            
             if (cart[id].count <= 0) {
+                // Если сбросили в 0, удаляем из корзины и возвращаем кнопку "Добавить"
                 delete cart[id];
-                const originalTitle = id === 'shaurma' ? '🌯 Шаурма Классическая' : id === 'shashlyk' ? '🥩 Шашлык из свинины' : '🥤 Кола (0.5л)';
-                const originalPrice = id === 'shaurma' ? 250 : id === 'shashlyk' ? 380 : 90;
-                document.getElementById(`controls-${id}`).innerHTML = `<button class="add-initial-btn" onclick="initItem('${id}', '${originalTitle}', ${originalPrice})">Добавить</button>`;
+                document.getElementById(`counter-${id}`).style.display = "none";
+                document.getElementById(`btn-${id}`).style.display = "block";
             } else {
+                // Иначе обновляем цифру счетчика
                 document.getElementById(`count-${id}`).textContent = cart[id].count;
             }
+            
             calculateTotal();
         }
 
-        function updateControls(id) {
-            document.getElementById(`controls-${id}`).innerHTML = `
-                <div class="counter-container">
-                    <button class="count-btn" onclick="changeCount('${id}', -1)">-</button>
-                    <div class="item-count" id="count-${id}">1</div>
-                    <button class="count-btn" onclick="changeCount('${id}', 1)">+</button>
-                </div>
-            `;
-        }
-
+        // Подсчет общей суммы заказа
         function calculateTotal() {
             totalSum = 0;
             let hasItems = false;
+            
             for (let id in cart) {
                 totalSum += cart[id].price * cart[id].count;
                 hasItems = true;
             }
+            
             document.getElementById("orderBar").style.display = hasItems ? "block" : "none";
             document.getElementById("orderBtn").textContent = `Заказать: ${totalSum} ₽`;
         }
 
+        // Отправка готового чека
         function sendOrder() {
             const phone = document.getElementById("userPhone").value.trim();
             if (!phone) {
@@ -159,7 +185,7 @@
                     tg.showAlert("✅ Заказ успешно оформлен! Чек отправлен владельцу.");
                     tg.close();
                 } else {
-                    tg.showAlert("Ошибка отправки.");
+                    tg.showAlert("Ошибка отправки заказа.");
                 }
             })
             .catch(() => tg.showAlert("Ошибка сети."));
