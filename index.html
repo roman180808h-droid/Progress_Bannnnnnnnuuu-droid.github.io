@@ -2,949 +2,264 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ТЕРМОГРАД | Банные печи, котлы, чаны, баки, мангалы, коптильни</title>
-    <meta name="description" content="Банные печи, котлы отопления, нержавеющие чаны, баки для воды, мангалы, коптильни. Более 80 моделей. Доставка по России. Заводское качество.">
-    <meta name="keywords" content="банные печи, печи для бани, котлы отопления, буржуйка, банный чан, баки для воды, мангал, коптильня">
-    <meta name="yandex-verification" content="af68ace5ad18fce2">
-    <link rel="icon" href="favicon.ico">
-    <link rel="canonical" href="https://termogradpechi.ru/">
-    
-    <!-- Яндекс.Метрика -->
-    <script>
-        (function() {
-            var metrikaLoaded = false;
-            var mainScript = document.createElement('script');
-            mainScript.src = 'https://mc.yandex.ru/metrika/tag.js';
-            mainScript.async = true;
-            mainScript.onload = function() { metrikaLoaded = true; };
-            mainScript.onerror = function() {
-                if (!metrikaLoaded) {
-                    var fallbackScript = document.createElement('script');
-                    fallbackScript.src = 'https://yastatic.net/metrika/watch/9.5.0/watch.js';
-                    fallbackScript.async = true;
-                    document.head.appendChild(fallbackScript);
-                }
-            };
-            document.head.appendChild(mainScript);
-            window.ym = window.ym || function() {
-                (window.ym.a = window.ym.a || []).push(arguments);
-            };
-            window.ym.l = 1 * new Date();
-        })();
-    </script>
-    <script>
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                if (typeof ym !== 'undefined') {
-                    ym(109310228, 'init', {
-                        clickmap: true,
-                        trackLinks: true,
-                        accurateTrackBounce: true,
-                        webvisor: true,
-                        defer: false
-                    });
-                    ym(109310228, 'hit', window.location.href);
-                }
-            }, 500);
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/109310228" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дорожный сервис 777 в Павловске</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(145deg,#f8f5f0 0%,#efe6db 100%);color:#2c241a;min-height:100vh;scroll-behavior:smooth}
-        .container{max-width:1200px;margin:0 auto;padding:0 24px}
-        .header{text-align:center;padding:20px 0 10px}
-        .logo-wrapper{display:flex;justify-content:center;margin:0 auto}
-        .header-logo{max-width:280px;height:auto;width:100%}
-        .subtitle{color:#7a6852;font-size:1rem;margin-top:16px;margin-bottom:20px;border-bottom:2px solid #e8dccc;display:inline-block;padding-bottom:8px}
-        
-        /* ИНФО КНОПКИ */
-        .info-buttons-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0 30px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
         }
-        .info-btn {
-            background: #e8d9ca;
-            color: #5a3a2a;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 60px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+
+        body {
+            background-color: #0b0b0b; 
+            color: #e0e0e0;
+            padding-bottom: 20px;
         }
-        .info-btn:hover, .info-btn.active {
-            background: #d97a2b;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(217,122,43,0.3);
+
+        /* Шапка сайта */
+        header {
+            background-color: rgba(20, 20, 20, 0.95);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 3px solid #ff1e1e;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        
-        .info-text-container {
-            background: #fffef7;
-            border-left: 5px solid #d97a2b;
-            border-radius: 24px;
-            padding: 25px;
-            margin: 10px 0 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            font-size: 15px;
-            line-height: 1.6;
-            color: #2c241a;
-            display: none;
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 3px;
         }
-        .info-text-container.show { display: block; }
-        .info-text-container h3 { color: #9b4f23; margin-bottom: 15px; }
-        .close-info { float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
-        .close-info:hover { color: #c0392b; }
-        
-        .sketch-form input, .sketch-form textarea {
-            width: 100%;
-            padding: 12px;
+
+        .logo span {
+            color: #ff1e1e;
+        }
+
+        .location {
+            font-size: 13px;
+            color: #ff1e1e;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        /* Главный блок с крутой тачкой на фоне */
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(11, 11, 11, 0.6) 0%, rgba(11, 11, 11, 0.95) 100%), 
+                        url('https://unsplash.com');
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
             margin-bottom: 15px;
-            border-radius: 40px;
-            border: 1px solid #e2d4c4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-        .send-sketch-btn {
-            background: #27ae60;
-            color: white;
+
+        .subtitle {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        }
+
+        /* Кнопки действия */
+        .btn {
+            display: block;
             width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 60px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .category-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin: 20px 0 30px;
-        }
-        .cat-btn {
-            background: #e8d9ca;
-            color: #5a3a2a;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .cat-btn:hover, .cat-btn.active {
-            background: #d97a2b;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(217,122,43,0.3);
-        }
-        
-        .filters-panel {
-            background: rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 60px;
-            padding: 12px 24px;
-            margin: 0 auto 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 16px;
-            border: 1px solid rgba(210,180,140,0.3);
-            max-width: 900px;
-        }
-        .search-input, .sort-select {
-            padding: 12px 20px;
-            border-radius: 40px;
-            border: 1px solid #e2d4c4;
-            background: #fff;
-            font-size: 0.95rem;
-            font-weight: 500;
-            outline: none;
-        }
-        .search-input { flex: 2; min-width: 200px; }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 30px 0 40px;
-        }
-        .product-card-item {
-            background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #eee5dc;
-        }
-        .product-card-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
-        }
-        .product-card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            background: #fefaf5;
-            padding: 16px;
-        }
-        .product-card-info { padding: 16px; border-top: 1px solid #f0e6dc; }
-        .product-card-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #2c241a;
-            margin-bottom: 8px;
-            line-height: 1.4;
-            height: 44px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-        .product-card-price { font-size: 1.2rem; font-weight: 700; color: #d97a2b; margin-top: 8px; }
-        .product-card-specs {
-            font-size: 0.65rem;
-            color: #8a7a6a;
-            margin-top: 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .gallery-container {
-            position: relative;
-            width: 100%;
-            max-height: 400px;
-            overflow: hidden;
-            border-radius: 24px;
-            background: #fefaf5;
-            margin-bottom: 20px;
-        }
-        .gallery-slide {
-            display: none;
-            width: 100%;
-            height: 400px;
-            object-fit: contain;
-        }
-        .gallery-slide.active { display: block; }
-        .gallery-prev, .gallery-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            cursor: pointer;
-            font-size: 18px;
-            border-radius: 50%;
-            transition: 0.2s;
-            z-index: 10;
-        }
-        .gallery-prev:hover, .gallery-next:hover { background: #d97a2b; }
-        .gallery-prev { left: 10px; }
-        .gallery-next { right: 10px; }
-        .gallery-counter {
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            z-index: 10;
-        }
-        
-        .product-detail {
-            background: #fff;
-            border-radius: 32px;
-            padding: 32px;
-            max-width: 800px;
-            margin: 20px auto;
-            border: 1px solid #e6daca;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-            display: none;
-        }
-        .product-detail.show { display: block; }
-        .product-detail h2 { text-align: center; color: #9b4f23; margin-bottom: 15px; font-size: 1.5rem; }
-        .detail-single-img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 24px;
-            background: #fefaf5;
-            margin-bottom: 20px;
-        }
-        .specs-full {
-            background: #fef8f2;
             padding: 20px;
-            border-radius: 24px;
-            margin: 15px 0;
-            line-height: 1.6;
-            border-left: 4px solid #d97a2b;
-            font-size: 0.9rem;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
         }
-        .price { font-size: 28px; font-weight: 700; color: #d97a2b; text-align: center; margin: 15px 0; }
-        .addons-section { background: #fdf8f1; border-radius: 24px; padding: 15px; margin-top: 20px; }
-        .addon-title { font-size: 1rem; font-weight: 600; color: #b45a2b; margin-bottom: 12px; }
-        .addon-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; margin: 6px 0; background: #fff; border-radius: 60px; border: 1px solid #eadbcb; }
-        .addon-name { flex: 2; font-weight: 500; font-size: 0.85rem; }
-        .addon-price { flex: 0 0 90px; text-align: right; font-weight: 600; color: #d97a2b; }
-        .addon-controls { display: flex; gap: 10px; align-items: center; flex: 0 0 80px; justify-content: flex-end; }
-        .addon-controls button { width: 28px; height: 28px; border-radius: 50%; background: #d97a2b; color: #fff; border: none; cursor: pointer; font-size: 16px; }
-        .addon-controls button:hover { background: #c06622; }
-        .addon-count { min-width: 28px; text-align: center; font-weight: 600; }
-        .add-to-cart { background: #d97a2b; color: #fff; width: 100%; padding: 14px; border: none; border-radius: 60px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 20px; }
-        .add-to-cart:hover { background: #c06622; }
-        .back-to-catalog { background: #e8d9ca; color: #5a3a2a; padding: 10px 20px; border: none; border-radius: 40px; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
-        
-        .cart-section { background: #fff; border-radius: 32px; padding: 24px; margin: 40px 0; border: 1px solid #e6daca; }
-        .cart-header { font-size: 1.5rem; font-weight: 600; color: #b45a2b; margin-bottom: 20px; }
-        .cart-item { background: #fef9f2; padding: 12px 18px; border-radius: 60px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.9rem; }
-        .cart-remove { background: #c0392b; border: none; color: #fff; border-radius: 40px; padding: 5px 15px; cursor: pointer; }
-        .cart-total { text-align: right; font-size: 1.3rem; font-weight: 700; padding-top: 15px; border-top: 2px solid #e6daca; }
-        .order-form { display: none; margin-top: 25px; }
-        .order-form.show { display: block; }
-        .order-form input, .order-form textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 40px; border: 1px solid #e2d4c4; }
-        .send-order-btn { background: #27ae60; color: white; width: 100%; padding: 14px; border: none; border-radius: 60px; font-weight: 600; cursor: pointer; margin-top: 10px; }
-        
-        .floating-cart { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #d97a2b; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: #c0392b; color: #fff; font-size: 12px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .scroll-top { position: fixed; bottom: 110px; right: 30px; width: 50px; height: 50px; background: #8b694e; border-radius: 50%; display: none; align-items: center; justify-content: center; cursor: pointer; font-size: 24px; color: #fff; z-index: 1000; }
-        .scroll-top.show { display: flex; }
-        .toast-notification { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); padding: 12px 24px; border-radius: 40px; z-index: 1001; background: #27ae60; color: white; animation: fadeInUp 0.25s; }
-        .footer { text-align: center; padding: 32px 20px; background: #e8d9ca; border-radius: 48px 48px 24px 24px; margin-top: 40px; font-size: 0.85rem; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-        @media(max-width:720px){ .products-grid { gap: 16px; } .product-card-img { height: 160px; } .container { padding: 0 16px; } .gallery-slide { height: 250px; } .cat-btn { padding: 6px 12px; font-size: 0.7rem; } }
+
+        .btn-danger {
+            background-color: #ff1e1e;
+            color: #ffffff;
+            border: none;
+            animation: pulse 2s infinite;
+        }
+
+        .btn-success {
+            background-color: #25d366;
+            color: #ffffff;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 30, 30, 0.8); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 30, 30, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 30, 30, 0); }
+        }
+
+        /* Блок услуг */
+        .services {
+            padding: 25px 15px;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            border-left: 5px solid #ff1e1e;
+            padding-left: 12px;
+        }
+
+        /* Карточки услуг с картинками */
+        .service-card {
+            background-color: #161616;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #2a2a2a;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 20px;
+        }
+
+        .service-title {
+            font-size: 19px;
+            font-weight: 800;
+            color: #ff1e1e;
+            margin-bottom: 10px;
+        }
+
+        .service-text {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        /* Преимущества */
+        .features {
+            background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
+            padding: 30px 15px;
+            border-top: 1px solid #222;
+        }
+
+        .feature-item {
+            margin-bottom: 18px;
+            font-size: 15px;
+            color: #dddddd;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .feature-item span {
+            color: #ff1e1e;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 35px 15px;
+            background-color: #101010;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666666;
+            border-top: 2px solid #222;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <div class="logo-wrapper"><img class="header-logo" src="https://i.ibb.co/DfqLT4RQ/IMG-20260417-200601.png" alt="ТЕРМОГРАД" width="280" height="70" loading="eager"></div>
-        <div class="subtitle">Банные печи, котлы, чаны, баки, мангалы, коптильни — полный заводской каталог</div>
-    </div>
-    
-    <!-- ИНФО КНОПКИ -->
-    <div class="info-buttons-row">
-        <button class="info-btn" data-info="delivery">🚚 Доставка</button>
-        <button class="info-btn" data-info="warranty">🛡️ Гарантия</button>
-        <button class="info-btn" data-info="return">🔄 Возврат</button>
-        <button class="info-btn" data-info="sketch">📐 Индивидуальный заказ</button>
-    </div>
-    
-    <div id="deliveryContainer" class="info-text-container">
-        <button class="close-info" onclick="closeInfo('delivery')">✖</button>
-        <h3>🚚 Доставка</h3>
-        <p><strong>Отправляем оборудование любой транспортной компанией за ваш счёт</strong></p>
-        <p>Мы сотрудничаем со всеми основными транспортными компаниями России (ТК Энергия, Деловые Линии, ПЭК, и др.) или готовы отправить выбранным вами перевозчиком.</p>
-        <p><strong>Стоимость:</strong> Доставка оплачивается покупателем самостоятельно при получении груза.</p>
-    </div>
-    
-    <div id="warrantyContainer" class="info-text-container">
-        <button class="close-info" onclick="closeInfo('warranty')">✖</button>
-        <h3>🛡️ Гарантия</h3>
-        <p><strong>Официальная гарантия на оборудование — 12 месяцев</strong></p>
-        <p>Вся техника и оборудование имеют гарантийный срок <strong>12 месяцев</strong> с момента передачи покупателю.</p>
-        <p><strong>Что гарантируем:</strong> Исправность оборудования, отсутствие производственных дефектов.</p>
-    </div>
-    
-    <div id="returnContainer" class="info-text-container">
-        <button class="close-info" onclick="closeInfo('return')">✖</button>
-        <h3>🔄 Возврат и обмен</h3>
-        <p><strong>Возврат товара осуществляется в соответствии с законодательством РФ</strong></p>
-        <p>Вы можете вернуть товар надлежащего качества в течение <strong>7 дней</strong> после получения.</p>
-        <p><strong>Условия:</strong> Товар не должен быть в употреблении, сохранены фабричные пломбы, упаковка и документы.</p>
-    </div>
-    
-    <div id="sketchContainer" class="info-text-container">
-        <button class="close-info" onclick="closeInfo('sketch')">✖</button>
-        <h3>📐 Индивидуальный заказ</h3>
-        <div class="order-note" style="background:#fef5e8; padding:15px; border-radius:20px; margin-bottom:15px;">
-            📞 <strong>Не нашли нужную модель?</strong><br>
-            Свяжитесь с нами, и мы изготовим печь, котёл или чан по вашим размерам.
-        </div>
-        <div class="sketch-form">
-            <input type="text" id="sketchName" placeholder="Ваше имя *">
-            <input type="tel" id="sketchPhone" placeholder="Телефон *">
-            <input type="email" id="sketchEmail" placeholder="Email">
-            <label style="display:flex; align-items:center; gap:10px; margin:15px 0;">
-                <input type="checkbox" id="sketchConsent"> <span>Я даю согласие на обработку персональных данных</span>
-            </label>
-            <button class="send-sketch-btn" id="sendSketchBtn">📨 Отправить заявку</button>
-        </div>
-    </div>
-    
-    <div class="category-buttons">
-        <button class="cat-btn active" data-cat="all">🔥 Все</button>
-        <button class="cat-btn" data-cat="stove">🏠 Печи</button>
-        <button class="cat-btn" data-cat="tub">🛁 Чаны</button>
-        <button class="cat-btn" data-cat="burzhuyka">🪵 Буржуйки</button>
-        <button class="cat-btn" data-cat="boiler">🔥 Котлы</button>
-        <button class="cat-btn" data-cat="tank">🛢️ Баки</button>
-        <button class="cat-btn" data-cat="mangal">🍖 Мангалы</button>
-        <button class="cat-btn" data-cat="smoker">🐟 Коптильни</button>
-    </div>
-    
-    <div class="filters-panel">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск...">
-        <select id="sortSelect" class="sort-select"><option value="default">📊 По умолчанию</option><option value="price-asc">💰 Сначала дешёвые</option><option value="price-desc">💰 Сначала дорогие</option></select>
-    </div>
-    
-    <div id="productsGrid" class="products-grid"></div>
-    
-    <div id="productDetail" class="product-detail">
-        <button class="back-to-catalog" id="backToCatalogBtn">← Назад к каталогу</button>
-        <div id="detailImageContainer"></div>
-        <h2 id="detailName"></h2>
-        <div class="specs-full" id="detailSpecs"></div>
-        <div class="price" id="detailPrice"></div>
-        <div id="detailAddons"></div>
-        <button class="add-to-cart" id="detailAddToCartBtn">➕ Добавить в корзину</button>
-    </div>
-    
-    <div class="cart-section" id="cartSection">
-        <div class="cart-header">🛒 Корзина</div>
-        <div id="cartItemsList" class="cart-items-list"><div class="cart-item">Корзина пуста</div></div>
-        <div class="cart-total">💰 Итого: <span id="cartTotal">0</span> ₽</div>
-        <div class="order-form" id="orderFormBlock">
-            <h3>📝 Оформление заказа</h3>
-            <input type="text" id="customerName" placeholder="Ваше имя *">
-            <input type="email" id="customerEmail" placeholder="Email *">
-            <input type="tel" id="customerPhone" placeholder="Телефон *">
-            <textarea id="customerAddress" rows="2" placeholder="Адрес доставки"></textarea>
-            <label style="display:flex; align-items:center; gap:10px; margin:15px 0;"><input type="checkbox" id="consentCheckbox"> <span>Я даю согласие на обработку персональных данных</span></label>
-            <button class="send-order-btn" id="sendOrderFinalBtn">📨 Отправить заказ</button>
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>📞 <strong>Контакты:</strong> <a href="tel:+79609471278">+7-960-947-12-78</a> | <a href="mailto:progress6300@mail.ru">progress6300@mail.ru</a></p>
-        <p>📍 Алтайский край, г.Барнаул, ул. Эмилии Алексеевой, 94</p>
-        <p><strong>ООО "ПРОГРЕСС"</strong> | ИНН 2221245027 | ОГРН 1192225027510</p>
-        <p>Генеральный директор: Переверзев Алексей Анатольевич</p>
-    </div>
-</div>
 
-<div class="floating-cart" id="floatingCart"><span>🛒</span><div class="cart-count" id="floatingCartCount">0</div></div>
-<div class="scroll-top" id="scrollTopBtn">↑</div>
+    <!-- Шапка -->
+    <header>
+        <div class="logo">СЕРВИС <span>777</span></div>
+        <div class="location">📍 Трасса Р380, Павловск</div>
+    </header>
 
-<script>
-// ===== ДОПЫ =====
-const stoveAddonsList = [
-    {id:"b1",name:"Бак нерж 65 л, 1 мм",price:9500},
-    {id:"b2",name:"Бак нерж 65 л, 1.5 мм",price:12500},
-    {id:"b5",name:"Бак чёрный 65 л, 2 мм",price:6000},
-    {id:"elbow",name:"Колено Ø115 мм 45°",price:600},
-    {id:"roof",name:"Зонт Ø115 мм",price:1000},
-    {id:"clamp",name:"Хомут обжимной Ø115-120 мм",price:350},
-    {id:"module115",name:"Модуль трубы Ø115 мм 1м",price:1200}
-];
+    <!-- Главный экран -->
+    <section class="hero">
+        <h1>Помощь на трассе в Павловске 24/7</h1>
+        <p class="subtitle">Срочный ремонт, эвакуация легковых и грузовых авто. Быстро вернем вашу машину в строй.</p>
+        
+        <a href="tel:+79991234567" class="btn btn-danger">🚨 Вызвать эвакуатор</a>
+        <a href="https://wa.me" class="btn btn-success">💬 Написать в WhatsApp</a>
+    </section>
 
-const burzhuykaAddonsList = [
-    {id:"elbow90",name:"Колено Ø90 мм 45°",price:500},
-    {id:"roof90",name:"Зонт Ø90 мм",price:350},
-    {id:"clamp90",name:"Хомут обжимной Ø90 мм",price:350},
-    {id:"module90",name:"Модуль трубы Ø90 мм 1м",price:1000}
-];
-
-// ===== ВСЕ КАРТИНКИ (ПРЯМЫЕ ССЫЛКИ) =====
-const images = {
-    // Печи 325
-    "325_skvoznaya_bez_baka": "https://i.ibb.co/vxxtrCdJ/325.jpg",
-    "325_skvoznaya_cherny_bak": "https://i.ibb.co/gMqqhT1Y/325.jpg",
-    "325_skvoznaya_nerzh_bak": "https://i.ibb.co/FL9gGSCh/325.jpg",
-    "325_otkrytaya_bez_baka": "https://i.ibb.co/CpbpTzcK/325.jpg",
-    "325_otkrytaya_cherny_bak": "https://i.ibb.co/hFYysvpz/325.jpg",
-    "325_otkrytaya_nerzh_bak": "https://i.ibb.co/fd3QhqFZ/325.jpg",
-    // Печи 426
-    "426_lezhachaya_bez_baka": "https://i.ibb.co/Vcqxp6g9/426.jpg",
-    "426_lezhachaya_cherny_bak": "https://i.ibb.co/NdHz1wMT/426.jpg",
-    "426_lezhachaya_nerzh_bak": "https://i.ibb.co/rKVLwzM2/426.jpg",
-    "426_otkrytaya_bez_vystupa_bez_baka": "https://i.ibb.co/HTRgvZhS/426.jpg",
-    "426_otkrytaya_bez_vystupa_cherny_bak": "https://i.ibb.co/S7QTXzjB/426.jpg",
-    "426_otkrytaya_bez_vystupa_nerzh_bak": "https://i.ibb.co/q3F1JNW8/426.jpg",
-    "426_otkrytaya_s_vystupom_bez_baka": "https://i.ibb.co/yczY1hMq/426.jpg",
-    "426_otkrytaya_s_vystupom_cherny_bak": "https://i.ibb.co/6R6d4B75/530.jpg",
-    "426_otkrytaya_s_vystupom_nerzh_bak": "https://i.ibb.co/XvVxVZ5/426.jpg",
-    "426_skvoznaya_bez_vystupa_bez_baka": "https://i.ibb.co/wZWzxnty/426.jpg",
-    "426_skvoznaya_bez_vystupa_cherny_bak": "https://i.ibb.co/kV3Wb4MB/426.jpg",
-    "426_skvoznaya_bez_vystupa_nerzh_bak": "https://i.ibb.co/Ps1YCk1j/426.jpg",
-    "426_skvoznaya_s_vystupom_bez_baka": "https://i.ibb.co/QjKTm7HF/426.jpg",
-    "426_skvoznaya_s_vystupom_cherny_bak": "https://i.ibb.co/Jj7H6172/426.jpg",
-    "426_skvoznaya_s_vystupom_nerzh_bak": "https://i.ibb.co/whBCNTLB/426.jpg",
-    "426_povorotnaya_bez_baka": "https://i.ibb.co/JjffM7rd/426.jpg",
-    "426_povorotnaya_cherny_bak": "https://i.ibb.co/Xx0Xp61p/426.jpg",
-    "426_povorotnaya_nerzh_bak": "https://i.ibb.co/DPM14BcJ/426.jpg",
-    // Печи 530
-    "530_povorotnaya_bez_baka": "https://i.ibb.co/ynL38ScJ/530.jpg",
-    "530_povorotnaya_cherny_bak": "https://i.ibb.co/tn4dTDM/530.jpg",
-    "530_povorotnaya_nerzh_bak": "https://i.ibb.co/F4Hp9SJ4/image.png",
-    "530_skvoznaya_bez_vystupa_bez_baka": "https://i.ibb.co/KpfpWPFt/530.jpg",
-    "530_skvoznaya_bez_vystupa_cherny_bak": "https://i.ibb.co/hJpSdKtm/530.jpg",
-    "530_skvoznaya_bez_vystupa_nerzh_bak": "https://i.ibb.co/4ZVBc9J3/530.jpg",
-    "530_skvoznaya_s_vystupom_bez_baka": "https://i.ibb.co/XmLLKW7/530.jpg",
-    "530_skvoznaya_s_vystupom_cherny_bak": "https://i.ibb.co/RpvvWg5n/530.jpg",
-    "530_skvoznaya_s_vystupom_nerzh_bak": "https://i.ibb.co/Vp0b55sk/530.jpg",
-    "530_otkrytaya_lezhachaya_bez_baka": "https://i.ibb.co/8LM4VCC8/530.jpg",
-    "530_otkrytaya_lezhachaya_cherny_bak": "https://i.ibb.co/KjWF7Xgv/530.jpg",
-    "530_otkrytaya_lezhachaya_nerzh_bak": "https://i.ibb.co/6cDGWjHj/530.jpg",
-    "530_otkrytaya_nozhka_s_vystupom_bez_baka": "https://i.ibb.co/Kcr7w1Kc/530.jpg",
-    "530_otkrytaya_nozhka_bez_vystupa_nerzh_bak": "https://i.ibb.co/99BQbQjk/530.jpg",
-    // Чаны
-    "chan_duet": "https://i.ibb.co/ZRBtbw1W/dyet.jpg",
-    "chan_duet_ris": "https://i.ibb.co/bRzjxcSx/dyet-risunok.png",
-    "chan_rumochka": "https://i.ibb.co/YTdY4pxL/rymohka.jpg",
-    "chan_rumochka_ris": "https://i.ibb.co/S4FkP5ML/rumohka-riaunok.png",
-    "chan_maksi": "https://i.ibb.co/NdNBG6QX/bolhoi.jpg",
-    "chan_maksi_ris": "https://i.ibb.co/kVvVc2MZ/bolhoq-risynok.png",
-    // Баки
-    "bak_nerzh_65l_kryshka": "https://i.ibb.co/BHY1WyhH/65.jpg",
-    "bak_nerzh_65l_bez_kryshki": "https://i.ibb.co/TD5ngTyg/65.jpg",
-    "bak_nerzh_85l": "https://i.ibb.co/QFcfpG1y/85.jpg",
-    "bak_cherniy_65l": "https://i.ibb.co/JWHtvkrm/65.jpg",
-    "bak_cherniy_85l": "https://i.ibb.co/Wvt13rtz/85.jpg",
-    "bak_kvadrat_60l": "https://i.ibb.co/zVKBLLZv/60.jpg",
-    "bak_kvadrat_75l": "https://i.ibb.co/9myn8NTd/75.jpg",
-    // Буржуйки
-    "burzh1_bez_konv": "https://i.ibb.co/JRHPMbjY/1.png",
-    "burzh1_konv": "https://i.ibb.co/FkmyYGF4/1.jpg",
-    "burzh1u_bez_konv": "https://i.ibb.co/twNszJy6/1.jpg",
-    "burzh1_5u_konv": "https://i.ibb.co/DxnM9Bb/1-5.jpg",
-    "burzh2_bez_konv": "https://i.ibb.co/Xf1xRFn2/image.png",
-    "burzh2_5_konv": "https://i.ibb.co/0jNDWjL2/2-5.jpg",
-    "burzh3_kruzhok_bez_konv": "https://i.ibb.co/LDtdMW6B/3.png",
-    "burzh3_5_kruzhok_konv": "https://i.ibb.co/mrKvJ5SK/3.png",
-    "burzh_truba426": "https://i.ibb.co/ksN88L3r/426.png",
-    "burzh_truba530": "https://i.ibb.co/5X5G91bT/530.jpg",
-    "burzh_talty": "https://i.ibb.co/Y4Kn4DKc/TALTY.png",
-    // Котлы
-    "kotel_maliy_1-2": "https://i.ibb.co/SDZc9g7q/1-2.png",
-    "kotel_bolshoy_1-2": "https://i.ibb.co/gY2vd3w/1-2.png",
-    "kotel_bolshoy_celaya_plita": "https://i.ibb.co/CFXCrPH/image.png",
-    "kotel_vv": "https://i.ibb.co/KjDFSDHs/image.png",
-    "kotel_maybah": "https://i.ibb.co/bfmm3Tr/image.jpg"
-};
-
-// ===== ТОВАРЫ =====
-const mangalProducts = [
-    {id:301,name:"Мангал стационарный со съёмными ножками",price:5500,type:"rect",category:"mangal",specs:"📏 800×300 мм<br>🔩 ножки 800 мм<br>🔥 сталь 4 мм",img:"https://i.ibb.co/vv3QYG8K/image.png", images:[]}
-];
-
-const smokerProducts = [
-    {id:401,name:"Коптильня с гидрозатвором",price:5500,type:"rect",category:"smoker",specs:"📏 550×350×500 мм<br>🔥 сталь 2 мм<br>📦 2 решётки + лист для жира",img:"https://i.ibb.co/TBVZHyJ6/2.png", images:[]}
-];
-
-const tanksList = [
-    {id:101,name:"Бак нерж 65 л, 1 мм, без крышки",price:10000,type:"rect",category:"tank",specs:"📏 диаметр 400 мм<br>💧 65 л<br>🔩 нерж 1 мм",img:images.bak_nerzh_65l_bez_kryshki, images:[]},
-    {id:102,name:"Бак нерж 65 л, 1 мм, с крышкой",price:12000,type:"rect",category:"tank",specs:"📏 диаметр 400 мм<br>💧 65 л<br>🔩 нерж 1 мм<br>✅ с крышкой",img:images.bak_nerzh_65l_kryshka, images:[]},
-    {id:103,name:"Бак нерж 85 л, 1 мм, без крышки",price:11000,type:"rect",category:"tank",specs:"📏 диаметр 530 мм<br>💧 85 л<br>🔩 нерж 1 мм",img:images.bak_nerzh_85l, images:[]},
-    {id:104,name:"Бак чёрный 65 л, 2 мм, без крышки",price:6500,type:"rect",category:"tank",specs:"📏 диаметр 400 мм<br>💧 65 л<br>⚫ сталь 2 мм",img:images.bak_cherniy_65l, images:[]},
-    {id:105,name:"Бак чёрный 85 л, 2 мм, без крышки",price:7000,type:"rect",category:"tank",specs:"📏 диаметр 530 мм<br>💧 85 л<br>⚫ сталь 2 мм",img:images.bak_cherniy_85l, images:[]},
-    {id:106,name:"Бак квадратный 60 л, 1 мм, с крышкой",price:11500,type:"rect",category:"tank",specs:"📏 500×500×250 мм<br>💧 60 л<br>🔩 нерж 1 мм",img:images.bak_kvadrat_60l, images:[]},
-    {id:107,name:"Бак квадратный 75 л, 1 мм, с крышкой",price:14500,type:"rect",category:"tank",specs:"💧 75 л<br>🔩 нерж 1 мм",img:images.bak_kvadrat_75l, images:[]}
-];
-
-const stoveProducts = [
-    {id:1,name:"Печь Ø325 сквозная каменка, без бака",price:14500,type:"round",category:"stove",specs:"🏠 до 15 м³ (6 м²)<br>📏 500×400×700 мм<br>🔥 сталь 8 мм<br>📐 выступ 200 мм<br>⚙️ колосник чугунный",img:images["325_skvoznaya_bez_baka"], images:[]},
-    {id:2,name:"Печь Ø325 сквозная каменка, чёрный бак",price:19000,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак чёрный 65 л",img:images["325_skvoznaya_cherny_bak"], images:[]},
-    {id:3,name:"Печь Ø325 сквозная каменка, нерж бак",price:24500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак нерж 65 л",img:images["325_skvoznaya_nerzh_bak"], images:[]},
-    {id:4,name:"Печь Ø325 открытая каменка, без бака",price:11500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>📏 500×400×550 мм",img:images["325_otkrytaya_bez_baka"], images:[]},
-    {id:5,name:"Печь Ø325 открытая каменка, чёрный бак",price:16000,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак чёрный 65 л",img:images["325_otkrytaya_cherny_bak"], images:[]},
-    {id:6,name:"Печь Ø325 открытая каменка, нерж бак",price:21500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак нерж 65 л",img:images["325_otkrytaya_nerzh_bak"], images:[]},
-    {id:7,name:"Печь Ø426 лежачая каменка, без бака",price:17000,type:"round",category:"stove",specs:"🏠 до 25 м³ (9 м²)<br>📏 650×450×600 мм<br>🔥 сталь 8 мм, конвекция",img:images["426_lezhachaya_bez_baka"], images:[]},
-    {id:8,name:"Печь Ø426 лежачая каменка, чёрный бак",price:21500,type:"round",category:"stove",specs:"🏠 до 25 м³<br>💧 бак чёрный 65 л",img:images["426_lezhachaya_cherny_bak"], images:[]},
-    {id:9,name:"Печь Ø426 лежачая каменка, нерж бак",price:27000,type:"round",category:"stove",specs:"🏠 до 25 м³<br>💧 бак нерж 65 л",img:images["426_lezhachaya_nerzh_bak"], images:[]},
-    {id:10,name:"Печь Ø426 открытая каменка, без выступа, без бака",price:12500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>📏 Ø426×550 мм",img:images["426_otkrytaya_bez_vystupa_bez_baka"], images:[]},
-    {id:11,name:"Печь Ø426 открытая каменка, без выступа, чёрный бак",price:17000,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак чёрный 65 л",img:images["426_otkrytaya_bez_vystupa_cherny_bak"], images:[]},
-    {id:12,name:"Печь Ø426 открытая каменка, без выступа, нерж бак",price:22500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак нерж 65 л",img:images["426_otkrytaya_bez_vystupa_nerzh_bak"], images:[]},
-    {id:13,name:"Печь Ø426 открытая каменка, с выступом, без бака",price:13500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>📐 выступ 150 мм",img:images["426_otkrytaya_s_vystupom_bez_baka"], images:[]},
-    {id:14,name:"Печь Ø426 открытая каменка, с выступом, чёрный бак",price:18000,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак чёрный 65 л",img:images["426_otkrytaya_s_vystupom_cherny_bak"], images:[]},
-    {id:15,name:"Печь Ø426 открытая каменка, с выступом, нерж бак",price:23500,type:"round",category:"stove",specs:"🏠 до 15 м³<br>💧 бак нерж 65 л",img:images["426_otkrytaya_s_vystupom_nerzh_bak"], images:[]},
-    {id:16,name:"Печь Ø426 без выступа, сквозная, без бака",price:16500,type:"round",category:"stove",specs:"🏠 до 20 м³ (10 м²)<br>📏 Ø426×700 мм",img:images["426_skvoznaya_bez_vystupa_bez_baka"], images:[]},
-    {id:17,name:"Печь Ø426 без выступа, сквозная, чёрный бак",price:20500,type:"round",category:"stove",specs:"🏠 до 20 м³<br>💧 бак чёрный 65 л",img:images["426_skvoznaya_bez_vystupa_cherny_bak"], images:[]},
-    {id:18,name:"Печь Ø426 без выступа, сквозная, нерж бак",price:26500,type:"round",category:"stove",specs:"🏠 до 20 м³<br>💧 бак нерж 65 л",img:images["426_skvoznaya_bez_vystupa_nerzh_bak"], images:[]},
-    {id:19,name:"Печь Ø426 с выступом, сквозная, без бака",price:17500,type:"round",category:"stove",specs:"🏠 до 20 м³<br>📐 выступ 200 мм",img:images["426_skvoznaya_s_vystupom_bez_baka"], images:[]},
-    {id:20,name:"Печь Ø426 с выступом, сквозная, чёрный бак",price:21500,type:"round",category:"stove",specs:"🏠 до 20 м³<br>💧 бак чёрный 65 л",img:images["426_skvoznaya_s_vystupom_cherny_bak"], images:[]},
-    {id:21,name:"Печь Ø426 с выступом, сквозная, нерж бак",price:27500,type:"round",category:"stove",specs:"🏠 до 20 м³<br>💧 бак нерж 65 л",img:images["426_skvoznaya_s_vystupom_nerzh_bak"], images:[]},
-    {id:22,name:"Печь Ø426 с выступом, поворотная, без бака",price:19500,type:"round",category:"stove",specs:"🔄 поворотная каменка",img:images["426_povorotnaya_bez_baka"], images:[]},
-    {id:23,name:"Печь Ø426 с выступом, поворотная, чёрный бак",price:23500,type:"round",category:"stove",specs:"💧 бак чёрный 65 л",img:images["426_povorotnaya_cherny_bak"], images:[]},
-    {id:24,name:"Печь Ø426 с выступом, поворотная, нерж бак",price:29500,type:"round",category:"stove",specs:"💧 бак нерж 65 л",img:images["426_povorotnaya_nerzh_bak"], images:[]},
-    {id:25,name:"Печь Ø530 поворотная, без бака",price:22000,type:"round",category:"stove",specs:"🏠 до 35 м³ (12 м²)<br>🔄 поворотная каменка",img:images["530_povorotnaya_bez_baka"], images:[]},
-    {id:26,name:"Печь Ø530 поворотная, чёрный бак",price:27000,type:"round",category:"stove",specs:"💧 бак чёрный 85 л",img:images["530_povorotnaya_cherny_bak"], images:[]},
-    {id:27,name:"Печь Ø530 поворотная, нерж бак",price:33000,type:"round",category:"stove",specs:"💧 бак нерж 85 л",img:images["530_povorotnaya_nerzh_bak"], images:[]},
-    {id:28,name:"Печь Ø530 с выступом, сквозная, без бака",price:20000,type:"round",category:"stove",specs:"🏠 до 35 м³<br>📐 выступ 200 мм",img:images["530_skvoznaya_s_vystupom_bez_baka"], images:[]},
-    {id:29,name:"Печь Ø530 с выступом, сквозная, чёрный бак",price:25000,type:"round",category:"stove",specs:"💧 бак чёрный 85 л",img:images["530_skvoznaya_s_vystupom_cherny_bak"], images:[]},
-    {id:30,name:"Печь Ø530 с выступом, сквозная, нерж бак",price:31000,type:"round",category:"stove",specs:"💧 бак нерж 85 л",img:images["530_skvoznaya_s_vystupom_nerzh_bak"], images:[]},
-    {id:31,name:"Печь Ø530 без выступа, сквозная, без бака",price:19000,type:"round",category:"stove",specs:"🏠 до 35 м³<br>📏 Ø530×700 мм",img:images["530_skvoznaya_bez_vystupa_bez_baka"], images:[]},
-    {id:32,name:"Печь Ø530 без выступа, сквозная, чёрный бак",price:24000,type:"round",category:"stove",specs:"💧 бак чёрный 85 л",img:images["530_skvoznaya_bez_vystupa_cherny_bak"], images:[]},
-    {id:33,name:"Печь Ø530 без выступа, сквозная, нерж бак",price:30000,type:"round",category:"stove",specs:"💧 бак нерж 85 л",img:images["530_skvoznaya_bez_vystupa_nerzh_bak"], images:[]}
-];
-
-const burzhuykaProducts = [
-    {id:58,name:"Буржуйка №1, без конвекции",price:5500,type:"rect",category:"burzhuyka",specs:"🏠 до 20 м³ (10-12 м²)<br>📏 350×300×300 мм<br>🔥 сталь 2 мм",img:images.burzh1_bez_konv, images:[]},
-    {id:59,name:"Буржуйка №1 с конвекцией",price:6500,type:"rect",category:"burzhuyka",specs:"🏠 до 25 м³<br>⚙️ конвективные карманы",img:images.burzh1_konv, images:[]},
-    {id:60,name:"Буржуйка №1У, без конвекции",price:6000,type:"rect",category:"burzhuyka",specs:"🏠 до 25 м³<br>🔥 сталь 3 мм",img:images.burzh1u_bez_konv, images:[]},
-    {id:61,name:"Буржуйка №1,5У, с конвекцией",price:7000,type:"rect",category:"burzhuyka",specs:"🏠 до 30 м³<br>⚙️ конвекция",img:images.burzh1_5u_konv, images:[]},
-    {id:62,name:"Буржуйка №2, без конвекции",price:8500,type:"rect",category:"burzhuyka",specs:"🏠 до 40 м³ (16 м²)<br>📏 500×350×440 мм<br>🔥 сталь 4 мм",img:images.burzh2_bez_konv, images:[]},
-    {id:63,name:"Буржуйка №2,5, с конвекцией",price:9500,type:"rect",category:"burzhuyka",specs:"🏠 до 45 м³<br>⚙️ конвективные карманы",img:images.burzh2_5_konv, images:[]},
-    {id:64,name:"Буржуйка №3 с кружком, без конвекции",price:9000,type:"rect",category:"burzhuyka",specs:"🏠 до 40 м³<br>⚙️ оборудована кружком",img:images.burzh3_kruzhok_bez_konv, images:[]},
-    {id:65,name:"Буржуйка №3,5 с кружком, с конвекцией",price:10000,type:"rect",category:"burzhuyka",specs:"🏠 до 45 м³<br>⚙️ кружок + конвекция",img:images.burzh3_5_kruzhok_konv, images:[]},
-    {id:66,name:"Буржуйка из трубы Ø426 мм",price:13500,type:"round",category:"burzhuyka",specs:"🏠 до 150 м³ (70 м²)<br>🔥 труба 8 мм<br>⚙️ оборудована кружком",img:images.burzh_truba426, images:[]},
-    {id:67,name:"Буржуйка из трубы Ø530 мм",price:16500,type:"round",category:"burzhuyka",specs:"🏠 до 200 м³ (100 м²)<br>🔥 труба 8 мм",img:images.burzh_truba530, images:[]},
-    {id:68,name:"Печь-буржуйка TALTY",price:20500,type:"rect",category:"burzhuyka",specs:"🏠 до 200 м³ (80 м²)<br>⏱️ горение до 24 ч<br>📦 объём загрузки 120 л",img:images.burzh_talty, images:[]}
-];
-
-const boilerProducts = [
-    {id:69,name:"Котёл малый 1/2 плиты",price:23000,type:"rect",category:"boiler",specs:"📏 550×430×600 мм<br>🔥 сталь 3 мм<br>📐 площадь 80-100 м²",img:images.kotel_maliy_1-2, images:[]},
-    {id:70,name:"Котёл большой 1/2 плиты",price:24000,type:"rect",category:"boiler",specs:"📏 720×430×600 мм<br>🔥 сталь 3 мм<br>📐 площадь 100-130 м²",img:images.kotel_bolshoy_1-2, images:[]},
-    {id:71,name:"Котёл большой, целая плита",price:23500,type:"rect",category:"boiler",specs:"📏 720×430×600 мм<br>🔥 сталь 3 мм<br>📐 площадь 120 м²",img:images.kotel_bolshoy_celaya_plita, images:[]},
-    {id:202,name:"Котёл с водяным верхом ВВ",price:24500,type:"rect",category:"boiler",specs:"📏 600×430×600 мм<br>🔥 сталь 3 мм<br>💧 бак нерж 70 л<br>📐 площадь до 200 м²",img:images.kotel_vv, images:[]},
-    {id:200,name:"Котёл Майбах",price:72000,type:"rect",category:"boiler",specs:"📏 500×750×1000 мм<br>🔥 сталь 3 мм<br>📐 площадь 50-250 м²<br>⚙️ в комплекте вентилятор + контроллер",img:images.kotel_maybah, images:[]}
-];
-
-const chanProducts = [
-    {id:75,name:"Банный чан «Дуэт» Aisi304",price:195000,type:"rect",category:"tub",specs:"👥 Вместимость: 2-4 человека<br>💧 Объём: 800 литров<br>📏 Ширина: 150 см<br>🔩 Материал: Aisi304 (пищевая нержавейка)<br>⚙️ Толщина стали: чан 2 мм, топка 3 мм<br>📦 <strong>В комплекте:</strong> термокрышка, лестница с перилами",img:images.chan_duet, images:[images.chan_duet, images.chan_duet_ris]},
-    {id:76,name:"Банный чан «Дуэт» Aisi430",price:170000,type:"rect",category:"tub",specs:"👥 2-4 человека<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi430 (техническая)",img:images.chan_duet, images:[images.chan_duet, images.chan_duet_ris]},
-    {id:77,name:"Банный чан «Рюмочка» Aisi304",price:170000,type:"rect",category:"tub",specs:"👥 2-4 человека<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi304 (пищевая)",img:images.chan_rumochka, images:[images.chan_rumochka, images.chan_rumochka_ris]},
-    {id:78,name:"Банный чан «Рюмочка» Aisi430",price:150000,type:"rect",category:"tub",specs:"👥 2-4 человека<br>💧 800 л<br>📏 ширина 150 см<br>🔩 Aisi430 (техническая)",img:images.chan_rumochka, images:[images.chan_rumochka, images.chan_rumochka_ris]},
-    {id:81,name:"Банный чан «Макси» Aisi304",price:350000,type:"rect",category:"tub",specs:"👥 6-8 человек<br>💧 2900 л<br>📏 ширина 250 см<br>🔩 Aisi304 (пищевая)",img:images.chan_maksi, images:[images.chan_maksi, images.chan_maksi_ris]},
-    {id:82,name:"Банный чан «Макси» Aisi430",price:290000,type:"rect",category:"tub",specs:"👥 6-8 человек<br>💧 2900 л<br>📏 ширина 250 см<br>🔩 Aisi430 (техническая)",img:images.chan_maksi, images:[images.chan_maksi, images.chan_maksi_ris]}
-];
-
-const products = [...stoveProducts, ...burzhuykaProducts, ...boilerProducts, ...chanProducts, ...tanksList, ...mangalProducts, ...smokerProducts];
-
-let cart = [], currentProduct = null, selectedAddons = {}, currentCategory = "all";
-let currentGallerySlideIndex = 0;
-
-// ФУНКЦИИ (те же, что были)
-function showToast(msg, isErr) {
-    const t = document.createElement('div');
-    t.textContent = msg;
-    t.className = 'toast-notification';
-    if (isErr) t.classList.add('error');
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 3000);
-}
-
-function updateFloatingCartCounter() {
-    document.getElementById('floatingCartCount').textContent = cart.length;
-}
-
-function getAddonsForProduct(product) {
-    if (!product) return [];
-    if (product.category === 'stove' || product.category === 'boiler') return [...stoveAddonsList];
-    if (product.category === 'burzhuyka') return [...burzhuykaAddonsList];
-    return [];
-}
-
-function renderGallery(imagesArr, containerId) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    
-    if (imagesArr && imagesArr.length > 1) {
-        currentGallerySlideIndex = 0;
-        let html = `<div class="gallery-container" id="galleryContainer">
-            <button class="gallery-prev" id="galleryPrev">◀</button>
-            <button class="gallery-next" id="galleryNext">▶</button>
-            <div class="gallery-counter" id="galleryCounter">1 / ${imagesArr.length}</div>
-        </div>`;
-        container.innerHTML = html;
-        const galleryContainer = document.getElementById('galleryContainer');
-        imagesArr.forEach((src, idx) => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'gallery-slide';
-            if (idx === 0) img.classList.add('active');
-            img.loading = 'lazy';
-            img.style.width = '100%';
-            img.style.height = '400px';
-            img.style.objectFit = 'contain';
-            galleryContainer.appendChild(img);
-        });
-        document.getElementById('galleryPrev')?.addEventListener('click', () => {
-            const slides = document.querySelectorAll('.gallery-slide');
-            if (!slides.length) return;
-            slides[currentGallerySlideIndex].classList.remove('active');
-            currentGallerySlideIndex = (currentGallerySlideIndex - 1 + slides.length) % slides.length;
-            slides[currentGallerySlideIndex].classList.add('active');
-            document.getElementById('galleryCounter').textContent = `${currentGallerySlideIndex + 1} / ${slides.length}`;
-        });
-        document.getElementById('galleryNext')?.addEventListener('click', () => {
-            const slides = document.querySelectorAll('.gallery-slide');
-            if (!slides.length) return;
-            slides[currentGallerySlideIndex].classList.remove('active');
-            currentGallerySlideIndex = (currentGallerySlideIndex + 1) % slides.length;
-            slides[currentGallerySlideIndex].classList.add('active');
-            document.getElementById('galleryCounter').textContent = `${currentGallerySlideIndex + 1} / ${slides.length}`;
-        });
-    } else {
-        const imgSrc = (currentProduct && currentProduct.img) ? currentProduct.img : '';
-        container.innerHTML = `<img src="${imgSrc}" class="detail-single-img" alt="${currentProduct?.name || ''}" loading="lazy" onerror="this.src='https://placehold.co/400x300?text=Фото+скоро'">`;
-    }
-}
-
-function renderAddons() {
-    const container = document.getElementById('detailAddons');
-    if (!currentProduct || (currentProduct.category !== 'stove' && currentProduct.category !== 'boiler' && currentProduct.category !== 'burzhuyka')) {
-        container.innerHTML = '';
-        return;
-    }
-    const addonsList = getAddonsForProduct(currentProduct);
-    if (!addonsList.length) { container.innerHTML = ''; return; }
-    
-    let html = `<div class="addons-section"><div class="addon-title">🔧 Дополнительное оборудование</div>`;
-    for (let a of addonsList) {
-        let cnt = selectedAddons[a.id] ? selectedAddons[a.id].quantity : 0;
-        html += `<div class="addon-item">
-            <span class="addon-name">${a.name}</span>
-            <span class="addon-price">${a.price.toLocaleString('ru-RU')} ₽</span>
-            <div class="addon-controls">
-                <button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},-1)">−</button>
-                <span class="addon-count">${cnt}</span>
-                <button onclick="changeAddonCount('${a.id}','${a.name}',${a.price},1)">+</button>
-            </div>
-        </div>`;
-    }
-    html += `</div>`;
-    container.innerHTML = html;
-}
-
-window.changeAddonCount = function(id, name, price, delta) {
-    if (!selectedAddons[id]) {
-        if (delta > 0) selectedAddons[id] = { name, price, quantity: 1 };
-    } else {
-        let n = selectedAddons[id].quantity + delta;
-        if (n <= 0) delete selectedAddons[id];
-        else selectedAddons[id].quantity = n;
-    }
-    renderAddons();
-    let totalPrice = currentProduct.price;
-    for (let k in selectedAddons) totalPrice += selectedAddons[k].price * selectedAddons[k].quantity;
-    document.getElementById('detailPrice').innerHTML = `💰 ${totalPrice.toLocaleString('ru-RU')} ₽`;
-};
-
-function showProductDetail(product) {
-    currentProduct = product;
-    selectedAddons = {};
-    document.getElementById('productsGrid').style.display = 'none';
-    document.getElementById('productDetail').classList.add('show');
-    document.getElementById('cartSection').style.display = 'none';
-    
-    document.getElementById('detailName').innerText = product.name;
-    document.getElementById('detailSpecs').innerHTML = product.specs;
-    document.getElementById('detailPrice').innerHTML = `💰 ${product.price.toLocaleString('ru-RU')} ₽`;
-    
-    if (product.images && product.images.length > 0) {
-        renderGallery(product.images, 'detailImageContainer');
-    } else {
-        renderGallery([], 'detailImageContainer');
-    }
-    
-    renderAddons();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function renderProductsGrid() {
-    const grid = document.getElementById('productsGrid');
-    const search = document.getElementById('searchInput').value.toLowerCase();
-    const sort = document.getElementById('sortSelect').value;
-    
-    let filtered = products.filter(p => {
-        if (currentCategory !== "all" && p.category !== currentCategory) return false;
-        return p.name.toLowerCase().includes(search);
-    });
-    
-    if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
-    else if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-    else filtered.sort((a, b) => a.id - b.id);
-    
-    if (!filtered.length) {
-        grid.innerHTML = '<div style="text-align:center; padding:40px;">🔥 Товары не найдены</div>';
-        return;
-    }
-    
-    grid.innerHTML = filtered.map(p => `
-        <div class="product-card-item" data-id="${p.id}">
-            <img class="product-card-img" src="${p.img}" alt="${p.name}" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/280x200?text=Фото+скоро'">
-            <div class="product-card-info">
-                <div class="product-card-name">${p.name}</div>
-                <div class="product-card-price">${p.price.toLocaleString('ru-RU')} ₽</div>
-                <div class="product-card-specs">${p.specs.replace(/<br>/g, ' | ').replace(/<[^>]*>/g, '').substring(0, 55)}...</div>
+    <!-- Услуги -->
+    <section class="services">
+        <h2>Наши услуги</h2>
+        
+        <!-- Карта 1: Шиномонтаж -->
+        <div class="service-card">
+            <img src="https://unsplash.com" alt="Шиномонтаж" class="service-image">
+            <div class="service-content">
+                <div class="service-title">🛞 Круглосуточный шиномонтаж</div>
+                <div class="service-text">Ремонт боковых порезов любой сложности, устранение проколов и точная балансировка легковых и грузовых колес.</div>
             </div>
         </div>
-    `).join('');
-    
-    document.querySelectorAll('.product-card-item').forEach(card => {
-        card.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const id = parseInt(card.dataset.id);
-            const product = products.find(p => p.id === id);
-            if (product) showProductDetail(product);
-        });
-    });
-}
 
-function updateCartUI() {
-    const cont = document.getElementById('cartItemsList');
-    const tot = document.getElementById('cartTotal');
-    const orderForm = document.getElementById('orderFormBlock');
-    if (!cart.length) {
-        cont.innerHTML = '<div class="cart-item">Корзина пуста</div>';
-        tot.innerText = '0';
-        orderForm.classList.remove('show');
-        updateFloatingCartCounter();
-        return;
-    }
-    let total = 0, html = '';
-    cart.forEach((it, idx) => {
-        html += `<div class="cart-item"><span>${it.name}</span><span>${it.price.toLocaleString('ru-RU')} ₽</span><button class="cart-remove" onclick="removeFromCart(${idx})">Удалить</button></div>`;
-        total += it.price;
-    });
-    cont.innerHTML = html;
-    tot.innerText = total.toLocaleString('ru-RU');
-    orderForm.classList.add('show');
-    updateFloatingCartCounter();
-}
+        <!-- Карта 2: СТО -->
+        <div class="service-card">
+            <img src="https://unsplash.com" alt="Автосервис" class="service-image">
+            <div class="service-content">
+                <div class="service-title">🔧 Ремонт и СТО</div>
+                <div class="service-text">Мелкосрочный ремонт ходовой, замена тормозных колодок, масел и фильтров. Профессиональная диагностика узлов.</div>
+            </div>
+        </div>
 
-window.removeFromCart = function(idx) {
-    cart.splice(idx, 1);
-    updateCartUI();
-    showToast('🗑 Товар удалён', false);
-};
+        <!-- Карта 3: Эвакуатор -->
+        <div class="service-card">
+            <img src="https://unsplash.com" alt="Эвакуатор" class="service-image">
+            <div class="service-content">
+                <div class="service-title">🚚 Эвакуатор 24/7</div>
+                <div class="service-text">Оперативный выезд спецтехники по Павловскому району и Алтайскому краю. Бережная погрузка вашего авто.</div>
+            </div>
+        </div>
 
-function addToCart() {
-    if (!currentProduct) { showToast('❌ Выберите товар', true); return; }
-    cart.push({ name: currentProduct.name, price: currentProduct.price });
-    if (currentProduct.category === 'stove' || currentProduct.category === 'boiler' || currentProduct.category === 'burzhuyka') {
-        for (let k in selectedAddons) {
-            let a = selectedAddons[k];
-            for (let i = 0; i < a.quantity; i++) cart.push({ name: a.name, price: a.price });
-        }
-    }
-    updateCartUI();
-    showToast(`✓ ${currentProduct.name} добавлен в корзину`, false);
-}
+        <!-- Карта 4: Мойка -->
+        <div class="service-card">
+            <img src="https://unsplash.com" alt="Автомойка" class="service-image">
+            <div class="service-content">
+                <div class="service-title">🧽 Автомойка и комплекс</div>
+                <div class="service-text">Качественное мытье кузова, удаление дорожных реагентов и полная химчистка салона. Вернем машине блеск.</div>
+            </div>
+        </div>
+    </section>
 
-function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    <!-- Преимущества -->
+    <section class="features">
+        <h2>Преимущества сервиса</h2>
+        <div class="feature-item"><span>✓</span> <div><strong>Локация:</strong> Находимся прямо у трассы — не нужно блуждать по переулкам.</div></div>
+        <div class="feature-item"><span>✓</span> <div><strong>Универсальность:</strong> Работаем как с легковушками, так и с тяжелыми грузовиками.</div></div>
+        <div class="feature-item"><span>✓</span> <div><strong>Скорость:</strong> Понимаем, что на трассе время — это деньги. Делаем быстро и на совесть.</div></div>
+    </section>
 
-async function sendOrder() {
-    const n = document.getElementById('customerName').value.trim();
-    const e = document.getElementById('customerEmail').value.trim();
-    const p = document.getElementById('customerPhone').value.trim();
-    const a = document.getElementById('customerAddress').value;
-    const c = document.getElementById('consentCheckbox');
-    if (!n) { showToast('❌ Введите имя', true); return; }
-    if (!p) { showToast('❌ Введите телефон', true); return; }
-    if (!e || !isValidEmail(e)) { showToast('❌ Введите email', true); return; }
-    if (!c.checked) { showToast('❌ Подтвердите согласие', true); return; }
-    if (!cart.length) { showToast('❌ Корзина пуста', true); return; }
-    let items = '', total = 0;
-    cart.forEach(it => { items += `${it.name} — ${it.price.toLocaleString('ru-RU')} ₽\n`; total += it.price; });
-    const data = { name: n, email: e, phone: p, address: a, order: items, total: total.toLocaleString('ru-RU'), date: new Date().toLocaleString('ru-RU') };
-    showToast('📤 Отправка...', false);
-    try {
-        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec', { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-        showToast('✅ Заказ отправлен!', false);
-        cart = []; updateCartUI();
-        document.getElementById('customerName').value = ''; document.getElementById('customerEmail').value = ''; document.getElementById('customerPhone').value = ''; document.getElementById('customerAddress').value = ''; c.checked = false;
-    } catch(e) { showToast('⚠️ Ошибка, позвоните нам', true); }
-}
+    <!-- Подвал -->
+    <footer>
+        <p>© 2026 Комплекс дорожного сервиса «777». Все права защищены.</p>
+        <p style="margin-top: 5px; color: #444;">Разработка сайта: Веб-разработчик Павловск</p>
+    </footer>
 
-// СОБЫТИЯ
-document.querySelectorAll('.cat-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentCategory = btn.dataset.cat;
-        document.getElementById('productsGrid').style.display = 'grid';
-        document.getElementById('productDetail').classList.remove('show');
-        document.getElementById('cartSection').style.display = 'block';
-        renderProductsGrid();
-        window.scrollTo({ top: 300, behavior: 'smooth' });
-    });
-});
-
-document.getElementById('backToCatalogBtn').addEventListener('click', () => {
-    document.getElementById('productsGrid').style.display = 'grid';
-    document.getElementById('productDetail').classList.remove('show');
-    document.getElementById('cartSection').style.display = 'block';
-    renderProductsGrid();
-});
-
-document.getElementById('searchInput').addEventListener('input', () => renderProductsGrid());
-document.getElementById('sortSelect').addEventListener('change', () => renderProductsGrid());
-document.getElementById('detailAddToCartBtn').addEventListener('click', addToCart);
-document.getElementById('sendOrderFinalBtn').addEventListener('click', sendOrder);
-document.getElementById('floatingCart').addEventListener('click', () => document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' }));
-document.getElementById('scrollTopBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-window.addEventListener('scroll', () => document.getElementById('scrollTopBtn').classList.toggle('show', window.scrollY > 300));
-
-// ИНФО КНОПКИ
-window.toggleInfo = function(type) {
-    const container = document.getElementById(`${type}Container`);
-    const btn = document.querySelector(`.info-btn[data-info="${type}"]`);
-    const allContainers = ['deliveryContainer', 'warrantyContainer', 'returnContainer', 'sketchContainer'];
-    if (container.classList.contains('show')) {
-        container.classList.remove('show');
-        btn.classList.remove('active');
-    } else {
-        allContainers.forEach(c => {
-            const el = document.getElementById(c);
-            if (el) el.classList.remove('show');
-        });
-        document.querySelectorAll('.info-btn').forEach(b => b.classList.remove('active'));
-        container.classList.add('show');
-        btn.classList.add('active');
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-};
-
-window.closeInfo = function(type) {
-    const container = document.getElementById(`${type}Container`);
-    const btn = document.querySelector(`.info-btn[data-info="${type}"]`);
-    if (container) container.classList.remove('show');
-    if (btn) btn.classList.remove('active');
-};
-
-document.querySelectorAll('.info-btn').forEach(btn => {
-    btn.addEventListener('click', () => toggleInfo(btn.dataset.info));
-});
-
-document.getElementById('sendSketchBtn').addEventListener('click', async function() {
-    const name = document.getElementById('sketchName').value.trim();
-    const phone = document.getElementById('sketchPhone').value.trim();
-    const email = document.getElementById('sketchEmail').value.trim();
-    const consent = document.getElementById('sketchConsent').checked;
-    if (!name) { showToast('❌ Введите имя', true); return; }
-    if (!phone) { showToast('❌ Введите телефон', true); return; }
-    if (!consent) { showToast('❌ Подтвердите согласие', true); return; }
-    const data = { type: 'sketch', name, phone, email: email || 'не указан', date: new Date().toLocaleString('ru-RU') };
-    showToast('📤 Отправка...', false);
-    try {
-        await fetch('https://script.google.com/macros/s/AKfycbyPVwi9PTYv3ooIjsKFH4riUnyfHyMFy0PopxbV62NhxLlBSd71ZjzoCuKoMnqAsEmD/exec', {
-            method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-        });
-        showToast('✅ Заявка отправлена!', false);
-        document.getElementById('sketchName').value = '';
-        document.getElementById('sketchPhone').value = '';
-        document.getElementById('sketchEmail').value = '';
-        document.getElementById('sketchConsent').checked = false;
-        closeInfo('sketch');
-    } catch(e) { showToast('⚠️ Ошибка, позвоните нам', true); }
-});
-
-renderProductsGrid();
-updateCartUI();
-</script>
 </body>
 </html>
