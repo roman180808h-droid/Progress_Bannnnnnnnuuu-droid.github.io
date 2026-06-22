@@ -153,6 +153,8 @@
             font-size: 13px;
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(255, 85, 0, 0.4);
+            margin-top: 8px;
+            width: 100%;
         }
         
         .counter {
@@ -184,7 +186,7 @@
             text-align: center;
         }
         
-        /* Корзина */
+        /* Нижняя панель корзины */
         .cart-bar {
             position: fixed;
             bottom: 0;
@@ -219,14 +221,14 @@
             font-size: 15px;
         }
         
-        /* Модальное окно корзины */
+        /* Модальное окно */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
             display: none;
             z-index: 2000;
             align-items: flex-end;
@@ -235,7 +237,7 @@
         .modal-content {
             background: #1a1108;
             width: 100%;
-            max-height: 85vh;
+            max-height: 88vh;
             border-radius: 20px 20px 0 0;
             overflow: hidden;
             display: flex;
@@ -315,78 +317,78 @@
     
     <div class="hero"></div>
 
-    <!-- Категория 1 -->
+    <!-- Шаурма -->
     <div class="category">
         <div class="category-title">🔥 Шаурма</div>
         <div class="menu-grid">
-            <div class="menu-item" onclick="selectItem(1)">
+            <div class="menu-item">
                 <img src="https://picsum.photos/id/292/400/300" class="item-image" alt="Шаурма Классическая">
                 <div class="item-content">
                     <div class="item-title">🌯 Шаурма Классическая</div>
                     <div class="item-desc">Свинина, овощи, фирменный соус</div>
                     <div class="item-price">250 ₽</div>
-                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(1, '🌯 Шаурма Классическая', 250)">В корзину</button>
+                    <button class="add-btn" onclick="addToCart(1, '🌯 Шаурма Классическая', 250)">В корзину</button>
                 </div>
             </div>
             
-            <div class="menu-item" onclick="selectItem(2)">
+            <div class="menu-item">
                 <img src="https://picsum.photos/id/431/400/300" class="item-image" alt="Шаурма Куриная">
                 <div class="item-content">
                     <div class="item-title">🌯 Шаурма Куриная</div>
                     <div class="item-desc">Нежное куриное филе, свежие овощи</div>
                     <div class="item-price">240 ₽</div>
-                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(2, '🌯 Шаурма Куриная', 240)">В корзину</button>
+                    <button class="add-btn" onclick="addToCart(2, '🌯 Шаурма Куриная', 240)">В корзину</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Категория 2 -->
+    <!-- Шашлык -->
     <div class="category">
         <div class="category-title">🥩 Шашлык на углях</div>
         <div class="menu-grid">
-            <div class="menu-item" onclick="selectItem(3)">
+            <div class="menu-item">
                 <img src="https://picsum.photos/id/870/400/300" class="item-image" alt="Шашлык из свинины">
                 <div class="item-content">
                     <div class="item-title">🥩 Шашлык из свинины (200г)</div>
                     <div class="item-desc">Маринованная шейка, лук, соус</div>
                     <div class="item-price">380 ₽</div>
-                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(3, '🥩 Шашлык из свинины', 380)">В корзину</button>
+                    <button class="add-btn" onclick="addToCart(3, '🥩 Шашлык из свинины', 380)">В корзину</button>
                 </div>
             </div>
             
-            <div class="menu-item" onclick="selectItem(4)">
+            <div class="menu-item">
                 <img src="https://picsum.photos/id/1060/400/300" class="item-image" alt="Шашлык куриный">
                 <div class="item-content">
                     <div class="item-title">🍗 Шашлык куриный (200г)</div>
                     <div class="item-desc">Филе бедра в специях</div>
                     <div class="item-price">340 ₽</div>
-                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(4, '🍗 Шашлык куриный', 340)">В корзину</button>
+                    <button class="add-btn" onclick="addToCart(4, '🍗 Шашлык куриный', 340)">В корзину</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Категория 3 -->
+    <!-- Дополнения -->
     <div class="category">
         <div class="category-title">🍟 Дополнения и напитки</div>
         <div class="menu-grid">
-            <div class="menu-item" onclick="selectItem(5)">
+            <div class="menu-item">
                 <img src="https://picsum.photos/id/201/400/300" class="item-image" alt="Картофель фри">
                 <div class="item-content">
                     <div class="item-title">🍟 Картофель фри</div>
                     <div class="item-desc">Порция 150г</div>
                     <div class="item-price">120 ₽</div>
-                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(5, '🍟 Картофель фри', 120)">В корзину</button>
+                    <button class="add-btn" onclick="addToCart(5, '🍟 Картофель фри', 120)">В корзину</button>
                 </div>
             </div>
             
-            <div class="menu-item" onclick="selectItem(6)">
+            <div class="menu-item">
                 <img src="https://picsum.photos/id/133/400/300" class="item-image" alt="Кола">
                 <div class="item-content">
                     <div class="item-title">🥤 Кола 0.5л</div>
                     <div class="item-price">90 ₽</div>
-                    <button class="add-btn" onclick="event.stopImmediatePropagation(); addToCart(6, '🥤 Кола 0.5л', 90)">В корзину</button>
+                    <button class="add-btn" onclick="addToCart(6, '🥤 Кола 0.5л', 90)">В корзину</button>
                 </div>
             </div>
         </div>
@@ -396,7 +398,8 @@
     <div class="cart-bar" id="cartBar">
         <div class="cart-content">
             <div>
-                <span style="color:#aaa">В корзине:</span> <span id="cartCount">0</span> товара
+                <span style="color:#aaa">В корзине:</span> 
+                <span id="cartCount">0</span> товара
                 <div class="total" id="totalSum">0 ₽</div>
             </div>
             <button class="cart-btn" onclick="showCartModal()">Оформить заказ</button>
@@ -424,13 +427,21 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.MainButton.hide();
+        tg.ready();
         
         // === НАСТРОЙКИ ===
-        const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCMMRofMivR6m2p4k"; // Замените на свой
-        const CHAT_ID = 2013568102; // Ваш ID
+        const BOT_TOKEN = "8980208297:AAGm8N55yZ-RN5ao_uxCMMRofMivR6m2p4k";
+        const CHAT_ID = 2013568102;
         
         let cart = {};
+        
+        function safeHaptic(type = 'medium') {
+            try {
+                if (tg.HapticFeedback && typeof tg.HapticFeedback.impactOccurred === 'function') {
+                    tg.HapticFeedback.impactOccurred(type);
+                }
+            } catch (e) {}
+        }
         
         function addToCart(id, title, price) {
             if (!cart[id]) {
@@ -439,14 +450,17 @@
                 cart[id].count++;
             }
             updateCartUI();
-            tg.HapticFeedback.impactOccurred('medium');
+            safeHaptic('medium');
         }
         
         function changeQuantity(id, delta) {
             if (!cart[id]) return;
             cart[id].count += delta;
-            if (cart[id].count <= 0) delete cart[id];
+            if (cart[id].count <= 0) {
+                delete cart[id];
+            }
             updateCartUI();
+            safeHaptic('light');
         }
         
         function updateCartUI() {
@@ -487,7 +501,6 @@
                     container.appendChild(div);
                 }
             }
-            
             document.getElementById('cartModal').style.display = 'flex';
         }
         
@@ -538,7 +551,7 @@
                     cart = {};
                     updateCartUI();
                     hideCartModal();
-                    tg.close();
+                    setTimeout(() => tg.close(), 1500);
                 } else {
                     tg.showAlert("Ошибка отправки. Попробуйте ещё раз.");
                 }
@@ -547,15 +560,8 @@
             }
         }
         
-        // Клик по карточке (можно добавить просмотр)
-        function selectItem(id) {
-            // Здесь можно открыть модальное окно с подробным описанием
-            tg.showAlert("Добавьте товар через кнопку «В корзину»");
-        }
-        
         // Инициализация
         window.onload = () => {
-            tg.ready();
             updateCartUI();
         };
     </script>
