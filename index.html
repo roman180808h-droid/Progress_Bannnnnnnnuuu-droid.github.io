@@ -461,8 +461,9 @@
         // ===== НАСТРОЙКИ БОТА =====
         // ============================================
         const BOT_TOKEN = '8980208297:AAGm8N55yZ-RN5ao_uxCoFHYLiSHq1eyfss';
-        const CHAT_ID = '2013568102';
-        const ADMIN_ID = '2013568102';
+        
+        // ⚠️ ВАЖНО: ЗАМЕНИТЕ НА СВОЙ РЕАЛЬНЫЙ ID ПОЛУЧЕННЫЙ ОТ @userinfobot
+        const ADMIN_CHAT_ID = '2013568102'; // <--- ЭТО ВАШ ID, НЕ МЕНЯЙТЕ ЕСЛИ ОН ВЕРНЫЙ!
 
         // ============================================
         // ===== ИНИЦИАЛИЗАЦИЯ =====
@@ -486,6 +487,9 @@
                 document.getElementById('greeting').textContent = `👋 Привет, ${user.first_name}!`;
                 document.getElementById('customerName').value = user.first_name || '';
                 document.getElementById('customerName').placeholder = user.first_name || 'Ваше имя';
+                console.log('✅ Пользователь:', user.first_name, 'ID:', user.id);
+            } else {
+                console.log('⚠️ Пользователь не авторизован в Telegram');
             }
         } catch (e) {
             console.warn('User data error:', e);
@@ -496,7 +500,7 @@
         // ============================================
         (function() {
             // Показываем только если это админ
-            if (currentUser && String(currentUser.id) === ADMIN_ID) {
+            if (currentUser && String(currentUser.id) === ADMIN_CHAT_ID) {
                 document.getElementById('adminLink').style.display = 'block';
                 console.log('✅ Админ-панель доступна');
                 return;
@@ -516,7 +520,7 @@
                     clearTimeout(clickTimer);
                     clickCount = 0;
                     
-                    if (currentUser && String(currentUser.id) === ADMIN_ID) {
+                    if (currentUser && String(currentUser.id) === ADMIN_CHAT_ID) {
                         document.getElementById('adminLink').style.display = 'block';
                         tg.HapticFeedback?.notificationOccurred('success');
                         tg.showAlert('🔑 Админ-панель открыта!');
@@ -755,9 +759,10 @@
         }
 
         // ============================================
-        // ===== ОТПРАВКА ЗАКАЗА =====
+        // ===== ОТПРАВКА ЗАКАЗА (ИСПРАВЛЕННАЯ) =====
         // ============================================
         function submitOrder() {
+            // ===== ВАЛИДАЦИЯ =====
             if (!validateForm()) return;
 
             try {
@@ -786,9 +791,123 @@
 
                 console.log('📦 Заказ:', order);
 
-                sendOrderToAdmin(order);
-                sendNotificationToCustomer(order);
-                saveOrder(order);
+                // ==========================================
+                // ===== 1. ОТПРАВКА АДМИНУ (ВАМ) =====
+                // ==========================================
+                
+                let adminMsg = '🆕 <b>НОВЫЙ ЗАКАЗ!</b>\n';
+                adminMsg += '━━━━━━━━━━━━━━━━\n\n';
+                adminMsg += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
+                adminMsg += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
+                adminMsg += `⏰ <b>Время:</b> ${order.customer.deliveryTime}\n`;
+                adminMsg += `🆔 <b>Заказ #${order.id}</b>\n`;
+
+                if (order.customer.comment) {
+                    adminMsg += `💬 <b>Комментарий:</b> ${order.customer.comment}\n`;
+                }
+
+                adminMsg += '\n━━━━━━━━━━━━━━━━\n';
+                adminMsg += '<b>📦 СОСТАВ ЗАКАЗА:</b>\n\n';
+
+                order.items.forEach((item, index) => {
+                    adminMsg += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
+                });
+
+                adminMsg += '\n━━━━━━━━━━━━━━━━\n';
+                adminMsg += `💰 <b>ИТОГО:</b> ${order.total}₽\n`;
+                adminMsg += `🕐 ${new Date().toLocaleString('ru-RU')}\n`;
+                adminMsg += `👤 От: ${user.first_name || 'Гость'}`;
+
+                // Отправляем админу
+                console.log('📤 Отправка админу...');
+                console.log('ADMIN_CHAT_ID:', ADMIN_CHAT_ID);
+                
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: ADMIN_CHAT_ID,
+                        text: adminMsg,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok) {
+                        console.log('✅ Заказ отправлен админу!');
+                    } else {
+                        console.error('❌ Ошибка отправки админу:', data);
+                        console.log('Описание ошибки:', data.description);
+                    }
+                })
+                .catch(err => {
+                    console.error('❌ Ошибка сети при отправке админу:', err);
+                });
+
+                // ==========================================
+                // ===== 2. ОТПРАВКА ПОКУПАТЕЛЮ =====
+                // ==========================================
+
+                if (user.id !== 'guest') {
+                    let customerMsg = '✅ <b>Ваш заказ принят!</b>\n';
+                    customerMsg += '━━━━━━━━━━━━━━━━\n\n';
+                    customerMsg += `🍖 <b>Кафе «Миас»</b>\n`;
+                    customerMsg += `🆔 Заказ #${order.id}\n\n`;
+                    customerMsg += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
+                    customerMsg += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
+                    customerMsg += `⏰ <b>Время доставки:</b> ${order.customer.deliveryTime}\n\n`;
+                    customerMsg += '<b>📦 Ваш заказ:</b>\n';
+
+                    order.items.forEach((item, index) => {
+                        customerMsg += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
+                    });
+
+                    customerMsg += '\n━━━━━━━━━━━━━━━━\n';
+                    customerMsg += `💰 <b>Итого:</b> ${order.total}₽\n\n`;
+                    customerMsg += '☎️ <b>Ожидайте звонка оператора для подтверждения!</b>';
+
+                    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: user.id,
+                            text: customerMsg,
+                            parse_mode: 'HTML'
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.ok) {
+                            console.log('✅ Уведомление отправлено покупателю');
+                        } else {
+                            console.error('❌ Ошибка отправки покупателю:', data);
+                        }
+                    })
+                    .catch(err => {
+                        console.error('❌ Ошибка сети при отправке покупателю:', err);
+                    });
+                }
+
+                // ==========================================
+                // ===== 3. СОХРАНЕНИЕ ЗАКАЗА =====
+                // ==========================================
+
+                try {
+                    const key = 'cafe_orders';
+                    let orders = [];
+                    const data = localStorage.getItem(key);
+                    if (data) {
+                        orders = JSON.parse(data);
+                    }
+                    orders.push(order);
+                    localStorage.setItem(key, JSON.stringify(orders));
+                } catch (e) {
+                    console.error('Save order error:', e);
+                }
+
+                // ==========================================
+                // ===== 4. ПОКАЗ УСПЕХА ПОКУПАТЕЛЮ =====
+                // ==========================================
 
                 document.getElementById('orderForm').classList.remove('active');
                 document.getElementById('successBox').classList.add('active');
@@ -806,7 +925,7 @@
                         </div>
                     </div>
                     <div style="font-size:14px;color:#44ff44;margin-top:10px;">
-                        ✅ Вам отправлено подтверждение в Telegram!
+                        ✅ Ожидайте звонка оператора!
                     </div>
                 `;
 
@@ -819,150 +938,6 @@
                 console.error('Submit error:', e);
                 showError('Ошибка: ' + e.message);
                 tg.showAlert('❌ Произошла ошибка. Попробуйте еще раз.');
-            }
-        }
-
-        // ============================================
-        // ===== ОТПРАВКА АДМИНУ =====
-        // ============================================
-        function sendOrderToAdmin(order) {
-            try {
-                let message = '🆕 <b>НОВЫЙ ЗАКАЗ!</b>\n';
-                message += '━━━━━━━━━━━━━━━━\n\n';
-
-                message += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
-                message += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
-                message += `⏰ <b>Время:</b> ${order.customer.deliveryTime}\n`;
-
-                if (order.customer.comment) {
-                    message += `💬 <b>Комментарий:</b> ${order.customer.comment}\n`;
-                }
-
-                message += '\n━━━━━━━━━━━━━━━━\n';
-                message += '<b>📦 ЗАКАЗ:</b>\n\n';
-
-                order.items.forEach((item, index) => {
-                    message += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
-                });
-
-                const date = new Date(order.timestamp);
-                message += '\n━━━━━━━━━━━━━━━━\n';
-                message += `💰 <b>ИТОГО:</b> ${order.total}₽\n`;
-                message += `🕐 ${date.toLocaleString('ru-RU')}\n`;
-                message += `🆔 Заказ #${order.id}`;
-
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML'
-                    })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        console.log('✅ Заказ отправлен админу');
-                    } else {
-                        console.error('❌ Ошибка:', data);
-                    }
-                })
-                .catch(err => {
-                    console.error('❌ Ошибка сети:', err);
-                });
-
-            } catch (e) {
-                console.error('Send to admin error:', e);
-            }
-        }
-
-        // ============================================
-        // ===== УВЕДОМЛЕНИЕ ПОКУПАТЕЛЮ =====
-        // ============================================
-        function sendNotificationToCustomer(order) {
-            try {
-                const userId = tg.initDataUnsafe?.user?.id;
-
-                if (!userId) {
-                    console.log('❌ Не удалось получить ID пользователя');
-                    tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
-                    return;
-                }
-
-                let message = '✅ <b>Ваш заказ принят!</b>\n';
-                message += '━━━━━━━━━━━━━━━━\n\n';
-                message += `🍖 <b>Кафе «Миас»</b>\n`;
-                message += `🆔 Заказ #${order.id}\n\n`;
-                message += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
-                message += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
-                message += `⏰ <b>Время доставки:</b> ${order.customer.deliveryTime}\n\n`;
-                message += '<b>📦 Ваш заказ:</b>\n';
-
-                order.items.forEach((item, index) => {
-                    message += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
-                });
-
-                message += '\n━━━━━━━━━━━━━━━━\n';
-                message += `💰 <b>Итого:</b> ${order.total}₽\n\n`;
-                message += '☎️ <b>Ожидайте звонка оператора для подтверждения!</b>\n';
-                message += '🕐 В ближайшее время с вами свяжутся.';
-
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: userId,
-                        text: message,
-                        parse_mode: 'HTML'
-                    })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        console.log('✅ Уведомление отправлено покупателю');
-                    } else {
-                        console.error('❌ Ошибка:', data);
-                        tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
-                    }
-                })
-                .catch(err => {
-                    console.error('❌ Ошибка сети:', err);
-                    tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
-                });
-
-            } catch (e) {
-                console.error('Send to customer error:', e);
-                tg.showAlert('✅ Заказ отправлен! Ожидайте подтверждения.');
-            }
-        }
-
-        // ============================================
-        // ===== СОХРАНЕНИЕ ЗАКАЗА =====
-        // ============================================
-        function saveOrder(order) {
-            try {
-                const key = 'cafe_orders';
-                let orders = [];
-                const data = localStorage.getItem(key);
-                if (data) {
-                    orders = JSON.parse(data);
-                }
-                orders.push(order);
-                localStorage.setItem(key, JSON.stringify(orders));
-
-                if (window.opener) {
-                    window.opener.postMessage({
-                        type: 'newOrder',
-                        order: order
-                    }, '*');
-                }
-            } catch (e) {
-                console.error('Save order error:', e);
             }
         }
 
@@ -998,10 +973,10 @@
                     debugEl.textContent += `Telegram WebApp: ${!!tg}\n`;
                     debugEl.textContent += `User: ${tg.initDataUnsafe?.user?.first_name || 'Не авторизован'}\n`;
                     debugEl.textContent += `User ID: ${tg.initDataUnsafe?.user?.id || 'Нет'}\n`;
+                    debugEl.textContent += `ADMIN_CHAT_ID: ${ADMIN_CHAT_ID}\n`;
                     debugEl.textContent += `Меню: ${menuItems.length} позиций\n`;
                     debugEl.textContent += `Корзина: ${cart.length} товаров\n`;
                     debugEl.textContent += `Токен бота: ${BOT_TOKEN ? '✅ Установлен' : '❌ Не установлен'}\n`;
-                    debugEl.textContent += `ID чата: ${CHAT_ID || '❌ Не установлен'}\n`;
                     debugEl.textContent += `URL: ${window.location.href}\n`;
                     debugEl.textContent += `Время: ${new Date().toLocaleString()}`;
                 }
@@ -1014,9 +989,38 @@
         setTimeout(loadMenu, 500);
 
         console.log('✅ Приложение "Кафе Миас" запущено!');
-        console.log('📨 Заказы приходят админу');
+        console.log('📨 Заказы приходят админу на ID:', ADMIN_CHAT_ID);
         console.log('📨 Покупатель получает уведомление');
         console.log('🔒 Админ-панель скрыта от клиентов');
+        
+        // ===== ПРОВЕРКА СВЯЗИ С БОТОМ =====
+        // Проверяем может ли бот отправлять сообщения админу
+        setTimeout(() => {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: ADMIN_CHAT_ID,
+                    text: '🤖 Бот запущен и готов принимать заказы!',
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('✅ Связь с ботом установлена!');
+                } else {
+                    console.error('❌ Ошибка связи с ботом:', data);
+                    console.log('⚠️ Проверьте:');
+                    console.log('1. Правильный ли ADMIN_CHAT_ID');
+                    console.log('2. Написали ли вы боту первым');
+                    console.log('3. Бот запущен?');
+                }
+            })
+            .catch(err => {
+                console.error('❌ Не удалось связаться с ботом:', err);
+            });
+        }, 3000);
     </script>
 </body>
 </html>
