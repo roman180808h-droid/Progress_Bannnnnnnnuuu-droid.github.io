@@ -1,1026 +1,2680 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кафе Миас - Заказ еды</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог продукции — Термоград</title>
     <style>
+        /* ===== ОБЩИЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #111);
-            color: var(--tg-theme-text-color, white);
-            padding: 20px;
-            min-height: 100vh;
-            padding-bottom: 100px;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f5ede4;
+            color: #2c2c2c;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .header {
+
+        /* ===== ЗАГОЛОВКИ ===== */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        /* ===== ТИТУЛЬНЫЙ ЛИСТ ===== */
+        .title-page {
             text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 20px 60px;
+            border-bottom: 2px solid #d4c5b2;
+            margin-bottom: 50px;
         }
-        .header h1 {
-            color: #ffaa00;
-            font-size: 28px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            user-select: none;
+
+        .logo {
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #3d2b1f;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 10px;
         }
-        .header .subtitle {
-            color: var(--tg-theme-hint-color, #888);
-            font-size: 14px;
+
+        .logo span {
+            color: #8b6b4d;
         }
-        .menu-grid {
-            display: grid;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .menu-item {
-            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s;
-        }
-        .menu-item:active {
-            transform: scale(0.98);
-        }
-        .item-info {
-            text-align: left;
-            flex: 1;
-        }
-        .item-info h3 {
+
+        .sub-logo {
             font-size: 18px;
+            color: #6b5a4a;
+            letter-spacing: 8px;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .title-page h1 {
+            font-size: 48px;
+            margin-top: 40px;
+            color: #2c1f14;
+            letter-spacing: 4px;
+        }
+
+        .title-page .year {
+            font-size: 24px;
+            color: #8b6b4d;
+            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* ===== ОГЛАВЛЕНИЕ ===== */
+        .toc {
+            background: #e8ddd0;
+            padding: 40px 50px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+        }
+
+        .toc h2 {
+            font-size: 28px;
+            color: #2c1f14;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .toc ul {
+            list-style: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc ul li {
+            padding: 6px 0;
+            font-size: 17px;
+            font-family: 'Arial', sans-serif;
+            border-bottom: 1px dashed #d4c5b2;
+        }
+
+        .toc ul li a {
+            color: #3d2b1f;
+            text-decoration: none;
+        }
+
+        .toc ul li a:hover {
+            color: #8b6b4d;
+        }
+
+        /* ===== РАЗДЕЛЫ ===== */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            background: #d4c5b2;
+            padding: 16px 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+        }
+
+        .section-desc {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #4a3f35;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            font-style: italic;
+        }
+
+        /* ===== СЕТКА ТОВАРОВ ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        /* ===== КАРТОЧКА ТОВАРА ===== */
+        .product-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px 20px 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            border: 1px solid #e8ddd0;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== ФОТО ===== */
+        .product-photo {
+            width: 100%;
+            height: 220px;
+            background: #f0ebe4;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e0d6c8;
+        }
+
+        .product-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-photo .no-photo {
+            font-size: 14px;
+            color: #a89888;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .product-photo .no-photo span {
+            display: block;
+            font-size: 36px;
+            margin-bottom: 6px;
+        }
+
+        /* ===== ТЕКСТ ТОВАРА ===== */
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.3;
+        }
+
+        .product-specs {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4a3f35;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .product-specs li {
+            list-style: none;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #8b3a2a;
+            font-family: 'Arial', sans-serif;
+            padding-top: 10px;
+            border-top: 2px solid #f0ebe4;
+            margin-top: 6px;
+        }
+
+        .product-price .rub {
+            font-size: 18px;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            color: #5a4f43;
+            line-height: 1.5;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* ===== ЗАКЛЮЧИТЕЛЬНАЯ СТРАНИЦА ===== */
+        .contact-page {
+            background: #e8ddd0;
+            border-radius: 12px;
+            padding: 50px 40px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .contact-page h2 {
+            font-size: 32px;
+            color: #2c1f14;
+            margin-bottom: 20px;
+        }
+
+        .contact-page .contacts {
+            font-size: 20px;
+            line-height: 2;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .contact-page .contacts a {
+            color: #3d2b1f;
+            text-decoration: none;
+            border-bottom: 1px solid #b8a492;
+        }
+
+        .contact-page .contacts a:hover {
+            color: #8b3a2a;
+            border-bottom-color: #8b3a2a;
+        }
+
+        .contact-page .qr-block {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+        }
+
+        .qr-item {
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 10px;
+            min-width: 160px;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            color: #3d2b1f;
+            border: 1px solid #d4c5b2;
+        }
+
+        .qr-item .qr-placeholder {
+            font-size: 48px;
+            display: block;
             margin-bottom: 4px;
         }
-        .item-info .price {
-            color: #ffaa00;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .item-info .desc {
-            color: var(--tg-theme-hint-color, #888);
-            font-size: 13px;
-        }
-        .item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .item-controls .qty {
-            font-size: 18px;
-            min-width: 30px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .btn {
-            background: var(--tg-theme-button-color, #ff5500);
-            color: var(--tg-theme-button-text-color, white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+
+        .footer-line {
+            margin-top: 30px;
             font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            touch-action: manipulation;
-        }
-        .btn:active {
-            opacity: 0.7;
-        }
-        .btn-sm {
-            padding: 5px 12px;
-            font-size: 16px;
-            min-width: 30px;
-        }
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--tg-theme-button-color, #ff5500);
-            color: var(--tg-theme-button-color, #ff5500);
-        }
-        .btn-danger {
-            background: #ff4444;
-        }
-        .btn-success {
-            background: #44bb44;
-        }
-        .btn-block {
-            width: 100%;
-            margin-top: 10px;
+            color: #6b5a4a;
+            border-top: 1px solid #d4c5b2;
+            padding-top: 20px;
         }
 
-        /* Корзина */
-        .cart {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
-            padding: 15px 20px;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            border-top: 2px solid #ffaa00;
-            z-index: 1000;
-        }
-        .cart.active {
-            display: flex;
-        }
-        .cart-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .cart-items {
-            max-height: 150px;
-            overflow-y: auto;
-            font-size: 14px;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .cart-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-        .cart-total {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffaa00;
-        }
-
-        /* Форма заказа */
-        .order-form {
-            background: var(--tg-theme-secondary-bg-color, #1a1a1a);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            display: none;
-            animation: slideUp 0.3s ease;
-        }
-        .order-form.active {
-            display: block;
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        /* ===== ПЕЧАТЬ ===== */
+        @media print {
+            body {
+                padding: 20px;
+                background: #fff;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .product-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
             }
-        }
-        .order-form h2 {
-            color: #ffaa00;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #888);
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: var(--tg-theme-bg-color, #111);
-            color: var(--tg-theme-text-color, white);
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #ffaa00;
-        }
-        .form-group select option {
-            background: #111;
-        }
-
-        .error-box {
-            background: #2a1a1a;
-            border: 1px solid #ff4444;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            display: none;
-        }
-        .error-box.active {
-            display: block;
-        }
-        .error-box h3 {
-            color: #ff4444;
-            margin-bottom: 10px;
-        }
-
-        .success-box {
-            background: #1a2a1a;
-            border: 1px solid #44ff44;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            display: none;
-            text-align: center;
-        }
-        .success-box.active {
-            display: block;
-        }
-        .success-box h3 {
-            color: #44ff44;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-        .success-box .order-summary {
-            margin: 15px 0;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: var(--tg-theme-hint-color, #888);
-        }
-        .loading::after {
-            content: '...';
-            animation: dots 1.5s infinite;
-        }
-        @keyframes dots {
-            0% {
-                content: '.';
+            .product-card:hover {
+                transform: none;
             }
-            33% {
-                content: '..';
+            .product-photo {
+                background: #f5f0eb;
             }
-            66% {
-                content: '...';
+            .toc {
+                background: #f0ebe4;
+            }
+            .section-header {
+                background: #e0d6c8;
+            }
+            .contact-page {
+                background: #f0ebe4;
             }
         }
 
-        .debug {
-            background: #2a2a2a;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 12px;
-            color: #ff6b6b;
-            display: none;
-            text-align: left;
-            white-space: pre-wrap;
-            word-break: break-all;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        .debug.active {
-            display: block;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Стили для полей с ошибками */
-        .form-group.error input,
-        .form-group.error textarea {
-            border-color: #ff4444;
-            box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.2);
-        }
-        .form-group .error-text {
-            color: #ff4444;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-        .form-group.error .error-text {
-            display: block;
-        }
-
-        /* Скрытая админ-ссылка */
-        .admin-link {
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: none;
-        }
-        .admin-link a {
-            color: #666;
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.3s;
-        }
-        .admin-link a:hover {
-            color: #ffaa00;
-        }
-
-        /* Адаптив */
-        @media (max-width: 480px) {
-            .menu-item {
-                flex-direction: column;
-                gap: 10px;
+        @media (max-width: 700px) {
+            .product-grid {
+                grid-template-columns: 1fr;
             }
-            .item-controls {
-                width: 100%;
-                justify-content: flex-end;
+            .toc ul {
+                columns: 1;
             }
-            .cart-bottom {
-                flex-direction: column;
+            .title-page .logo {
+                font-size: 40px;
             }
-            .cart-bottom .btn {
-                width: 100%;
+            .title-page h1 {
+                font-size: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 id="logoTitle">🍖 Кафе «Миас»</h1>
-        <p class="subtitle" id="greeting">👋 Добро пожаловать!</p>
+
+    <!-- ============================================================ -->
+    <!-- ТИТУЛЬНЫЙ ЛИСТ -->
+    <!-- ============================================================ -->
+    <div class="title-page">
+        <div class="logo">ТЕРМО<span>ГРАД</span></div>
+        <div class="sub-logo">Каталог продукции</div>
+        <h1>Банные печи • Буржуйки • Котлы • Аксессуары</h1>
+        <div class="year">2026</div>
     </div>
 
-    <!-- Блок ошибок -->
-    <div class="error-box" id="errorBox">
-        <h3>⚠️ Ошибка</h3>
-        <p id="errorMessage">Что-то пошло не так</p>
-        <button class="btn" onclick="hideError()" style="margin-top:10px;">Понятно</button>
+    <!-- ============================================================ -->
+    <!-- ОГЛАВЛЕНИЕ -->
+    <!-- ============================================================ -->
+    <div class="toc">
+        <h2>📖 Содержание</h2>
+        <ul>
+            <li><a href="#section-pechi">1. Банные печи</a></li>
+            <li><a href="#section-listovye">2. Листовые печи</a></li>
+            <li><a href="#section-bochki">3. Печи-бочки</a></li>
+            <li><a href="#section-na-2-3">4. Печи на 2–3 помещения</a></li>
+            <li><a href="#section-korabl">5. Печь «Корабль»</a></li>
+            <li><a href="#section-burzhuyki">6. Буржуйки</a></li>
+            <li><a href="#section-kotly">7. Котлы</a></li>
+            <li><a href="#section-baki">8. Баки</a></li>
+            <li><a href="#section-aksessuary">9. Аксессуары</a></li>
+            <li><a href="#section-contacts">10. Контакты</a></li>
+        </ul>
     </div>
 
-    <!-- Блок успеха -->
-    <div class="success-box" id="successBox">
-        <h3>✅ Заказ отправлен!</h3>
-        <p id="successMessage">Ваш заказ принят. Ожидайте подтверждения.</p>
-        <button class="btn" onclick="hideSuccess()" style="margin-top:10px;">🔄 Новый заказ</button>
-    </div>
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 1 — БАННЫЕ ПЕЧИ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-pechi">
+        <div class="section-header">
+            <h2>🔥 Банные печи</h2>
+        </div>
+        <p class="section-desc">
+            Банные печи «Термоград» — это надёжность, долговечность и идеальный пар.
+            Изготовлены из толстостенной стали (8 мм) с чугунными колосниками.
+            Подходят для бань любого объёма — от 6 до 35 м³.
+        </p>
 
-    <!-- Меню -->
-    <div id="menuContainer">
-        <div class="loading" id="loadingIndicator">Загрузка меню</div>
-        <div class="menu-grid" id="menu"></div>
-    </div>
+        <div class="product-grid">
 
-    <!-- ФОРМА ЗАКАЗА -->
-    <div class="order-form" id="orderForm">
-        <h2>📝 Оформление заказа</h2>
+            <!-- ======== Ø325 СКВОЗНАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø325 сквозная каменка без бака.jpg" alt="Печь Ø325 сквозная без бака" />
+                </div>
+                <div class="product-name">Печь Ø325 сквозная каменка (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×400×700 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Вид каменки: сквозная (слева, справа, с торца)</li>
+                    <li>▪️ Толщина металла: 8 мм</li>
+                    <li>▪️ Диаметр дымохода: 115 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка для равномерного прогрева. Без бака.</div>
+                <div class="product-price">16 500 <span class="rub">₽</span></div>
+            </div>
 
-        <div class="form-group" id="nameGroup">
-            <label>👤 Ваше имя *</label>
-            <input type="text" id="customerName" placeholder="Введите ваше имя">
-            <div class="error-text">Пожалуйста, введите имя</div>
+            <!-- ======== Ø325 СКВОЗНАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø325 сквозная каменка черный бак.jpg" alt="Печь Ø325 сквозная чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø325 сквозная каменка (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×400×700 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Толщина печи: 8 мм</li>
+                    <li>▪️ Диаметр дымохода: 115 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с баком из чёрной стали на 65 л.</div>
+                <div class="product-price">21 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø325 СКВОЗНАЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø325 сквозная каменка нержавейка бак.jpg" alt="Печь Ø325 сквозная нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø325 сквозная каменка (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×400×700 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Толщина печи: 8 мм</li>
+                    <li>▪️ Диаметр дымохода: 115 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с нержавеющим баком — долговечность и гигиена.</div>
+                <div class="product-price">26 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø325 ОТКРЫТАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø325 открытая каменка без бака.jpg" alt="Печь Ø325 открытая без бака" />
+                </div>
+                <div class="product-name">Печь Ø325 открытая каменка (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×400×550 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина металла: 8 мм</li>
+                    <li>▪️ Диаметр дымохода: 115 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка — быстрый нагрев и лёгкий доступ к камням.</div>
+                <div class="product-price">13 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø325 ОТКРЫТАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø325 открытая каменка черный бак.jpg" alt="Печь Ø325 открытая чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø325 открытая каменка (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×400×550 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Толщина печи: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка с баком из чёрной стали.</div>
+                <div class="product-price">18 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø325 ОТКРЫТАЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø325 открытая каменка нержавейка бак.jpg" alt="Печь Ø325 открытая нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø325 открытая каменка (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×400×550 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Толщина печи: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка с нержавеющим баком.</div>
+                <div class="product-price">22 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ЛЕЖАЧАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 лежачая без бака.jpg" alt="Печь Ø426 лежачая без бака" />
+                </div>
+                <div class="product-name">Печь Ø426 лежачая (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 650×450×600 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (9 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: 8 мм + обшивка 2 мм</li>
+                </ul>
+                <div class="product-desc">Лежачая печь для просторных бань. Без бака.</div>
+                <div class="product-price">19 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ЛЕЖАЧАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 лежачая черный бак.jpg" alt="Печь Ø426 лежачая чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 лежачая (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 655×450×600 мм + бак 700 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (9 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Толщина печи: 8 мм + обшивка 2 мм</li>
+                </ul>
+                <div class="product-desc">Лежачая печь с баком из чёрной стали.</div>
+                <div class="product-price">24 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ЛЕЖАЧАЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 лежачая нержавейка бак.jpg" alt="Печь Ø426 лежачая нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 лежачая (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 650×450×600 мм + бак 700 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (9 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Толщина печи: 8 мм + обшивка 2 мм</li>
+                </ul>
+                <div class="product-desc">Лежачая печь с нержавеющим баком.</div>
+                <div class="product-price">29 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ОТКРЫТАЯ БЕЗ ВЫСТУПА (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 открытая каменка без выступа без бака.jpg" alt="Печь Ø426 открытая без выступа без бака" />
+                </div>
+                <div class="product-name">Печь Ø426 открытая каменка (без выступа, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×550 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                    <li>▪️ Без выступа топки</li>
+                </ul>
+                <div class="product-desc">Компактная открытая печь без выступа и без бака.</div>
+                <div class="product-price">14 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ОТКРЫТАЯ БЕЗ ВЫСТУПА (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 открытая каменка без выступа черный бак.jpg" alt="Печь Ø426 открытая без выступа чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 открытая каменка (без выступа, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×550 мм + бак 800 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая печь без выступа с баком из чёрной стали.</div>
+                <div class="product-price">19 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ОТКРЫТАЯ БЕЗ ВЫСТУПА (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 открытая каменка без выступа нержавейка бак.jpg" alt="Печь Ø426 открытая без выступа нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 открытая каменка (без выступа, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×550 мм + бак 800 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая печь без выступа с нержавеющим баком.</div>
+                <div class="product-price">23 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ОТКРЫТАЯ С ВЫСТУПОМ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 открытая каменка с выступом без бака.jpg" alt="Печь Ø426 открытая с выступом без бака" />
+                </div>
+                <div class="product-name">Печь Ø426 открытая каменка (с выступом, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 450×600×550 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая печь с выступом топки. Без бака.</div>
+                <div class="product-price">15 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ОТКРЫТАЯ С ВЫСТУПОМ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 открытая каменка с выступом черный бак.jpg" alt="Печь Ø426 открытая с выступом чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 открытая каменка (с выступом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 450×600×550 мм + бак 700 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Открытая печь с выступом и чёрным баком.</div>
+                <div class="product-price">20 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ОТКРЫТАЯ С ВЫСТУПОМ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 открытая каменка с выступом нержавейка бак.jpg" alt="Печь Ø426 открытая с выступом нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 открытая каменка (с выступом, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 450×600×550 мм + бак 700 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Открытая печь с выступом и нержавеющим баком.</div>
+                <div class="product-price">25 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 СКВОЗНАЯ БЕЗ ВЫСТУПА (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка сквозная без выступа без бака.jpg" alt="Печь Ø426 сквозная без выступа без бака" />
+                </div>
+                <div class="product-name">Печь Ø426 сквозная каменка (без выступа, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×700 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная (торец)</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная закрытая каменка без выступа. Без бака.</div>
+                <div class="product-price">18 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 СКВОЗНАЯ БЕЗ ВЫСТУПА (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка сквозная без выступа черный бак.jpg" alt="Печь Ø426 сквозная без выступа чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 сквозная каменка (без выступа, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×700 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная закрытая каменка без выступа с чёрным баком.</div>
+                <div class="product-price">22 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 СКВОЗНАЯ БЕЗ ВЫСТУПА (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка сквозная без выступа нержавейка бак.jpg" alt="Печь Ø426 сквозная без выступа нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 сквозная каменка (без выступа, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×700 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная закрытая каменка без выступа с нержавеющим баком.</div>
+                <div class="product-price">27 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 СКВОЗНАЯ С ВЫСТУПОМ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка сквозная с выступом без бака.jpg" alt="Печь Ø426 сквозная с выступом без бака" />
+                </div>
+                <div class="product-name">Печь Ø426 сквозная каменка (с выступом, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×700×600 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Вид каменки: закрытая</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с выступом топки. Без бака.</div>
+                <div class="product-price">19 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 СКВОЗНАЯ С ВЫСТУПОМ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка сквозная с выступом черный бак.jpg" alt="Печь Ø426 сквозная с выступом чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 сквозная каменка (с выступом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×700×600 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с выступом и чёрным баком.</div>
+                <div class="product-price">24 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 СКВОЗНАЯ С ВЫСТУПОМ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка сквозная с выступом нержавейка бак.jpg" alt="Печь Ø426 сквозная с выступом нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 сквозная каменка (с выступом, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 426×700×600 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с выступом и нержавеющим баком.</div>
+                <div class="product-price">29 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ПОВОРОТНАЯ С ВЫСТУПОМ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка поворотная с выступом без бака.jpg" alt="Печь Ø426 поворотная с выступом без бака" />
+                </div>
+                <div class="product-name">Печь Ø426 поворотная каменка (с выступом, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×426×800 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Вид каменки: закрытая, поворотная</li>
+                    <li>▪️ Вынос топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Поворотная каменка — удобная загрузка камней. Без бака.</div>
+                <div class="product-price">22 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ПОВОРОТНАЯ С ВЫСТУПОМ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка поворотная с выступом черный бак.jpg" alt="Печь Ø426 поворотная с выступом чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 поворотная каменка (с выступом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×426×800 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Вынос топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Поворотная каменка с чёрным баком.</div>
+                <div class="product-price">27 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø426 ПОВОРОТНАЯ С ВЫСТУПОМ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø426 каменка поворотная с выступом нержавейка бак.jpg" alt="Печь Ø426 поворотная с выступом нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 поворотная каменка (с выступом, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×426×800 мм + бак 500 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (10 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Вынос топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Поворотная каменка с нержавеющим баком.</div>
+                <div class="product-price">31 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 БЕЗ ВЫСТУПА СКВОЗНАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 без выступа сквозная каменка без бака.jpg" alt="Печь Ø530 без выступа сквозная без бака" />
+                </div>
+                <div class="product-name">Печь Ø530 без выступа сквозная каменка (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×700 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Мощная сквозная каменка для больших бань. Без бака.</div>
+                <div class="product-price">21 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 БЕЗ ВЫСТУПА СКВОЗНАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 без выступа сквозная каменка черный бак.jpg" alt="Печь Ø530 без выступа сквозная чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø530 без выступа сквозная каменка (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 85 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с чёрным баком на 85 л.</div>
+                <div class="product-price">27 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 БЕЗ ВЫСТУПА СКВОЗНАЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 без выступа сквозная каменка нержавейка бак.jpg" alt="Печь Ø530 без выступа сквозная нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø530 без выступа сквозная каменка (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 85 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с нержавеющим баком на 85 л.</div>
+                <div class="product-price">32 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 С ВЫСТУПОМ СКВОЗНАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 с выступом сквозная каменка без бака.jpg" alt="Печь Ø530 с выступом сквозная без бака" />
+                </div>
+                <div class="product-name">Печь Ø530 с выступом сквозная каменка (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×750×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с выступом для больших парных. Без бака.</div>
+                <div class="product-price">23 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 С ВЫСТУПОМ СКВОЗНАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 с выступом сквозная каменка черный бак.jpg" alt="Печь Ø530 с выступом сквозная чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø530 с выступом сквозная каменка (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×750×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 85 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с выступом и чёрным баком.</div>
+                <div class="product-price">29 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 С ВЫСТУПОМ СКВОЗНАЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 с выступом сквозная нержавейка бак.jpg" alt="Печь Ø530 с выступом сквозная нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø530 с выступом сквозная каменка (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×750×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 85 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Сквозная каменка с выступом и нержавеющим баком.</div>
+                <div class="product-price">33 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ПОВОРОТНАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 поворотная каменка без бака.jpg" alt="Печь Ø530 поворотная без бака" />
+                </div>
+                <div class="product-name">Печь Ø530 поворотная каменка (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×750×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Вид каменки: закрытая</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Поворотная каменка для удобного доступа к камням. Без бака.</div>
+                <div class="product-price">25 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ПОВОРОТНАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 поворотная каменка черный бак.jpg" alt="Печь Ø530 поворотная чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø530 поворотная каменка (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×750×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 85 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Поворотная каменка с чёрным баком на 85 л.</div>
+                <div class="product-price">29 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ПОВОРОТНАЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 поворотная каменка нержавейка бак.jpg" alt="Печь Ø530 поворотная нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø530 поворотная каменка (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×750×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 85 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Поворотная каменка с нержавеющим баком на 85 л.</div>
+                <div class="product-price">35 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ОТКРЫТАЯ БЕЗ ВЫСТУПА (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 открытая каменка без выступа без бака.jpg" alt="Печь Ø530 открытая без выступа без бака" />
+                </div>
+                <div class="product-name">Печь Ø530 открытая каменка (без выступа, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×550 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка для больших бань. Без бака.</div>
+                <div class="product-price">16 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ОТКРЫТАЯ БЕЗ ВЫСТУПА (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 открытая каменка без выступа черный бак.jpg" alt="Печь Ø530 открытая без выступа чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø530 открытая каменка (без выступа, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×550 мм + бак 800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 85 л</li>
+                    <li>▪️ Толщина: 8 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка с чёрным баком на 85 л.</div>
+                <div class="product-price">21 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ОТКРЫТАЯ С ВЫСТУПОМ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 открытая каменка с выступом без бака.jpg" alt="Печь Ø530 открытая с выступом без бака" />
+                </div>
+                <div class="product-name">Печь Ø530 открытая каменка (с выступом, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 750×530×550 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка с выступом. Без бака.</div>
+                <div class="product-price">18 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ОТКРЫТАЯ С ВЫСТУПОМ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 открытая каменка с выступом черный бак.jpg" alt="Печь Ø530 открытая с выступом чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø530 открытая каменка (с выступом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 750×530×550 мм + бак 800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка с выступом и чёрным баком.</div>
+                <div class="product-price">23 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ОТКРЫТАЯ С ВЫСТУПОМ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 открытая каменка с выступом нержавейка бак.jpg" alt="Печь Ø530 открытая с выступом нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø530 открытая каменка (с выступом, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 750×530×550 мм + бак 800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Выступ топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Открытая каменка с выступом и нержавеющим баком.</div>
+                <div class="product-price">27 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== Ø530 ОТКРЫТАЯ ЛЕЖАЧАЯ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Ø530 открытая каменка лежачая без бака.jpg" alt="Печь Ø530 открытая лежачая без бака" />
+                </div>
+                <div class="product-name">Печь Ø530 открытая каменка (лежачая, без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×650×700 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: 8 мм + обшивка 2 мм</li>
+                </ul>
+                <div class="product-desc">Лежачая открытая каменка для больших парных. Без бака.</div>
+                <div class="product-price">23 000 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section pechi -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 2 — ЛИСТОВЫЕ ПЕЧИ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-listovye">
+        <div class="section-header">
+            <h2>🛠️ Листовые печи</h2>
+        </div>
+        <p class="section-desc">
+            Листовые печи «Термоград» — это доступная цена, компактность и эффективность.
+            Изготовлены из качественной листовой стали (4–6 мм) с чугунными колосниками.
+            Идеальны для небольших бань, дач и социальных объектов.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== БВ-350 (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="БВ 350 без бака.jpg" alt="Печь БВ-350 без бака" />
+                </div>
+                <div class="product-name">Печь БВ-350 (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 450×350×700 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Особенность: конвекция</li>
+                </ul>
+                <div class="product-desc">Компактная печь с конвекцией. Без бака.</div>
+                <div class="product-price">15 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БВ-350 (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="БВ 350 черный бак.jpg" alt="Печь БВ-350 чёрный бак" />
+                </div>
+                <div class="product-name">Печь БВ-350 (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 450×350×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Особенность: конвекция</li>
+                </ul>
+                <div class="product-desc">С конвекцией и чёрным баком на 65 л.</div>
+                <div class="product-price">20 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БВ-350 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="БВ 350 нержавейка бак.jpg" alt="Печь БВ-350 нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь БВ-350 (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 450×350×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Особенность: конвекция</li>
+                </ul>
+                <div class="product-desc">С конвекцией и нержавеющим баком.</div>
+                <div class="product-price">24 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== НВ-350 (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="НВ 350 без бака.jpg" alt="Печь НВ-350 без бака" />
+                </div>
+                <div class="product-name">Печь НВ-350 (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×350×700 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Вынос топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">С выносом топки и конвекцией. Без бака.</div>
+                <div class="product-price">16 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== НВ-350 (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="НВ 350 черный бак.jpg" alt="Печь НВ-350 чёрный бак" />
+                </div>
+                <div class="product-name">Печь НВ-350 (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×350×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Вынос топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">С выносом топки и чёрным баком.</div>
+                <div class="product-price">22 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== НВ-350 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="НВ 350 нержавейка бак.jpg" alt="Печь НВ-350 нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь НВ-350 (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×350×700 мм + бак 420 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Вынос топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">С выносом топки и нержавеющим баком.</div>
+                <div class="product-price">26 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ВВ-350 (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="ВВ 350 без бака.jpg" alt="Печь ВВ-350 без бака" />
+                </div>
+                <div class="product-name">Печь ВВ-350 (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×1150×600 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Вид каменки: открытая</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Высокий выступ топки</li>
+                </ul>
+                <div class="product-desc">С высоким выступом и конвекцией. Без бака.</div>
+                <div class="product-price">19 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ВВ-350 (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="ВВ 350 черный бак.jpg" alt="Печь ВВ-350 чёрный бак" />
+                </div>
+                <div class="product-name">Печь ВВ-350 (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×1150×600 мм + бак 350×450×450 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Высокий выступ топки</li>
+                </ul>
+                <div class="product-desc">С высоким выступом и чёрным баком.</div>
+                <div class="product-price">25 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ВВ-350 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="ВВ350 нержавейка.jpg" alt="Печь ВВ-350 нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь ВВ-350 (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×1150×600 мм + бак 350×450×450 мм</li>
+                    <li>▪️ Объём бани: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Высокий выступ топки</li>
+                </ul>
+                <div class="product-desc">С высоким выступом и нержавеющим баком.</div>
+                <div class="product-price">29 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== СОЦИАЛЬНАЯ ЛИСТОВАЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь листовая социальная с навесным баком черный бак.jfif" alt="Социальная печь чёрный бак" />
+                </div>
+                <div class="product-name">Печь листовая социальная (без выступа, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×600×500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 50 л</li>
+                    <li>▪️ Толщина: листовая сталь 4 мм</li>
+                </ul>
+                <div class="product-desc">Социальная листовая печь с чёрным баком.</div>
+                <div class="product-price">15 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== СОЦИАЛЬНАЯ С ВЫСТУПОМ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь листовая социальная с навесным баком черный бак.jfif" alt="Социальная печь с выступом чёрный бак" />
+                </div>
+                <div class="product-name">Печь листовая социальная (с выступом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 650×600×530 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 50 л</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">Социальная печь с выступом и чёрным баком.</div>
+                <div class="product-price">17 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== СОЦИАЛЬНАЯ ТОПОЧНАЯ ЧАСТЬ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь социальная топочная часть с возвожностью прикрепления бака.jpg" alt="Социальная топочная часть" />
+                </div>
+                <div class="product-name">Печь листовая социальная (топочная часть, под навесной бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×650×530 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Толщина корпуса: сталь 5 мм</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">Топочная часть с возможностью установки навесного бака.</div>
+                <div class="product-price">17 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== СОЦИАЛЬНАЯ С НАВЕСНЫМ БАКОМ (ЧЁРНЫЙ) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="социальная печь лабиринт с навесным баком черный бак.jpg" alt="Социальная с навесным чёрным баком" />
+                </div>
+                <div class="product-name">Печь листовая социальная (навесной бак, чёрный)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×650×530 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 50 л</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">С навесным баком из чёрной стали.</div>
+                <div class="product-price">21 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== СОЦИАЛЬНАЯ С НАВЕСНЫМ БАКОМ (НЕРЖАВЕЮЩИЙ) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="социальная печь лабиринт с навесным баком нержавейка бак.jpg" alt="Социальная с навесным нержавеющим баком" />
+                </div>
+                <div class="product-name">Печь листовая социальная (навесной бак, нержавеющий)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×650×530 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 50 л</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">С навесным баком из нержавеющей стали.</div>
+                <div class="product-price">25 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ЛАБИРИНТ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="социальная печь лабиринт.jpg" alt="Печь Лабиринт без бака" />
+                </div>
+                <div class="product-name">Социальная печь «Лабиринт» (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×600×500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Толщина: листовая сталь 4–6 мм</li>
+                    <li>▪️ Особенность: лабиринт дымохода</li>
+                </ul>
+                <div class="product-desc">Система «Лабиринт» повышает теплоотдачу. Без бака.</div>
+                <div class="product-price">18 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ЛАБИРИНТ С ВЫСТУПОМ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="социальная печь лабиринт с навесным баком черный бак.jpg" alt="Лабиринт с выступом чёрный бак" />
+                </div>
+                <div class="product-name">Социальная печь «Лабиринт» (с выступом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 650×600×530 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 50 л</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">Лабиринт с выступом и чёрным баком.</div>
+                <div class="product-price">21 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ЛАБИРИНТ ТОПОЧНАЯ ЧАСТЬ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="социальная печь лабиринт с навесным баком топочная часть.jpg" alt="Лабиринт топочная часть" />
+                </div>
+                <div class="product-name">Социальная печь «Лабиринт» (топочная часть)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×600×500 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Толщина: листовая сталь 4–6 мм</li>
+                    <li>▪️ Особенность: лабиринт дымохода</li>
+                </ul>
+                <div class="product-desc">Топочная часть системы «Лабиринт».</div>
+                <div class="product-price">20 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ЛАБИРИНТ С НАВЕСНЫМ (НЕРЖАВЕЮЩИЙ) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="социальная печь лабиринт с навесным баком нержавейка бак.jpg" alt="Лабиринт нержавеющий бак" />
+                </div>
+                <div class="product-name">Социальная печь «Лабиринт» (с выступом, навесной нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 650×600×530 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 50 л</li>
+                    <li>▪️ Выступ топки: 150 мм</li>
+                </ul>
+                <div class="product-desc">Лабиринт с навесным нержавеющим баком.</div>
+                <div class="product-price">28 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ДАЧНАЯ СОЦИАЛЬНАЯ (БЕЗ ВЫСТУПА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="дачная социальная без выступа.jpg" alt="Дачная социальная без выступа" />
+                </div>
+                <div class="product-name">Дачная социальная (без выступа, бак встроен)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×500×1200 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрный металл 2 мм, 50 л</li>
+                    <li>▪️ Каменка: 8 мм, топка: 3–4 мм</li>
+                </ul>
+                <div class="product-desc">Дачная печь с встроенным баком. Без выступа.</div>
+                <div class="product-price">16 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ДАЧНАЯ СОЦИАЛЬНАЯ (С ВЫСТУПОМ) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="дачная социальная с выступом.jpg" alt="Дачная социальная с выступом" />
+                </div>
+                <div class="product-name">Дачная социальная (с выступом, бак встроен)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×650×1200 мм</li>
+                    <li>▪️ Объём бани: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрный металл 2 мм, 50 л</li>
+                    <li>▪️ Каменка: 8 мм, топка: 3–4 мм</li>
+                </ul>
+                <div class="product-desc">Дачная печь с встроенным баком и выступом.</div>
+                <div class="product-price">18 000 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section listovye -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 3 — ПЕЧИ-БОЧКИ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-bochki">
+        <div class="section-header">
+            <h2>🛢️ Печи-бочки</h2>
+        </div>
+        <p class="section-desc">
+            Печи-бочки «Термоград» — это эффективное отопление и быстрый прогрев.
+            Конструкция с газопламенным лабиринтом обеспечивает максимальную теплоотдачу.
+            Идеальны для бань объёмом до 25 м³.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== БОЧКА Ø325 (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бочка Ø 325 без бака.jpg" alt="Бочка Ø325 без бака" />
+                </div>
+                <div class="product-name">Печь-бочка Ø325 (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×750×700 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (10 м²)</li>
+                    <li>▪️ Толщина: труба 8 мм</li>
+                    <li>▪️ Особенность: газопламенный лабиринт</li>
+                </ul>
+                <div class="product-desc">Бочка с лабиринтом. Без бака.</div>
+                <div class="product-price">20 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БОЧКА Ø325 (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бочка Ø 325 черный бак.jpg" alt="Бочка Ø325 чёрный бак" />
+                </div>
+                <div class="product-name">Печь-бочка Ø325 (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×750×700 мм + бак 700 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (10 м²)</li>
+                    <li>▪️ Бак: листовой металл 2 мм, 65 л</li>
+                    <li>▪️ Особенность: газопламенный лабиринт</li>
+                </ul>
+                <div class="product-desc">Бочка с чёрным баком и лабиринтом.</div>
+                <div class="product-price">26 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БОЧКА Ø325 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бочка Ø 325 нержавейка бак.jpg" alt="Бочка Ø325 нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь-бочка Ø325 (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×750×700 мм + бак 700 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (10 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Особенность: газопламенный лабиринт</li>
+                </ul>
+                <div class="product-desc">Бочка с нержавеющим баком и лабиринтом.</div>
+                <div class="product-price">31 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БОЧКА Ø426 (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бочка Ø 426 без бака.jpg" alt="Бочка Ø426 без бака" />
+                </div>
+                <div class="product-name">Печь-бочка Ø426 (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: не указан</li>
+                    <li>▪️ Объём бани: до 25 м³ (10 м²)</li>
+                    <li>▪️ Толщина: труба 8 мм</li>
+                    <li>▪️ Особенность: газопламенный лабиринт</li>
+                </ul>
+                <div class="product-desc">Мощная бочка Ø426 с лабиринтом. Без бака.</div>
+                <div class="product-price">29 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БОЧКА Ø426 (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бочка Ø 426 черный бак.jpg" alt="Бочка Ø426 чёрный бак" />
+                </div>
+                <div class="product-name">Печь-бочка Ø426 (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×750×750 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (10 м²)</li>
+                    <li>▪️ Бак: чёрная сталь 2 мм, 65 л</li>
+                    <li>▪️ Особенность: газопламенный лабиринт</li>
+                </ul>
+                <div class="product-desc">Бочка Ø426 с чёрным баком и лабиринтом.</div>
+                <div class="product-price">35 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БОЧКА Ø426 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бочка Ø 426 нержавейка бак.jpg" alt="Бочка Ø426 нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь-бочка Ø426 (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×750×750 мм</li>
+                    <li>▪️ Объём бани: до 25 м³ (10 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 65 л</li>
+                    <li>▪️ Особенность: газопламенный лабиринт</li>
+                </ul>
+                <div class="product-desc">Бочка Ø426 с нержавеющим баком и лабиринтом.</div>
+                <div class="product-price">39 500 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section bochki -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 4 — ПЕЧИ НА 2–3 ПОМЕЩЕНИЯ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-na-2-3">
+        <div class="section-header">
+            <h2>🏠 Печи на 2–3 помещения</h2>
+        </div>
+        <p class="section-desc">
+            Универсальные печи, которые могут отапливать несколько помещений одновременно.
+            Топятся как из предбанника, так и из бани. Каменка разворачивается влево/вправо.
+            С газопламенным лабиринтом для максимальной эффективности.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== ПЕЧЬ НА 2–3 ПОМЕЩЕНИЯ Ø426 (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь на 2-3 помещения черный бак.jpg" alt="Печь на 2-3 помещения чёрный бак" />
+                </div>
+                <div class="product-name">Печь Ø426 на 2–3 помещения (дверка со стеклом, чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 770×730×740 мм</li>
+                    <li>▪️ Объём парилки: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: чёрный металл 2 мм, 70 л</li>
+                    <li>▪️ Толщина: труба 8 мм</li>
+                </ul>
+                <div class="product-desc">Стеклянная дверца, лабиринт, чёрный бак.</div>
+                <div class="product-price">49 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ПЕЧЬ НА 2–3 ПОМЕЩЕНИЯ Ø426 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь на 2-3 помещения нержавейка бак.jpg" alt="Печь на 2-3 помещения нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø426 на 2–3 помещения (дверка со стеклом, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 770×730×740 мм</li>
+                    <li>▪️ Объём парилки: до 15 м³ (6 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 70 л</li>
+                    <li>▪️ Толщина: труба 8 мм</li>
+                </ul>
+                <div class="product-desc">Стеклянная дверца, лабиринт, нержавеющий бак.</div>
+                <div class="product-price">58 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ПЕЧЬ НА 2–3 ПОМЕЩЕНИЯ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь на 2-3 помещения черный бак.jpg" alt="Печь на 2-3 помещения чёрный бак" />
+                </div>
+                <div class="product-name">Печь на 2–3 помещения (чёрный бак, Ø530)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 770×730×740 мм</li>
+                    <li>▪️ Объём парилки: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: чёрный металл 2 мм, 75 л</li>
+                    <li>▪️ Толщина: труба 8 мм (Ø530)</li>
+                </ul>
+                <div class="product-desc">Мощная печь на 2–3 помещения с чёрным баком.</div>
+                <div class="product-price">56 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ПЕЧЬ НА 2–3 ПОМЕЩЕНИЯ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь на 2-3 помещения нержавейка бак.jpg" alt="Печь на 2-3 помещения нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь на 2–3 помещения (нержавеющий бак, Ø530)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 770×730×740 мм</li>
+                    <li>▪️ Объём парилки: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 75 л</li>
+                    <li>▪️ Толщина: труба 8 мм (Ø530)</li>
+                </ul>
+                <div class="product-desc">Мощная печь на 2–3 помещения с нержавеющим баком.</div>
+                <div class="product-price">48 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ПЕЧЬ НА 2–3 ПОМЕЩЕНИЯ Ø530 (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь на 2-3 помещения нержавейка бак.jpg" alt="Печь на 2-3 помещения Ø530 нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь Ø530 на 2–3 помещения (дверка со стеклом, нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 850×740×800 мм</li>
+                    <li>▪️ Объём парилки: до 20 м³ (8 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 1 мм, 75 л</li>
+                    <li>▪️ Толщина: труба 8 мм (Ø530)</li>
+                </ul>
+                <div class="product-desc">Стеклянная дверца, лабиринт, нержавеющий бак.</div>
+                <div class="product-price">67 500 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section na-2-3 -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 5 — ПЕЧЬ «КОРАБЛЬ» -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-korabl">
+        <div class="section-header">
+            <h2>🚢 Печь «Корабль»</h2>
+        </div>
+        <p class="section-desc">
+            Печь «Корабль» — это мощная и надёжная печь для больших бань.
+            Корпус из стали 4 мм, свод каменки — 8 мм. Выдерживает высокие температуры
+            и обеспечивает идеальный пар.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== КОРАБЛЬ (БЕЗ БАКА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="корабль без бака.jpg" alt="Печь Корабль без бака" />
+                </div>
+                <div class="product-name">Печь «Корабль» (без бака)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×800×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Корпус: сталь 4 мм, свод: 8 мм</li>
+                    <li>▪️ Вынос топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">Мощная печь для больших парных. Без бака.</div>
+                <div class="product-price">40 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОРАБЛЬ (ЧЁРНЫЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="корабль черный бак.jpg" alt="Печь Корабль чёрный бак" />
+                </div>
+                <div class="product-name">Печь «Корабль» (чёрный бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×800×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: чёрный металл 2 мм, 85 л</li>
+                    <li>▪️ Вынос топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">С чёрным баком на 85 л.</div>
+                <div class="product-price">46 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОРАБЛЬ (НЕРЖАВЕЮЩИЙ БАК) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="корабль нержавейка бак.jpg" alt="Печь Корабль нержавеющий бак" />
+                </div>
+                <div class="product-name">Печь «Корабль» (нержавеющий бак)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 530×800×800 мм</li>
+                    <li>▪️ Объём бани: до 35 м³ (12 м²)</li>
+                    <li>▪️ Бак: нержавеющая сталь 2 мм, 85 л</li>
+                    <li>▪️ Вынос топки: 200 мм</li>
+                </ul>
+                <div class="product-desc">С нержавеющим баком на 85 л.</div>
+                <div class="product-price">50 500 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section korabl -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 6 — БУРЖУЙКИ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-burzhuyki">
+        <div class="section-header">
+            <h2>🔥 Буржуйки</h2>
+        </div>
+        <p class="section-desc">
+            Буржуйки «Термоград» — это простота, надёжность и доступная цена.
+            Отлично подходят для отопления гаражей, мастерских, теплиц и дач.
+            Различные размеры — от компактных до мощных промышленных моделей.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== БУРЖУЙКА №1 С КОНВЕКЦИЕЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 1 с конвекцией.jpg" alt="Буржуйка №1 с конвекцией" />
+                </div>
+                <div class="product-name">Буржуйка №1 с конвекцией</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 350×300×300 мм</li>
+                    <li>▪️ Объём помещения: до 25 м³ (10 м²)</li>
+                    <li>▪️ Толщина: сталь 2 мм</li>
+                    <li>▪️ Диаметр дымохода: 89 мм</li>
+                </ul>
+                <div class="product-desc">Компактная буржуйка с конвективными карманами.</div>
+                <div class="product-price">6 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА №1У ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 1у без конвекции.jpg" alt="Буржуйка №1У" />
+                </div>
+                <div class="product-name">Буржуйка №1У (без конвекции)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 420×300×300 мм</li>
+                    <li>▪️ Объём помещения: до 25 м³ (10 м²)</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Диаметр дымохода: 89 мм</li>
+                </ul>
+                <div class="product-desc">Усиленная версия без конвекции, сталь 3 мм.</div>
+                <div class="product-price">6 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА №1,5У С КОНВЕКЦИЕЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 1_5у с конвекцией.jpg" alt="Буржуйка №1,5У с конвекцией" />
+                </div>
+                <div class="product-name">Буржуйка №1,5У с конвекцией</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 420×300×300 мм</li>
+                    <li>▪️ Объём помещения: до 30 м³ (20 м²)</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Диаметр дымохода: 89 мм</li>
+                </ul>
+                <div class="product-desc">Усиленная версия с конвекцией.</div>
+                <div class="product-price">7 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА №2 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 2 без конвекции.jpg" alt="Буржуйка №2" />
+                </div>
+                <div class="product-name">Буржуйка №2 (без конвекции)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×350×440 мм</li>
+                    <li>▪️ Объём помещения: до 40 м³ (16 м²)</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Диаметр дымохода: 89 мм</li>
+                </ul>
+                <div class="product-desc">Мощная буржуйка, сталь 4 мм.</div>
+                <div class="product-price">9 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА №2,5 С КОНВЕКЦИЕЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 2_5 с конвекцией.jpg" alt="Буржуйка №2,5 с конвекцией" />
+                </div>
+                <div class="product-name">Буржуйка №2,5 с конвекцией</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×350×440 мм</li>
+                    <li>▪️ Объём помещения: до 45 м³ (18 м²)</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Диаметр дымохода: 89 мм</li>
+                </ul>
+                <div class="product-desc">Мощная буржуйка с конвекцией.</div>
+                <div class="product-price">10 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА №3 С КРУЖКОМ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 3 с кружком.jpg" alt="Буржуйка №3 с кружком" />
+                </div>
+                <div class="product-name">Буржуйка №3 с кружком (без конвекции)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×350×440 мм</li>
+                    <li>▪️ Объём помещения: до 40 м³ (16 м²)</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Особенность: отверстие сверху («кружок»)</li>
+                </ul>
+                <div class="product-desc">С отверстием для нагрева воды и приготовления пищи.</div>
+                <div class="product-price">10 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА №3,5 С КРУЖКОМ И КОНВЕКЦИЕЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка 3_5 с кружком и конвекцией.jpg" alt="Буржуйка №3,5 с кружком и конвекцией" />
+                </div>
+                <div class="product-name">Буржуйка №3,5 с кружком и конвекцией</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×350×440 мм</li>
+                    <li>▪️ Объём помещения: до 45 м³ (18 м²)</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                    <li>▪️ Особенность: кружок + конвекция</li>
+                </ul>
+                <div class="product-desc">С кружком и конвективными карманами.</div>
+                <div class="product-price">11 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА ИЗ ТРУБЫ Ø426 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка из трубы Ø 426.jpg" alt="Буржуйка из трубы Ø426" />
+                </div>
+                <div class="product-name">Буржуйка из трубы Ø426 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×426×450 мм</li>
+                    <li>▪️ Объём помещения: до 150 м³ (70 м²)</li>
+                    <li>▪️ Толщина: труба 8 мм + обшивка 2 мм</li>
+                    <li>▪️ Диаметр дымохода: 115 мм</li>
+                </ul>
+                <div class="product-desc">Мощная буржуйка из толстостенной трубы.</div>
+                <div class="product-price">15 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА ИЗ ТРУБЫ Ø530 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="буржуйка из трубы Ø 530.jpg" alt="Буржуйка из трубы Ø530" />
+                </div>
+                <div class="product-name">Буржуйка из трубы Ø530 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×530×450 мм</li>
+                    <li>▪️ Объём помещения: до 200 м³ (100 м²)</li>
+                    <li>▪️ Толщина: труба 8 мм + обшивка 2 мм</li>
+                    <li>▪️ Диаметр дымохода: 115 мм</li>
+                </ul>
+                <div class="product-desc">Промышленная буржуйка из толстостенной трубы.</div>
+                <div class="product-price">18 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БУРЖУЙКА ДЛИТЕЛЬНОГО ГОРЕНИЯ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="печь-буржуйка длительного горения.jpg" alt="Буржуйка длительного горения" />
+                </div>
+                <div class="product-name">Печь-буржуйка длительного горения</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 1020×340×840 мм</li>
+                    <li>▪️ Объём помещения: до 200 м³ (80 м²)</li>
+                    <li>▪️ Толщина: 3–4 мм</li>
+                    <li>▪️ Объём загрузки: 120 л</li>
+                </ul>
+                <div class="product-desc">Горение до 24 часов. Экономичная и мощная.</div>
+                <div class="product-price">20 500 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section burzhuyki -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 7 — КОТЛЫ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-kotly">
+        <div class="section-header">
+            <h2>🏭 Котлы</h2>
+        </div>
+        <p class="section-desc">
+            Отопительные котлы «Термоград» — для домов, гаражей и производственных помещений.
+            Различной мощности — от 80 до 250 м². Надёжные, экономичные, долговечные.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== КОТЁЛ МАЛЫЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="котел малый 1_2 плиты.jpg" alt="Котёл малый" />
+                </div>
+                <div class="product-name">Котёл малый (1/2 плиты)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×430×600 мм</li>
+                    <li>▪️ Площадь: 80–100 м²</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Дымоход сзади снизу</li>
+                </ul>
+                <div class="product-desc">Компактный котёл для небольших помещений.</div>
+                <div class="product-price">26 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОТЁЛ БОЛЬШОЙ (1/2 ПЛИТЫ) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="котел большой 1_2 плиты.jpg" alt="Котёл большой 1/2 плиты" />
+                </div>
+                <div class="product-name">Котёл большой (1/2 плиты)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 720×430×600 мм</li>
+                    <li>▪️ Площадь: 100–130 м²</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Дымоход сзади снизу</li>
+                </ul>
+                <div class="product-desc">Мощный котёл для домов и мастерских.</div>
+                <div class="product-price">29 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОТЁЛ БОЛЬШОЙ (ЦЕЛАЯ ПЛИТА) ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="Котел большой целая плита.jpg" alt="Котёл большой целая плита" />
+                </div>
+                <div class="product-name">Котёл большой (целая плита)</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 720×430×600 мм</li>
+                    <li>▪️ Площадь: до 120 м²</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Целая плита сверху</li>
+                </ul>
+                <div class="product-desc">С целой плитой для приготовления пищи.</div>
+                <div class="product-price">27 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОТЁЛ С ВОДЯНЫМ ВЕРХОМ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="котел с водяным верхом.jpg" alt="Котёл с водяным верхом" />
+                </div>
+                <div class="product-name">Котёл с водяным верхом</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×430×600 мм</li>
+                    <li>▪️ Площадь: до 200 м²</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Водяной верх</li>
+                </ul>
+                <div class="product-desc">Мощный котёл с водяным контуром сверху.</div>
+                <div class="product-price">28 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОТЁЛ «МАЙБАХ» ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="котел длительного горения майбах.jpg" alt="Котёл Майбах" />
+                </div>
+                <div class="product-name">Котёл длительного горения «Майбах»</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 500×750×1000 мм</li>
+                    <li>▪️ Площадь: 50–250 м²</li>
+                    <li>▪️ Толщина: сталь 3 мм</li>
+                    <li>▪️ Загрузка до 120 л</li>
+                </ul>
+                <div class="product-desc">Длительное горение с вентилятором и контроллером.</div>
+                <div class="product-price">72 000 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section kotly -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 8 — БАКИ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-baki">
+        <div class="section-header">
+            <h2>🪣 Баки</h2>
+        </div>
+        <p class="section-desc">
+            Баки для банных печей из нержавеющей и чёрной стали.
+            Различные объёмы (65 л, 85 л, 100 л) и толщины (1 мм, 1,5 мм, 2 мм).
+            С крышкой или без, навесные и стационарные.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== БАК 400 НЕРЖ 65Л 1ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 нерж 65л 1мм без крышки.jpg" alt="Бак 400 нерж 65л 1мм без крышки" />
+                </div>
+                <div class="product-name">Бак 400 мм, нерж., 65 л, 1 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Нержавеющий бак 65 л без крышки.</div>
+                <div class="product-price">9 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 НЕРЖ 65Л 1ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 нерж 65л 1мм с крышкой.jpg" alt="Бак 400 нерж 65л 1мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 400 мм, нерж., 65 л, 1 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Нержавеющий бак 65 л с крышкой.</div>
+                <div class="product-price">11 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 НЕРЖ 65Л 1,5ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 нерж 65л 1_5мм без крышки.jpg" alt="Бак 400 нерж 65л 1,5мм без крышки" />
+                </div>
+                <div class="product-name">Бак 400 мм, нерж., 65 л, 1,5 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 1,5 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Усиленный нержавеющий бак 65 л без крышки.</div>
+                <div class="product-price">12 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 НЕРЖ 65Л 1,5ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 нерж 65л 1_5мм с крышкой.jpg" alt="Бак 400 нерж 65л 1,5мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 400 мм, нерж., 65 л, 1,5 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 1,5 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Усиленный нержавеющий бак 65 л с крышкой.</div>
+                <div class="product-price">14 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 НЕРЖ 65Л 2ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 нерж 65л 2мм без крышки.jpg" alt="Бак 400 нерж 65л 2мм без крышки" />
+                </div>
+                <div class="product-name">Бак 400 мм, нерж., 65 л, 2 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Максимально прочный нержавеющий бак 65 л.</div>
+                <div class="product-price">14 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 НЕРЖ 65Л 2ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 нерж 65л 2мм с крышкой.jpg" alt="Бак 400 нерж 65л 2мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 400 мм, нерж., 65 л, 2 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Максимально прочный нержавеющий бак с крышкой.</div>
+                <div class="product-price">16 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 НЕРЖ 85Л 1ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 нерж 85л 1мм без крышки.jpg" alt="Бак 530 нерж 85л 1мм без крышки" />
+                </div>
+                <div class="product-name">Бак 530 мм, нерж., 85 л, 1 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Нержавеющий бак 85 л без крышки.</div>
+                <div class="product-price">10 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 НЕРЖ 85Л 1ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 нерж 85л 1мм с крышкой.jpg" alt="Бак 530 нерж 85л 1мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 530 мм, нерж., 85 л, 1 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Нержавеющий бак 85 л с крышкой.</div>
+                <div class="product-price">12 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 НЕРЖ 85Л 1,5ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 нерж 85л 1_5мм без крышки.jpg" alt="Бак 530 нерж 85л 1,5мм без крышки" />
+                </div>
+                <div class="product-name">Бак 530 мм, нерж., 85 л, 1,5 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 1,5 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Усиленный нержавеющий бак 85 л без крышки.</div>
+                <div class="product-price">13 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 НЕРЖ 85Л 1,5ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 нерж 85л 1_5мм с крышкой.jpg" alt="Бак 530 нерж 85л 1,5мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 530 мм, нерж., 85 л, 1,5 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 1,5 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Усиленный нержавеющий бак 85 л с крышкой.</div>
+                <div class="product-price">15 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 НЕРЖ 85Л 2ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 нерж 85л 2мм без крышки.jpg" alt="Бак 530 нерж 85л 2мм без крышки" />
+                </div>
+                <div class="product-name">Бак 530 мм, нерж., 85 л, 2 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Максимально прочный нержавеющий бак 85 л.</div>
+                <div class="product-price">15 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 НЕРЖ 85Л 2ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 нерж 85л 2мм с крышкой.jpg" alt="Бак 530 нерж 85л 2мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 530 мм, нерж., 85 л, 2 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Максимально прочный нержавеющий бак с крышкой.</div>
+                <div class="product-price">17 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 60Л НЕРЖ 1ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 60л нерж 1мм без крышки.jpg" alt="Бак навесной 60л нерж 1мм без крышки" />
+                </div>
+                <div class="product-name">Бак навесной, нерж., 60 л, 1 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 60 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ Размер: 500×500×250 мм</li>
+                </ul>
+                <div class="product-desc">Навесной нержавеющий бак 60 л.</div>
+                <div class="product-price">9 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 60Л НЕРЖ 1ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 60л нерж 1мм с крышкой.jpg" alt="Бак навесной 60л нерж 1мм с крышкой" />
+                </div>
+                <div class="product-name">Бак навесной, нерж., 60 л, 1 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 60 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ Размер: 500×500×250 мм</li>
+                </ul>
+                <div class="product-desc">Навесной нержавеющий бак 60 л с крышкой.</div>
+                <div class="product-price">10 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 75Л НЕРЖ 1ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 75л нерж 1мм без крышки.jpg" alt="Бак навесной 75л нерж 1мм без крышки" />
+                </div>
+                <div class="product-name">Бак навесной, нерж., 75 л, 1 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 75 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ Навесной</li>
+                </ul>
+                <div class="product-desc">Навесной нержавеющий бак 75 л.</div>
+                <div class="product-price">12 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 75Л НЕРЖ 1ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 75л нерж 1мм с крышкой.jpg" alt="Бак навесной 75л нерж 1мм с крышкой" />
+                </div>
+                <div class="product-name">Бак навесной, нерж., 75 л, 1 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 75 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Навесной нержавеющий бак 75 л с крышкой.</div>
+                <div class="product-price">14 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 100Л НЕРЖ 1ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 100л нерж 1мм без крышки.jpg" alt="Бак навесной 100л нерж 1мм без крышки" />
+                </div>
+                <div class="product-name">Бак навесной, нерж., 100 л, 1 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 100 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Большой навесной нержавеющий бак 100 л.</div>
+                <div class="product-price">14 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 100Л НЕРЖ 1ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 100л нерж 1мм с крышкой.jpg" alt="Бак навесной 100л нерж 1мм с крышкой" />
+                </div>
+                <div class="product-name">Бак навесной, нерж., 100 л, 1 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: нержавеющая сталь</li>
+                    <li>▪️ Объём: 100 л</li>
+                    <li>▪️ Толщина: 1 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Большой навесной нержавеющий бак 100 л с крышкой.</div>
+                <div class="product-price">15 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 ЧЁРНЫЙ 65Л 2ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 черный 65л 2мм без крышки.jpg" alt="Бак 400 чёрный 65л 2мм без крышки" />
+                </div>
+                <div class="product-name">Бак 400 мм, чёрный, 65 л, 2 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ Размер: 400×450×550 мм</li>
+                </ul>
+                <div class="product-desc">Чёрный бак 65 л без крышки.</div>
+                <div class="product-price">6 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 400 ЧЁРНЫЙ 65Л 2ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 400 черный 65л 2мм с крышкой.jpg" alt="Бак 400 чёрный 65л 2мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 400 мм, чёрный, 65 л, 2 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 65 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Чёрный бак 65 л с крышкой.</div>
+                <div class="product-price">7 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 ЧЁРНЫЙ 85Л 2ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 черный 85л 2мм без крышки.jpg" alt="Бак 530 чёрный 85л 2мм без крышки" />
+                </div>
+                <div class="product-name">Бак 530 мм, чёрный, 85 л, 2 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Чёрный бак 85 л без крышки.</div>
+                <div class="product-price">7 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК 530 ЧЁРНЫЙ 85Л 2ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак 530 черный 85л 2мм с крышкой.jpg" alt="Бак 530 чёрный 85л 2мм с крышкой" />
+                </div>
+                <div class="product-name">Бак 530 мм, чёрный, 85 л, 2 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 85 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Чёрный бак 85 л с крышкой.</div>
+                <div class="product-price">9 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 60Л ЧЁРНЫЙ 2ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 60л черный 2мм без крышки.jpg" alt="Бак навесной 60л чёрный 2мм без крышки" />
+                </div>
+                <div class="product-name">Бак навесной, 60 л, чёрный, 2 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 60 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Навесной чёрный бак 60 л.</div>
+                <div class="product-price">6 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 60Л ЧЁРНЫЙ 2ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 60л черный 2мм с крышкой.jpg" alt="Бак навесной 60л чёрный 2мм с крышкой" />
+                </div>
+                <div class="product-name">Бак навесной, 60 л, чёрный, 2 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 60 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Навесной чёрный бак 60 л с крышкой.</div>
+                <div class="product-price">8 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 75Л ЧЁРНЫЙ 2ММ БЕЗ КРЫШКИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 75л черный 2мм без крышки.jpg" alt="Бак навесной 75л чёрный 2мм без крышки" />
+                </div>
+                <div class="product-name">Бак навесной, 75 л, чёрный, 2 мм (без крышки)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 75 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ Без крышки</li>
+                </ul>
+                <div class="product-desc">Навесной чёрный бак 75 л.</div>
+                <div class="product-price">7 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== БАК НАВЕСНОЙ 75Л ЧЁРНЫЙ 2ММ С КРЫШКОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="бак навесной 75л черный 2мм с крышкой.jpg" alt="Бак навесной 75л чёрный 2мм с крышкой" />
+                </div>
+                <div class="product-name">Бак навесной, 75 л, чёрный, 2 мм (с крышкой)</div>
+                <ul class="product-specs">
+                    <li>▪️ Материал: чёрный металл</li>
+                    <li>▪️ Объём: 75 л</li>
+                    <li>▪️ Толщина: 2 мм</li>
+                    <li>▪️ С крышкой</li>
+                </ul>
+                <div class="product-desc">Навесной чёрный бак 75 л с крышкой.</div>
+                <div class="product-price">9 500 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section baki -->
+
+    <!-- ============================================================ -->
+    <!-- РАЗДЕЛ 9 — АКСЕССУАРЫ -->
+    <!-- ============================================================ -->
+    <div class="section" id="section-aksessuary">
+        <div class="section-header">
+            <h2>🔧 Аксессуары</h2>
+        </div>
+        <p class="section-desc">
+            Всё необходимое для монтажа и эксплуатации печей: трубы, колена, зонты, хомуты,
+            мангалы, коптильни, углярки, чугунные плиты, теплообменники, духовки и многое другое.
+        </p>
+
+        <div class="product-grid">
+
+            <!-- ======== ТЕПЛООБМЕННИК ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="теплообменник.jpg" alt="Теплообменник" />
+                </div>
+                <div class="product-name">Теплообменник</div>
+                <ul class="product-specs">
+                    <li>▪️ Диаметр: 250 мм</li>
+                    <li>▪️ Высота: 350 мм</li>
+                    <li>▪️ Толщина: 1–2 мм</li>
+                </ul>
+                <div class="product-desc">Для эффективного отбора тепла от дымохода.</div>
+                <div class="product-price">9 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ДУХОВКА ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="духовка.jpg" alt="Духовка" />
+                </div>
+                <div class="product-name">Духовка</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 300×300×400 мм</li>
+                    <li>▪️ Толщина: металл 1 мм</li>
+                </ul>
+                <div class="product-desc">Духовка для приготовления пищи на печи.</div>
+                <div class="product-price">2 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ЗОЛЬНИК ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="зольник.jpg" alt="Зольник" />
+                </div>
+                <div class="product-name">Зольник</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: подбирается под модель</li>
+                </ul>
+                <div class="product-desc">Для удобной очистки печи от золы.</div>
+                <div class="product-price">1 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== МАНГАЛ СТАЦИОНАРНЫЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="мангал стационарный.jpg" alt="Мангал стационарный" />
+                </div>
+                <div class="product-name">Мангал стационарный со съёмными ножками</div>
+                <ul class="product-specs">
+                    <li>▪️ Очаг: 800×300 мм</li>
+                    <li>▪️ Ножки: 800 мм</li>
+                    <li>▪️ Толщина: сталь 4 мм</li>
+                </ul>
+                <div class="product-desc">Надёжный мангал для дачи и пикников.</div>
+                <div class="product-price">5 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== МАНГАЛ СКЛАДНОЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="мангал складной.jpg" alt="Мангал складной" />
+                </div>
+                <div class="product-name">Мангал складной</div>
+                <ul class="product-specs">
+                    <li>▪️ Очаг: 510×270×140 мм</li>
+                    <li>▪️ Сложенный: 550×300×60 мм</li>
+                    <li>▪️ Толщина: сталь 1,5 мм</li>
+                </ul>
+                <div class="product-desc">Компактный складной мангал для походов.</div>
+                <div class="product-price">5 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОПТИЛЬНЯ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="коптильня с гидрозатвором.jpg" alt="Коптильня" />
+                </div>
+                <div class="product-name">Коптильня с гидрозатвором</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 550×350×500 мм</li>
+                    <li>▪️ Толщина: сталь 2 мм</li>
+                    <li>▪️ Комплектация: 2 решётки, лист для жира</li>
+                </ul>
+                <div class="product-desc">Коптильня для рыбы, мяса и сыра.</div>
+                <div class="product-price">5 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== УГЛЯРКА ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="углярка.jpg" alt="Углярка" />
+                </div>
+                <div class="product-name">Углярка</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 250×500×150 мм</li>
+                    <li>▪️ Толщина: сталь 1 мм</li>
+                </ul>
+                <div class="product-desc">Для удобного розжига угля.</div>
+                <div class="product-price">1 400 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== УГЛЯРКА КРУГЛАЯ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="углярка круглая.jpg" alt="Углярка круглая" />
+                </div>
+                <div class="product-name">Углярка круглая</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 250×500×150 мм</li>
+                    <li>▪️ Толщина: сталь 1 мм</li>
+                </ul>
+                <div class="product-desc">Круглая углярка для мангалов и печей.</div>
+                <div class="product-price">1 220 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== МОДУЛЬ ТРУБЫ Ø90 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="модуль трубы 90.jpg" alt="Модуль трубы Ø90" />
+                </div>
+                <div class="product-name">Модуль трубы Ø90 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Высота: 1000 мм</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Модуль дымохода Ø90 мм.</div>
+                <div class="product-price">1 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== МОДУЛЬ ТРУБЫ Ø115 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="модуль трубы 115.jpg" alt="Модуль трубы Ø115" />
+                </div>
+                <div class="product-name">Модуль трубы Ø115 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Высота: 1000 мм</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Модуль дымохода Ø115 мм.</div>
+                <div class="product-price">1 200 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОЛЕНО Ø90 45° ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="колено 90 45.jpg" alt="Колено Ø90 45°" />
+                </div>
+                <div class="product-name">Колено Ø90 мм, 45°</div>
+                <ul class="product-specs">
+                    <li>▪️ Диаметр: 90 мм</li>
+                    <li>▪️ Угол: 45°</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Поворотное колено для дымохода.</div>
+                <div class="product-price">500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== КОЛЕНО Ø115 45° ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="колено 115 45.jpg" alt="Колено Ø115 45°" />
+                </div>
+                <div class="product-name">Колено Ø115 мм, 45°</div>
+                <ul class="product-specs">
+                    <li>▪️ Диаметр: 115 мм</li>
+                    <li>▪️ Угол: 45°</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Поворотное колено для дымохода.</div>
+                <div class="product-price">600 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ЗОНТ Ø115 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="зонт 115.jpg" alt="Зонт Ø115" />
+                </div>
+                <div class="product-name">Зонт Ø115 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Диаметр: 115 мм</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Защитный зонт для дымохода.</div>
+                <div class="product-price">1 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ХОМУТ Ø90 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="хомут 90.jpg" alt="Хомут Ø90" />
+                </div>
+                <div class="product-name">Хомут обжимной Ø90 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Диаметр: 90 мм</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Для соединения элементов дымохода.</div>
+                <div class="product-price">350 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ХОМУТ Ø115–120 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="хомут 115.jpg" alt="Хомут Ø115–120" />
+                </div>
+                <div class="product-name">Хомут обжимной Ø115–120 мм</div>
+                <ul class="product-specs">
+                    <li>▪️ Диаметр: 115–120 мм</li>
+                    <li>▪️ Материал: нержавеющая сталь 0,5 мм</li>
+                </ul>
+                <div class="product-desc">Для соединения элементов дымохода.</div>
+                <div class="product-price">350 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ПЛАСТИНА С БОРТАМИ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="пластина с бортами.jpg" alt="Пластина с бортами" />
+                </div>
+                <div class="product-name">Пластина с бортами</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 600×600 мм</li>
+                    <li>▪️ Высота бортов: 50 мм</li>
+                </ul>
+                <div class="product-desc">Универсальная пластина для печей.</div>
+                <div class="product-price">3 000 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ШНУР АСБЕСТОВЫЙ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="шнур асбестовый.jpg" alt="Шнур асбестовый" />
+                </div>
+                <div class="product-name">Шнур асбестовый</div>
+                <ul class="product-specs">
+                    <li>▪️ Цена за 1 метр</li>
+                </ul>
+                <div class="product-desc">Для уплотнения соединений дымохода.</div>
+                <div class="product-price">150 <span class="rub">₽/м</span></div>
+            </div>
+
+            <!-- ======== ПЛИТА ЧУГУННАЯ 1/2 ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="плита чугунная 1_2.jpg" alt="Плита чугунная 1/2" />
+                </div>
+                <div class="product-name">Плита чугунная 1/2</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 420×340 мм</li>
+                    <li>▪️ Толщина: чугун 16 мм</li>
+                </ul>
+                <div class="product-desc">Чугунная плита 1/2 для печей.</div>
+                <div class="product-price">4 500 <span class="rub">₽</span></div>
+            </div>
+
+            <!-- ======== ПЛИТА ЧУГУННАЯ ЦЕЛАЯ ======== -->
+            <div class="product-card">
+                <div class="product-photo">
+                    <img src="плита чугунная целая.jpg" alt="Плита чугунная целая" />
+                </div>
+                <div class="product-name">Плита чугунная целая</div>
+                <ul class="product-specs">
+                    <li>▪️ Размер: 720×420 мм</li>
+                    <li>▪️ Толщина: чугун 16 мм</li>
+                </ul>
+                <div class="product-desc">Цельная чугунная плита для печей.</div>
+                <div class="product-price">8 000 <span class="rub">₽</span></div>
+            </div>
+
+        </div><!-- /product-grid -->
+    </div><!-- /section aksessuary -->
+
+    <!-- ============================================================ -->
+    <!-- ЗАКЛЮЧИТЕЛЬНАЯ СТРАНИЦА — КОНТАКТЫ -->
+    <!-- ============================================================ -->
+    <div class="contact-page" id="section-contacts">
+        <h2>📞 Контакты</h2>
+
+        <div class="contacts">
+            <div><strong>Телефон:</strong> <a href="tel:+70000000000">+7 (000) 000-00-00</a></div>
+            <div><strong>Email:</strong> <a href="mailto:info@termograd.ru">info@termograd.ru</a></div>
+            <div><strong>Сайт:</strong> <a href="https://termograd.ru" target="_blank">termograd.ru</a></div>
         </div>
 
-        <div class="form-group" id="phoneGroup">
-            <label>📱 Телефон *</label>
-            <input type="tel" id="customerPhone" placeholder="+7 (999) 999-99-99">
-            <div class="error-text">Пожалуйста, введите номер телефона</div>
+        <div class="qr-block">
+            <div class="qr-item">
+                <span class="qr-placeholder">📱</span>
+                Онлайн-магазин
+                <br><small>(QR-код)</small>
+            </div>
+            <div class="qr-item">
+                <span class="qr-placeholder">📺</span>
+                Канал в МАХ
+                <br><small>(QR-код)</small>
+            </div>
+            <div class="qr-item">
+                <span class="qr-placeholder">💬</span>
+                Чат с сотрудником
+                <br><small>(QR-код)</small>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>⏰ Время доставки</label>
-            <select id="deliveryTime">
-                <option value="как можно скорее">Как можно скорее</option>
-                <option value="через 30 минут">Через 30 минут</option>
-                <option value="через 1 час">Через 1 час</option>
-                <option value="через 1.5 часа">Через 1.5 часа</option>
-                <option value="через 2 часа">Через 2 часа</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>💬 Комментарий к заказу</label>
-            <textarea id="customerComment" placeholder="Пожелания, особые указания, аллергии..."></textarea>
-        </div>
-
-        <button class="btn btn-block" onclick="submitOrder()">🚀 Отправить заказ</button>
-        <button class="btn btn-secondary btn-block" onclick="closeOrderForm()">✕ Вернуться к меню</button>
-    </div>
-
-    <!-- Корзина -->
-    <div class="cart" id="cart">
-        <div class="cart-top">
-            <span>🛒 Корзина (<span id="cartCount">0</span> позиций)</span>
-            <button class="btn btn-sm btn-danger" onclick="clearCart()">Очистить</button>
-        </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-bottom">
-            <span class="cart-total" id="cartTotal">0₽</span>
-            <button class="btn" onclick="showOrderForm()">Оформить заказ</button>
+        <div class="footer-line">
+            © 2026 Термоград · Каталог продукции · Все права защищены
         </div>
     </div>
 
-    <!-- Скрытая ссылка на админ-панель -->
-    <div class="admin-link" id="adminLink">
-        <a href="admin.html" target="_blank">🛠 Админ-панель управления меню</a>
-    </div>
-
-    <!-- Подвал -->
-    <div class="footer">
-        <button class="btn btn-secondary" onclick="tg.close()">✕ Закрыть</button>
-        <button class="btn btn-secondary" onclick="showDebug()">🐛 Диагностика</button>
-    </div>
-
-    <!-- Отладка -->
-    <div class="debug" id="debugInfo"></div>
-
-    <script>
-        // ============================================
-        // ===== НАСТРОЙКИ БОТА =====
-        // ============================================
-        const BOT_TOKEN = '8980208297:AAGm8N55yZ-RN5ao_uxCoFHYLiSHq1eyfss';
-        
-        // ⚠️ ВАЖНО: ЗАМЕНИТЕ НА СВОЙ РЕАЛЬНЫЙ ID ПОЛУЧЕННЫЙ ОТ @userinfobot
-        const ADMIN_CHAT_ID = '2013568102'; // <--- ЭТО ВАШ ID, НЕ МЕНЯЙТЕ ЕСЛИ ОН ВЕРНЫЙ!
-
-        // ============================================
-        // ===== ИНИЦИАЛИЗАЦИЯ =====
-        // ============================================
-        const tg = window.Telegram.WebApp;
-        let cart = [];
-
-        try {
-            tg.expand();
-            tg.ready();
-            console.log('✅ Web App загружен');
-        } catch (e) {
-            console.error('Telegram init error:', e);
-        }
-
-        let currentUser = null;
-        try {
-            const user = tg.initDataUnsafe?.user;
-            if (user) {
-                currentUser = user;
-                document.getElementById('greeting').textContent = `👋 Привет, ${user.first_name}!`;
-                document.getElementById('customerName').value = user.first_name || '';
-                document.getElementById('customerName').placeholder = user.first_name || 'Ваше имя';
-                console.log('✅ Пользователь:', user.first_name, 'ID:', user.id);
-            } else {
-                console.log('⚠️ Пользователь не авторизован в Telegram');
-            }
-        } catch (e) {
-            console.warn('User data error:', e);
-        }
-
-        // ============================================
-        // ===== СКРЫТАЯ АДМИН-ССЫЛКА =====
-        // ============================================
-        (function() {
-            // Показываем только если это админ
-            if (currentUser && String(currentUser.id) === ADMIN_CHAT_ID) {
-                document.getElementById('adminLink').style.display = 'block';
-                console.log('✅ Админ-панель доступна');
-                return;
-            }
-
-            // Секретный способ: 5 кликов по логотипу
-            let clickCount = 0;
-            let clickTimer = null;
-            
-            document.getElementById('logoTitle')?.addEventListener('click', function() {
-                clickCount++;
-                if (clickCount === 1) {
-                    clickTimer = setTimeout(() => {
-                        clickCount = 0;
-                    }, 1000);
-                } else if (clickCount >= 5) {
-                    clearTimeout(clickTimer);
-                    clickCount = 0;
-                    
-                    if (currentUser && String(currentUser.id) === ADMIN_CHAT_ID) {
-                        document.getElementById('adminLink').style.display = 'block';
-                        tg.HapticFeedback?.notificationOccurred('success');
-                        tg.showAlert('🔑 Админ-панель открыта!');
-                    } else {
-                        tg.HapticFeedback?.notificationOccurred('error');
-                        tg.showAlert('⛔ У вас нет доступа');
-                    }
-                }
-            });
-
-            console.log('🔒 Админ-панель скрыта от клиентов');
-        })();
-
-        // ============================================
-        // ===== ЗАГРУЗКА МЕНЮ =====
-        // ============================================
-        function getDefaultMenu() {
-            return [
-                { id: 1, name: 'Шашлык из свинины', price: 350, desc: 'Сочный, на углях', category: 'Мясо' },
-                { id: 2, name: 'Люля-кебаб', price: 280, desc: 'С бараниной и специями', category: 'Мясо' },
-                { id: 3, name: 'Салат "Миас"', price: 220, desc: 'Свежий, с овощами', category: 'Салаты' },
-                { id: 4, name: 'Чай с мятой', price: 150, desc: 'Горячий, тонизирующий', category: 'Напитки' },
-                { id: 5, name: 'Хинкали', price: 250, desc: 'С мясом и бульоном', category: 'Мясо' },
-                { id: 6, name: 'Компот', price: 120, desc: 'Домашний, из сухофруктов', category: 'Напитки' },
-                { id: 7, name: 'Картофель фри', price: 180, desc: 'Хрустящий, с солью', category: 'Гарниры' },
-                { id: 8, name: 'Мороженое', price: 160, desc: 'Ванильное, с шоколадом', category: 'Десерты' },
-            ];
-        }
-
-        function getMenuItems() {
-            try {
-                const data = localStorage.getItem('cafe_menu_items');
-                if (data) {
-                    const items = JSON.parse(data);
-                    if (items && items.length > 0) {
-                        return items;
-                    }
-                }
-            } catch (e) {
-                console.error('Error loading menu:', e);
-            }
-            const defaultMenu = getDefaultMenu();
-            localStorage.setItem('cafe_menu_items', JSON.stringify(defaultMenu));
-            return defaultMenu;
-        }
-
-        let menuItems = [];
-
-        function loadMenu() {
-            const container = document.getElementById('menu');
-            const loading = document.getElementById('loadingIndicator');
-
-            try {
-                menuItems = getMenuItems();
-
-                if (!container) throw new Error('Контейнер меню не найден');
-
-                if (loading) loading.style.display = 'none';
-                container.innerHTML = '';
-
-                if (menuItems.length === 0) {
-                    container.innerHTML = '<div style="text-align:center;padding:40px;color:#888;">📭 Меню пока пусто</div>';
-                    return;
-                }
-
-                menuItems.forEach((item) => {
-                    const div = document.createElement('div');
-                    div.className = 'menu-item';
-                    div.innerHTML = `
-                        <div class="item-info">
-                            <h3>${item.name}</h3>
-                            <div class="desc">${item.desc || ''} ${item.category ? '· ' + item.category : ''}</div>
-                            <div class="price">${item.price}₽</div>
-                        </div>
-                        <div class="item-controls">
-                            <button class="btn btn-sm btn-secondary" onclick="changeQuantity(${item.id}, -1)">−</button>
-                            <span class="qty" id="qty_${item.id}">0</span>
-                            <button class="btn btn-sm" onclick="changeQuantity(${item.id}, 1)">+</button>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-
-                document.getElementById('errorBox').classList.remove('active');
-                console.log('✅ Меню загружено, позиций:', menuItems.length);
-            } catch (e) {
-                showError('Ошибка загрузки меню: ' + e.message);
-            }
-        }
-
-        // ===== АВТООБНОВЛЕНИЕ МЕНЮ (КАЖДЫЕ 10 СЕКУНД) =====
-        let lastMenuHash = '';
-
-        function checkMenuUpdates() {
-            try {
-                const data = localStorage.getItem('cafe_menu_items');
-                if (data) {
-                    const currentHash = data.length + '_' + data;
-                    if (currentHash !== lastMenuHash) {
-                        lastMenuHash = currentHash;
-                        const newMenu = JSON.parse(data);
-                        if (newMenu && newMenu.length > 0) {
-                            const oldNames = menuItems.map(i => i.name + i.price + i.desc).join('|');
-                            const newNames = newMenu.map(i => i.name + i.price + i.desc).join('|');
-                            if (oldNames !== newNames) {
-                                console.log('🔄 Меню обновлено!');
-                                menuItems = newMenu;
-                                loadMenu();
-                                if (tg) {
-                                    tg.HapticFeedback?.notificationOccurred('success');
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error('Check updates error:', e);
-            }
-        }
-
-        setInterval(checkMenuUpdates, 10000);
-
-        // ============================================
-        // ===== КОРЗИНА =====
-        // ============================================
-        function changeQuantity(id, delta) {
-            try {
-                const item = menuItems.find(i => i.id === id);
-                if (!item) throw new Error('Товар не найден');
-
-                const existing = cart.find(i => i.id === id);
-                if (existing) {
-                    existing.quantity = Math.max(0, (existing.quantity || 1) + delta);
-                    if (existing.quantity <= 0) {
-                        cart = cart.filter(i => i.id !== id);
-                    }
-                } else if (delta > 0) {
-                    cart.push({ ...item, quantity: 1 });
-                }
-
-                updateCart();
-                updateQuantityDisplay(id);
-                tg.HapticFeedback?.impactOccurred('light');
-            } catch (e) {
-                console.error('Change quantity error:', e);
-            }
-        }
-
-        function updateQuantityDisplay(id) {
-            const el = document.getElementById(`qty_${id}`);
-            if (el) {
-                const item = cart.find(i => i.id === id);
-                el.textContent = item ? item.quantity : 0;
-            }
-        }
-
-        function updateCart() {
-            const cartEl = document.getElementById('cart');
-            const countEl = document.getElementById('cartCount');
-            const totalEl = document.getElementById('cartTotal');
-            const itemsEl = document.getElementById('cartItems');
-
-            if (cart.length > 0) {
-                cartEl.classList.add('active');
-                const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-                const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-
-                countEl.textContent = totalItems;
-                totalEl.textContent = totalPrice + '₽';
-
-                itemsEl.innerHTML = cart.map(item =>
-                    `<div class="cart-item">
-                        <span>${item.name} × ${item.quantity}</span>
-                        <span>${item.price * item.quantity}₽</span>
-                    </div>`
-                ).join('');
-            } else {
-                cartEl.classList.remove('active');
-            }
-        }
-
-        function clearCart() {
-            if (cart.length === 0) return;
-            if (confirm('Очистить корзину?')) {
-                cart = [];
-                updateCart();
-                menuItems.forEach(item => updateQuantityDisplay(item.id));
-                tg.HapticFeedback?.impactOccurred('medium');
-            }
-        }
-
-        // ============================================
-        // ===== ФОРМА ЗАКАЗА =====
-        // ============================================
-        function showOrderForm() {
-            if (cart.length === 0) {
-                tg.showAlert('🛒 Корзина пуста! Добавьте блюда.');
-                return;
-            }
-            document.getElementById('orderForm').classList.add('active');
-            document.getElementById('cart').style.display = 'none';
-            document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function closeOrderForm() {
-            document.getElementById('orderForm').classList.remove('active');
-            document.getElementById('cart').style.display = 'flex';
-        }
-
-        function validateForm() {
-            let isValid = true;
-
-            const name = document.getElementById('customerName').value.trim();
-            const nameGroup = document.getElementById('nameGroup');
-            if (!name) {
-                nameGroup.classList.add('error');
-                isValid = false;
-            } else {
-                nameGroup.classList.remove('error');
-            }
-
-            const phone = document.getElementById('customerPhone').value.trim();
-            const phoneGroup = document.getElementById('phoneGroup');
-            if (!phone || phone.length < 5) {
-                phoneGroup.classList.add('error');
-                isValid = false;
-            } else {
-                phoneGroup.classList.remove('error');
-            }
-
-            if (!isValid) {
-                tg.showAlert('⚠️ Заполните все обязательные поля!');
-            }
-
-            return isValid;
-        }
-
-        // ============================================
-        // ===== ОТПРАВКА ЗАКАЗА (ИСПРАВЛЕННАЯ) =====
-        // ============================================
-        function submitOrder() {
-            // ===== ВАЛИДАЦИЯ =====
-            if (!validateForm()) return;
-
-            try {
-                const name = document.getElementById('customerName').value.trim();
-                const phone = document.getElementById('customerPhone').value.trim();
-                const deliveryTime = document.getElementById('deliveryTime').value;
-                const comment = document.getElementById('customerComment').value.trim();
-
-                const user = tg.initDataUnsafe?.user || { id: 'guest', first_name: 'Гость' };
-                const orderId = String(Date.now()).slice(-6);
-
-                const order = {
-                    id: orderId,
-                    customer: { name, phone, deliveryTime, comment },
-                    items: cart.map(item => ({
-                        name: item.name,
-                        quantity: item.quantity,
-                        price: item.price,
-                        total: item.price * item.quantity
-                    })),
-                    total: cart.reduce((sum, i) => sum + (i.price * i.quantity), 0),
-                    timestamp: new Date().toISOString(),
-                    user: user,
-                    status: 'new'
-                };
-
-                console.log('📦 Заказ:', order);
-
-                // ==========================================
-                // ===== 1. ОТПРАВКА АДМИНУ (ВАМ) =====
-                // ==========================================
-                
-                let adminMsg = '🆕 <b>НОВЫЙ ЗАКАЗ!</b>\n';
-                adminMsg += '━━━━━━━━━━━━━━━━\n\n';
-                adminMsg += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
-                adminMsg += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
-                adminMsg += `⏰ <b>Время:</b> ${order.customer.deliveryTime}\n`;
-                adminMsg += `🆔 <b>Заказ #${order.id}</b>\n`;
-
-                if (order.customer.comment) {
-                    adminMsg += `💬 <b>Комментарий:</b> ${order.customer.comment}\n`;
-                }
-
-                adminMsg += '\n━━━━━━━━━━━━━━━━\n';
-                adminMsg += '<b>📦 СОСТАВ ЗАКАЗА:</b>\n\n';
-
-                order.items.forEach((item, index) => {
-                    adminMsg += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
-                });
-
-                adminMsg += '\n━━━━━━━━━━━━━━━━\n';
-                adminMsg += `💰 <b>ИТОГО:</b> ${order.total}₽\n`;
-                adminMsg += `🕐 ${new Date().toLocaleString('ru-RU')}\n`;
-                adminMsg += `👤 От: ${user.first_name || 'Гость'}`;
-
-                // Отправляем админу
-                console.log('📤 Отправка админу...');
-                console.log('ADMIN_CHAT_ID:', ADMIN_CHAT_ID);
-                
-                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: ADMIN_CHAT_ID,
-                        text: adminMsg,
-                        parse_mode: 'HTML'
-                    })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        console.log('✅ Заказ отправлен админу!');
-                    } else {
-                        console.error('❌ Ошибка отправки админу:', data);
-                        console.log('Описание ошибки:', data.description);
-                    }
-                })
-                .catch(err => {
-                    console.error('❌ Ошибка сети при отправке админу:', err);
-                });
-
-                // ==========================================
-                // ===== 2. ОТПРАВКА ПОКУПАТЕЛЮ =====
-                // ==========================================
-
-                if (user.id !== 'guest') {
-                    let customerMsg = '✅ <b>Ваш заказ принят!</b>\n';
-                    customerMsg += '━━━━━━━━━━━━━━━━\n\n';
-                    customerMsg += `🍖 <b>Кафе «Миас»</b>\n`;
-                    customerMsg += `🆔 Заказ #${order.id}\n\n`;
-                    customerMsg += `👤 <b>Клиент:</b> ${order.customer.name}\n`;
-                    customerMsg += `📱 <b>Телефон:</b> ${order.customer.phone}\n`;
-                    customerMsg += `⏰ <b>Время доставки:</b> ${order.customer.deliveryTime}\n\n`;
-                    customerMsg += '<b>📦 Ваш заказ:</b>\n';
-
-                    order.items.forEach((item, index) => {
-                        customerMsg += `${index+1}. ${item.name} × ${item.quantity} = <b>${item.total}₽</b>\n`;
-                    });
-
-                    customerMsg += '\n━━━━━━━━━━━━━━━━\n';
-                    customerMsg += `💰 <b>Итого:</b> ${order.total}₽\n\n`;
-                    customerMsg += '☎️ <b>Ожидайте звонка оператора для подтверждения!</b>';
-
-                    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: user.id,
-                            text: customerMsg,
-                            parse_mode: 'HTML'
-                        })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.ok) {
-                            console.log('✅ Уведомление отправлено покупателю');
-                        } else {
-                            console.error('❌ Ошибка отправки покупателю:', data);
-                        }
-                    })
-                    .catch(err => {
-                        console.error('❌ Ошибка сети при отправке покупателю:', err);
-                    });
-                }
-
-                // ==========================================
-                // ===== 3. СОХРАНЕНИЕ ЗАКАЗА =====
-                // ==========================================
-
-                try {
-                    const key = 'cafe_orders';
-                    let orders = [];
-                    const data = localStorage.getItem(key);
-                    if (data) {
-                        orders = JSON.parse(data);
-                    }
-                    orders.push(order);
-                    localStorage.setItem(key, JSON.stringify(orders));
-                } catch (e) {
-                    console.error('Save order error:', e);
-                }
-
-                // ==========================================
-                // ===== 4. ПОКАЗ УСПЕХА ПОКУПАТЕЛЮ =====
-                // ==========================================
-
-                document.getElementById('orderForm').classList.remove('active');
-                document.getElementById('successBox').classList.add('active');
-
-                const totalItems = order.items.reduce((sum, i) => sum + i.quantity, 0);
-                document.getElementById('successMessage').innerHTML = `
-                    <div style="font-size:16px;margin-bottom:10px;">
-                        🎉 Заказ <b>№${orderId}</b> отправлен!
-                    </div>
-                    <div class="order-summary">
-                        <div>📦 <b>${totalItems}</b> позиций на сумму <b>${order.total}₽</b></div>
-                        <div style="margin-top:5px;font-size:14px;color:#aaa;">
-                            📱 ${order.customer.phone}<br>
-                            ⏰ ${order.customer.deliveryTime}
-                        </div>
-                    </div>
-                    <div style="font-size:14px;color:#44ff44;margin-top:10px;">
-                        ✅ Ожидайте звонка оператора!
-                    </div>
-                `;
-
-                cart = [];
-                updateCart();
-                menuItems.forEach(item => updateQuantityDisplay(item.id));
-                tg.HapticFeedback?.notificationOccurred('success');
-
-            } catch (e) {
-                console.error('Submit error:', e);
-                showError('Ошибка: ' + e.message);
-                tg.showAlert('❌ Произошла ошибка. Попробуйте еще раз.');
-            }
-        }
-
-        // ============================================
-        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-        // ============================================
-        function showError(message) {
-            const box = document.getElementById('errorBox');
-            const msg = document.getElementById('errorMessage');
-            if (box && msg) {
-                box.classList.add('active');
-                msg.textContent = message;
-                setTimeout(() => box.classList.remove('active'), 8000);
-            }
-        }
-
-        function hideError() {
-            document.getElementById('errorBox').classList.remove('active');
-        }
-
-        function hideSuccess() {
-            document.getElementById('successBox').classList.remove('active');
-            document.getElementById('cart').style.display = 'flex';
-            updateCart();
-        }
-
-        function showDebug() {
-            const debugEl = document.getElementById('debugInfo');
-            if (debugEl) {
-                debugEl.classList.toggle('active');
-                if (debugEl.classList.contains('active')) {
-                    debugEl.textContent = '=== ДИАГНОСТИКА ===\n';
-                    debugEl.textContent += `Telegram WebApp: ${!!tg}\n`;
-                    debugEl.textContent += `User: ${tg.initDataUnsafe?.user?.first_name || 'Не авторизован'}\n`;
-                    debugEl.textContent += `User ID: ${tg.initDataUnsafe?.user?.id || 'Нет'}\n`;
-                    debugEl.textContent += `ADMIN_CHAT_ID: ${ADMIN_CHAT_ID}\n`;
-                    debugEl.textContent += `Меню: ${menuItems.length} позиций\n`;
-                    debugEl.textContent += `Корзина: ${cart.length} товаров\n`;
-                    debugEl.textContent += `Токен бота: ${BOT_TOKEN ? '✅ Установлен' : '❌ Не установлен'}\n`;
-                    debugEl.textContent += `URL: ${window.location.href}\n`;
-                    debugEl.textContent += `Время: ${new Date().toLocaleString()}`;
-                }
-            }
-        }
-
-        // ============================================
-        // ===== ЗАПУСК =====
-        // ============================================
-        setTimeout(loadMenu, 500);
-
-        console.log('✅ Приложение "Кафе Миас" запущено!');
-        console.log('📨 Заказы приходят админу на ID:', ADMIN_CHAT_ID);
-        console.log('📨 Покупатель получает уведомление');
-        console.log('🔒 Админ-панель скрыта от клиентов');
-        
-        // ===== ПРОВЕРКА СВЯЗИ С БОТОМ =====
-        // Проверяем может ли бот отправлять сообщения админу
-        setTimeout(() => {
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: ADMIN_CHAT_ID,
-                    text: '🤖 Бот запущен и готов принимать заказы!',
-                    parse_mode: 'HTML'
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok) {
-                    console.log('✅ Связь с ботом установлена!');
-                } else {
-                    console.error('❌ Ошибка связи с ботом:', data);
-                    console.log('⚠️ Проверьте:');
-                    console.log('1. Правильный ли ADMIN_CHAT_ID');
-                    console.log('2. Написали ли вы боту первым');
-                    console.log('3. Бот запущен?');
-                }
-            })
-            .catch(err => {
-                console.error('❌ Не удалось связаться с ботом:', err);
-            });
-        }, 3000);
-    </script>
 </body>
 </html>
