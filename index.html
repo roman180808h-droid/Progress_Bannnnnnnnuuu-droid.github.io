@@ -1,4 +1,4 @@
-ъ<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
@@ -30,20 +30,22 @@
         .page {
             width: 210mm;
             min-height: 297mm;
+            max-height: 297mm;
             background: #ffffff;
-            padding: 18mm 14mm 14mm 14mm;
+            padding: 10mm 8mm 8mm 8mm;
             margin-bottom: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             border-radius: 4px;
             page-break-after: always;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .page-header {
             border-bottom: 3px solid #d4c5b2;
-            padding-bottom: 10px;
-            margin-bottom: 18px;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -52,23 +54,23 @@
         }
 
         .page-header h2 {
-            font-size: 22px;
+            font-size: 18px;
             color: #2c1f14;
             letter-spacing: 0.5px;
             font-family: 'Arial', 'Helvetica', sans-serif;
         }
 
         .page-header .page-number {
-            font-size: 13px;
+            font-size: 11px;
             color: #8b7a6a;
             font-family: 'Arial', sans-serif;
         }
 
         .page-desc {
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 11px;
+            line-height: 1.3;
             color: #4a3f35;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
             padding: 0 2px;
             font-style: italic;
             flex-shrink: 0;
@@ -78,29 +80,29 @@
         .product-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
+            gap: 8px;
             flex: 1;
             align-content: start;
         }
 
         .product-card {
             background: #faf7f2;
-            border-radius: 6px;
-            padding: 12px 12px 16px;
+            border-radius: 4px;
+            padding: 6px 8px 10px;
             border: 1px solid #e0d6c8;
             display: flex;
             flex-direction: column;
             height: 100%;
-            min-height: 260px;
+            min-height: 0;
         }
 
         .product-photo {
             width: 100%;
-            height: 120px;
+            height: 95px;
             background: #f0ebe4;
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -111,39 +113,40 @@
         .product-photo img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: #f5f0eb;
         }
 
         .product-photo .no-photo {
-            font-size: 11px;
+            font-size: 10px;
             color: #a89888;
             font-family: 'Arial', sans-serif;
             text-align: center;
-            padding: 6px;
+            padding: 4px;
         }
 
         .product-photo .no-photo span {
             display: block;
-            font-size: 28px;
+            font-size: 22px;
             margin-bottom: 2px;
         }
 
         .product-name {
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             font-family: 'Times New Roman', Times, serif;
-            line-height: 1.25;
+            line-height: 1.2;
         }
 
         .product-specs {
-            font-size: 14px;
-            line-height: 1.4;
+            font-size: 9.5px;
+            line-height: 1.25;
             color: #4a3f35;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
             flex-grow: 1;
-            padding-left: 12px;
+            padding-left: 10px;
             font-family: 'Times New Roman', Times, serif;
         }
 
@@ -152,24 +155,24 @@
         }
 
         .product-price {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 700;
             color: #8b3a2a;
             font-family: 'Times New Roman', Times, serif;
-            padding-top: 6px;
+            padding-top: 3px;
             border-top: 2px solid #e8ddd0;
             margin-top: 2px;
         }
 
         .product-price .rub {
-            font-size: 14px;
+            font-size: 11px;
         }
 
         .product-desc {
-            font-size: 14px;
+            font-size: 9.5px;
             color: #5a4f43;
-            line-height: 1.3;
-            margin-top: 3px;
+            line-height: 1.2;
+            margin-top: 2px;
             font-style: italic;
             font-family: 'Times New Roman', Times, serif;
         }
@@ -177,7 +180,7 @@
         /* Титул */
         .title-page {
             text-align: center;
-            padding: 60px 30px 50px;
+            padding: 40px 30px 30px;
             border: 2px solid #d4c5b2;
             border-radius: 8px;
             background: #faf7f2;
@@ -186,12 +189,12 @@
         }
 
         .title-page .logo {
-            font-size: 52px;
+            font-size: 44px;
             font-weight: 900;
             letter-spacing: 6px;
             color: #3d2b1f;
             font-family: 'Arial', sans-serif;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .title-page .logo span {
@@ -199,40 +202,40 @@
         }
 
         .title-page .sub-logo {
-            font-size: 16px;
+            font-size: 13px;
             color: #6b5a4a;
-            letter-spacing: 8px;
+            letter-spacing: 6px;
             font-family: 'Arial', sans-serif;
             text-transform: uppercase;
         }
 
         .title-page h1 {
-            font-size: 34px;
-            margin-top: 30px;
+            font-size: 26px;
+            margin-top: 16px;
             color: #2c1f14;
             letter-spacing: 2px;
             font-family: 'Arial', sans-serif;
         }
 
         .title-page .year {
-            font-size: 20px;
+            font-size: 16px;
             color: #8b6b4d;
-            margin-top: 16px;
+            margin-top: 10px;
             font-family: 'Arial', sans-serif;
         }
 
         /* Оглавление */
         .toc {
             background: #f0ebe4;
-            padding: 28px 35px;
+            padding: 16px 25px;
             border-radius: 8px;
             border: 1px solid #d4c5b2;
         }
 
         .toc h2 {
-            font-size: 22px;
+            font-size: 18px;
             color: #2c1f14;
-            margin-bottom: 14px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
             font-family: 'Arial', sans-serif;
         }
@@ -240,12 +243,12 @@
         .toc ul {
             list-style: none;
             columns: 2;
-            column-gap: 30px;
+            column-gap: 25px;
         }
 
         .toc ul li {
-            padding: 4px 0;
-            font-size: 14px;
+            padding: 2px 0;
+            font-size: 12px;
             font-family: 'Times New Roman', Times, serif;
             border-bottom: 1px dashed #d4c5b2;
         }
@@ -259,7 +262,7 @@
         .contact-page {
             background: #f0ebe4;
             border-radius: 8px;
-            padding: 40px 30px;
+            padding: 25px 20px;
             text-align: center;
             border: 1px solid #d4c5b2;
             justify-content: center;
@@ -267,15 +270,15 @@
         }
 
         .contact-page h2 {
-            font-size: 26px;
+            font-size: 20px;
             color: #2c1f14;
-            margin-bottom: 14px;
+            margin-bottom: 8px;
             font-family: 'Arial', sans-serif;
         }
 
         .contact-page .contacts {
-            font-size: 18px;
-            line-height: 1.9;
+            font-size: 14px;
+            line-height: 1.6;
             font-family: 'Times New Roman', Times, serif;
         }
 
@@ -288,99 +291,127 @@
         .contact-page .qr-block {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 15px;
             flex-wrap: wrap;
-            margin: 20px 0 14px;
+            margin: 12px 0 8px;
         }
 
         .contact-page .qr-item {
             background: #fff;
-            padding: 12px 18px;
+            padding: 8px 14px;
             border-radius: 6px;
-            min-width: 120px;
+            min-width: 90px;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 14px;
+            font-size: 11px;
             color: #3d2b1f;
             border: 1px solid #d4c5b2;
         }
 
         .contact-page .qr-item .qr-placeholder {
-            font-size: 34px;
+            font-size: 26px;
             display: block;
             margin-bottom: 2px;
         }
 
         .contact-page .footer-line {
-            margin-top: 20px;
-            font-size: 14px;
+            margin-top: 12px;
+            font-size: 11px;
             color: #6b5a4a;
             border-top: 1px solid #d4c5b2;
-            padding-top: 14px;
+            padding-top: 10px;
             font-family: 'Times New Roman', Times, serif;
         }
 
+        /* Печать А4 */
         @media print {
-            body {
-                background: #ffffff;
-                padding: 0;
+            html, body {
                 margin: 0;
+                padding: 0;
+                background: #ffffff;
             }
+
+            body {
+                padding: 0;
+            }
+
             .page {
                 width: 100%;
                 min-height: 100vh;
-                height: auto;
-                padding: 15mm 12mm 12mm 12mm;
+                max-height: 100vh;
+                height: 100vh;
+                padding: 8mm 6mm 6mm 6mm;
                 margin: 0;
                 box-shadow: none;
                 border-radius: 0;
                 page-break-after: always;
                 page-break-inside: avoid;
+                overflow: hidden;
             }
+
             .page:last-child {
                 page-break-after: avoid;
             }
+
             .product-card {
                 background: #faf7f2;
                 border: 1px solid #d4c5b2;
-                min-height: 220px;
             }
+
             .product-photo {
-                height: 105px;
+                height: 75px;
                 background: #f5f0eb;
             }
+
             .title-page {
                 border: 2px solid #d4c5b2;
                 background: #faf7f2;
             }
+
             .toc {
                 background: #f0ebe4;
                 border: 1px solid #d4c5b2;
             }
+
             .contact-page {
                 background: #f0ebe4;
                 border: 1px solid #d4c5b2;
             }
+
             .page-header h2 {
-                font-size: 20px;
+                font-size: 16px;
             }
+
             .product-name {
-                font-size: 14px;
+                font-size: 10px;
             }
+
             .product-specs {
-                font-size: 14px;
+                font-size: 8.5px;
             }
+
             .product-price {
-                font-size: 18px;
+                font-size: 12px;
             }
+
             .product-desc {
-                font-size: 14px;
+                font-size: 8.5px;
             }
+
             .product-grid {
-                gap: 10px;
+                gap: 6px;
             }
+
             .product-card {
-                padding: 10px 10px 12px;
-                min-height: 200px;
+                padding: 5px 6px 8px;
+            }
+
+            .page-desc {
+                font-size: 10px;
+                margin-bottom: 6px;
+            }
+
+            .product-photo {
+                height: 70px;
             }
         }
 
@@ -388,7 +419,8 @@
             .page {
                 width: 100%;
                 min-height: auto;
-                padding: 20px;
+                max-height: none;
+                padding: 12px;
             }
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -468,8 +500,8 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×400×700 мм.</li>
                     <li>▪️ Объём бани: до 15 м³ (6 м²).</li>
-                    <li>▪️ Вид каменки: сквозная (каменка слева, справа, с торца).</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Вид каменки: сквозная.</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -483,14 +515,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø325 сквозная каменка (черный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 500×400×700 мм + 500 мм (высота бака).</li>
+                    <li>▪️ Размер: 500×400×700 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 м²).</li>
-                    <li>▪️ Вид каменки: сквозная (каменка слева, справа, с торца).</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Вид каменки: сквозная.</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала печи: 8 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с баком из чёрной стали.</div>
                 <div class="product-price">21 500 <span class="rub">₽</span></div>
@@ -500,14 +532,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø325 сквозная каменка (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 500×400×700 мм + 500 мм (высота бака).</li>
+                    <li>▪️ Размер: 500×400×700 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: до 15 м³ (6 кв. м).</li>
-                    <li>▪️ Вид каменки: сквозная (каменка слева, справа, с торца).</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Вид каменки: сквозная.</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала печи: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с нержавеющим баком.</div>
                 <div class="product-price">26 000 <span class="rub">₽</span></div>
@@ -520,7 +552,7 @@
                     <li>▪️ Размер: 500×400×550 мм.</li>
                     <li>▪️ Объём бани: до 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -534,14 +566,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø325 открытая каменка (черный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 500×400×550 мм + 500 мм (высота бака).</li>
+                    <li>▪️ Размер: 500×400×550 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: до 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала печи: 8 мм.</li>
-                    <li>▪️ Бак: из листовой стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая каменка с чёрным баком.</div>
                 <div class="product-price">18 000 <span class="rub">₽</span></div>
@@ -551,14 +583,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø325 открытая каменка (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 500×400×550 мм + 500 мм (высота бака).</li>
+                    <li>▪️ Размер: 500×400×550 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала печи: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая каменка с нержавеющим баком.</div>
                 <div class="product-price">22 500 <span class="rub">₽</span></div>
@@ -588,10 +620,10 @@
                     <li>▪️ Размер: 650×450×600 мм.</li>
                     <li>▪️ Объём бани: до 25 м³ (9 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала печи: 8 мм (обшита листовой сталью 2 мм).</li>
+                    <li>▪️ Толщина материала печи: 8 мм (обшита 2 мм).</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">Лежачая печь для просторных бань.</div>
@@ -602,14 +634,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/Q7rkQjTH/426.jpg" alt="Ø426 лежачая черный бак" /></div>
                 <div class="product-name">Печь Ø426, лежачая (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 655×450×600 мм + 700 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 655×450×600 мм + бак 700 мм.</li>
                     <li>▪️ Объём бани: до 25 м³ (9 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала печи: 8 мм (обшита листовой сталью 2 мм).</li>
-                    <li>▪️ Бак: из листового металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала печи: 8 мм (обшита 2 мм).</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Лежачая печь с чёрным баком.</div>
                 <div class="product-price">24 500 <span class="rub">₽</span></div>
@@ -619,14 +651,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/S4yxvhmq/426.jpg" alt="Ø426 лежачая нержавейка бак" /></div>
                 <div class="product-name">Печь Ø426, лежачая (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 650×450×600 мм + 700 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 650×450×600 мм + бак 700 мм.</li>
                     <li>▪️ Объём бани: до 25 м³ (9 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала печи: 8 мм (обшита листовой сталью 2 мм).</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала печи: 8 мм (обшита 2 мм).</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Лежачая печь с нержавеющим баком.</div>
                 <div class="product-price">29 000 <span class="rub">₽</span></div>
@@ -653,14 +685,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/FqkYMBTc/426.jpg" alt="Ø426 открытая каменка без выступа черный бак" /></div>
                 <div class="product-name">Печь Ø426, открытая каменка, без выступа (черный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 426×550 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 426×550 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая печь без выступа с чёрным баком.</div>
                 <div class="product-price">19 000 <span class="rub">₽</span></div>
@@ -670,14 +702,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/j91cps7d/426.jpg" alt="Ø426 открытая каменка без выступа нержавейка бак" /></div>
                 <div class="product-name">Печь Ø426, открытая каменка, без выступа (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 426×550 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 426×550 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая печь без выступа с нержавеющим баком.</div>
                 <div class="product-price">23 500 <span class="rub">₽</span></div>
@@ -706,7 +738,7 @@
                     <li>▪️ Размер: 450×600×550 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 150 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -720,14 +752,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/vxsT837J/426.jpg" alt="Ø426 открытая каменка с выступом черный бак" /></div>
                 <div class="product-name">Печь Ø426, открытая каменка, с выступом (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 450×600×550 мм + 700 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 450×600×550 мм + бак 700 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая печь с выступом и чёрным баком.</div>
                 <div class="product-price">20 500 <span class="rub">₽</span></div>
@@ -737,14 +769,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/zhhXshp8/426.jpg" alt="Ø426 открытая каменка с выступом нержавейка бак" /></div>
                 <div class="product-name">Печь Ø426, открытая каменка, с выступом (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 450×600×550 мм + 700 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 450×600×550 мм + бак 700 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая печь с выступом и нержавеющим баком.</div>
                 <div class="product-price">25 000 <span class="rub">₽</span></div>
@@ -771,14 +803,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/Xrp0qv45/426-1.jpg" alt="Ø426 каменка сквозная без выступа черный бак" /></div>
                 <div class="product-name">Печь Ø426, без выступа, каменка сквозная (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 426×700 мм + 500 мм (бак).</li>
+                    <li>▪️ Размер: 426×700 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая, сквозная (торец).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка без выступа с чёрным баком.</div>
                 <div class="product-price">22 500 <span class="rub">₽</span></div>
@@ -788,14 +820,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/9kqwxp3T/426.jpg" alt="Ø426 каменка сквозная без выступа нержавейка бак" /></div>
                 <div class="product-name">Печь Ø426, без выступа, каменка сквозная (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 426×700 мм + 500 мм (бак).</li>
+                    <li>▪️ Размер: 426×700 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая, сквозная (торец).</li>
                     <li>▪️ Наличие топки: есть.</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка без выступа с нержавеющим баком.</div>
                 <div class="product-price">27 500 <span class="rub">₽</span></div>
@@ -824,7 +856,7 @@
                     <li>▪️ Размер: 426×700×600 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -838,14 +870,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø426, с выступом, каменка сквозная (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 426×700×600 мм + 500 мм (бак).</li>
+                    <li>▪️ Размер: 426×700×600 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с выступом и чёрным баком.</div>
                 <div class="product-price">24 500 <span class="rub">₽</span></div>
@@ -855,14 +887,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø426, с выступом, каменка сквозная (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 426×700×600 мм + 500 мм (бак).</li>
+                    <li>▪️ Размер: 426×700×600 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с выступом и нержавеющим баком.</div>
                 <div class="product-price">29 500 <span class="rub">₽</span></div>
@@ -875,7 +907,7 @@
                     <li>▪️ Размер: 600×426×800 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая, поворотная.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -889,14 +921,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/MFgdvR0/426.jpg" alt="Ø426 каменка поворотная с выступом черный бак" /></div>
                 <div class="product-name">Печь Ø426, с выступом, с поворотной каменкой (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 600×426×800 мм + 500 мм (бак).</li>
+                    <li>▪️ Размер: 600×426×800 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая, поворотная.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Поворотная каменка с чёрным баком.</div>
                 <div class="product-price">27 000 <span class="rub">₽</span></div>
@@ -906,14 +938,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/TMdFscYQ/426-1.jpg" alt="Ø426 каменка поворотная с выступом нержавейка бак" /></div>
                 <div class="product-name">Печь Ø426, с выступом, с поворотной каменкой (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 600×426×800 мм + 500 мм (бак).</li>
+                    <li>▪️ Размер: 600×426×800 мм + бак 500 мм.</li>
                     <li>▪️ Объём бани: 20 м³ (10 кв. м).</li>
                     <li>▪️ Вид каменки: закрытая, поворотная.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Поворотная каменка с нержавеющим баком.</div>
                 <div class="product-price">31 500 <span class="rub">₽</span></div>
@@ -941,7 +973,7 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 530×700 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
-                    <li>▪️ Вид каменки: закрытая, сквозная (лево/право/торец).</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
@@ -956,14 +988,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/VWVSRt6k/530.jpg" alt="Ø530 без выступа сквозная каменка черный бак" /></div>
                 <div class="product-name">Печь Ø530 без выступа, сквозная каменка (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 530×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 530×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
-                    <li>▪️ Вид каменки: закрытая, сквозная (лево/право/торец).</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с чёрным баком на 85 л.</div>
                 <div class="product-price">27 000 <span class="rub">₽</span></div>
@@ -973,14 +1005,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/V0xkn6Bx/530-1.jpg" alt="Ø530 без выступа сквозная каменка нержавейка бак" /></div>
                 <div class="product-name">Печь Ø530 без выступа, сквозная каменка (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 530×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 530×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
-                    <li>▪️ Вид каменки: закрытая, сквозная (лево/право/торец).</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с нержавеющим баком на 85 л.</div>
                 <div class="product-price">32 000 <span class="rub">₽</span></div>
@@ -992,8 +1024,8 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 550×750×800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
-                    <li>▪️ Вид каменки: закрытая, сквозная (лево/право/торец).</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная.</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -1007,14 +1039,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/JjTVRwkj/530.jpg" alt="Ø530 с выступом сквозная каменка черный бак" /></div>
                 <div class="product-name">Печь Ø530 с выступом, сквозная каменка (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 550×750×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 550×750×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
-                    <li>▪️ Вид каменки: закрытая, сквозная (лево/право/торец).</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная.</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с выступом и чёрным баком.</div>
                 <div class="product-price">29 000 <span class="rub">₽</span></div>
@@ -1024,14 +1056,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/G4DQgMMh/530.jpg" alt="Ø530 с выступом сквозная нержавейка бак" /></div>
                 <div class="product-name">Печь Ø530 с выступом, сквозная каменка (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 550×750×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 550×750×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
-                    <li>▪️ Вид каменки: закрытая, сквозная (лево/право/торец).</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Вид каменки: закрытая, сквозная.</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Сквозная каменка с выступом и нержавеющим баком.</div>
                 <div class="product-price">33 500 <span class="rub">₽</span></div>
@@ -1060,7 +1092,7 @@
                     <li>▪️ Размер: 550×750×800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: закрытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -1077,11 +1109,11 @@
                     <li>▪️ Размер: 550×750×800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: закрытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Поворотная каменка с чёрным баком на 85 л.</div>
                 <div class="product-price">29 500 <span class="rub">₽</span></div>
@@ -1094,11 +1126,11 @@
                     <li>▪️ Размер: 550×750×800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: закрытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Поворотная каменка с нержавеющим баком.</div>
                 <div class="product-price">35 000 <span class="rub">₽</span></div>
@@ -1125,14 +1157,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/pZDWpYj/530.jpg" alt="Ø530 открытая каменка без выступа черный бак" /></div>
                 <div class="product-name">Печь Ø530, открытая каменка (ножка), без выступа (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 530×550 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 530×550 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 85 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">Открытая каменка с чёрным баком на 85 л.</div>
                 <div class="product-price">21 500 <span class="rub">₽</span></div>
@@ -1145,7 +1177,7 @@
                     <li>▪️ Размер: 750×530×550 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
@@ -1175,14 +1207,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/YTRcqChg/530.jpg" alt="Ø530 открытая каменка с выступом черный бак" /></div>
                 <div class="product-name">Печь Ø530, открытая каменка (ножка), с выступом (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 750×530×550 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 750×530×550 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая каменка с выступом и чёрным баком.</div>
                 <div class="product-price">23 000 <span class="rub">₽</span></div>
@@ -1192,14 +1224,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/rJ3ddSk/530.jpg" alt="Ø530 открытая каменка с выступом нержавейка бак" /></div>
                 <div class="product-name">Печь Ø530, открытая каменка (ножка), с выступом (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 750×530×550 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 750×530×550 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выступа топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющего металла, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Открытая каменка с выступом и нержавеющим баком.</div>
                 <div class="product-price">27 500 <span class="rub">₽</span></div>
@@ -1215,7 +1247,7 @@
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: 8 мм (обшита листовой сталью 2 мм).</li>
+                    <li>▪️ Толщина материала: 8 мм (обшита 2 мм).</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">Лежачая открытая каменка для больших парных.</div>
@@ -1226,14 +1258,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø530, открытая каменка (лежачая) (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 550×650×700 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 550×650×700 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Лежачая открытая каменка с чёрным баком.</div>
                 <div class="product-price">28 000 <span class="rub">₽</span></div>
@@ -1243,20 +1275,20 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь Ø530, открытая каменка (лежачая) (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 550×650×700 мм + 800 мм (бак с ножкой).</li>
+                    <li>▪️ Размер: 550×650×700 мм + бак 800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Лежачая открытая каменка с нержавеющим баком.</div>
                 <div class="product-price">32 500 <span class="rub">₽</span></div>
             </div>
 
-            <!-- 6-я карточка — пустая (для ровного счёта) -->
+            <!-- 6-я карточка — пустая -->
             <div style="visibility:hidden;height:0;padding:0;margin:0;border:none;"></div>
 
         </div>
@@ -1282,11 +1314,11 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 450×350×700 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа.</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стальной лист 4 мм.</li>
+                    <li>▪️ Толщина материала: сталь 4 мм.</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">Компактная печь с конвекцией.</div>
@@ -1297,14 +1329,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь БВ-350 (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 450×350×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 450×350×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа.</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 4 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 4 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">С конвекцией и чёрным баком на 65 л.</div>
                 <div class="product-price">20 500 <span class="rub">₽</span></div>
@@ -1314,14 +1346,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/kVfkxVNh/350.jpg" alt="БВ 350 нержавейка бак" /></div>
                 <div class="product-name">Печь БВ-350 (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 450×350×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 450×350×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа.</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа.</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 4 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 4 мм.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">С конвекцией и нержавеющим баком.</div>
                 <div class="product-price">24 500 <span class="rub">₽</span></div>
@@ -1333,11 +1365,11 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 600×350×700 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа/с торца.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 150 мм).</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа/с торца.</li>
+                    <li>▪️ Наличие топки: есть (вынос — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стальной лист 4 мм.</li>
+                    <li>▪️ Толщина материала: сталь 4 мм.</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">С выносом топки и конвекцией.</div>
@@ -1348,14 +1380,14 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь НВ-350 (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 600×350×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 600×350×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа/с торца.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 150 мм).</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа/с торца.</li>
+                    <li>▪️ Наличие топки: есть (вынос — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 4 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 4 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">С выносом топки и чёрным баком.</div>
                 <div class="product-price">22 000 <span class="rub">₽</span></div>
@@ -1365,14 +1397,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/4RDRpR03/350.jpg" alt="НВ 350 нержавейка бак" /></div>
                 <div class="product-name">Печь НВ-350 (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 600×350×700 мм + 420 мм (бак).</li>
+                    <li>▪️ Размер: 600×350×700 мм + бак 420 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа/с торца.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 150 мм).</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа/с торца.</li>
+                    <li>▪️ Наличие топки: есть (вынос — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 4 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 4 мм.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">С выносом топки и нержавеющим баком.</div>
                 <div class="product-price">26 000 <span class="rub">₽</span></div>
@@ -1400,11 +1432,11 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 350×1150×600 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа/с торца.</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа/с торца.</li>
                     <li>▪️ Наличие топки: есть (высокий выступ).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стальной лист 4 мм.</li>
+                    <li>▪️ Толщина материала: сталь 4 мм.</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">С высоким выступом и конвекцией.</div>
@@ -1415,14 +1447,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/h1rc4sfq/350.jpg" alt="ВВ 350 черный бак" /></div>
                 <div class="product-name">Печь ВВ-350 (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 350×1150×600 мм; размер бака: 350×450×450 мм.</li>
+                    <li>▪️ Размер: 350×1150×600 мм; бак: 350×450×450 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа/с торца.</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа/с торца.</li>
                     <li>▪️ Наличие топки: есть (высокий выступ).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 4 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 4 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">С высоким выступом и чёрным баком.</div>
                 <div class="product-price">25 000 <span class="rub">₽</span></div>
@@ -1432,14 +1464,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/pvNm38wM/350.jpg" alt="ВВ350 нержавейка" /></div>
                 <div class="product-name">Печь ВВ-350 (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 350×1150×600 мм; размер бака: 350×450×450 мм.</li>
+                    <li>▪️ Размер: 350×1150×600 мм; бак: 350×450×450 мм.</li>
                     <li>▪️ Объём бани: до 20 м³ (8 кв. м).</li>
-                    <li>▪️ Вид каменки: открытая, расположение — слева/справа/с торца.</li>
+                    <li>▪️ Вид каменки: открытая, слева/справа/с торца.</li>
                     <li>▪️ Наличие топки: есть (высокий выступ).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 4 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 4 мм.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">С высоким выступом и нержавеющим баком.</div>
                 <div class="product-price">29 500 <span class="rub">₽</span></div>
@@ -1456,40 +1488,40 @@
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: листовая сталь 4 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 50 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 50 л.</li>
                 </ul>
                 <div class="product-desc">Социальная листовая печь с чёрным баком.</div>
                 <div class="product-price">15 000 <span class="rub">₽</span></div>
             </div>
 
             <div class="product-card">
-                <div class="product-photo"><img src="https://i.ibb.co/0p76Cn2M/image.jpg" alt="печь листовая социальная с навесным баком черный бак" /></div>
+                <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Печь листовая социальная, с выступом (черный бак)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 650×600×530 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (выступ топки — 150 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: листовая сталь 4 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 50 л.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 50 л.</li>
                 </ul>
                 <div class="product-desc">Социальная печь с выступом и чёрным баком.</div>
                 <div class="product-price">17 500 <span class="rub">₽</span></div>
             </div>
 
             <div class="product-card">
-                <div class="product-photo"><img src="https://i.ibb.co/27C9y4WD/image.jpg" alt="печь социальная топочная часть с возвожностью прикрепления бака" /></div>
-                <div class="product-name">Печь листовая социальная, топочная часть с возможностью прикрепления навесного бака</div>
+                <div class="product-photo"><img src="https://i.ibb.co/27C9y4WD/image.jpg" alt="печь социальная топочная часть" /></div>
+                <div class="product-name">Печь листовая социальная, топочная часть (под навесной бак)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 350×650×530 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (выступ топки — 150 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 5 мм.</li>
+                    <li>▪️ Толщина материала корпуса: сталь 5 мм.</li>
                     <li>▪️ Бак: навесной.</li>
                 </ul>
                 <div class="product-desc">Топочная часть с возможностью установки навесного бака.</div>
@@ -1519,11 +1551,11 @@
                     <li>▪️ Размер: 650×600×530 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 кв. м).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (выступ топки — 150 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: листовая сталь 4 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 50 л, расположение — слева/справа.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 50 л.</li>
                 </ul>
                 <div class="product-desc">Система «Лабиринт» повышает теплоотдачу.</div>
                 <div class="product-price">21 500 <span class="rub">₽</span></div>
@@ -1531,24 +1563,24 @@
 
             <div class="product-card">
                 <div class="product-photo"><img src="https://i.ibb.co/vvdCpLCf/1.jpg" alt="социальная печь лабиринт с навесным баком нержавейка бак" /></div>
-                <div class="product-name">Социальная печь «Лабиринт», с навесным баком (нержавеющий бак)</div>
+                <div class="product-name">Социальная печь «Лабиринт», с навесным баком (нержавеющий)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер печи: 350×650×530 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (выступ топки — 150 мм).</li>
+                    <li>▪️ Наличие топки: есть (выступ — 150 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала корпуса: 5 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 50 л, расположение — с трёх сторон.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 50 л.</li>
                 </ul>
-                <div class="product-desc">Система «Лабиринт» сохраняет тепло в печи.</div>
+                <div class="product-desc">Система «Лабиринт» сохраняет тепло.</div>
                 <div class="product-price">28 500 <span class="rub">₽</span></div>
             </div>
 
             <div class="product-card">
-                <div class="product-photo"><img src="https://i.ibb.co/V038WWTy/image.jpg" alt="социальная печь лабиринт с навесным баком топочная часть" /></div>
-                <div class="product-name">Социальная печь «Лабиринт», топочная часть с возможностью прикрепить навесной бак</div>
+                <div class="product-photo"><img src="https://i.ibb.co/V038WWTy/image.jpg" alt="социальная печь лабиринт топочная часть" /></div>
+                <div class="product-name">Социальная печь «Лабиринт», топочная часть (под навесной бак)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 530×600×500 мм.</li>
                     <li>▪️ Объём бани: 15 м³ (6 кв. м).</li>
@@ -1574,7 +1606,7 @@
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: листовая сталь 4 мм.</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 50 л, расположение — слева/справа.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 50 л.</li>
                 </ul>
                 <div class="product-desc">Система «Лабиринт» повышает теплоотдачу.</div>
                 <div class="product-price">18 500 <span class="rub">₽</span></div>
@@ -1590,8 +1622,8 @@
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала каменки: 8 мм, топки: 3–4 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 50 л.</li>
+                    <li>▪️ Толщина: каменка 8 мм, топка 3–4 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 50 л.</li>
                 </ul>
                 <div class="product-desc">Дачная печь с встроенным баком.</div>
                 <div class="product-price">16 000 <span class="rub">₽</span></div>
@@ -1607,8 +1639,8 @@
                     <li>▪️ Наличие топки: есть (выступ).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала каменки: 8 мм, топки: 3–4 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 50 л.</li>
+                    <li>▪️ Толщина: каменка 8 мм, топка 3–4 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 50 л.</li>
                 </ul>
                 <div class="product-desc">Дачная печь с выступом и встроенным баком.</div>
                 <div class="product-price">18 000 <span class="rub">₽</span></div>
@@ -1636,11 +1668,11 @@
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×750×700 мм.</li>
                     <li>▪️ Объём бани: до 25 м³ (10 м²).</li>
-                    <li>▪️ Вид каменки: не указано.</li>
+                    <li>▪️ Вид каменки: внешняя.</li>
                     <li>▪️ Наличие топки: есть (с конвективным кожухом).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба Ø325).</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø325).</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">Бочка с газопламенным лабиринтом.</div>
@@ -1651,14 +1683,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/TBLfbj6m/325.jpg" alt="бочка Ø 325 черный бак" /></div>
                 <div class="product-name">Печь бочка Ø325 (чёрный бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 500×750×700 + 700 (бак) мм.</li>
+                    <li>▪️ Размер: 500×750×700 + бак 700 мм.</li>
                     <li>▪️ Объём бани: до 25 м³ (10 м²).</li>
                     <li>▪️ Вид каменки: внешняя.</li>
                     <li>▪️ Наличие топки: есть (с конвективным кожухом).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба Ø325).</li>
-                    <li>▪️ Бак: из листового металла, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø325).</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Бочка с чёрным баком и лабиринтом.</div>
                 <div class="product-price">26 500 <span class="rub">₽</span></div>
@@ -1668,14 +1700,14 @@
                 <div class="product-photo"><img src="https://i.ibb.co/TDbHybV0/325.jpg" alt="бочка Ø 325 нержавейка бак" /></div>
                 <div class="product-name">Печь бочка Ø325 (нержавеющий бак)</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер: 500×750×700 + 700 (бак) мм.</li>
+                    <li>▪️ Размер: 500×750×700 + бак 700 мм.</li>
                     <li>▪️ Объём бани: до 25 м³ (10 м²).</li>
                     <li>▪️ Вид каменки: внешняя.</li>
                     <li>▪️ Наличие топки: есть (с конвективным кожухом).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба Ø325).</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø325).</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Бочка с нержавеющим баком и лабиринтом.</div>
                 <div class="product-price">31 500 <span class="rub">₽</span></div>
@@ -1691,7 +1723,7 @@
                     <li>▪️ Наличие топки: есть (с конвективным кожухом).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба Ø426).</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø426).</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">Мощная бочка Ø426 с лабиринтом.</div>
@@ -1708,8 +1740,8 @@
                     <li>▪️ Наличие топки: есть (с конвективным кожухом).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба Ø426).</li>
-                    <li>▪️ Бак: из чёрной стали, толщина — 2 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø426).</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Бочка Ø426 с чёрным баком и лабиринтом.</div>
                 <div class="product-price">35 000 <span class="rub">₽</span></div>
@@ -1725,8 +1757,8 @@
                     <li>▪️ Наличие топки: есть (с конвективным кожухом).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба Ø426).</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 65 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø426).</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 65 л.</li>
                 </ul>
                 <div class="product-desc">Бочка Ø426 с нержавеющим баком и лабиринтом.</div>
                 <div class="product-price">39 500 <span class="rub">₽</span></div>
@@ -1750,16 +1782,16 @@
 
             <div class="product-card">
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
-                <div class="product-name">Печь Ø426 на 2–3 помещения, дверка со стеклом (чёрный бак)</div>
+                <div class="product-name">Печь Ø426 на 2–3 помещения (дверца со стеклом, чёрный бак)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 770×730×740 мм.</li>
-                    <li>▪️ Объём бани (парилки): до 15 м³ (6 м²).</li>
+                    <li>▪️ Объём парилки: до 15 м³ (6 м²).</li>
                     <li>▪️ Вид каменки: открытая, с газопламенным лабиринтом.</li>
-                    <li>▪️ Наличие топки: есть (может топиться из предбанника и из бани).</li>
+                    <li>▪️ Наличие топки: есть (из предбанника и из бани).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 70 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 70 л.</li>
                 </ul>
                 <div class="product-desc">Стеклянная дверца, лабиринт.</div>
                 <div class="product-price">49 000 <span class="rub">₽</span></div>
@@ -1767,16 +1799,16 @@
 
             <div class="product-card">
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
-                <div class="product-name">Печь Ø426 на 2–3 помещения, дверка со стеклом (нержавеющий бак)</div>
+                <div class="product-name">Печь Ø426 на 2–3 помещения (дверца со стеклом, нержавеющий бак)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 770×730×740 мм.</li>
-                    <li>▪️ Объём бани (парилки): до 15 м³ (6 м²).</li>
+                    <li>▪️ Объём парилки: до 15 м³ (6 м²).</li>
                     <li>▪️ Вид каменки: открытая, с газопламенным лабиринтом.</li>
-                    <li>▪️ Наличие топки: есть (может топиться из предбанника и из бани).</li>
+                    <li>▪️ Наличие топки: есть (из предбанника и из бани).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм.</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 70 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм.</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 70 л.</li>
                 </ul>
                 <div class="product-desc">Стеклянная дверца, лабиринт.</div>
                 <div class="product-price">58 000 <span class="rub">₽</span></div>
@@ -1787,13 +1819,13 @@
                 <div class="product-name">Печь на 2–3 помещения (чёрный бак, Ø530)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 770×730×740 мм.</li>
-                    <li>▪️ Объём бани (парилки): до 20 м³ (8 м²).</li>
+                    <li>▪️ Объём парилки: до 20 м³ (8 м²).</li>
                     <li>▪️ Вид каменки: открытая, с газопламенным лабиринтом.</li>
-                    <li>▪️ Наличие топки: есть (может топиться из предбанника и из бани).</li>
+                    <li>▪️ Наличие топки: есть (из предбанника и из бани).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба 530).</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 75 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø530).</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 75 л.</li>
                 </ul>
                 <div class="product-desc">Мощная печь на 2–3 помещения.</div>
                 <div class="product-price">56 000 <span class="rub">₽</span></div>
@@ -1804,13 +1836,13 @@
                 <div class="product-name">Печь на 2–3 помещения (нержавеющий бак, Ø530)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 770×730×740 мм.</li>
-                    <li>▪️ Объём бани (парилки): до 20 м³ (8 м²).</li>
+                    <li>▪️ Объём парилки: до 20 м³ (8 м²).</li>
                     <li>▪️ Вид каменки: открытая, с газопламенным лабиринтом.</li>
-                    <li>▪️ Наличие топки: есть (может топиться из предбанника и из бани).</li>
+                    <li>▪️ Наличие топки: есть (из предбанника и из бани).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: стенка трубы 8 мм (труба 530).</li>
-                    <li>▪️ Бак: из нержавеющей стали, толщина — 1 мм, объём — 75 л.</li>
+                    <li>▪️ Толщина материала: труба 8 мм (Ø530).</li>
+                    <li>▪️ Бак: из нержавеющей стали, 1 мм, 75 л.</li>
                 </ul>
                 <div class="product-desc">Мощная печь с нержавеющим баком.</div>
                 <div class="product-price">48 000 <span class="rub">₽</span></div>
@@ -1823,10 +1855,10 @@
                     <li>▪️ Размер: 530×800×800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: корпус печи — сталь 4 мм, свод каменки — 8 мм.</li>
+                    <li>▪️ Толщина материала: корпус 4 мм, свод 8 мм.</li>
                     <li>▪️ Бак: отсутствует.</li>
                 </ul>
                 <div class="product-desc">Мощная печь для больших парных.</div>
@@ -1840,11 +1872,11 @@
                     <li>▪️ Размер: 530×800×800 мм.</li>
                     <li>▪️ Объём бани: до 35 м³ (12 м²).</li>
                     <li>▪️ Вид каменки: открытая.</li>
-                    <li>▪️ Наличие топки: есть (длина выноса топки — 200 мм).</li>
+                    <li>▪️ Наличие топки: есть (вынос — 200 мм).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: корпус печи — сталь 4 мм, свод каменки — 8 мм.</li>
-                    <li>▪️ Бак: из чёрного металла, толщина — 2 мм, объём — 85 л.</li>
+                    <li>▪️ Толщина материала: корпус 4 мм, свод 8 мм.</li>
+                    <li>▪️ Бак: из чёрной стали, 2 мм, 85 л.</li>
                 </ul>
                 <div class="product-desc">С чёрным баком на 85 л.</div>
                 <div class="product-price">46 000 <span class="rub">₽</span></div>
@@ -1871,12 +1903,12 @@
                 <div class="product-name">Буржуйка №1 с конвекцией</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 350×300×300 мм.</li>
-                    <li>▪️ Объём помещения: до 25 м³ (до 10 м²).</li>
+                    <li>▪️ Объём: до 25 м³ (до 10 м²).</li>
                     <li>▪️ Наличие топки: есть.</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: листовая сталь 2 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, конвективные карманы из стали 1 мм.</li>
+                    <li>▪️ Толщина корпуса: сталь 2 мм.</li>
+                    <li>▪️ Дополнительно: зольник, конвективные карманы.</li>
                 </ul>
                 <div class="product-desc">Компактная буржуйка с конвекцией.</div>
                 <div class="product-price">6 500 <span class="rub">₽</span></div>
@@ -1887,12 +1919,12 @@
                 <div class="product-name">Буржуйка №1У, без конвекции</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 420×300×300 мм.</li>
-                    <li>▪️ Объём помещения: до 25 м³ (до 10 м²).</li>
+                    <li>▪️ Объём: до 25 м³ (до 10 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник.</li>
+                    <li>▪️ Толщина корпуса: сталь 3 мм.</li>
+                    <li>▪️ Дополнительно: зольник.</li>
                 </ul>
                 <div class="product-desc">Усиленная версия без конвекции.</div>
                 <div class="product-price">6 500 <span class="rub">₽</span></div>
@@ -1903,12 +1935,12 @@
                 <div class="product-name">Буржуйка №1,5У, с конвекцией</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 420×300×300 мм.</li>
-                    <li>▪️ Объём помещения: до 30 м³ (до 20 м²).</li>
+                    <li>▪️ Объём: до 30 м³ (до 20 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: стальной лист 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, конвективные карманы из стали 1 мм.</li>
+                    <li>▪️ Толщина корпуса: сталь 3 мм.</li>
+                    <li>▪️ Дополнительно: зольник, конвективные карманы.</li>
                 </ul>
                 <div class="product-desc">Усиленная версия с конвекцией.</div>
                 <div class="product-price">7 000 <span class="rub">₽</span></div>
@@ -1919,12 +1951,12 @@
                 <div class="product-name">Буржуйка №2, без конвекции</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×350×440 мм.</li>
-                    <li>▪️ Объём помещения: 40 м³ (до 16 м²).</li>
+                    <li>▪️ Объём: 40 м³ (до 16 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: листовая сталь 4 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, конвективные карманы из стали 1 мм.</li>
+                    <li>▪️ Толщина корпуса: сталь 4 мм.</li>
+                    <li>▪️ Дополнительно: зольник, конвективные карманы.</li>
                 </ul>
                 <div class="product-desc">Мощная буржуйка, сталь 4 мм.</div>
                 <div class="product-price">9 000 <span class="rub">₽</span></div>
@@ -1935,12 +1967,12 @@
                 <div class="product-name">Буржуйка №2,5, с конвекцией</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×350×440 мм.</li>
-                    <li>▪️ Объём помещения: 45 м³ (до 18 м²).</li>
+                    <li>▪️ Объём: 45 м³ (до 18 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: листовая сталь 4 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, конвективные карманы из стали 1 мм.</li>
+                    <li>▪️ Толщина корпуса: сталь 4 мм.</li>
+                    <li>▪️ Дополнительно: зольник, конвективные карманы.</li>
                 </ul>
                 <div class="product-desc">Мощная буржуйка с конвекцией.</div>
                 <div class="product-price">10 000 <span class="rub">₽</span></div>
@@ -1951,12 +1983,12 @@
                 <div class="product-name">Буржуйка №3 с кружком, без конвекции</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×350×440 мм.</li>
-                    <li>▪️ Объём помещения: до 40 м³ (до 16 м²).</li>
+                    <li>▪️ Объём: до 40 м³ (до 16 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: листовая сталь 4 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, «кружок» (отверстие сверху) для нагрева воды и приготовления пищи.</li>
+                    <li>▪️ Толщина корпуса: сталь 4 мм.</li>
+                    <li>▪️ Дополнительно: зольник, «кружок» для нагрева воды и пищи.</li>
                 </ul>
                 <div class="product-desc">С кружком для нагрева воды и пищи.</div>
                 <div class="product-price">10 000 <span class="rub">₽</span></div>
@@ -1983,12 +2015,12 @@
                 <div class="product-name">Буржуйка №3,5 с кружком, с конвекцией</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×350×440 мм.</li>
-                    <li>▪️ Объём помещения: до 45 м³ (до 18 м²).</li>
+                    <li>▪️ Объём: до 45 м³ (до 18 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 89 мм.</li>
                     <li>▪️ Материал колосника: сталь.</li>
-                    <li>▪️ Толщина материала корпуса: листовая сталь 4 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, «кружок», конвективные карманы из стали 1 мм.</li>
+                    <li>▪️ Толщина корпуса: сталь 4 мм.</li>
+                    <li>▪️ Дополнительно: зольник, «кружок», конвективные карманы.</li>
                 </ul>
                 <div class="product-desc">С кружком и конвективными карманами.</div>
                 <div class="product-price">11 000 <span class="rub">₽</span></div>
@@ -1999,12 +2031,12 @@
                 <div class="product-name">Буржуйка из трубы Ø426 мм</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×426×450 мм.</li>
-                    <li>▪️ Объём помещения: до 150 м³ (до 70 м²).</li>
+                    <li>▪️ Объём: до 150 м³ (до 70 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: труба Ø426, 8 мм, обшита листовой сталью 2 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, «кружок» (отверстие сверху) для нагрева воды и приготовления пищи.</li>
+                    <li>▪️ Толщина материала: труба 8 мм + обшивка 2 мм.</li>
+                    <li>▪️ Дополнительно: зольник, «кружок».</li>
                 </ul>
                 <div class="product-desc">Мощная буржуйка из толстостенной трубы.</div>
                 <div class="product-price">15 000 <span class="rub">₽</span></div>
@@ -2015,12 +2047,12 @@
                 <div class="product-name">Буржуйка из трубы Ø530 мм</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×530×450 мм.</li>
-                    <li>▪️ Объём помещения: до 200 м³ (до 100 м²).</li>
+                    <li>▪️ Объём: до 200 м³ (до 100 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 115 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
-                    <li>▪️ Толщина материала: труба Ø530, 8 мм, обшита листовой сталью 2 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, «кружок» (отверстие сверху) для нагрева воды и приготовления пищи.</li>
+                    <li>▪️ Толщина материала: труба 8 мм + обшивка 2 мм.</li>
+                    <li>▪️ Дополнительно: зольник, «кружок».</li>
                 </ul>
                 <div class="product-desc">Промышленная буржуйка из трубы.</div>
                 <div class="product-price">18 000 <span class="rub">₽</span></div>
@@ -2031,12 +2063,12 @@
                 <div class="product-name">Печь-буржуйка длительного горения</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 1020×340×840 мм.</li>
-                    <li>▪️ Объём помещения: до 200 м³ (до 80 м²).</li>
+                    <li>▪️ Объём: до 200 м³ (до 80 м²).</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Диаметр дымохода: 102 мм.</li>
                     <li>▪️ Материал колосника: чугун.</li>
                     <li>▪️ Толщина материала: 3–4 мм.</li>
-                    <li>▪️ Дополнительные характеристики: объём загрузочной камеры — 120 л, горение поддерживается не менее 24 часов, зольник.</li>
+                    <li>▪️ Дополнительно: загрузка 120 л, горение до 24 ч, зольник.</li>
                 </ul>
                 <div class="product-desc">Горение до 24 часов.</div>
                 <div class="product-price">20 500 <span class="rub">₽</span></div>
@@ -2047,10 +2079,10 @@
                 <div class="product-name">Котёл малый (1/2 плиты)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 550×430×600 мм.</li>
-                    <li>▪️ Площадь помещения: 80–100 м².</li>
+                    <li>▪️ Площадь: 80–100 м².</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Толщина материала: 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, дымоход расположен сзади снизу.</li>
+                    <li>▪️ Дополнительно: зольник, дымоход сзади снизу.</li>
                 </ul>
                 <div class="product-desc">Компактный котёл для небольших помещений.</div>
                 <div class="product-price">26 500 <span class="rub">₽</span></div>
@@ -2061,10 +2093,10 @@
                 <div class="product-name">Котёл большой (1/2 плиты)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 720×430×600 мм.</li>
-                    <li>▪️ Площадь помещения: 100–130 м².</li>
+                    <li>▪️ Площадь: 100–130 м².</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Толщина материала: 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, дымоход расположен сзади снизу.</li>
+                    <li>▪️ Дополнительно: зольник, дымоход сзади снизу.</li>
                 </ul>
                 <div class="product-desc">Мощный котёл для домов и мастерских.</div>
                 <div class="product-price">29 000 <span class="rub">₽</span></div>
@@ -2074,7 +2106,7 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- СТРАНИЦА 15 — КОТЛЫ (ПРОДОЛЖЕНИЕ) + БАКИ НЕРЖАВЕЮЩИЕ -->
+    <!-- СТРАНИЦА 15 — КОТЛЫ + БАКИ НЕРЖАВЕЮЩИЕ -->
     <!-- ============================================================ -->
     <div class="page" id="page15">
         <div class="page-header">
@@ -2091,10 +2123,10 @@
                 <div class="product-name">Котёл большой (целая плита)</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 720×430×600 мм.</li>
-                    <li>▪️ Площадь помещения: 120 м².</li>
+                    <li>▪️ Площадь: 120 м².</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Толщина материала: 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, дымоход расположен сзади снизу, целая плита.</li>
+                    <li>▪️ Дополнительно: зольник, дымоход сзади снизу, целая плита.</li>
                 </ul>
                 <div class="product-desc">С целой плитой для приготовления пищи.</div>
                 <div class="product-price">27 500 <span class="rub">₽</span></div>
@@ -2105,10 +2137,10 @@
                 <div class="product-name">Котёл с водяным верхом</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 600×430×600 мм.</li>
-                    <li>▪️ Площадь помещения: до 200 м².</li>
+                    <li>▪️ Площадь: до 200 м².</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Толщина материала: 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: зольник, дымоход расположен сзади снизу, водяной верх.</li>
+                    <li>▪️ Дополнительно: зольник, дымоход сзади снизу, водяной верх.</li>
                 </ul>
                 <div class="product-desc">Мощный котёл с водяным контуром.</div>
                 <div class="product-price">28 500 <span class="rub">₽</span></div>
@@ -2119,10 +2151,10 @@
                 <div class="product-name">Котёл длительного горения «Майбах»</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 500×750×1000 мм.</li>
-                    <li>▪️ Площадь помещения: от 50 до 250 м².</li>
+                    <li>▪️ Площадь: 50–250 м².</li>
                     <li>▪️ Наличие топки: есть (без выступа).</li>
                     <li>▪️ Толщина материала: сталь 3 мм.</li>
-                    <li>▪️ Дополнительные элементы: объём загрузки топлива — до 120 л, вентилятор, контроллер, зольник.</li>
+                    <li>▪️ Дополнительно: загрузка до 120 л, вентилятор, контроллер, зольник.</li>
                 </ul>
                 <div class="product-desc">С вентилятором и контроллером.</div>
                 <div class="product-price">72 000 <span class="rub">₽</span></div>
@@ -2134,8 +2166,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 1 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 1 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
                 <div class="product-desc">Нержавеющий бак 65 л без крышки.</div>
                 <div class="product-price">9 500 <span class="rub">₽</span></div>
@@ -2147,8 +2179,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 1 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 1 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
                 <div class="product-desc">Нержавеющий бак 65 л с крышкой.</div>
                 <div class="product-price">11 000 <span class="rub">₽</span></div>
@@ -2160,8 +2192,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 1,5 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 1,5 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
                 <div class="product-desc">Усиленный нержавеющий бак 65 л.</div>
                 <div class="product-price">12 500 <span class="rub">₽</span></div>
@@ -2189,8 +2221,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 1,5 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 1,5 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
                 <div class="product-desc">Усиленный нержавеющий бак с крышкой.</div>
                 <div class="product-price">14 000 <span class="rub">₽</span></div>
@@ -2202,10 +2234,10 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
-                <div class="product-desc">Максимально прочный нержавеющий бак 65 л.</div>
+                <div class="product-desc">Максимально прочный бак 65 л.</div>
                 <div class="product-price">14 500 <span class="rub">₽</span></div>
             </div>
 
@@ -2215,10 +2247,10 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
-                <div class="product-desc">Максимально прочный нержавеющий бак с крышкой.</div>
+                <div class="product-desc">Максимально прочный бак с крышкой.</div>
                 <div class="product-price">16 000 <span class="rub">₽</span></div>
             </div>
 
@@ -2228,8 +2260,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 1 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 1 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
                 <div class="product-desc">Нержавеющий бак 85 л без крышки.</div>
                 <div class="product-price">10 500 <span class="rub">₽</span></div>
@@ -2241,8 +2273,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 1 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 1 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
                 <div class="product-desc">Нержавеющий бак 85 л с крышкой.</div>
                 <div class="product-price">12 000 <span class="rub">₽</span></div>
@@ -2254,10 +2286,10 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 1,5 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 1,5 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
-                <div class="product-desc">Усиленный нержавеющий бак 85 л без крышки.</div>
+                <div class="product-desc">Усиленный нержавеющий бак 85 л.</div>
                 <div class="product-price">13 500 <span class="rub">₽</span></div>
             </div>
 
@@ -2283,10 +2315,10 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 1,5 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 1,5 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
-                <div class="product-desc">Усиленный нержавеющий бак 85 л с крышкой.</div>
+                <div class="product-desc">Усиленный нержавеющий бак с крышкой.</div>
                 <div class="product-price">15 000 <span class="rub">₽</span></div>
             </div>
 
@@ -2296,10 +2328,10 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
-                <div class="product-desc">Максимально прочный нержавеющий бак 85 л.</div>
+                <div class="product-desc">Максимально прочный бак 85 л.</div>
                 <div class="product-price">15 500 <span class="rub">₽</span></div>
             </div>
 
@@ -2309,10 +2341,10 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
-                <div class="product-desc">Максимально прочный нержавеющий бак с крышкой.</div>
+                <div class="product-desc">Максимально прочный бак с крышкой.</div>
                 <div class="product-price">17 000 <span class="rub">₽</span></div>
             </div>
 
@@ -2322,8 +2354,8 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 60 л.</li>
-                    <li>▪️ Толщина стенок: 1 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 1 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                     <li>▪️ Размеры: 500×500×250 мм.</li>
                 </ul>
                 <div class="product-desc">Навесной нержавеющий бак 60 л.</div>
@@ -2336,22 +2368,22 @@
                 <ul class="product-specs">
                     <li>▪️ Материал: нержавеющая сталь.</li>
                     <li>▪️ Объём: 60 л.</li>
-                    <li>▪️ Толщина стенок: 1 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 1 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                     <li>▪️ Размеры: 500×500×250 мм.</li>
                 </ul>
-                <div class="product-desc">Навесной нержавеющий бак 60 л с крышкой.</div>
+                <div class="product-desc">Навесной нержавеющий бак с крышкой.</div>
                 <div class="product-price">10 500 <span class="rub">₽</span></div>
             </div>
 
             <div class="product-card">
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
-                <div class="product-name">Бак 400 мм, 65 л, чёрный металл, 2 мм, без крышки</div>
+                <div class="product-name">Бак 400 мм, чёрный, 65 л, 2 мм, без крышки</div>
                 <ul class="product-specs">
                     <li>▪️ Материал: чёрный металл.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                     <li>▪️ Размеры: 400×450×550 мм.</li>
                 </ul>
                 <div class="product-desc">Чёрный бак 65 л без крышки.</div>
@@ -2376,12 +2408,12 @@
 
             <div class="product-card">
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
-                <div class="product-name">Бак 400 мм, 65 л, чёрный металл, 2 мм, с крышкой</div>
+                <div class="product-name">Бак 400 мм, чёрный, 65 л, 2 мм, с крышкой</div>
                 <ul class="product-specs">
                     <li>▪️ Материал: чёрный металл.</li>
                     <li>▪️ Объём: 65 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                     <li>▪️ Размеры: 400×450×550 мм.</li>
                 </ul>
                 <div class="product-desc">Чёрный бак 65 л с крышкой.</div>
@@ -2390,12 +2422,12 @@
 
             <div class="product-card">
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
-                <div class="product-name">Бак 530 мм, 85 л, чёрный металл, 2 мм, без крышки</div>
+                <div class="product-name">Бак 530 мм, чёрный, 85 л, 2 мм, без крышки</div>
                 <ul class="product-specs">
                     <li>▪️ Материал: чёрный металл.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: без крышки.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: без крышки.</li>
                 </ul>
                 <div class="product-desc">Чёрный бак 85 л без крышки.</div>
                 <div class="product-price">7 000 <span class="rub">₽</span></div>
@@ -2403,12 +2435,12 @@
 
             <div class="product-card">
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
-                <div class="product-name">Бак 530 мм, 85 л, чёрный металл, 2 мм, с крышкой</div>
+                <div class="product-name">Бак 530 мм, чёрный, 85 л, 2 мм, с крышкой</div>
                 <ul class="product-specs">
                     <li>▪️ Материал: чёрный металл.</li>
                     <li>▪️ Объём: 85 л.</li>
-                    <li>▪️ Толщина стенок: 2 мм.</li>
-                    <li>▪️ Наличие крышки: с крышкой.</li>
+                    <li>▪️ Толщина: 2 мм.</li>
+                    <li>▪️ Крышка: с крышкой.</li>
                 </ul>
                 <div class="product-desc">Чёрный бак 85 л с крышкой.</div>
                 <div class="product-price">9 000 <span class="rub">₽</span></div>
@@ -2466,9 +2498,9 @@
                 <div class="product-photo"><div class="no-photo"><span>📷</span>Фото отсутствует</div></div>
                 <div class="product-name">Мангал стационарный со съёмными ножками</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер очага: 800×300 мм.</li>
+                    <li>▪️ Очаг: 800×300 мм.</li>
                     <li>▪️ Ножки: 800 мм.</li>
-                    <li>▪️ Толщина материала: сталь 4 мм.</li>
+                    <li>▪️ Толщина: сталь 4 мм.</li>
                 </ul>
                 <div class="product-desc">Надёжный мангал для дачи и пикников.</div>
                 <div class="product-price">5 500 <span class="rub">₽</span></div>
@@ -2478,10 +2510,10 @@
                 <div class="product-photo"><img src="https://i.ibb.co/LhCrMyHZ/image.jpg" alt="мангал складной" /></div>
                 <div class="product-name">Мангал складной</div>
                 <ul class="product-specs">
-                    <li>▪️ Размер в разложенном виде: 30×61×37 см.</li>
-                    <li>▪️ Размер очага: 51×27×14 см.</li>
-                    <li>▪️ Толщина материала: сталь 1,5 мм.</li>
-                    <li>▪️ Комплектация: веер для раздува, кочерга, шампуры, перчатки.</li>
+                    <li>▪️ Разложенный: 30×61×37 см.</li>
+                    <li>▪️ Очаг: 51×27×14 см.</li>
+                    <li>▪️ Толщина: сталь 1,5 мм.</li>
+                    <li>▪️ Комплектация: веер, кочерга, шампуры, перчатки.</li>
                 </ul>
                 <div class="product-desc">Компактный складной мангал для походов.</div>
                 <div class="product-price">5 500 <span class="rub">₽</span></div>
@@ -2492,7 +2524,7 @@
                 <div class="product-name">Коптильня с гидрозатвором</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 550×350×500 мм.</li>
-                    <li>▪️ Толщина материала: сталь 2 мм.</li>
+                    <li>▪️ Толщина: сталь 2 мм.</li>
                     <li>▪️ Комплектация: 2 решётки, лист для жира.</li>
                 </ul>
                 <div class="product-desc">Коптильня для рыбы, мяса и сыра.</div>
@@ -2504,7 +2536,7 @@
                 <div class="product-name">Углярка</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 250×500×150 мм.</li>
-                    <li>▪️ Толщина материала: сталь 1 мм.</li>
+                    <li>▪️ Толщина: сталь 1 мм.</li>
                 </ul>
                 <div class="product-desc">Для удобного розжига угля.</div>
                 <div class="product-price">1 400 <span class="rub">₽</span></div>
@@ -2515,7 +2547,7 @@
                 <div class="product-name">Углярка круглая</div>
                 <ul class="product-specs">
                     <li>▪️ Размер: 250×500×150 мм.</li>
-                    <li>▪️ Толщина материала: сталь 1 мм.</li>
+                    <li>▪️ Толщина: сталь 1 мм.</li>
                 </ul>
                 <div class="product-desc">Круглая углярка для мангалов и печей.</div>
                 <div class="product-price">1 220 <span class="rub">₽</span></div>
@@ -2526,8 +2558,8 @@
                 <div class="product-name">Модуль трубы Ø90 мм</div>
                 <ul class="product-specs">
                     <li>▪️ Высота: 1000 мм.</li>
-                    <li>▪️ Диаметр дымохода: 90 мм.</li>
-                    <li>▪️ Толщина материала: нержавеющая сталь 0,5 мм.</li>
+                    <li>▪️ Диаметр: 90 мм.</li>
+                    <li>▪️ Толщина: нержавеющая сталь 0,5 мм.</li>
                 </ul>
                 <div class="product-desc">Модуль дымохода Ø90 мм.</div>
                 <div class="product-price">1 000 <span class="rub">₽</span></div>
